@@ -1,0 +1,105 @@
+#%RAML 1.0
+title: GraphRbacManagementClient
+version: 1.6-internal
+baseUri: graph.windows.net
+description: The Graph RBAC Management Client
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AADObject:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      displayName?:
+        type: string
+        description: object display name
+      userPrincipalName?:
+        type: string
+        description: principal name
+      mail?:
+        type: string
+        description: mail
+      mailEnabled?:
+        type: boolean
+        description: MailEnabled field
+      securityEnabled?:
+        type: boolean
+        description: SecurityEnabled field
+      signInName?:
+        type: string
+        description: signIn name
+      servicePrincipalNames?:
+        type: array
+        description: the list of service principal names.
+        items:
+          type: string
+      userType?:
+        type: string
+        description: the user type
+    description: Active Directory object information
+  GetObjectsParameters:
+    type: object
+    properties:
+      objectIds?:
+        type: array
+        description: Requested object Ids
+        items:
+          type: string
+      types?:
+        type: array
+        description: Requested object types
+        items:
+          type: string
+      includeDirectoryObjectReferences:
+        type: boolean
+        description: If true, also searches for object ids in the partner tenant
+    description: Objects filtering parameters.
+  GetObjectsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of Active Directory object
+        items:
+          type: AADObject
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Server response for Active Directory objects inquiry API calls
+/{tenantID}:
+  uriParameters:
+    tenantID:
+      type: string
+      description: the tenant Id.
+      displayName: tenantID
+  /getObjectsByObjectIds:
+    post:
+      description: Gets AD group membership by provided AD object Ids
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: GetObjectsParameters
+        text/json: GetObjectsParameters

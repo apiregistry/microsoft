@@ -1,0 +1,122 @@
+#%RAML 1.0
+title: InsightsManagementClient
+version: '2015-07-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  LogSettings:
+    type: object
+    properties:
+      category?:
+        type: string
+        description: the name of the logs to which this setting is applied.
+      enabled:
+        type: boolean
+        description: a value indicating whether this log is enabled.
+      retentionPolicy?:
+        type: RetentionPolicy
+        description: the retention policy for this log.
+    description: Part of MultiTenantDiagnosticSettings. Specifies the settings for a particular log.
+  MetricSettings:
+    type: object
+    properties:
+      timeGrain:
+        type: string
+        description: the timegrain of the metric in ISO8601 format.
+      enabled:
+        type: boolean
+        description: a value indicating whether this timegrain is enabled.
+      retentionPolicy?:
+        type: RetentionPolicy
+        description: the retention policy for this timegrain.
+    description: Part of MultiTenantDiagnosticSettings. Specifies the settings for a particular metric.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Azure resource Id
+      name?:
+        type: string
+        description: Azure resource name
+      type?:
+        type: string
+        description: Azure resource type
+      location:
+        type: string
+        description: Resource location
+    description: An azure resource object
+  RetentionPolicy:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+        description: a value indicating whether the retention policy is enabled.
+      days:
+        type: integer
+        description: the number of days for the retention.
+        format: int32
+    description: Specifies the retention policy for the log.
+  ServiceDiagnosticSettings:
+    type: object
+    properties:
+      storageAccountId?:
+        type: string
+        description: the resource id of the storage account.
+      serviceBusRuleId?:
+        type: string
+        description: the id of the service bus rule.
+      metrics?:
+        type: array
+        description: the list of metrics.
+        items:
+          type: MetricSettings
+      logs?:
+        type: array
+        description: the list of logs.
+        items:
+          type: LogSettings
+      workspaceId?:
+        type: string
+        description: the OMS workspace Id.
+    description: The diagnostic settings for service.
+  ServiceDiagnosticSettingsCreateOrUpdateParameters:
+    type: object
+    properties:
+      properties?:
+        type: ServiceDiagnosticSettings
+        description: the public configuration settings.
+    description: Parameters supplied to the operation.
+  ServiceDiagnosticSettingsResource:
+    type: Resource
+    description: Description of a service diagnostic setting
+/{resourceUri}:
+  uriParameters:
+    resourceUri:
+      type: string
+      description: The identifier of the resource.
+      displayName: resourceUri
+  /providers:
+    /microsoft.insights:
+      /diagnosticSettings:
+        /service:
+          get:
+            description: Gets the active diagnostic settings for the specified resource.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+          put:
+            description: Create or update new diagnostic settings for the specified resource.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: ServiceDiagnosticSettingsCreateOrUpdateParameters

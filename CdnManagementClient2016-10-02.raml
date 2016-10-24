@@ -1,0 +1,686 @@
+#%RAML 1.0
+title: CdnManagementClient
+version: '2016-10-02'
+baseUri: management.azure.com
+description: Use these APIs to manage Azure CDN resources through the Azure Resource Manager. You must make sure that requests made to these resources are secure. For more information, see https://msdn.microsoft.com/en-us/library/azure/dn790557.aspx.
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow.
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  QueryStringCachingBehavior:
+    type: string
+    description: Defines the query string caching behavior.
+    enum:
+    - IgnoreQueryString
+    - BypassCaching
+    - UseQueryString
+    - NotSet
+  ResourceType:
+    type: string
+    description: Type of CDN resource used in CheckNameAvailability.
+    enum:
+    - Microsoft.Cdn/Profiles/Endpoints
+  CheckNameAvailabilityInput:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The resource name to validate.
+      type:
+        type: ResourceType
+        description: The type of the resource whose name is to be validated.
+    description: Input to check.
+  CheckNameAvailabilityOutput:
+    type: object
+    properties:
+      NameAvailable?:
+        type: boolean
+        description: Indicates whether the name is available.
+      Reason?:
+        type: string
+        description: The reason why the name is not available.
+      Message?:
+        type: string
+        description: The detailed error message describing why the name is not available.
+    description: Output of check name availability API.
+  CustomDomain:
+    type: Resource
+    description: CDN CustomDomain represents a mapping between a user specified domain name and a CDN endpoint. This is to use custom domain names to represent the URLs for branding purposes.
+  CustomDomainListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of CDN CustomDomains within an endpoint.
+        items:
+          type: CustomDomain
+      nextLink?:
+        type: string
+        description: URL to get the next set of results.
+  CustomDomainParameters:
+    type: object
+    properties:
+      properties?:
+        type: CustomDomainPropertiesParameters
+    description: Custom domain properties required for creation.
+  CustomDomainProperties:
+    type: object
+    properties:
+      hostName:
+        type: string
+        description: The host name of the custom domain. Must be a domain name.
+      resourceState?:
+        type: string
+        description: Resource status of the custom domain.
+        enum:
+        - Creating
+        - Active
+        - Deleting
+      provisioningState?:
+        type: string
+        description: Provisioning status of the custom domain.
+  CustomDomainPropertiesParameters:
+    type: object
+    properties:
+      hostName:
+        type: string
+        description: The host name of the custom domain. Must be a domain name.
+  DeepCreatedOrigin:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Origin name
+      properties?:
+        type: DeepCreatedOriginProperties
+    description: Deep created origins within a CDN endpoint.
+  DeepCreatedOriginProperties:
+    type: object
+    properties:
+      hostName:
+        type: string
+        description: The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.
+      httpPort?:
+        type: integer
+        description: The value of the HTTP port. Must be between 1 and 65535
+      httpsPort?:
+        type: integer
+        description: The value of the HTTPS port. Must be between 1 and 65535
+    description: Properties of deep created origin on a CDN endpoint.
+  Endpoint:
+    type: Resource
+    description: CDN endpoint is the entity within a CDN profile containing configuration information regarding caching behaviors and origins. The CDN endpoint is exposed using the URL format <endpointname>.azureedge.net by default, but custom domains can also be created.
+  EndpointListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of CDN endpoints within a profile
+        items:
+          type: Endpoint
+      nextLink?:
+        type: string
+        description: URL to get the next set of results.
+  EndpointProperties:
+    type: EndpointPropertiesUpdateParameters
+  EndpointPropertiesUpdateParameters:
+    type: object
+    properties:
+      originHostHeader?:
+        type: string
+        description: The host header the CDN provider will send along with content requests to origins. The default value is the host name of the origin.
+      originPath?:
+        type: string
+        description: The path used for origin requests.
+      contentTypesToCompress?:
+        type: array
+        description: List of content types on which compression will be applied. The value for the elements should be a valid MIME type.
+        items:
+          type: string
+      isCompressionEnabled?:
+        type: boolean
+        description: Indicates whether content compression is enabled. Default value is false. If compression is enabled, the content transferred from the CDN endpoint to the end user will be compressed. The requested content must be larger than 1 byte and smaller than 1 MB.
+      isHttpAllowed?:
+        type: boolean
+        description: Indicates whether HTTP traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.
+      isHttpsAllowed?:
+        type: boolean
+        description: Indicates whether HTTPS traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.
+      queryStringCachingBehavior?:
+        type: QueryStringCachingBehavior
+        description: Defines the query string caching behavior
+      geoFilters?:
+        type: array
+        description: The list of geo filters for the CDN endpoint.
+        items:
+          type: GeoFilter
+  EndpointUpdateParameters:
+    type: object
+    properties:
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Endpoint tags
+      properties?:
+        type: EndpointPropertiesUpdateParameters
+    description: Endpoint update properties
+  ErrorResponse:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Error code
+      message?:
+        type: string
+        description: Error message indicating why the operation failed.
+  GeoFilter:
+    type: object
+    properties:
+      relativePath:
+        type: string
+        description: Relative path applicable to geo filter.
+      action:
+        type: string
+        description: Action of the geo filter.
+      countryCodes:
+        type: array
+        description: Country codes of the geo filter.
+        items:
+          type: string
+    description: Geo filter of a CDN endpoint.
+  LoadParameters:
+    type: object
+    properties:
+      contentPaths:
+        type: array
+        description: The path to the content to be loaded. Should describe a file path.
+        items:
+          type: string
+    description: The path to the content to be loaded. Path should describe a file.
+  Operation:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: 'Operation name: {provider}/{resource}/{operation}'
+      display?:
+        type: object
+        properties:
+          provider?:
+            type: string
+            description: 'Service provider: Microsoft.Cdn'
+          resource?:
+            type: string
+            description: 'Resource on which the operation is performed: Profile, endpoint,
+              etc.'
+          operation?:
+            type: string
+            description: 'Operation type: Read, write, delete, etc.'
+    description: CDN REST API operation
+  OperationListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of CDN operations supported by the CDN resource provider.
+        items:
+          type: Operation
+      nextLink?:
+        type: string
+        description: URL to get the next set of results.
+  Origin:
+    type: Resource
+    description: CDN origin is the source of the content being delivered via CDN. When the edge nodes represented by an endpoint do not have the requested content cached, they attempt to fetch it from one or more of the configured origins.
+  OriginListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of CDN origins within an endpoint
+        items:
+          type: Origin
+      nextLink?:
+        type: string
+        description: URL to get the next set of results.
+  OriginProperties:
+    type: object
+    properties:
+      hostName:
+        type: string
+        description: The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.
+      httpPort?:
+        type: integer
+        description: The value of the HTTP port. Must be between 1 and 65535.
+      httpsPort?:
+        type: integer
+        description: The value of the https port. Must be between 1 and 65535.
+      resourceState?:
+        type: string
+        description: Resource status of the origin.
+        enum:
+        - Creating
+        - Active
+        - Deleting
+      provisioningState?:
+        type: string
+        description: Provisioning status of the origin.
+  OriginPropertiesParameters:
+    type: object
+    properties:
+      hostName?:
+        type: string
+        description: The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.
+      httpPort?:
+        type: integer
+        description: The value of the HTTP port. Must be between 1 and 65535.
+      httpsPort?:
+        type: integer
+        description: The value of the HTTPS port. Must be between 1 and 65535.
+  OriginUpdateParameters:
+    type: object
+    properties:
+      properties?:
+        type: OriginPropertiesParameters
+    description: Origin properties
+  Profile:
+    type: Resource
+    description: CDN profile represents the top level resource and the entry point into the CDN API. This allows users to set up a logical grouping of endpoints in addition to creating shared configuration settings and selecting pricing tiers and providers.
+  ProfileListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of CDN profiles within a resource group.
+        items:
+          type: Profile
+      nextLink?:
+        type: string
+        description: URL to get the next set of results.
+  ProfileProperties:
+    type: object
+    properties:
+      resourceState?:
+        type: string
+        description: Resource status of the profile.
+        enum:
+        - Creating
+        - Active
+        - Deleting
+        - Disabled
+      provisioningState?:
+        type: string
+        description: Provisioning status of the profile.
+  ProfileUpdateParameters:
+    type: object
+    properties:
+      tags:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Profile tags
+    description: Profile properties needed for update.
+  PurgeParameters:
+    type: object
+    properties:
+      contentPaths:
+        type: array
+        description: The path to the content to be purged. Can describe a file path or a wild card directory.
+        items:
+          type: string
+    description: The path to the content to be purged. Path can describe a file or directory.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource ID
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+    description: The Resource definition.
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the pricing tier
+        enum:
+        - Standard_Verizon
+        - Premium_Verizon
+        - Custom_Verizon
+        - Standard_Akamai
+        - Standard_ChinaCdn
+    description: The SKU (pricing tier) of the CDN profile.
+  SsoUri:
+    type: object
+    properties:
+      ssoUriValue?:
+        type: string
+        description: The URI used to login to third party web portal.
+    description: SSO URI required to login to third party web portal.
+  ValidateCustomDomainInput:
+    type: object
+    properties:
+      hostName:
+        type: string
+        description: The host name of the custom domain. Must be a domain name.
+    description: Custom domain to validate.
+  ValidateCustomDomainOutput:
+    type: object
+    properties:
+      customDomainValidated?:
+        type: boolean
+        description: Indicates whether the custom domain is validated or not.
+      reason?:
+        type: string
+        description: The reason why the custom domain is not valid.
+      message?:
+        type: string
+        description: The message describing why the custom domain is not valid.
+    description: Output of custom domain validation.
+/providers:
+  /Microsoft.Cdn:
+    /checkNameAvailability:
+      post:
+        description: Check the availability of a resource name without creating the resource. This is needed for resources where name is globally unique, such as a CDN endpoint.
+        queryParameters:
+          api-version:
+            type: string
+            description: Version of the API to be used with the client request. Current version is 2016-10-02
+            displayName: api-version
+        body:
+          application/json: CheckNameAvailabilityInput
+    /operations:
+      get:
+        description: Lists all of the available CDN REST API operations.
+        queryParameters:
+          api-version:
+            type: string
+            description: Version of the API to be used with the client request. Current version is 2016-10-02
+            displayName: api-version
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Azure Subscription ID.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Cdn:
+        /profiles:
+          get:
+            description: Lists the CDN profiles within an Azure subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Version of the API to be used with the client request. Current version is 2016-10-02
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Name of the Resource group within the Azure subscription.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /providers:
+          /Microsoft.Cdn:
+            /profiles:
+              /{profileName}:
+                uriParameters:
+                  profileName:
+                    type: string
+                    description: Name of the CDN profile within the resource group.
+                    displayName: profileName
+                /endpoints:
+                  /{endpointName}:
+                    uriParameters:
+                      endpointName:
+                        type: string
+                        description: Name of the endpoint within the CDN profile.
+                        displayName: endpointName
+                    /customDomains:
+                      /{customDomainName}:
+                        uriParameters:
+                          customDomainName:
+                            type: string
+                            description: Name of the custom domain within an endpoint.
+                            displayName: customDomainName
+                        get:
+                          description: Gets an existing CDN custom domain within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                        delete:
+                          description: Deletes an existing CDN custom domain within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                        put:
+                          description: Creates a new CDN custom domain within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                          body:
+                            application/json: CustomDomainParameters
+                      get:
+                        description: Lists the existing CDN custom domains within an endpoint.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                    /load:
+                      post:
+                        description: Forcibly pre-loads CDN endpoint content.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                        body:
+                          application/json: LoadParameters
+                    /origins:
+                      /{originName}:
+                        uriParameters:
+                          originName:
+                            type: string
+                            description: Name of the origin, an arbitrary value but it needs to be unique under endpoint
+                            displayName: originName
+                        get:
+                          description: Gets an existing CDN origin within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                        delete:
+                          description: Deletes an existing CDN origin within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                        patch:
+                          description: Updates an existing CDN origin within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                          body:
+                            application/json: OriginUpdateParameters
+                        put:
+                          description: Creates a new CDN origin within an endpoint.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Version of the API to be used with the client request. Current version is 2016-10-02
+                              displayName: api-version
+                          body:
+                            application/json: Origin
+                      get:
+                        description: Lists the existing CDN origins within an endpoint.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                    /purge:
+                      post:
+                        description: Forcibly purges CDN endpoint content.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                        body:
+                          application/json: PurgeParameters
+                    /start:
+                      post:
+                        description: Starts an existing stopped CDN endpoint.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                    /stop:
+                      post:
+                        description: Stops an existing running CDN endpoint.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                    /validateCustomDomain:
+                      post:
+                        description: Validates a custom domain mapping to ensure it maps to the correct CNAME in DNS.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Version of the API to be used with the client request. Current version is 2016-10-02
+                            displayName: api-version
+                        body:
+                          application/json: ValidateCustomDomainInput
+                    get:
+                      description: Gets an existing CDN endpoint with the specified parameters.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Version of the API to be used with the client request. Current version is 2016-10-02
+                          displayName: api-version
+                    delete:
+                      description: Deletes an existing CDN endpoint with the specified parameters.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Version of the API to be used with the client request. Current version is 2016-10-02
+                          displayName: api-version
+                    patch:
+                      description: Updates an existing CDN endpoint with the specified parameters. Only tags and OriginHostHeader can be updated after creating an endpoint. To update origins, use the Update Origin operation. To update custom domains, use the Update Custom Domain operation.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Version of the API to be used with the client request. Current version is 2016-10-02
+                          displayName: api-version
+                      body:
+                        application/json: EndpointUpdateParameters
+                    put:
+                      description: Creates a new CDN endpoint with the specified parameters.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Version of the API to be used with the client request. Current version is 2016-10-02
+                          displayName: api-version
+                      body:
+                        application/json: Endpoint
+                  get:
+                    description: Lists existing CDN endpoints within a profile.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Version of the API to be used with the client request. Current version is 2016-10-02
+                        displayName: api-version
+                /generateSsoUri:
+                  post:
+                    description: Generates a dynamic SSO URI used to sign in to the CDN Supplemental Portal used for advanced management tasks, such as Country Filtering, Advanced HTTP Reports, and Real-time Stats and Alerts. The SSO URI changes approximately every 10 minutes.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Version of the API to be used with the client request. Current version is 2016-10-02
+                        displayName: api-version
+                get:
+                  description: Gets a CDN profile with the specified parameters.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2016-10-02
+                      displayName: api-version
+                delete:
+                  description: Deletes an existing CDN profile with the specified parameters. Deleting a profile will result in the deletion of all subresources including endpoints, origins and custom domains.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2016-10-02
+                      displayName: api-version
+                patch:
+                  description: Updates an existing CDN profile with the specified parameters.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2016-10-02
+                      displayName: api-version
+                  body:
+                    application/json: ProfileUpdateParameters
+                put:
+                  description: Creates a new CDN profile with the specified parameters.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2016-10-02
+                      displayName: api-version
+                  body:
+                    application/json: Profile
+              get:
+                description: Lists the CDN profiles within a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Version of the API to be used with the client request. Current version is 2016-10-02
+                    displayName: api-version

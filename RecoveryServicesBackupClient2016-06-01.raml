@@ -1,0 +1,57 @@
+#%RAML 1.0
+title: RecoveryServicesBackupClient
+version: '2016-06-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The subscription Id.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group where the recovery services vault is present.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.RecoveryServices:
+            /vaults:
+              /{vaultName}:
+                uriParameters:
+                  vaultName:
+                    type: string
+                    description: The name of the recovery services vault.
+                    displayName: vaultName
+                /registeredIdentities:
+                  /{identityName}:
+                    uriParameters:
+                      identityName:
+                        type: string
+                        description: Name of the protection container to unregister.
+                        displayName: identityName
+                    delete:
+                      description: Unregisters the given container from your Recovery Services Vault.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version

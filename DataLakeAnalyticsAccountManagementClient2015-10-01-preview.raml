@@ -1,0 +1,661 @@
+#%RAML 1.0
+title: DataLakeAnalyticsAccountManagementClient
+version: 2015-10-01-preview
+baseUri: management.azure.com
+description: Creates an Azure Data Lake Analytics account management client.
+mediaType:
+- application/json
+- text/json
+- application/octet-stream
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AddDataLakeStoreParameters:
+    type: object
+    properties:
+      properties:
+        type: DataLakeStoreAccountInfoProperties
+        description: the properties for the Data Lake Store account being added.
+    description: The details of the Data Lake Store account.
+  AddStorageAccountParameters:
+    type: object
+    properties:
+      properties:
+        type: StorageAccountProperties
+        description: the properties for the Azure Storage account being added.
+    description: The parameters containing the access key and optional suffix for the Azure Storage Account.
+  AzureAsyncOperationResult:
+    type: object
+    properties:
+      status?:
+        type: string
+        description: the status of the AzureAsuncOperation
+        enum:
+        - InProgress
+        - Succeeded
+        - Failed
+      error?:
+        type: Error
+    description: The response body contains the status of the specified asynchronous operation, indicating whether it has succeeded, is inprogress, or has failed. Note that this status is distinct from the HTTP status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body includes the HTTP status code for the failed request and error information regarding the failure.
+  BlobContainer:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the blob container.
+      id?:
+        type: string
+        description: the unique identifier of the blob container.
+      type?:
+        type: string
+        description: the type of the blob container.
+      properties?:
+        type: BlobContainerProperties
+        description: the properties of the blob container.
+    description: Azure Storage blob container information.
+  BlobContainerProperties:
+    type: object
+    properties:
+      lastModifiedTime?:
+        type: datetime
+        description: the last modified time of the blob container.
+    description: Azure Storage blob container properties information.
+  DataLakeAnalyticsAccount:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: the account regional location.
+      name?:
+        type: string
+        description: the account name.
+      type?:
+        type: string
+        description: the namespace and type of the account.
+      id?:
+        type: string
+        description: the account subscription ID.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: the value of custom properties.
+      properties?:
+        type: DataLakeAnalyticsAccountProperties
+        description: the properties defined by Data Lake Analytics all properties are specific to each resource provider.
+    description: Parameters supplied to the create Data Lake Analytics account operation.
+  DataLakeAnalyticsAccountListDataLakeStoreResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: DataLakeStoreAccountInfo
+      count?:
+        type: integer
+        description: total number of results.
+        format: int32
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+    description: Data Lake Account list information.
+  DataLakeAnalyticsAccountListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: DataLakeAnalyticsAccount
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+    description: DataLakeAnalytics Account list information.
+  DataLakeAnalyticsAccountListStorageAccountsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: StorageAccountInfo
+      count?:
+        type: integer
+        description: total number of results.
+        format: int32
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+    description: Azure Storage Account list information.
+  DataLakeAnalyticsAccountProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: the provisioning status of the Data Lake Analytics account.
+        enum:
+        - Failed
+        - Creating
+        - Running
+        - Succeeded
+        - Patching
+        - Suspending
+        - Resuming
+        - Deleting
+        - Deleted
+      state?:
+        type: string
+        description: the state of the Data Lake Analytics account.
+        enum:
+        - active
+        - suspended
+      defaultDataLakeStoreAccount?:
+        type: string
+        description: the default data lake storage account associated with this Data Lake Analytics account.
+      maxDegreeOfParallelism?:
+        type: integer
+        description: the maximum supported degree of parallelism for this account.
+        format: int32
+      maxJobCount?:
+        type: integer
+        description: the maximum supported jobs running under the account at the same time.
+        format: int32
+      dataLakeStoreAccounts?:
+        type: array
+        description: the list of Data Lake storage accounts associated with this account.
+        items:
+          type: DataLakeStoreAccountInfo
+      storageAccounts?:
+        type: array
+        description: the list of Azure Blob storage accounts associated with this account.
+        items:
+          type: StorageAccountInfo
+      creationTime?:
+        type: datetime
+        description: the account creation time.
+      lastModifiedTime?:
+        type: datetime
+        description: the account last modified time.
+      endpoint?:
+        type: string
+        description: the full CName endpoint for this account.
+    description: The account specific properties that are associated with an underlying Data Lake Analytics account.
+  DataLakeStoreAccountInfo:
+    type: object
+    properties:
+      name:
+        type: string
+        description: the account name of the Data Lake Store account.
+      properties?:
+        type: DataLakeStoreAccountInfoProperties
+        description: the properties associated with this Data Lake Store account.
+    description: Data Lake Store account information.
+  DataLakeStoreAccountInfoProperties:
+    type: object
+    properties:
+      suffix?:
+        type: string
+        description: the optional suffix for the Data Lake Store account.
+    description: Data Lake Store account properties information.
+  Error:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: the HTTP status code or error code associated with this error
+      message?:
+        type: string
+        description: the error message to display.
+      target?:
+        type: string
+        description: the target of the error.
+      details?:
+        type: array
+        description: the list of error details
+        items:
+          type: ErrorDetails
+      innerError?:
+        type: InnerError
+        description: the inner exceptions or errors, if any
+    description: Generic resource error information.
+  ErrorDetails:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: the HTTP status code or error code associated with this error
+      message?:
+        type: string
+        description: the error message localized based on Accept-Language
+      target?:
+        type: string
+        description: the target of the particular error (for example, the name of the property in error).
+    description: Generic resource error details information.
+  InnerError:
+    type: object
+    properties:
+      trace?:
+        type: string
+        description: the stack trace for the error
+      context?:
+        type: string
+        description: the context for the error message
+    description: Generic resource inner error information.
+  ListBlobContainersResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: BlobContainer
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+    description: The list of blob containers associated with the storage account attached to the Data Lake Analytics account.
+  ListSasTokensResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        items:
+          type: SasTokenInfo
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+    description: The SAS response that contains the storage account, container and associated SAS token for connection use.
+  SasTokenInfo:
+    type: object
+    properties:
+      accessToken?:
+        type: string
+        description: the access token for the associated Azure Storage Container.
+    description: SAS token information.
+  StorageAccountInfo:
+    type: object
+    properties:
+      name:
+        type: string
+        description: the account name associated with the Azure storage account.
+      properties:
+        type: StorageAccountProperties
+        description: the properties associated with this storage account.
+    description: Azure Storage account information.
+  StorageAccountProperties:
+    type: object
+    properties:
+      accessKey:
+        type: string
+        description: the access key associated with this Azure Storage account that will be used to connect to it.
+      suffix?:
+        type: string
+        description: the optional suffix for the Data Lake account.
+    description: Azure Storage account properties information.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Get subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.DataLakeAnalytics:
+        /accounts:
+          get:
+            description: Gets the first page of Data Lake Analytics accounts, if any, within the current subscription. This includes a link to the next page, if any.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              $search?:
+                type: string
+                description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                displayName: $search
+              $format?:
+                type: string
+                description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                displayName: $format
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the Azure resource group that contains the Data Lake Analytics account.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.DataLakeAnalytics:
+            /accounts:
+              /{accountName}:
+                uriParameters:
+                  accountName:
+                    type: string
+                    description: The name of the Data Lake Analytics account to retrieve.
+                    displayName: accountName
+                /DataLakeStoreAccounts:
+                  /:
+                    get:
+                      description: Gets the first page of Data Lake Store accounts linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
+                      queryParameters:
+                        $filter?:
+                          type: string
+                          description: OData filter. Optional.
+                          displayName: $filter
+                        $top?:
+                          type: integer
+                          description: The number of items to return. Optional.
+                          displayName: $top
+                          format: int32
+                        $skip?:
+                          type: integer
+                          description: The number of items to skip over before returning elements. Optional.
+                          displayName: $skip
+                          format: int32
+                        $expand?:
+                          type: string
+                          description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                          displayName: $expand
+                        $select?:
+                          type: string
+                          description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                          displayName: $select
+                        $orderby?:
+                          type: string
+                          description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                          displayName: $orderby
+                        $count?:
+                          type: boolean
+                          description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                          displayName: $count
+                        $search?:
+                          type: string
+                          description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                          displayName: $search
+                        $format?:
+                          type: string
+                          description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                          displayName: $format
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  /{dataLakeStoreAccountName}:
+                    uriParameters:
+                      dataLakeStoreAccountName:
+                        type: string
+                        description: The name of the Data Lake Store account to retrieve
+                        displayName: dataLakeStoreAccountName
+                    get:
+                      description: Gets the specified Data Lake Store account details in the specified Data Lake Analytics account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Updates the Data Lake Analytics account specified to remove the specified Data Lake Store account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Updates the specified Data Lake Analytics account to include the additional Data Lake Store account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: AddDataLakeStoreParameters
+                        text/json: AddDataLakeStoreParameters
+                        application/octet-stream: AddDataLakeStoreParameters
+                /StorageAccounts:
+                  /:
+                    get:
+                      description: Gets the first page of Azure Storage accounts, if any, linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
+                      queryParameters:
+                        $filter?:
+                          type: string
+                          description: The OData filter. Optional.
+                          displayName: $filter
+                        $top?:
+                          type: integer
+                          description: The number of items to return. Optional.
+                          displayName: $top
+                          format: int32
+                        $skip?:
+                          type: integer
+                          description: The number of items to skip over before returning elements. Optional.
+                          displayName: $skip
+                          format: int32
+                        $expand?:
+                          type: string
+                          description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                          displayName: $expand
+                        $select?:
+                          type: string
+                          description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                          displayName: $select
+                        $orderby?:
+                          type: string
+                          description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                          displayName: $orderby
+                        $count?:
+                          type: boolean
+                          description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                          displayName: $count
+                        $search?:
+                          type: string
+                          description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                          displayName: $search
+                        $format?:
+                          type: string
+                          description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                          displayName: $format
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  /{storageAccountName}:
+                    uriParameters:
+                      storageAccountName:
+                        type: string
+                        description: The name of the Azure Storage account for which to retrieve the details.
+                        displayName: storageAccountName
+                    /Containers:
+                      /{containerName}:
+                        uriParameters:
+                          containerName:
+                            type: string
+                            description: The name of the Azure storage container to retrieve
+                            displayName: containerName
+                        /listSasTokens:
+                          post:
+                            description: Gets the SAS token associated with the specified Data Lake Analytics and Azure Storage account and container combination.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                        get:
+                          description: Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                      get:
+                        description: Lists the Azure Storage containers, if any, associated with the specified Data Lake Analytics and Azure Storage account combination. The response includes a link to the next page of results, if any.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: Gets the specified Azure Storage account linked to the given Data Lake Analytics account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Updates the specified Data Lake Analytics account to remove an Azure Storage account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    patch:
+                      description: Updates the Data Lake Analytics account to replace Azure Storage blob account details, such as the access key and/or suffix.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: AddStorageAccountParameters
+                        text/json: AddStorageAccountParameters
+                        application/octet-stream: AddStorageAccountParameters
+                    put:
+                      description: Updates the specified Data Lake Analytics account to add an Azure Storage account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: AddStorageAccountParameters
+                        text/json: AddStorageAccountParameters
+                        application/octet-stream: AddStorageAccountParameters
+                get:
+                  description: Gets details of the specified Data Lake Analytics account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Begins the delete delete process for the Data Lake Analytics account object specified by the account name.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: The name of the Data Lake Analytics account to update.
+                    displayName: name
+                patch:
+                  description: Updates the Data Lake Analytics account object specified by the accountName with the contents of the account object.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: DataLakeAnalyticsAccount
+                    text/json: DataLakeAnalyticsAccount
+                    application/octet-stream: DataLakeAnalyticsAccount
+                put:
+                  description: Creates the specified Data Lake Analytics account. This supplies the user with computation services for Data Lake Analytics workloads
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: DataLakeAnalyticsAccount
+                    text/json: DataLakeAnalyticsAccount
+                    application/octet-stream: DataLakeAnalyticsAccount
+              get:
+                description: Gets the first page of Data Lake Analytics accounts, if any, within a specific resource group. This includes a link to the next page, if any.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  $search?:
+                    type: string
+                    description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                    displayName: $search
+                  $format?:
+                    type: string
+                    description: The return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                    displayName: $format
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

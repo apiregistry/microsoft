@@ -1,0 +1,887 @@
+#%RAML 1.0
+title: GraphRbacManagementClient
+version: '1.6'
+baseUri: graph.windows.net
+description: The Graph RBAC Management Client
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AADObject:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      displayName?:
+        type: string
+        description: object display name
+      userPrincipalName?:
+        type: string
+        description: principal name
+      mail?:
+        type: string
+        description: mail
+      mailEnabled?:
+        type: boolean
+        description: MailEnabled field
+      securityEnabled?:
+        type: boolean
+        description: SecurityEnabled field
+      signInName?:
+        type: string
+        description: signIn name
+      servicePrincipalNames?:
+        type: array
+        description: the list of service principal names.
+        items:
+          type: string
+      userType?:
+        type: string
+        description: the user type
+    description: Active Directory object information
+  ADGroup:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      displayName?:
+        type: string
+        description: group display name
+      securityEnabled?:
+        type: boolean
+        description: security enabled field
+      mail?:
+        type: string
+        description: mail field
+    description: Active Directory group information
+  Application:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      appId?:
+        type: string
+        description: application Id
+      appPermissions?:
+        type: array
+        description: application permissions
+        items:
+          type: string
+      availableToOtherTenants?:
+        type: boolean
+        description: Indicates if the application will be available to other tenants
+      displayName?:
+        type: string
+        description: the displayName
+      identifierUris?:
+        type: array
+        description: the application identifier Uris
+        items:
+          type: string
+      replyUrls?:
+        type: array
+        description: the application reply Urls
+        items:
+          type: string
+      homepage?:
+        type: string
+        description: Application homepage
+    description: Active Directory user information
+  ApplicationCreateParameters:
+    type: object
+    properties:
+      availableToOtherTenants:
+        type: boolean
+        description: Indicates if the application will be available to other tenants
+      displayName:
+        type: string
+        description: Application display name
+      homepage?:
+        type: string
+        description: Application homepage
+      identifierUris:
+        type: array
+        description: Application Uris
+        items:
+          type: string
+      replyUrls?:
+        type: array
+        description: Application reply Urls
+        items:
+          type: string
+      keyCredentials?:
+        type: array
+        description: the list of KeyCredential objects
+        items:
+          type: KeyCredential
+      passwordCredentials?:
+        type: array
+        description: the list of PasswordCredential objects
+        items:
+          type: PasswordCredential
+    description: Parameters to create an application.
+  ApplicationListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Application list.
+        items:
+          type: Application
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Role assignment list operation result.
+  ApplicationUpdateParameters:
+    type: object
+    properties:
+      availableToOtherTenants?:
+        type: boolean
+        description: Indicates if the application will be available to other tenants
+      displayName?:
+        type: string
+        description: Application display name
+      homepage?:
+        type: string
+        description: Application homepage
+      identifierUris?:
+        type: array
+        description: Application Uris
+        items:
+          type: string
+      replyUrls?:
+        type: array
+        description: Application reply Urls
+        items:
+          type: string
+      keyCredentials?:
+        type: array
+        description: the list of KeyCredential objects
+        items:
+          type: KeyCredential
+      passwordCredentials?:
+        type: array
+        description: the list of PasswordCredential objects
+        items:
+          type: PasswordCredential
+    description: Parameters to update an existing application.
+  CheckGroupMembershipParameters:
+    type: object
+    properties:
+      groupId:
+        type: string
+        description: The object ID of the group to check.
+      memberId:
+        type: string
+        description: The object ID of the contact, group, user, or service principal to check for membership in the specified group.
+    description: Check group membership parameters.
+  CheckGroupMembershipResult:
+    type: object
+    properties:
+      value?:
+        type: boolean
+        description: true if the specified user, group, contact, or service principal has either direct or transitive membership in the specified group; otherwise, false.
+    description: Server response for IsMemberOf API call
+  ErrorMessage:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Error message value.
+    description: Active Directory error message
+  GetObjectsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of Active Directory object
+        items:
+          type: AADObject
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Server response for Active Directory objects inquiry API calls
+  GraphError:
+    type: object
+    properties:
+      odata.error?:
+        type: OdataError
+        description: Graph error.
+    description: Active Directory error information
+  GroupAddMemberParameters:
+    type: object
+    properties:
+      url:
+        type: string
+        description: Member Object Url as "https://graph.windows.net/0b1f9851-1bf0-433f-aec3-cb9272f093dc/directoryObjects/f260bbc4-c254-447b-94cf-293b5ec434dd", where "0b1f9851-1bf0-433f-aec3-cb9272f093dc" is the tenantId and "f260bbc4-c254-447b-94cf-293b5ec434dd" is the objectId of the member (user, application, servicePrincipal, group) to be added.
+    description: Member Object Url as https://graph.windows.net/0b1f9851-1bf0-433f-aec3-cb9272f093dc/directoryObjects/f260bbc4-c254-447b-94cf-293b5ec434dd
+  GroupCreateParameters:
+    type: object
+    properties:
+      displayName:
+        type: string
+        description: Group display name
+      mailEnabled:
+        type: boolean
+        description: Specifies whether the group is mail-enabled. Must be false. This is because only pure security groups can be created using the Graph API.
+      mailNickname:
+        type: string
+        description: Mail nick name
+      securityEnabled:
+        type: boolean
+        description: Specifies whether the group is a security group. Must be true. This is because only pure security groups can be created using the Graph API.
+    description: Parameters to create a group
+  GroupGetMemberGroupsParameters:
+    type: object
+    properties:
+      securityEnabledOnly:
+        type: boolean
+        description: 'If true only membership in security enabled groups should be
+          checked. Otherwise membership in all groups should be checked '
+    description: Group filtering parameters.
+  GroupGetMemberGroupsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Group Ids of which the group is a member
+        items:
+          type: string
+    description: Server response for GetMemberGroups API call
+  GroupListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the list of groups.
+        items:
+          type: ADGroup
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Server response for Get tenant groups API call
+  KeyCredential:
+    type: object
+    properties:
+      startDate?:
+        type: datetime
+        description: start date
+      endDate?:
+        type: datetime
+        description: end date
+      value?:
+        type: string
+        description: value
+      keyId?:
+        type: string
+        description: key Id
+      usage?:
+        type: string
+        description: usage. Acceptable values are 'Verify' and 'Sign'.
+      type?:
+        type: string
+        description: type. Acceptable values are 'AsymmetricX509Cert' and 'Symmetric'.
+    description: Active Directory Key Credential information
+  KeyCredentialListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: KeyCredential list.
+        items:
+          type: KeyCredential
+    description: KeyCredential list operation result.
+  KeyCredentialsUpdateParameters:
+    type: object
+    properties:
+      value:
+        type: array
+        description: KeyCredential list.
+        items:
+          type: KeyCredential
+    description: Parameters to update keyCredentials of an existing service principal.
+  OdataError:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Error code.
+      message?:
+        type: ErrorMessage
+        description: Error Message.
+    description: Active Directory odata error information
+  PasswordCredential:
+    type: object
+    properties:
+      startDate?:
+        type: datetime
+        description: start date
+      endDate?:
+        type: datetime
+        description: end date
+      keyId?:
+        type: string
+        description: key Id
+      value?:
+        type: string
+        description: value
+    description: Active Directory PasswordCredential information
+  PasswordCredentialListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: PasswordCredential list.
+        items:
+          type: PasswordCredential
+    description: PasswordCredential list operation result.
+  PasswordCredentialsUpdateParameters:
+    type: object
+    properties:
+      value:
+        type: array
+        description: PasswordCredential list.
+        items:
+          type: PasswordCredential
+    description: Parameters to update passwordCredentials of an existing service principal.
+  PasswordProfile:
+    type: object
+    properties:
+      password:
+        type: string
+        description: Password
+      forceChangePasswordNextLogin?:
+        type: boolean
+        description: Force change password on next login
+    description: Contains the password profile associated with a user.
+  ServicePrincipal:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      displayName?:
+        type: string
+        description: service principal display name
+      appId?:
+        type: string
+        description: app id
+      servicePrincipalNames?:
+        type: array
+        description: the list of names.
+        items:
+          type: string
+    description: Active Directory service principal information
+  ServicePrincipalCreateParameters:
+    type: object
+    properties:
+      appId:
+        type: string
+        description: application Id
+      accountEnabled:
+        type: boolean
+        description: Specifies if the account is enabled
+      keyCredentials?:
+        type: array
+        description: the list of KeyCredential objects
+        items:
+          type: KeyCredential
+      passwordCredentials?:
+        type: array
+        description: the list of PasswordCredential objects
+        items:
+          type: PasswordCredential
+    description: Parameters to create a service principal.
+  ServicePrincipalListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the list of service principals.
+        items:
+          type: ServicePrincipal
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Server response for get tenant service principals API call
+  User:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: object Id
+      objectType?:
+        type: string
+        description: object type
+      userPrincipalName?:
+        type: string
+        description: user principal name
+      displayName?:
+        type: string
+        description: user display name
+      signInName?:
+        type: string
+        description: user signIn name
+      mail?:
+        type: string
+        description: user mail
+      mailNickname?:
+        type: string
+        description: The mail alias for the user
+    description: Active Directory user information
+  UserCreateParameters:
+    type: object
+    properties:
+      accountEnabled:
+        type: boolean
+        description: Enable the account. If it is enabled then true else false.
+      displayName:
+        type: string
+        description: User display name
+      passwordProfile:
+        type: PasswordProfile
+        description: Password Profile
+      userPrincipalName:
+        type: string
+        description: The user principal name (someuser@contoso.com). It must contain one of the verified domains for the tenant.
+      mailNickname:
+        type: string
+        description: The mail alias for the user
+      immutableId?:
+        type: string
+        description: Needs to be specified if you are using a federated domain for the user's userPrincipalName (UPN) property while creating a new user account. It is used to associate an on-premises Active Directory user account to their Azure AD user object.
+    description: Parameters to create a user.
+  UserGetMemberGroupsParameters:
+    type: object
+    properties:
+      securityEnabledOnly:
+        type: boolean
+        description: 'If true only membership in security enabled groups should be
+          checked. Otherwise membership in all groups should be checked '
+    description: User filtering parameters.
+  UserGetMemberGroupsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Group Ids of which the user is a member
+        items:
+          type: string
+    description: Server response for GetMemberGroups API call
+  UserListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the list of users.
+        items:
+          type: User
+      odata.nextLink?:
+        type: string
+        description: the URL to get the next set of results.
+    description: Server response for Get tenant users API call
+  UserUpdateParameters:
+    type: object
+    properties:
+      accountEnabled?:
+        type: boolean
+        description: Enable the account. If it is enabled then true else false.
+      displayName?:
+        type: string
+        description: User display name
+      passwordProfile?:
+        type: PasswordProfile
+        description: Password Profile
+      mailNickname?:
+        type: string
+        description: The mail alias for the user
+    description: Parameters to update an exisitng user.
+/{tenantID}:
+  uriParameters:
+    tenantID:
+      type: string
+      description: the tenant Id.
+      displayName: tenantID
+  /applications:
+    /{applicationObjectId}:
+      uriParameters:
+        applicationObjectId:
+          type: string
+          description: Application object id
+          displayName: applicationObjectId
+      /keyCredentials:
+        get:
+          description: 'Get keyCredentials associated with the application by object
+            Id. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        patch:
+          description: 'Update keyCredentials associated with an existing application.
+            Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyCredentialsUpdateParameters
+            text/json: KeyCredentialsUpdateParameters
+      /passwordCredentials:
+        get:
+          description: 'Gets passwordCredentials associated with an existing application.
+            Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        patch:
+          description: 'Updates passwordCredentials associated with an existing application.
+            Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: PasswordCredentialsUpdateParameters
+            text/json: PasswordCredentialsUpdateParameters
+      get:
+        description: 'Get an application by object Id. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: 'Delete an application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: 'Update existing application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: ApplicationUpdateParameters
+          text/json: ApplicationUpdateParameters
+    get:
+      description: 'Lists applications by filter parameters. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filters to apply on the operation
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: 'Create a new application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: ApplicationCreateParameters
+        text/json: ApplicationCreateParameters
+  /groups:
+    /{groupObjectId}:
+      uriParameters:
+        groupObjectId:
+          type: string
+          description: Object id
+          displayName: groupObjectId
+      /$links:
+        /members:
+          /{memberObjectId}:
+            uriParameters:
+              memberObjectId:
+                type: string
+                description: Member Object id
+                displayName: memberObjectId
+            delete:
+              description: 'Remove a memeber from a group. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/groups-operations#DeleteGroupMember'
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          post:
+            description: 'Add a memeber to a group. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/groups-operations#AddGroupMembers'
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: GroupAddMemberParameters
+              text/json: GroupAddMemberParameters
+      delete:
+        description: 'Delete a group in the directory. Reference: http://msdn.microsoft.com/en-us/library/azure/dn151676.aspx'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: User objectId to get group information.
+          displayName: objectId
+      /getMemberGroups:
+        post:
+          description: Gets a collection that contains the Object IDs of the groups of which the group is a member.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: GroupGetMemberGroupsParameters
+            text/json: GroupGetMemberGroupsParameters
+      /members:
+        get:
+          description: Gets the members of a group.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+      get:
+        description: Gets group information from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets list of groups for the current tenant.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: 'Create a group in the directory. Reference: http://msdn.microsoft.com/en-us/library/azure/dn151676.aspx'
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: GroupCreateParameters
+        text/json: GroupCreateParameters
+  /isMemberOf:
+    post:
+      description: Checks whether the specified user, group, contact, or service principal is a direct or a transitive member of the specified group.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: CheckGroupMembershipParameters
+        text/json: CheckGroupMembershipParameters
+  /me:
+    get:
+      description: Gets the details for current logged in user
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+  /servicePrincipals:
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: Object id to get service principal information.
+          displayName: objectId
+      /keyCredentials:
+        get:
+          description: 'Get keyCredentials associated with the service principal by
+            object Id. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        patch:
+          description: 'Update keyCredentials associated with an existing service
+            principal. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyCredentialsUpdateParameters
+            text/json: KeyCredentialsUpdateParameters
+      /passwordCredentials:
+        get:
+          description: 'Gets passwordCredentials associated with an existing service
+            principal. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        patch:
+          description: 'Updates passwordCredentials associated with an existing service
+            principal. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: PasswordCredentialsUpdateParameters
+            text/json: PasswordCredentialsUpdateParameters
+      get:
+        description: Gets service principal information from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: Deletes service principal from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets list of service principals from the current tenant.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: Creates a service principal in the  directory.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: ServicePrincipalCreateParameters
+        text/json: ServicePrincipalCreateParameters
+  /users:
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: User filtering parameters.
+          displayName: objectId
+      /getMemberGroups:
+        post:
+          description: Gets a collection that contains the Object IDs of the groups of which the user is a member.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: UserGetMemberGroupsParameters
+            text/json: UserGetMemberGroupsParameters
+    /{upnOrObjectId}:
+      uriParameters:
+        upnOrObjectId:
+          type: string
+          description: User object Id or user principal name to get user information.
+          displayName: upnOrObjectId
+      get:
+        description: 'Gets user information from the directory. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#GetAUser'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: 'Delete a user. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#DeleteUser'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: 'Updates an exisitng user. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#UpdateUser'
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: UserUpdateParameters
+          text/json: UserUpdateParameters
+    get:
+      description: Gets list of users for the current tenant. Reference https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#GetUsers
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: 'Create a new user. Reference: https://msdn.microsoft.com/library/azure/ad/graph/api/users-operations#CreateUser'
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: UserCreateParameters
+        text/json: UserCreateParameters

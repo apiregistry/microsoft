@@ -1,0 +1,982 @@
+#%RAML 1.0
+title: DataLakeAnalyticsCatalogManagementClient
+version: 2015-10-01-preview
+description: Creates an Azure Data Lake Analytics catalog client.
+mediaType:
+- application/json
+- text/json
+- application/octet-stream
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  CatalogItem:
+    type: object
+    properties:
+      computeAccountName?:
+        type: string
+        description: the name of the Data Lake Analytics account.
+      version?:
+        type: string
+        description: the version of the catalog item.
+    description: A Data Lake Analytics catalog item.
+  CatalogItemList:
+    type: object
+    properties:
+      count?:
+        type: integer
+        description: the count of items in the list.
+        format: int32
+      nextLink?:
+        type: string
+        description: the link to the next page of results.
+    description: A Data Lake Analytics catalog item list.
+  DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters:
+    type: object
+    properties:
+      password:
+        type: string
+        description: the password for the secret to pass in
+      uri?:
+        type: string
+        description: the URI identifier for the secret in the format <hostname>:<port>
+    description: The parameters required to create the secret (name and password)
+  DdlName:
+    type: object
+    properties:
+      firstPart?:
+        type: string
+        description: the name of the table associated with this database and schema.
+      secondPart?:
+        type: string
+        description: the name of the table associated with this database and schema.
+      thirdPart?:
+        type: string
+        description: the name of the table associated with this database and schema.
+      server?:
+        type: string
+        description: the name of the table associated with this database and schema.
+    description: A Data Lake Analytics DDL name item.
+  EntityId:
+    type: object
+    properties:
+      name?:
+        type: DdlName
+        description: the name of the external table associated with this database, schema and table.
+      version?:
+        type: string
+        description: the version of the external data source.
+    description: A Data Lake Analytics catalog entity identifier object.
+  ExternalTable:
+    type: object
+    properties:
+      tableName?:
+        type: string
+        description: the name of the table associated with this database and schema.
+      dataSource?:
+        type: EntityId
+        description: the data source associated with this external table.
+    description: A Data Lake Analytics catalog external table item.
+  TypeFieldInfo:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the field associated with this type.
+      type?:
+        type: string
+        description: the type of the field.
+    description: A Data Lake Analytics catalog type field information item.
+  USqlAssembly:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL Assembly.
+  USqlAssemblyClr:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL assembly CLR item.
+  USqlAssemblyDependencyInfo:
+    type: object
+    properties:
+      entityId?:
+        type: EntityId
+        description: the EntityId of the dependency.
+    description: A Data Lake Analytics catalog U-SQL dependency information item.
+  USqlAssemblyFileInfo:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: the assembly file type.
+        enum:
+        - Assembly
+        - Resource
+      originalPath?:
+        type: string
+        description: the the original path to the assembly file.
+      contentPath?:
+        type: string
+        description: the the content path to the assembly file.
+    description: A Data Lake Analytics catalog U-SQL assembly file information item.
+  USqlAssemblyList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL assembly CLR item list.
+  USqlCredential:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL credential item.
+  USqlCredentialList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL credential item list.
+  USqlDatabase:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL database item.
+  USqlDatabaseList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL database item list.
+  USqlDirectedColumn:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the index in the table.
+      descending?:
+        type: boolean
+        description: the switch indicating if the index is descending or not.
+    description: A Data Lake Analytics catalog U-SQL directed column item.
+  USqlDistributionInfo:
+    type: object
+    properties:
+      type?:
+        type: integer
+        description: the type of this distribution.
+        format: int32
+      keys?:
+        type: array
+        description: the list of directed columns in the distribution
+        items:
+          type: USqlDirectedColumn
+      count?:
+        type: integer
+        description: the count of indices using this distribution.
+        format: int32
+      dynamicCount?:
+        type: integer
+        description: the dynamic count of indices using this distribution.
+        format: int32
+    description: A Data Lake Analytics catalog U-SQL distribution information object.
+  USqlExternalDataSource:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL external datasource item.
+  USqlExternalDataSourceList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL external datasource item list.
+  USqlIndex:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the index in the table.
+      indexKeys?:
+        type: array
+        description: the list of directed columns in the index
+        items:
+          type: USqlDirectedColumn
+      columns?:
+        type: array
+        description: the list of columns in the index
+        items:
+          type: string
+      distributionInfo?:
+        type: USqlDistributionInfo
+        description: the distributions info of the index
+      partitionFunction?:
+        type: string
+        description: partition function ID for the index.
+      partitionKeyList?:
+        type: array
+        description: the list of partion keys in the index
+        items:
+          type: string
+      streamNames?:
+        type: array
+        description: the list of full paths to the streams that contain this index in the DataLake account.
+        items:
+          type: string
+      isColumnstore?:
+        type: boolean
+        description: the switch indicating if this index is a columnstore index.
+      indexId?:
+        type: integer
+        description: the ID of this index within the table.
+        format: int32
+      isUnique?:
+        type: boolean
+        description: the switch indicating if this index is a unique index.
+    description: A Data Lake Analytics catalog U-SQL table index item.
+  USqlProcedure:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL procedure item.
+  USqlProcedureList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL procedure item list.
+  USqlSchema:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL schema item.
+  USqlSchemaList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL schema item list.
+  USqlSecret:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL secret item.
+  USqlTable:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL table item.
+  USqlTableColumn:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the column in the table.
+      type?:
+        type: string
+        description: the object type of the specified column (such as System.String).
+    description: A Data Lake Analytics catalog U-SQL table column item.
+  USqlTableList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL table item list.
+  USqlTablePartition:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL table partition item.
+  USqlTablePartitionList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL table partition item list.
+  USqlTableStatistics:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL table statistics item.
+  USqlTableStatisticsList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL table statistics item list.
+  USqlTableType:
+    type: USqlType
+    description: A Data Lake Analytics catalog U-SQL table type item.
+  USqlTableTypeList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL table type item list.
+  USqlTableValuedFunction:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL table valued function item.
+  USqlTableValuedFunctionList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL table valued function item list.
+  USqlType:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL type item.
+  USqlTypeList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL type item list.
+  USqlView:
+    type: CatalogItem
+    description: A Data Lake Analytics catalog U-SQL view item.
+  USqlViewList:
+    type: CatalogItemList
+    description: A Data Lake Analytics catalog U-SQL view item list.
+/catalog:
+  /usql:
+    /databases:
+      /{databaseName}:
+        uriParameters:
+          databaseName:
+            type: string
+            description: The name of the database.
+            displayName: databaseName
+        /assemblies:
+          /{assemblyName}:
+            uriParameters:
+              assemblyName:
+                type: string
+                description: The name of the assembly.
+                displayName: assemblyName
+            get:
+              description: Retrieves the specified assembly from the Data Lake Analytics catalog.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          get:
+            description: Retrieves the list of assemblies from the Data Lake Analytics catalog.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /credentials:
+          /{credentialName}:
+            uriParameters:
+              credentialName:
+                type: string
+                description: The name of the credential.
+                displayName: credentialName
+            get:
+              description: Retrieves the specified credential from the Data Lake Analytics catalog.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          get:
+            description: Retrieves the list of credentials from the Data Lake Analytics catalog.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /externaldatasources:
+          /{externalDataSourceName}:
+            uriParameters:
+              externalDataSourceName:
+                type: string
+                description: The name of the external data source.
+                displayName: externalDataSourceName
+            get:
+              description: Retrieves the specified external data source from the Data Lake Analytics catalog.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          get:
+            description: Retrieves the list of external data sources from the Data Lake Analytics catalog.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /schemas:
+          /{schemaName}:
+            uriParameters:
+              schemaName:
+                type: string
+                description: The name of the schema.
+                displayName: schemaName
+            /procedures:
+              /{procedureName}:
+                uriParameters:
+                  procedureName:
+                    type: string
+                    description: The name of the procedure.
+                    displayName: procedureName
+                get:
+                  description: Retrieves the specified procedure from the Data Lake Analytics catalog.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Retrieves the list of procedures from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /tables:
+              /{tableName}:
+                uriParameters:
+                  tableName:
+                    type: string
+                    description: The name of the table.
+                    displayName: tableName
+                /partitions:
+                  /{partitionName}:
+                    uriParameters:
+                      partitionName:
+                        type: string
+                        description: The name of the table partition.
+                        displayName: partitionName
+                    get:
+                      description: Retrieves the specified table partition from the Data Lake Analytics catalog.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  get:
+                    description: Retrieves the list of table partitions from the Data Lake Analytics catalog.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: OData filter. Optional.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        description: The number of items to return. Optional.
+                        displayName: $top
+                        format: int32
+                      $skip?:
+                        type: integer
+                        description: The number of items to skip over before returning elements. Optional.
+                        displayName: $skip
+                        format: int32
+                      $expand?:
+                        type: string
+                        description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                        displayName: $expand
+                      $select?:
+                        type: string
+                        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                        displayName: $select
+                      $orderby?:
+                        type: string
+                        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                        displayName: $orderby
+                      $count?:
+                        type: boolean
+                        description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                        displayName: $count
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /statistics:
+                  /{statisticsName}:
+                    uriParameters:
+                      statisticsName:
+                        type: string
+                        description: The name of the table statistics.
+                        displayName: statisticsName
+                    get:
+                      description: Retrieves the specified table statistics from the Data Lake Analytics catalog.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  get:
+                    description: Retrieves the list of table statistics from the Data Lake Analytics catalog.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: OData filter. Optional.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        description: The number of items to return. Optional.
+                        displayName: $top
+                        format: int32
+                      $skip?:
+                        type: integer
+                        description: The number of items to skip over before returning elements. Optional.
+                        displayName: $skip
+                        format: int32
+                      $expand?:
+                        type: string
+                        description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                        displayName: $expand
+                      $select?:
+                        type: string
+                        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                        displayName: $select
+                      $orderby?:
+                        type: string
+                        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                        displayName: $orderby
+                      $count?:
+                        type: boolean
+                        description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                        displayName: $count
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Retrieves the specified table from the Data Lake Analytics catalog.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Retrieves the list of tables from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /tabletypes:
+              /{tableTypeName}:
+                uriParameters:
+                  tableTypeName:
+                    type: string
+                    description: The name of the table type to retrieve.
+                    displayName: tableTypeName
+                get:
+                  description: Retrieves the specified table type from the Data Lake Analytics catalog.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Retrieves the list of table types from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /tablevaluedfunctions:
+              /{tableValuedFunctionName}:
+                uriParameters:
+                  tableValuedFunctionName:
+                    type: string
+                    description: The name of the tableValuedFunction.
+                    displayName: tableValuedFunctionName
+                get:
+                  description: Retrieves the specified table valued function from the Data Lake Analytics catalog.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Retrieves the list of table valued functions from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /types:
+              get:
+                description: Retrieves the list of types within the specified database and schema from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /views:
+              /{viewName}:
+                uriParameters:
+                  viewName:
+                    type: string
+                    description: The name of the view.
+                    displayName: viewName
+                get:
+                  description: Retrieves the specified view from the Data Lake Analytics catalog.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Retrieves the list of views from the Data Lake Analytics catalog.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            get:
+              description: Retrieves the specified schema from the Data Lake Analytics catalog.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          get:
+            description: Retrieves the list of schemas from the Data Lake Analytics catalog.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /secrets:
+          /{secretName}:
+            uriParameters:
+              secretName:
+                type: string
+                description: The name of the secret to get
+                displayName: secretName
+            get:
+              description: Gets the specified secret in the specified database
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            delete:
+              description: Deletes the specified secret in the specified database
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            patch:
+              description: Modifies the specified secret for use with external data sources in the specified database
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+              body:
+                application/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+                text/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+                application/octet-stream: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+            put:
+              description: Creates the specified secret for use with external data sources in the specified database.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+              body:
+                application/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+                text/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+                application/octet-stream: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+          delete:
+            description: Deletes all secrets in the specified database
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        get:
+          description: Retrieves the specified database from the Data Lake Analytics catalog.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+      get:
+        description: Retrieves the list of databases from the Data Lake Analytics catalog.
+        queryParameters:
+          $filter?:
+            type: string
+            description: OData filter. Optional.
+            displayName: $filter
+          $top?:
+            type: integer
+            description: The number of items to return. Optional.
+            displayName: $top
+            format: int32
+          $skip?:
+            type: integer
+            description: The number of items to skip over before returning elements. Optional.
+            displayName: $skip
+            format: int32
+          $expand?:
+            type: string
+            description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+            displayName: $expand
+          $select?:
+            type: string
+            description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+            displayName: $select
+          $orderby?:
+            type: string
+            description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+            displayName: $orderby
+          $count?:
+            type: boolean
+            description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+            displayName: $count
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version

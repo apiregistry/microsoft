@@ -1,0 +1,1339 @@
+#%RAML 1.0
+title: KeyVaultClient
+version: '2016-10-01'
+description: Performs cryptographic key operations and vault operations against the Key Vault service.
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  Action:
+    type: object
+    properties:
+      action_type?:
+        type: string
+        description: The type of the action.
+        enum:
+        - EmailContacts
+        - AutoRenew
+    description: The action that will be executed.
+  AdministratorDetails:
+    type: object
+    properties:
+      first_name?:
+        type: string
+        description: First name.
+      last_name?:
+        type: string
+        description: Last name.
+      email?:
+        type: string
+        description: Email addresss.
+      phone?:
+        type: string
+        description: Phone number.
+    description: Details of the organization administrator of the certificate issuer
+  Attributes:
+    type: object
+    properties:
+      enabled?:
+        type: boolean
+        description: Determines whether the object is enabled
+      nbf?:
+        type: integer
+        description: Not before date in UTC
+      exp?:
+        type: integer
+        description: Expiry date in UTC
+      created?:
+        type: integer
+        description: Creation time in UTC
+      updated?:
+        type: integer
+        description: Last updated time in UTC
+    description: The object attributes managed by the KeyVault service
+  BackupKeyResult:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: The backup blob containing the backed up key
+    description: The backup key result, containing the backup blob
+  CertificateAttributes:
+    type: Attributes
+    description: The certificate management attributes
+  CertificateBundle:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The certificate id
+      kid?:
+        type: string
+        description: The key id
+      sid?:
+        type: string
+        description: The secret id
+      x5t?:
+        type: string
+        description: Thumbprint of the certificate.
+      policy?:
+        type: CertificatePolicy
+        description: The management policy.
+      cer?:
+        type: string
+        description: CER contents of x509 certificate.
+      contentType?:
+        type: string
+        description: The content type of the secret
+      attributes?:
+        type: CertificateAttributes
+        description: The certificate attributes.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: A certificate bundle consists of a certificate (X509) plus its attributes.
+  CertificateCreateParameters:
+    type: object
+    properties:
+      policy?:
+        type: CertificatePolicy
+        description: The management policy for the certificate
+      attributes?:
+        type: CertificateAttributes
+        description: The attributes of the certificate (optional)
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to create certificate.
+  CertificateImportParameters:
+    type: object
+    properties:
+      value:
+        type: string
+        description: Base64 encoded representation of the certificate object to import. This certificate needs to contain the private key.
+      pwd?:
+        type: string
+        description: If the private key in base64EncodedCertificate is encrypted, the password used for encryption
+      policy?:
+        type: CertificatePolicy
+        description: The management policy for the certificate
+      attributes?:
+        type: CertificateAttributes
+        description: The attributes of the certificate (optional)
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to import certificate.
+  CertificateIssuerItem:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Certificate Identifier
+      provider?:
+        type: string
+        description: The issuer provider.
+    description: The certificate issuer item containing certificate issuer metadata
+  CertificateIssuerListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: A response message containing a list of certificate issuers in the vault along with a link to the next page of certificate issuers
+        items:
+          type: CertificateIssuerItem
+      nextLink?:
+        type: string
+        description: The URL to get the next set of certificate issuers.
+    description: The certificate issuer list result
+  CertificateIssuerSetParameters:
+    type: object
+    properties:
+      provider:
+        type: string
+        description: The issuer provider.
+      credentials?:
+        type: IssuerCredentials
+        description: The credentials to be used for the issuer.
+      org_details?:
+        type: OrganizationDetails
+        description: Details of the organization as provided to the issuer.
+      attributes?:
+        type: IssuerAttributes
+        description: Attributes of the issuer object.
+    description: Certificate issuer set parameter.
+  CertificateIssuerUpdateParameters:
+    type: object
+    properties:
+      provider?:
+        type: string
+        description: The issuer provider.
+      credentials?:
+        type: IssuerCredentials
+        description: The credentials to be used for the issuer.
+      org_details?:
+        type: OrganizationDetails
+        description: Details of the organization as provided to the issuer.
+      attributes?:
+        type: IssuerAttributes
+        description: Attributes of the issuer object.
+    description: Certificate issuer update parameter.
+  CertificateItem:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Certificate Identifier
+      attributes?:
+        type: CertificateAttributes
+        description: The certificate management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      x5t?:
+        type: string
+        description: Thumbprint of the certificate.
+    description: The certificate item containing certificate metadata
+  CertificateListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: A response message containing a list of certificates in the vault along with a link to the next page of certificates
+        items:
+          type: CertificateItem
+      nextLink?:
+        type: string
+        description: The URL to get the next set of certificates.
+    description: The certificate list result
+  CertificateMergeParameters:
+    type: object
+    properties:
+      x5c:
+        type: array
+        description: The certificate or the certificate chain to merge
+        items:
+          type: string
+      attributes?:
+        type: CertificateAttributes
+        description: The attributes of the certificate (optional)
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to merge certificate.
+  CertificateOperation:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The certificate id
+      issuer?:
+        type: IssuerParameters
+        description: Parameters for the issuer of the X509 component of a certificate.
+      csr?:
+        type: string
+        description: The Certificate Signing Request (CSR) that is being used in the certificate operation.
+      cancellation_requested?:
+        type: boolean
+        description: Indicates if cancellation was requested on the certificate operation.
+      status?:
+        type: string
+        description: Status of the certificate operation.
+      status_details?:
+        type: string
+        description: The status details of the certificate operation.
+      error?:
+        type: Error
+        description: Error encountered, if any, during the certificate operation.
+      target?:
+        type: string
+        description: Location which contains the result of the certificate operation.
+      request_id?:
+        type: string
+        description: Identifier for the certificate operation.
+    description: A certificate operation is returned in case of async requests.
+  CertificateOperationUpdateParameter:
+    type: object
+    properties:
+      cancellation_requested:
+        type: boolean
+        description: Indicates if cancellation was requested on the certificate operation.
+    description: The certificate operation response.
+  CertificatePolicy:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The certificate id
+      key_props?:
+        type: KeyProperties
+        description: Properties of the key backing a certificate.
+      secret_props?:
+        type: SecretProperties
+        description: Properties of the secret backing a certificate.
+      x509_props?:
+        type: X509CertificateProperties
+        description: Properties of the X509 component of a certificate.
+      lifetime_actions?:
+        type: array
+        description: Actions that will be performed by Key Vault over the lifetime of a certificate.
+        items:
+          type: LifetimeAction
+      issuer?:
+        type: IssuerParameters
+        description: Parameters for the issuer of the X509 component of a certificate.
+      attributes?:
+        type: CertificateAttributes
+        description: The certificate attributes.
+    description: The policy for the certificate.
+  CertificateUpdateParameters:
+    type: object
+    properties:
+      policy?:
+        type: CertificatePolicy
+        description: The management policy for the certificate
+      attributes?:
+        type: CertificateAttributes
+        description: The attributes of the certificate (optional)
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters for certificate update
+  Contact:
+    type: object
+    properties:
+      email?:
+        type: string
+        description: Email addresss.
+      name?:
+        type: string
+        description: Name.
+      phone?:
+        type: string
+        description: Phone number.
+    description: The contact information for the vault certificates.
+  Contacts:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Identifier for the contacts collection.
+      contacts?:
+        type: array
+        description: The contact list for the vault certificates.
+        items:
+          type: Contact
+    description: The contacts for the vault certificates.
+  Error:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: The error code.
+      message?:
+        type: string
+        description: The error message.
+      innererror?:
+        type: Error
+    description: The key vault server error
+  IssuerAttributes:
+    type: object
+    properties:
+      enabled?:
+        type: boolean
+        description: Determines whether the issuer is enabled
+      created?:
+        type: integer
+        description: Creation time in UTC
+      updated?:
+        type: integer
+        description: Last updated time in UTC
+    description: The attributes of an issuer managed by the KeyVault service
+  IssuerBundle:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Identifier for the issuer object.
+      provider?:
+        type: string
+        description: The issuer provider.
+      credentials?:
+        type: IssuerCredentials
+        description: The credentials to be used for the issuer.
+      org_details?:
+        type: OrganizationDetails
+        description: Details of the organization as provided to the issuer.
+      attributes?:
+        type: IssuerAttributes
+        description: Attributes of the issuer object.
+    description: The issuer for Key Vault certificate
+  IssuerCredentials:
+    type: object
+    properties:
+      account_id?:
+        type: string
+        description: The user name/account name/account id.
+      pwd?:
+        type: string
+        description: The password/secret/account key.
+    description: The credentials to be used for the certificate issuer.
+  IssuerParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the referenced issuer object or reserved names e.g. 'Self', 'Unknown'.
+      cty?:
+        type: string
+        description: Type of certificate to be requested from the issuer provider.
+    description: Parameters for the issuer of the X509 component of a certificate.
+  JsonWebKey:
+    type: object
+    properties:
+      kid?:
+        type: string
+        description: Key Identifier
+      kty?:
+        type: string
+        description: Supported JsonWebKey key types (kty) for Elliptic Curve, RSA, HSM, Octet, usually RSA
+        enum:
+        - EC
+        - RSA
+        - RSA-HSM
+        - oct
+      key_ops?:
+        type: array
+        items:
+          type: string
+          description: Supported Key Operations
+      n?:
+        type: string
+        description: RSA modulus
+      e?:
+        type: string
+        description: RSA public exponent
+      d?:
+        type: string
+        description: RSA private exponent
+      dp?:
+        type: string
+        description: RSA Private Key Parameter
+      dq?:
+        type: string
+        description: RSA Private Key Parameter
+      qi?:
+        type: string
+        description: RSA Private Key Parameter
+      p?:
+        type: string
+        description: RSA secret prime
+      q?:
+        type: string
+        description: RSA secret prime, with p < q
+      k?:
+        type: string
+        description: Symmetric key
+      key_hsm?:
+        type: string
+        description: HSM Token, used with Bring Your Own Key
+    description: As of http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18
+  KeyAttributes:
+    type: Attributes
+    description: The attributes of a key managed by the KeyVault service
+  KeyBundle:
+    type: object
+    properties:
+      key?:
+        type: JsonWebKey
+        description: The Json web key
+      attributes?:
+        type: KeyAttributes
+        description: The key management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      managed?:
+        type: boolean
+        description: True if the key's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+    description: A KeyBundle consisting of a WebKey plus its Attributes
+  KeyCreateParameters:
+    type: object
+    properties:
+      kty:
+        type: string
+        description: The type of key to create. Valid key types, see JsonWebKeyType. Supported JsonWebKey key types (kty) for Elliptic Curve, RSA, HSM, Octet
+        minLength: 1
+        enum:
+        - EC
+        - RSA
+        - RSA-HSM
+        - oct
+      key_size?:
+        type: integer
+        description: The key size in bytes. e.g. 1024 or 2048.
+        format: int32
+      key_ops?:
+        type: array
+        items:
+          type: string
+          description: JSON web key operations. For more information, see JsonWebKeyOperation.
+          enum:
+          - encrypt
+          - decrypt
+          - sign
+          - verify
+          - wrapKey
+          - unwrapKey
+      attributes?:
+        type: KeyAttributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to create key.
+  KeyImportParameters:
+    type: object
+    properties:
+      Hsm?:
+        type: boolean
+        description: Whether to import as a hardware key (HSM) or software key
+      key:
+        type: JsonWebKey
+        description: The Json web key
+      attributes?:
+        type: KeyAttributes
+        description: The key management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to import key.
+  KeyItem:
+    type: object
+    properties:
+      kid?:
+        type: string
+        description: Key Identifier
+      attributes?:
+        type: KeyAttributes
+        description: The key management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      managed?:
+        type: boolean
+        description: True if the key's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+    description: The key item containing key metadata
+  KeyListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: A response message containing a list of keys in the vault along with a link to the next page of keys
+        items:
+          type: KeyItem
+      nextLink?:
+        type: string
+        description: The URL to get the next set of keys.
+    description: The key list result
+  KeyOperationResult:
+    type: object
+    properties:
+      kid?:
+        type: string
+        description: Key identifier
+      value?:
+        type: string
+    description: The key operation result
+  KeyOperationsParameters:
+    type: object
+    properties:
+      alg:
+        type: string
+        description: algorithm identifier
+        minLength: 1
+        enum:
+        - RSA-OAEP
+        - RSA1_5
+      value:
+        type: string
+    description: The parameters for key operations.
+  KeyProperties:
+    type: object
+    properties:
+      exportable?:
+        type: boolean
+        description: Indicates if the private key can be exported.
+      kty?:
+        type: string
+        description: The key type.
+      key_size?:
+        type: integer
+        description: The key size in bytes. e.g. 2048.
+        format: int32
+      reuse_key?:
+        type: boolean
+        description: Indicates if the same key pair will be used on certificate renewal.
+    description: Properties of the key pair backing a certificate.
+  KeyRestoreParameters:
+    type: object
+    properties:
+      value:
+        type: string
+        description: the backup blob associated with a key bundle
+    description: The parameters to restore key
+  KeySignParameters:
+    type: object
+    properties:
+      alg:
+        type: string
+        description: The signing/verification algorithm identifier. For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
+        minLength: 1
+        enum:
+        - RS256
+        - RS384
+        - RS512
+        - RSNULL
+      value:
+        type: string
+    description: The parameters for key operations.
+  KeyUpdateParameters:
+    type: object
+    properties:
+      key_ops?:
+        type: array
+        description: Json web key operations. For more information on possible key operations, see JsonWebKeyOperation.
+        items:
+          type: string
+          enum:
+          - encrypt
+          - decrypt
+          - sign
+          - verify
+          - wrapKey
+          - unwrapKey
+      attributes?:
+        type: KeyAttributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters to update key.
+  KeyVaultError:
+    type: object
+    properties:
+      error?:
+        type: Error
+    description: the key vault error exception
+  KeyVerifyParameters:
+    type: object
+    properties:
+      alg:
+        type: string
+        description: The signing/verification algorithm. For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
+        minLength: 1
+        enum:
+        - RS256
+        - RS384
+        - RS512
+        - RSNULL
+      digest:
+        type: string
+        description: The digest used for signing
+      value:
+        type: string
+        description: The signature to be verified
+    description: The parameters for key operations.
+  KeyVerifyResult:
+    type: object
+    properties:
+      value?:
+        type: boolean
+        description: true if the signature is verified, false otherwise.
+    description: The key verify result
+  LifetimeAction:
+    type: object
+    properties:
+      trigger?:
+        type: Trigger
+        description: The condition that will execute the action.
+      action?:
+        type: Action
+        description: The action that will be executed.
+    description: Action and its trigger that will be performed by Key Vault over the lifetime of a certificate.
+  OrganizationDetails:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Id of the organization.
+      admin_details?:
+        type: array
+        description: Details of the organization administrator.
+        items:
+          type: AdministratorDetails
+    description: Details of the organization of the certificate issuer.
+  PendingCertificateSigningRequestResult:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: The pending certificate signing request as Base64 encoded string.
+    description: The pending certificate signing request result
+  SecretAttributes:
+    type: Attributes
+    description: The secret management attributes
+  SecretBundle:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: 'The secret value '
+      id?:
+        type: string
+        description: The secret id
+      contentType?:
+        type: string
+        description: The content type of the secret
+      attributes?:
+        type: SecretAttributes
+        description: The secret management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      kid?:
+        type: string
+        description: If this is a secret backing a KV certificate, then this field specifies the corresponding key backing the KV certificate.
+      managed?:
+        type: boolean
+        description: True if the secret's lifetime is managed by key vault i.e. if this is a secret backing a certificate, then managed will be true.
+    description: A Secret consisting of a value, id and its attributes.
+  SecretItem:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Secret Identifier
+      attributes?:
+        type: SecretAttributes
+        description: The secret management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      contentType?:
+        type: string
+        description: Type of the secret value such as a password
+      managed?:
+        type: boolean
+        description: True if the secret's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+    description: The secret item containing secret metadata
+  SecretListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: A response message containing a list of secrets in the vault along with a link to the next page of secrets
+        items:
+          type: SecretItem
+      nextLink?:
+        type: string
+        description: The URL to get the next set of secrets.
+    description: The secret list result
+  SecretProperties:
+    type: object
+    properties:
+      contentType?:
+        type: string
+        description: The media type (MIME type).
+    description: Properties of the key backing a certificate.
+  SecretSetParameters:
+    type: object
+    properties:
+      value:
+        type: string
+        description: The value of the secret
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+      contentType?:
+        type: string
+        description: Type of the secret value such as a password
+      attributes?:
+        type: SecretAttributes
+        description: The secret management attributes
+    description: The parameters for secret set
+  SecretUpdateParameters:
+    type: object
+    properties:
+      contentType?:
+        type: string
+        description: Type of the secret value such as a password
+      attributes?:
+        type: SecretAttributes
+        description: The secret management attributes
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Application-specific metadata in the form of key-value pairs
+    description: The parameters for secret update
+  SubjectAlternativeNames:
+    type: object
+    properties:
+      emails?:
+        type: array
+        description: Email addresses.
+        items:
+          type: string
+      dns_names?:
+        type: array
+        description: Domain names.
+        items:
+          type: string
+      upns?:
+        type: array
+        description: User principal names.
+        items:
+          type: string
+    description: The subject alternate names of a X509 object.
+  Trigger:
+    type: object
+    properties:
+      lifetime_percentage?:
+        type: integer
+        description: Percentage of lifetime as which to trigger. Value should be between 1 and 99.
+        format: int32
+        maximum: 99
+        minimum: 1
+      days_before_expiry?:
+        type: integer
+        description: Days before expiry.
+        format: int32
+    description: A condition to be satisfied for an action to be executed.
+  X509CertificateProperties:
+    type: object
+    properties:
+      subject?:
+        type: string
+        description: The subject name. Should be a valid X509 Distinguished Name.
+      ekus?:
+        type: array
+        description: The enhanced key usage.
+        items:
+          type: string
+      sans?:
+        type: SubjectAlternativeNames
+        description: The subject alternative names.
+      key_usage?:
+        type: array
+        description: List of key usages.
+        items:
+          type: string
+          enum:
+          - digitalSignature
+          - nonRepudiation
+          - keyEncipherment
+          - dataEncipherment
+          - keyAgreement
+          - keyCertSign
+          - cRLSign
+          - encipherOnly
+          - decipherOnly
+      validity_months?:
+        type: integer
+        description: The duration that the ceritifcate is valid in months.
+        format: int32
+        minimum: 0
+    description: Properties of the X509 component of a certificate.
+/certificates:
+  /contacts:
+    get:
+      description: Gets the certificate contacts for the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    delete:
+      description: Deletes the certificate contacts for the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    put:
+      description: Sets the certificate contacts for the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: Contacts
+  /issuers:
+    /{issuer-name}:
+      uriParameters:
+        issuer-name:
+          type: string
+          description: The name of the issuer.
+          displayName: issuer-name
+      get:
+        description: Gets the specified certificate issuer.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: Deletes the specified certificate issuer.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates the specified certificate issuer.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateIssuerUpdateParameters
+      put:
+        description: Sets the specified certificate issuer.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateIssuerSetParameters
+    get:
+      description: List certificate issuers for the specified vault.
+      queryParameters:
+        maxresults?:
+          type: integer
+          description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+          displayName: maxresults
+          format: int32
+          minimum: 1
+          maximum: 25
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+  /{certificate-name}:
+    uriParameters:
+      certificate-name:
+        type: string
+        description: The name of the certificate in the given vault
+        displayName: certificate-name
+    /create:
+      post:
+        description: Creates a new certificate version. If this is the first version, the certificate resource is created.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateCreateParameters
+    /import:
+      post:
+        description: Imports a certificate into the specified vault
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateImportParameters
+    /pending:
+      /merge:
+        post:
+          description: Merges a certificate or a certificate chain with a key pair existing on the server.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: CertificateMergeParameters
+      get:
+        description: Gets the certificate operation response.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: Deletes the certificate operation.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates a certificate operation.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateOperationUpdateParameter
+    /policy:
+      get:
+        description: Gets the policy for a certificate.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates the policy for a certificate. Set appropriate members in the certificatePolicy that must be updated. Leave others as null.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificatePolicy
+    /versions:
+      get:
+        description: List the versions of a certificate.
+        queryParameters:
+          maxresults?:
+            type: integer
+            description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+            displayName: maxresults
+            format: int32
+            minimum: 1
+            maximum: 25
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{certificate-version}:
+      uriParameters:
+        certificate-version:
+          type: string
+          description: The version of the certificate
+          displayName: certificate-version
+      get:
+        description: Gets a Certificate.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates the attributes associated with the specified certificate
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CertificateUpdateParameters
+    delete:
+      description: Deletes a certificate from the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+  get:
+    description: List certificates in the specified vault
+    queryParameters:
+      maxresults?:
+        type: integer
+        description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+        displayName: maxresults
+        format: int32
+        minimum: 1
+        maximum: 25
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+/keys:
+  /restore:
+    post:
+      description: Restores the backup key in to a vault
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: KeyRestoreParameters
+  /{key-name}:
+    uriParameters:
+      key-name:
+        type: string
+        description: The name of the key
+        displayName: key-name
+    /backup:
+      post:
+        description: Requests that a backup of the specified key be downloaded to the client.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /create:
+      post:
+        description: Creates a new, named, key in the specified vault.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: KeyCreateParameters
+    /versions:
+      get:
+        description: List the versions of the specified key
+        queryParameters:
+          maxresults?:
+            type: integer
+            description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+            displayName: maxresults
+            format: int32
+            minimum: 1
+            maximum: 25
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{key-version}:
+      uriParameters:
+        key-version:
+          type: string
+          description: The version of the key
+          displayName: key-version
+      /decrypt:
+        post:
+          description: Decrypts a single block of encrypted data
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyOperationsParameters
+      /encrypt:
+        post:
+          description: Encrypts an arbitrary sequence of bytes using an encryption key that is stored in Azure Key Vault.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyOperationsParameters
+      /sign:
+        post:
+          description: Creates a signature from a digest using the specified key in the vault
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeySignParameters
+      /unwrapkey:
+        post:
+          description: Unwraps a symmetric key using the specified key in the vault that has initially been used for wrapping the key.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyOperationsParameters
+      /verify:
+        post:
+          description: Verifies a signature using the specified key
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyVerifyParameters
+      /wrapkey:
+        post:
+          description: Wraps a symmetric key using the specified key
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: KeyOperationsParameters
+      get:
+        description: Retrieves the public portion of a key plus its attributes
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates the Key Attributes associated with the specified key
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: KeyUpdateParameters
+    delete:
+      description: Deletes the specified key
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    put:
+      description: Imports a key into the specified vault
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: KeyImportParameters
+  get:
+    description: List keys in the specified vault
+    queryParameters:
+      maxresults?:
+        type: integer
+        description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+        displayName: maxresults
+        format: int32
+        minimum: 1
+        maximum: 25
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+/secrets:
+  /{secret-name}:
+    uriParameters:
+      secret-name:
+        type: string
+        description: The name of the secret in the given vault
+        displayName: secret-name
+    /versions:
+      get:
+        description: List the versions of the specified secret
+        queryParameters:
+          maxresults?:
+            type: integer
+            description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+            displayName: maxresults
+            format: int32
+            minimum: 1
+            maximum: 25
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{secret-version}:
+      uriParameters:
+        secret-version:
+          type: string
+          description: The version of the secret
+          displayName: secret-version
+      get:
+        description: Gets a secret.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Updates the attributes associated with the specified secret
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: SecretUpdateParameters
+    delete:
+      description: Deletes a secret from the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    put:
+      description: Sets a secret in the specified vault.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: SecretSetParameters
+  get:
+    description: List secrets in the specified vault
+    queryParameters:
+      maxresults?:
+        type: integer
+        description: Maximum number of results to return in a page. If not specified the service will return up to 25 results.
+        displayName: maxresults
+        format: int32
+        minimum: 1
+        maximum: 25
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version

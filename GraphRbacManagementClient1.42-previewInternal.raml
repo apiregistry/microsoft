@@ -1,0 +1,683 @@
+#%RAML 1.0
+title: GraphRbacManagementClient
+version: 1.42-previewInternal
+baseUri: graph.windows.net
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AADObject:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: Gets or sets object Id
+      objectType?:
+        type: string
+        description: Gets or sets object type
+      displayName?:
+        type: string
+        description: Gets or sets object display name
+      userPrincipalName?:
+        type: string
+        description: Gets or sets principal name
+      mail?:
+        type: string
+        description: Gets or sets mail
+      mailEnabled?:
+        type: boolean
+        description: Gets or sets MailEnabled field
+      securityEnabled?:
+        type: boolean
+        description: Gets or sets SecurityEnabled field
+      signInName?:
+        type: string
+        description: Gets or sets signIn name
+      servicePrincipalNames?:
+        type: array
+        description: Gets or sets the list of service principal names.
+        items:
+          type: string
+      userType?:
+        type: string
+        description: Gets or sets the user type
+    description: Active Directory object information
+  ADGroup:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: Gets or sets object Id
+      objectType?:
+        type: string
+        description: Gets or sets object type
+      displayName?:
+        type: string
+        description: Gets or sets group display name
+      securityEnabled?:
+        type: boolean
+        description: Gets or sets security enabled field
+      mail?:
+        type: string
+        description: Gets or sets mail field
+    description: Active Directory group information
+  Application:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: Gets or sets object Id
+      objectType?:
+        type: string
+        description: Gets or sets object type
+      appId?:
+        type: string
+        description: Gets or sets application Id
+      appPermissions?:
+        type: array
+        description: Gets or sets application permissions
+        items:
+          type: string
+      availableToOtherTenants?:
+        type: boolean
+        description: Indicates if the application will be available to other tenants
+      displayName?:
+        type: string
+        description: Gets or sets the displayName
+      identifierUris?:
+        type: array
+        description: Gets or sets the application identifier Uris
+        items:
+          type: string
+      replyUrls?:
+        type: array
+        description: Gets or sets the application reply Urls
+        items:
+          type: string
+    description: Active Directory user information
+  ApplicationCreateParameters:
+    type: object
+    properties:
+      availableToOtherTenants:
+        type: boolean
+        description: Indicates if the application will be available to other tenants
+      displayName:
+        type: string
+        description: Application display name
+      homepage:
+        type: string
+        description: Application homepage
+      identifierUris:
+        type: array
+        description: Application Uris
+        items:
+          type: string
+      replyUrls?:
+        type: array
+        description: Application reply Urls
+        items:
+          type: string
+      keyCredentials?:
+        type: array
+        description: Gets or sets the list of KeyCredential objects
+        items:
+          type: KeyCredential
+      passwordCredentials?:
+        type: array
+        description: Gets or sets the list of PasswordCredential objects
+        items:
+          type: PasswordCredential
+    description: Parameters to create an application.
+  ApplicationFilter:
+    type: object
+    properties:
+      displayNameStartsWith?:
+        type: string
+        description: Application display name starts with
+      appId?:
+        type: string
+        description: ApplicationId
+      identifierUri?:
+        type: string
+        description: Identifier Uri
+    description: Filter parameters for listing applications
+  ApplicationListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Application list.
+        items:
+          type: Application
+    description: Role assignment list operation result.
+  GetObjectsParameters:
+    type: object
+    properties:
+      objectIds?:
+        type: array
+        description: Requested object Ids
+        items:
+          type: string
+      types?:
+        type: array
+        description: Requested object types
+        items:
+          type: string
+      includeDirectoryObjectReferences:
+        type: boolean
+        description: If true, also searches for object ids in the partner tenant
+    description: Objects filtering parameters.
+  GetObjectsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of Active Directory object
+        items:
+          type: AADObject
+      odata.nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Server response for Active Directory objects inquiry API calls
+  GroupAddMemberParameters:
+    type: object
+    properties:
+      url:
+        type: string
+        description: Group display name
+    description: Member Object Url as https://graph.windows.net/contoso.onmicrosoft.com/directoryObjects/f260bbc4-c254-447b-94cf-293b5ec434dd
+  GroupCreateParameters:
+    type: object
+    properties:
+      displayName:
+        type: string
+        description: Group display name
+      mailEnabled:
+        type: boolean
+        description: Mail
+      mailNickname:
+        type: string
+        description: Mail nick name
+      securityEnabled:
+        type: boolean
+        description: Is security enabled
+    description: Parameters to create a group
+  GroupGetMemberGroupsParameters:
+    type: object
+    properties:
+      securityEnabledOnly:
+        type: boolean
+        description: 'If true only membership in security enabled groups should be
+          checked. Otherwise membership in all groups should be checked '
+    description: Group filtering parameters.
+  GroupGetMemberGroupsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Group Ids of which the group is a member
+        items:
+          type: string
+    description: Server response for GetMemberGroups API call
+  GroupListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of groups.
+        items:
+          type: ADGroup
+      odata.nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Server response for Get tenant groups API call
+  KeyCredential:
+    type: object
+    properties:
+      startDate?:
+        type: datetime
+        description: Gets or sets start date
+      endDate?:
+        type: datetime
+        description: Gets or sets end date
+      value?:
+        type: string
+        description: Gets or sets value
+      keyId?:
+        type: string
+        description: Gets or sets key Id
+      usage?:
+        type: string
+        description: Gets or sets usage
+      type?:
+        type: string
+        description: Gets or sets type
+    description: Active Directory service principal Key Credential information
+  PasswordCredential:
+    type: object
+    properties:
+      startDate?:
+        type: datetime
+        description: Gets or sets start date
+      endDate?:
+        type: datetime
+        description: Gets or sets end date
+      keyId?:
+        type: string
+        description: Gets or sets key Id
+      value?:
+        type: string
+        description: Gets or sets value
+    description: Active Directory service principal Password Credential information
+  ServicePrincipal:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: Gets or sets object Id
+      objectType?:
+        type: string
+        description: Gets or sets object type
+      displayName?:
+        type: string
+        description: Gets or sets service principal display name
+      appId?:
+        type: string
+        description: Gets or sets app id
+      servicePrincipalNames?:
+        type: array
+        description: Gets or sets the list of names.
+        items:
+          type: string
+    description: Active Directory service principal information
+  ServicePrincipalCreateParameters:
+    type: object
+    properties:
+      appId:
+        type: string
+        description: Gets or sets application Id
+      accountEnabled:
+        type: boolean
+        description: Specifies if the account is enabled
+    description: Parameters to create a service principal.
+  ServicePrincipalListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of service principals.
+        items:
+          type: ServicePrincipal
+      odata.nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Server response for get tenant service principals API call
+  User:
+    type: object
+    properties:
+      objectId?:
+        type: string
+        description: Gets or sets object Id
+      objectType?:
+        type: string
+        description: Gets or sets object type
+      userPrincipalName?:
+        type: string
+        description: Gets or sets user principal name
+      displayName?:
+        type: string
+        description: Gets or sets user display name
+      signInName?:
+        type: string
+        description: Gets or sets user signIn name
+      mail?:
+        type: string
+        description: Gets or sets user mail
+    description: Active Directory user information
+  UserCreateParameters:
+    type: object
+    properties:
+      userPrincipalName:
+        type: string
+        description: User Principal Name
+      accountEnabled:
+        type: boolean
+        description: Enable the account
+      displayName:
+        type: string
+        description: User display name
+      mailNickname:
+        type: string
+        description: Mail nick name
+      passwordProfile:
+        type: UserCreateParametersPasswordProfile
+        description: Password Profile
+    description: Parameters to create a user.
+  UserCreateParametersPasswordProfile:
+    type: object
+    properties:
+      password:
+        type: string
+        description: Password
+      forceChangePasswordNextLogin?:
+        type: boolean
+        description: Force change password on next login
+  UserGetMemberGroupsParameters:
+    type: object
+    properties:
+      securityEnabledOnly:
+        type: boolean
+        description: 'If true only membership in security enabled groups should be
+          checked. Otherwise membership in all groups should be checked '
+    description: User filtering parameters.
+  UserGetMemberGroupsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Group Ids of which the user is a member
+        items:
+          type: string
+    description: Server response for GetMemberGroups API call
+  UserListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of users.
+        items:
+          type: User
+      odata.nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Server response for Get tenant users API call
+/{tenantID}:
+  uriParameters:
+    tenantID:
+      type: string
+      description: Gets or sets the tenant Id.
+      displayName: tenantID
+  /applications:
+    /{applicationObjectId}:
+      uriParameters:
+        applicationObjectId:
+          type: string
+          description: Application object id
+          displayName: applicationObjectId
+      get:
+        description: Get an application by object Id.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: Delete an application.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      patch:
+        description: Update existing application.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: ApplicationCreateParameters
+          text/json: ApplicationCreateParameters
+    get:
+      description: Lists applications by filter parameters.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filters to apply on the operarion
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: Create a new application.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: ApplicationCreateParameters
+        text/json: ApplicationCreateParameters
+  /getObjectsByObjectIds:
+    post:
+      description: Gets AD group membership by provided AD object Ids
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: GetObjectsParameters
+        text/json: GetObjectsParameters
+  /groups:
+    /{groupObjectId}:
+      uriParameters:
+        groupObjectId:
+          type: string
+          description: Object id
+          displayName: groupObjectId
+      /$links:
+        /members:
+          /{memberObjectId}:
+            uriParameters:
+              memberObjectId:
+                type: string
+                description: Member Object id
+                displayName: memberObjectId
+            delete:
+              description: Remove a memeber from a group
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+          post:
+            description: 'Add a memeber to a group. '
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: GroupAddMemberParameters
+              text/json: GroupAddMemberParameters
+      delete:
+        description: Delete a group in the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: User objectId to get group information.
+          displayName: objectId
+      /getMemberGroups:
+        post:
+          description: Gets a collection that contains the Object IDs of the groups of which the group is a member.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: GroupGetMemberGroupsParameters
+            text/json: GroupGetMemberGroupsParameters
+      /members:
+        get:
+          description: Gets the members of a group.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+      get:
+        description: Gets group information from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets list of groups for the current tenant.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: Create a group in the directory.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: GroupCreateParameters
+        text/json: GroupCreateParameters
+  /me:
+    get:
+      description: Gets the details for current logged in user
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+  /servicePrincipals:
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: Object id to get service principal information.
+          displayName: objectId
+      get:
+        description: Gets service principal information from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+      delete:
+        description: Deletes service principal from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets list of service principals from the current tenant.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: Creates a service principal in the  directory.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: ServicePrincipalCreateParameters
+        text/json: ServicePrincipalCreateParameters
+  /users:
+    /{objectId}:
+      uriParameters:
+        objectId:
+          type: string
+          description: User filtering parameters.
+          displayName: objectId
+      /getMemberGroups:
+        post:
+          description: Gets a collection that contains the Object IDs of the groups of which the user is a member.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: UserGetMemberGroupsParameters
+            text/json: UserGetMemberGroupsParameters
+    /{upnOrObjectId}:
+      uriParameters:
+        upnOrObjectId:
+          type: string
+          description: User object Id or user principal name to get user information.
+          displayName: upnOrObjectId
+      get:
+        description: Gets user information from the directory.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /{user}:
+      uriParameters:
+        user:
+          type: string
+          description: user object id or user principal name
+          displayName: user
+      delete:
+        description: Delete a user.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets list of users for the current tenant.
+      queryParameters:
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    post:
+      description: Create a new user.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: UserCreateParameters
+        text/json: UserCreateParameters

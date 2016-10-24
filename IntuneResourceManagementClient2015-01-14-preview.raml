@@ -1,0 +1,826 @@
+#%RAML 1.0
+title: IntuneResourceManagementClient
+version: 2015-01-14-preview
+baseUri: management.azure.com
+description: Microsoft.Intune Resource provider Api features in the swagger-2.0 specification
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  AndroidMAMPolicy:
+    type: Resource
+    description: Android Policy entity for Intune MAM.
+  AndroidMAMPolicyCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: AndroidMAMPolicy
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  AndroidMAMPolicyProperties:
+    type: MAMPolicyProperties
+    description: Intune MAM iOS Policy Properties.
+  Application:
+    type: Resource
+    description: Application entity for Intune MAM.
+  ApplicationCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: Application
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  ApplicationProperties:
+    type: object
+    properties:
+      friendlyName:
+        type: string
+      platform:
+        type: string
+        enum:
+        - ios
+        - android
+        - windows
+      appId?:
+        type: string
+  Device:
+    type: Resource
+    description: Device entity for Intune.
+  DeviceCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: Device
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  DeviceProperties:
+    type: object
+    properties:
+      userId:
+        type: string
+      friendlyName:
+        type: string
+      platform:
+        type: string
+      platformVersion:
+        type: string
+      deviceType:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+  FlaggedEnrolledApp:
+    type: Resource
+    description: Flagged Enrolled App for the given tenant.
+  FlaggedEnrolledAppCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: FlaggedEnrolledApp
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Flagged Enrolled App collection for the given tenant.
+  FlaggedEnrolledAppError:
+    type: object
+    properties:
+      errorCode?:
+        type: string
+      severity?:
+        type: string
+  FlaggedEnrolledAppProperties:
+    type: object
+    properties:
+      deviceType?:
+        type: string
+      friendlyName?:
+        type: string
+      lastModifiedTime?:
+        type: string
+      platform?:
+        type: string
+      errors?:
+        type: array
+        items:
+          type: FlaggedEnrolledAppError
+  FlaggedUser:
+    type: Resource
+    description: Flagged user for the given tenant.
+  FlaggedUserCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: FlaggedUser
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Flagged user collection for the given tenant.
+  FlaggedUserProperties:
+    type: object
+    properties:
+      errorCount?:
+        type: integer
+      friendlyName?:
+        type: string
+  GroupItem:
+    type: Resource
+    description: Group entity for Intune MAM.
+  GroupProperties:
+    type: object
+    properties:
+      friendlyName:
+        type: string
+  GroupsCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: GroupItem
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  IOSMAMPolicyCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: iOSMAMPolicy
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  Location:
+    type: Resource
+    description: Location entity for given tenant.
+  LocationCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: Location
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  LocationProperties:
+    type: object
+    properties:
+      hostName:
+        type: string
+  MAMPolicyAppIdOrGroupIdPayload:
+    type: object
+    properties:
+      properties?:
+        type: MAMPolicyAppOrGroupIdProperties
+    description: Parameters supplied to the Create or update app to an android policy operation.
+  MAMPolicyAppOrGroupIdProperties:
+    type: object
+    properties:
+      url:
+        type: string
+    description: Android Policy request body for Intune MAM.
+  MAMPolicyProperties:
+    type: object
+    properties:
+      friendlyName:
+        type: string
+      description?:
+        type: string
+      appSharingFromLevel?:
+        type: string
+        enum:
+        - none
+        - policyManagedApps
+        - allApps
+      appSharingToLevel?:
+        type: string
+        enum:
+        - none
+        - policyManagedApps
+        - allApps
+      authentication?:
+        type: string
+        enum:
+        - required
+        - notRequired
+      clipboardSharingLevel?:
+        type: string
+        enum:
+        - blocked
+        - policyManagedApps
+        - policyManagedAppsWithPasteIn
+        - allApps
+      dataBackup?:
+        type: string
+        enum:
+        - allow
+        - block
+      fileSharingSaveAs?:
+        type: string
+        enum:
+        - allow
+        - block
+      pin?:
+        type: string
+        enum:
+        - required
+        - notRequired
+      pinNumRetry?:
+        type: integer
+      deviceCompliance?:
+        type: string
+        enum:
+        - enable
+        - disable
+      managedBrowser?:
+        type: string
+        enum:
+        - required
+        - notRequired
+      accessRecheckOfflineTimeout?:
+        type: string
+      accessRecheckOnlineTimeout?:
+        type: string
+      offlineWipeTimeout?:
+        type: string
+      numOfApps?:
+        type: integer
+      groupStatus?:
+        type: string
+        enum:
+        - notTargeted
+        - targeted
+      lastModifiedTime?:
+        type: datetime
+  OperationResult:
+    type: Resource
+    description: OperationResult entity for Intune.
+  OperationResultCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        items:
+          type: OperationResult
+      nextlink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+  OperationResultProperties:
+    type: object
+    properties:
+      friendlyName:
+        type: string
+      category?:
+        type: string
+      lastModifiedTime?:
+        type: string
+      state?:
+        type: string
+      operationMetadata:
+        type: array
+        items:
+          type: operationMetadataProperties
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource Tags
+      location?:
+        type: string
+        description: Resource Location
+  StatusesDefault:
+    type: Resource
+    description: Default Statuses entity for the given tenant.
+  StatusesProperties:
+    type: object
+    properties:
+      deployedPolicies?:
+        type: integer
+      enrolledUsers?:
+        type: integer
+      flaggedUsers?:
+        type: integer
+      lastModifiedTime?:
+        type: datetime
+      policyAppliedUsers?:
+        type: integer
+      status?:
+        type: string
+      wipeFailedApps?:
+        type: integer
+      wipePendingApps?:
+        type: integer
+      wipeSucceededApps?:
+        type: integer
+  WipeDeviceOperationResult:
+    type: Resource
+    description: Device entity for Intune.
+  WipeDeviceOperationResultProperties:
+    type: object
+    properties:
+      value:
+        type: string
+  iOSMAMPolicy:
+    type: Resource
+    description: iOS Policy entity for Intune MAM.
+  iOSMAMPolicyProperties:
+    type: MAMPolicyProperties
+    description: Intune MAM iOS Policy Properties.
+  operationMetadataProperties:
+    type: object
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+/providers:
+  /Microsoft.Intune:
+    /locations:
+      /hostName:
+        get:
+          description: Returns location for given tenant.
+          queryParameters:
+            api-version:
+              type: string
+              description: Service Api Version.
+              displayName: api-version
+      /{hostName}:
+        uriParameters:
+          hostName:
+            type: string
+            description: Location hostName for the tenant
+            displayName: hostName
+        /AndroidPolicies:
+          /{policyName}:
+            uriParameters:
+              policyName:
+                type: string
+                description: Unique name for the policy
+                displayName: policyName
+            /apps:
+              get:
+                description: Get apps for an AndroidMAMPolicy.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    displayName: $top
+                    format: int32
+                  $select?:
+                    type: string
+                    description: select specific fields in entity.
+                    displayName: $select
+        /androidPolicies:
+          /{policyName}:
+            uriParameters:
+              policyName:
+                type: string
+                description: Unique name for the policy
+                displayName: policyName
+            /apps:
+              /{appName}:
+                uriParameters:
+                  appName:
+                    type: string
+                    description: application unique Name
+                    displayName: appName
+                delete:
+                  description: Delete App for Android Policy
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                put:
+                  description: Add app to an AndroidMAMPolicy.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: MAMPolicyAppIdOrGroupIdPayload
+            /groups:
+              /{groupId}:
+                uriParameters:
+                  groupId:
+                    type: string
+                    description: application unique Name
+                    displayName: groupId
+                delete:
+                  description: Delete Group for Android Policy
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                put:
+                  description: Add group to an AndroidMAMPolicy.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: MAMPolicyAppIdOrGroupIdPayload
+              get:
+                description: Returns groups for a given AndroidMAMPolicy.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+            get:
+              description: Returns AndroidMAMPolicy with given name.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+                $select?:
+                  type: string
+                  description: select specific fields in entity.
+                  displayName: $select
+            delete:
+              description: Delete Android Policy
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+            patch:
+              description: Patch AndroidMAMPolicy.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+              body:
+                application/json: AndroidMAMPolicy
+            put:
+              description: Creates or updates AndroidMAMPolicy.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+              body:
+                application/json: AndroidMAMPolicy
+          get:
+            description: Returns Intune Android policies.
+            queryParameters:
+              api-version:
+                type: string
+                description: Service Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $select?:
+                type: string
+                description: select specific fields in entity.
+                displayName: $select
+        /apps:
+          get:
+            description: Returns Intune Manageable apps.
+            queryParameters:
+              api-version:
+                type: string
+                description: Service Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $select?:
+                type: string
+                description: select specific fields in entity.
+                displayName: $select
+        /flaggedUsers:
+          /{userName}:
+            uriParameters:
+              userName:
+                type: string
+                description: Flagged userName
+                displayName: userName
+            /flaggedEnrolledApps:
+              get:
+                description: Returns Intune flagged enrolled app collection for the User
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    displayName: $top
+                    format: int32
+                  $select?:
+                    type: string
+                    description: select specific fields in entity.
+                    displayName: $select
+            get:
+              description: Returns Intune flagged user details
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+                $select?:
+                  type: string
+                  description: select specific fields in entity.
+                  displayName: $select
+          get:
+            description: Returns Intune flagged user collection
+            queryParameters:
+              api-version:
+                type: string
+                description: Service Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $select?:
+                type: string
+                description: select specific fields in entity.
+                displayName: $select
+        /iosPolicies:
+          /{policyName}:
+            uriParameters:
+              policyName:
+                type: string
+                description: Unique name for the policy
+                displayName: policyName
+            /apps:
+              /{appName}:
+                uriParameters:
+                  appName:
+                    type: string
+                    description: application unique Name
+                    displayName: appName
+                delete:
+                  description: Delete App for Ios Policy
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                put:
+                  description: Add app to an iOSMAMPolicy.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: MAMPolicyAppIdOrGroupIdPayload
+              get:
+                description: Get apps for an iOSMAMPolicy.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    displayName: $top
+                    format: int32
+                  $select?:
+                    type: string
+                    description: select specific fields in entity.
+                    displayName: $select
+            /groups:
+              /{groupId}:
+                uriParameters:
+                  groupId:
+                    type: string
+                    description: application unique Name
+                    displayName: groupId
+                delete:
+                  description: Delete Group for iOS Policy
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                put:
+                  description: Add group to an iOSMAMPolicy.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: MAMPolicyAppIdOrGroupIdPayload
+              get:
+                description: Returns groups for a given iOSMAMPolicy.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+            get:
+              description: Returns Intune iOS policies.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+                $select?:
+                  type: string
+                  description: select specific fields in entity.
+                  displayName: $select
+            delete:
+              description: Delete Ios Policy
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+            patch:
+              description: ' patch an iOSMAMPolicy.'
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+              body:
+                application/json: iOSMAMPolicy
+            put:
+              description: Creates or updates iOSMAMPolicy.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+              body:
+                application/json: iOSMAMPolicy
+          get:
+            description: Returns Intune iOSPolicies.
+            queryParameters:
+              api-version:
+                type: string
+                description: Service Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $select?:
+                type: string
+                description: select specific fields in entity.
+                displayName: $select
+        /operationResults:
+          get:
+            description: Returns operationResults.
+            queryParameters:
+              api-version:
+                type: string
+                description: Service Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $select?:
+                type: string
+                description: select specific fields in entity.
+                displayName: $select
+        /statuses:
+          /default:
+            get:
+              description: Returns Intune Tenant level statuses.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Service Api Version.
+                  displayName: api-version
+        /users:
+          /{userName}:
+            uriParameters:
+              userName:
+                type: string
+                description: user unique Name
+                displayName: userName
+            /devices:
+              /{deviceName}:
+                uriParameters:
+                  deviceName:
+                    type: string
+                    description: device name
+                    displayName: deviceName
+                /wipe:
+                  post:
+                    description: Wipe a device for a user.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Service Api Version.
+                        displayName: api-version
+                get:
+                  description: Get a unique device for a user.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Service Api Version.
+                      displayName: api-version
+                    $select?:
+                      type: string
+                      description: select specific fields in entity.
+                      displayName: $select
+              get:
+                description: Get devices for a user.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Service Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    displayName: $top
+                    format: int32
+                  $select?:
+                    type: string
+                    description: select specific fields in entity.
+                    displayName: $select
+      get:
+        description: Returns location for user tenant.
+        queryParameters:
+          api-version:
+            type: string
+            description: Service Api Version.
+            displayName: api-version

@@ -1,0 +1,2886 @@
+#%RAML 1.0
+title: NetworkManagementClient
+version: '2016-03-30'
+baseUri: management.azure.com
+description: The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resrources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AddressSpace:
+    type: object
+    properties:
+      addressPrefixes?:
+        type: array
+        description: Gets or sets List of address blocks reserved for this virtual network in CIDR notation
+        items:
+          type: string
+    description: AddressSpace contains an array of IP address ranges that can be used by subnets
+  ApplicationGateway:
+    type: Resource
+    description: ApplicationGateways resource
+  ApplicationGatewayBackendAddress:
+    type: object
+    properties:
+      fqdn?:
+        type: string
+        description: Gets or sets the dns name
+      ipAddress?:
+        type: string
+        description: Gets or sets the ip address
+    description: Backend Address of application gateway
+  ApplicationGatewayBackendAddressPool:
+    type: SubResource
+    description: Backend Address Pool of application gateway
+  ApplicationGatewayBackendAddressPoolPropertiesFormat:
+    type: object
+    properties:
+      backendIPConfigurations?:
+        type: array
+        description: Gets collection of references to IPs defined in NICs
+        items:
+          type: NetworkInterfaceIPConfiguration
+      backendAddresses?:
+        type: array
+        description: Gets or sets the backend addresses
+        items:
+          type: ApplicationGatewayBackendAddress
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the backend address pool resource Updating/Deleting/Failed
+    description: Properties of Backend Address Pool of application gateway
+  ApplicationGatewayBackendHttpSettings:
+    type: SubResource
+    description: Backend address pool settings of application gateway
+  ApplicationGatewayBackendHttpSettingsPropertiesFormat:
+    type: object
+    properties:
+      port?:
+        type: integer
+        description: Gets or sets the port
+        format: int32
+      protocol?:
+        type: string
+        description: Gets or sets the protocol
+        enum:
+        - Http
+        - Https
+      cookieBasedAffinity?:
+        type: string
+        description: Gets or sets the cookie affinity
+        enum:
+        - Enabled
+        - Disabled
+      requestTimeout?:
+        type: integer
+        description: Gets or sets request timeout
+        format: int32
+      probe?:
+        type: SubResource
+        description: 'Gets or sets probe resource of application gateway '
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the backend http settings resource Updating/Deleting/Failed
+    description: Properties of Backend address pool settings of application gateway
+  ApplicationGatewayFrontendIPConfiguration:
+    type: SubResource
+    description: Frontend IP configuration of application gateway
+  ApplicationGatewayFrontendIPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      privateIPAddress?:
+        type: string
+        description: Gets or sets the privateIPAddress of the Network Interface IP Configuration
+      privateIPAllocationMethod?:
+        type: string
+        description: Gets or sets PrivateIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      subnet?:
+        type: SubResource
+        description: Gets or sets the reference of the subnet resource
+      publicIPAddress?:
+        type: SubResource
+        description: Gets or sets the reference of the PublicIP resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of Frontend IP configuration of application gateway
+  ApplicationGatewayFrontendPort:
+    type: SubResource
+    description: Frontend Port of application gateway
+  ApplicationGatewayFrontendPortPropertiesFormat:
+    type: object
+    properties:
+      port?:
+        type: integer
+        description: Gets or sets the frontend port
+        format: int32
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the frontend port resource Updating/Deleting/Failed
+    description: Properties of Frontend Port of application gateway
+  ApplicationGatewayHttpListener:
+    type: SubResource
+    description: Http listener of application gateway
+  ApplicationGatewayHttpListenerPropertiesFormat:
+    type: object
+    properties:
+      frontendIPConfiguration?:
+        type: SubResource
+        description: 'Gets or sets frontend IP configuration resource of application
+          gateway '
+      frontendPort?:
+        type: SubResource
+        description: 'Gets or sets frontend port resource of application gateway '
+      protocol?:
+        type: string
+        description: Gets or sets the protocol
+        enum:
+        - Http
+        - Https
+      hostName?:
+        type: string
+        description: 'Gets or sets the host name of http listener '
+      sslCertificate?:
+        type: SubResource
+        description: 'Gets or sets ssl certificate resource of application gateway '
+      requireServerNameIndication?:
+        type: boolean
+        description: 'Gets or sets the requireServerNameIndication of http listener '
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the http listener resource Updating/Deleting/Failed
+    description: Properties of Http listener of application gateway
+  ApplicationGatewayIPConfiguration:
+    type: SubResource
+    description: IP configuration of application gateway
+  ApplicationGatewayIPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      subnet?:
+        type: SubResource
+        description: 'Gets or sets the reference of the subnet resource.A subnet from
+          where appliation gateway gets its private address '
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the application gateway subnet resource Updating/Deleting/Failed
+    description: Properties of IP configuration of application gateway
+  ApplicationGatewayListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets a list of ApplicationGateways in a resource group
+        items:
+          type: ApplicationGateway
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListLoadBalancers Api service call
+  ApplicationGatewayPathRule:
+    type: SubResource
+    description: Path rule of URL path map of application gateway
+  ApplicationGatewayPathRulePropertiesFormat:
+    type: object
+    properties:
+      paths?:
+        type: array
+        description: Gets or sets the path rules of URL path map
+        items:
+          type: string
+      backendAddressPool?:
+        type: SubResource
+        description: 'Gets or sets backend address pool resource of URL path map '
+      backendHttpSettings?:
+        type: SubResource
+        description: 'Gets or sets backend http settings resource of URL path map '
+      provisioningState?:
+        type: string
+        description: Gets or sets path rule of URL path map resource Updating/Deleting/Failed
+    description: Properties of probe of application gateway
+  ApplicationGatewayProbe:
+    type: SubResource
+    description: Probe of application gateway
+  ApplicationGatewayProbePropertiesFormat:
+    type: object
+    properties:
+      protocol?:
+        type: string
+        description: Gets or sets the protocol
+        enum:
+        - Http
+        - Https
+      host?:
+        type: string
+        description: 'Gets or sets the host to send probe to '
+      path?:
+        type: string
+        description: 'Gets or sets the relative path of probe '
+      interval?:
+        type: integer
+        description: 'Gets or sets probing interval in seconds '
+        format: int32
+      timeout?:
+        type: integer
+        description: 'Gets or sets probing timeout in seconds '
+        format: int32
+      unhealthyThreshold?:
+        type: integer
+        description: 'Gets or sets probing unhealthy threshold '
+        format: int32
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the backend http settings resource Updating/Deleting/Failed
+    description: Properties of probe of application gateway
+  ApplicationGatewayPropertiesFormat:
+    type: object
+    properties:
+      sku?:
+        type: ApplicationGatewaySku
+        description: Gets or sets sku of application gateway resource
+      operationalState?:
+        type: string
+        description: Gets operational state of application gateway resource
+        enum:
+        - Stopped
+        - Starting
+        - Running
+        - Stopping
+      gatewayIPConfigurations?:
+        type: array
+        description: Gets or sets subnets of application gateway resource
+        items:
+          type: ApplicationGatewayIPConfiguration
+      sslCertificates?:
+        type: array
+        description: Gets or sets ssl certificates of application gateway resource
+        items:
+          type: ApplicationGatewaySslCertificate
+      frontendIPConfigurations?:
+        type: array
+        description: Gets or sets frontend IP addresses of application gateway resource
+        items:
+          type: ApplicationGatewayFrontendIPConfiguration
+      frontendPorts?:
+        type: array
+        description: Gets or sets frontend ports of application gateway resource
+        items:
+          type: ApplicationGatewayFrontendPort
+      probes?:
+        type: array
+        description: Gets or sets probes of application gateway resource
+        items:
+          type: ApplicationGatewayProbe
+      backendAddressPools?:
+        type: array
+        description: Gets or sets backend address pool of application gateway resource
+        items:
+          type: ApplicationGatewayBackendAddressPool
+      backendHttpSettingsCollection?:
+        type: array
+        description: Gets or sets backend http settings of application gateway resource
+        items:
+          type: ApplicationGatewayBackendHttpSettings
+      httpListeners?:
+        type: array
+        description: Gets or sets HTTP listeners of application gateway resource
+        items:
+          type: ApplicationGatewayHttpListener
+      urlPathMaps?:
+        type: array
+        description: Gets or sets URL path map of application gateway resource
+        items:
+          type: ApplicationGatewayUrlPathMap
+      requestRoutingRules?:
+        type: array
+        description: Gets or sets request routing rules of application gateway resource
+        items:
+          type: ApplicationGatewayRequestRoutingRule
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the ApplicationGateway resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the ApplicationGateway resource Updating/Deleting/Failed
+    description: Properties of Application Gateway
+  ApplicationGatewayRequestRoutingRule:
+    type: SubResource
+    description: Request routing rule of application gateway
+  ApplicationGatewayRequestRoutingRulePropertiesFormat:
+    type: object
+    properties:
+      ruleType?:
+        type: string
+        description: Gets or sets the rule type
+        enum:
+        - Basic
+        - PathBasedRouting
+      backendAddressPool?:
+        type: SubResource
+        description: 'Gets or sets backend address pool resource of application gateway '
+      backendHttpSettings?:
+        type: SubResource
+        description: 'Gets or sets frontend port resource of application gateway '
+      httpListener?:
+        type: SubResource
+        description: 'Gets or sets http listener resource of application gateway '
+      urlPathMap?:
+        type: SubResource
+        description: 'Gets or sets url path map resource of application gateway '
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the request routing rule resource Updating/Deleting/Failed
+    description: Properties of Request routing rule of application gateway
+  ApplicationGatewaySku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets name of application gateway SKU
+        enum:
+        - Standard_Small
+        - Standard_Medium
+        - Standard_Large
+      tier?:
+        type: string
+        description: Gets or sets tier of application gateway
+        enum:
+        - Standard
+      capacity?:
+        type: integer
+        description: Gets or sets capacity (instance count) of application gateway
+        format: int32
+    description: SKU of application gateway
+  ApplicationGatewaySslCertificate:
+    type: SubResource
+    description: SSL certificates of application gateway
+  ApplicationGatewaySslCertificatePropertiesFormat:
+    type: object
+    properties:
+      data?:
+        type: string
+        description: 'Gets or sets the certificate data '
+      password?:
+        type: string
+        description: 'Gets or sets the certificate password '
+      publicCertData?:
+        type: string
+        description: 'Gets or sets the certificate public data '
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the ssl certificate resource Updating/Deleting/Failed
+    description: Properties of SSL certificates of application gateway
+  ApplicationGatewayUrlPathMap:
+    type: SubResource
+    description: UrlPathMap of application gateway
+  ApplicationGatewayUrlPathMapPropertiesFormat:
+    type: object
+    properties:
+      defaultBackendAddressPool?:
+        type: SubResource
+        description: 'Gets or sets default backend address pool resource of URL path
+          map '
+      defaultBackendHttpSettings?:
+        type: SubResource
+        description: 'Gets or sets default backend http settings resource of URL path
+          map '
+      pathRules?:
+        type: array
+        description: Gets or sets path rule of URL path map resource
+        items:
+          type: ApplicationGatewayPathRule
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the backend http settings resource Updating/Deleting/Failed
+    description: Properties of probe of application gateway
+  AuthorizationListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the authorizations in an ExpressRoute Circuit
+        items:
+          type: ExpressRouteCircuitAuthorization
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListAuthorizations Api service callRetrieves all authorizations that belongs to an ExpressRouteCircuit
+  AuthorizationPropertiesFormat:
+    type: object
+    properties:
+      authorizationKey?:
+        type: string
+        description: Gets or sets the authorization key
+      authorizationUseStatus?:
+        type: string
+        description: Gets or sets AuthorizationUseStatus
+        enum:
+        - Available
+        - InUse
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  AzureAsyncOperationResult:
+    type: object
+    properties:
+      status?:
+        type: string
+        description: Status of the AzureAsuncOperation
+        enum:
+        - InProgress
+        - Succeeded
+        - Failed
+      error?:
+        type: Error
+    description: The response body contains the status of the specified asynchronous operation, indicating whether it has succeeded, is inprogress, or has failed. Note that this status is distinct from the HTTP status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body includes the HTTP status code for the failed request and error information regarding the failure.
+  BackendAddressPool:
+    type: SubResource
+    description: Pool of backend IP addresseses
+  BackendAddressPoolPropertiesFormat:
+    type: object
+    properties:
+      backendIPConfigurations?:
+        type: array
+        description: Gets collection of references to IPs defined in NICs
+        items:
+          type: NetworkInterfaceIPConfiguration
+      loadBalancingRules?:
+        type: array
+        description: Gets Load Balancing rules that use this Backend Address Pool
+        items:
+          type: SubResource
+      outboundNatRule?:
+        type: SubResource
+        description: Gets outbound rules that use this Backend Address Pool
+      provisioningState?:
+        type: string
+        description: Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of BackendAddressPool
+  BgpSettings:
+    type: object
+    properties:
+      asn?:
+        type: integer
+        description: Gets or sets this BGP speaker's ASN
+        format: int64
+      bgpPeeringAddress?:
+        type: string
+        description: Gets or sets the BGP peering address and BGP identifier of this BGP speaker
+      peerWeight?:
+        type: integer
+        description: Gets or sets the weight added to routes learned from this BGP speaker
+        format: int32
+  ConnectionResetSharedKey:
+    type: object
+    properties:
+      keyLength?:
+        type: integer
+        description: The virtual network connection reset shared key length
+        format: int64
+    description: Parameters supplied to the Begin Reset Virtual Network Gateway connection shared key operation through Network resource provider.
+  ConnectionSharedKey:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: The virtual network connection shared key value
+    description: Parameters supplied to the Begin Set Virtual Network Gateway conection Shared key operation throughNetwork resource provider.
+  ConnectionSharedKeyResult:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: The virtual network connection shared key value
+    description: Response for CheckConnectionSharedKey Api servive call
+  DhcpOptions:
+    type: object
+    properties:
+      dnsServers?:
+        type: array
+        description: Gets or sets list of DNS servers IP addresses
+        items:
+          type: string
+    description: DHCPOptions contains an array of DNS servers available to VMs deployed in the virtual networkStandard DHCP option for a subnet overrides VNET DHCP options.
+  DnsNameAvailabilityResult:
+    type: object
+    properties:
+      available?:
+        type: boolean
+        description: Domain availability (True/False)
+    description: Response for CheckDnsNameAvailability Api servive call
+  Error:
+    type: object
+    properties:
+      code?:
+        type: string
+      message?:
+        type: string
+      target?:
+        type: string
+      details?:
+        type: array
+        items:
+          type: ErrorDetails
+      innerError?:
+        type: string
+  ErrorDetails:
+    type: object
+    properties:
+      code?:
+        type: string
+      target?:
+        type: string
+      message?:
+        type: string
+  ExpressRouteCircuit:
+    type: Resource
+    description: ExpressRouteCircuit resource
+  ExpressRouteCircuitArpTable:
+    type: object
+    properties:
+      age?:
+        type: integer
+        description: Age.
+        format: int32
+      interface?:
+        type: string
+        description: Interface.
+      ipAddress?:
+        type: string
+        description: Gets ipAddress.
+      macAddress?:
+        type: string
+        description: Gets macAddress.
+    description: The arp table associated with the ExpressRouteCircuit
+  ExpressRouteCircuitAuthorization:
+    type: SubResource
+    description: Authorization in a ExpressRouteCircuit resource
+  ExpressRouteCircuitListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets a list of ExpressRouteCircuits in a resource group
+        items:
+          type: ExpressRouteCircuit
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListExpressRouteCircuit Api service call
+  ExpressRouteCircuitPeering:
+    type: SubResource
+    description: Peering in a ExpressRouteCircuit resource
+  ExpressRouteCircuitPeeringConfig:
+    type: object
+    properties:
+      advertisedPublicPrefixes?:
+        type: array
+        description: Gets or sets the reference of AdvertisedPublicPrefixes
+        items:
+          type: string
+      advertisedPublicPrefixesState?:
+        type: string
+        description: 'Gets or sets AdvertisedPublicPrefixState of the Peering resource '
+        enum:
+        - NotConfigured
+        - Configuring
+        - Configured
+        - ValidationNeeded
+      customerASN?:
+        type: integer
+        description: Gets or Sets CustomerAsn of the peering.
+        format: int32
+      routingRegistryName?:
+        type: string
+        description: Gets or Sets RoutingRegistryName of the config.
+    description: Specfies the peering config
+  ExpressRouteCircuitPeeringListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the peerings in an express route circuit
+        items:
+          type: ExpressRouteCircuitPeering
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListPeering Api service callRetrieves all Peerings that belongs to an ExpressRouteCircuit
+  ExpressRouteCircuitPeeringPropertiesFormat:
+    type: object
+    properties:
+      peeringType?:
+        type: string
+        description: Gets or sets PeeringType
+        enum:
+        - AzurePublicPeering
+        - AzurePrivatePeering
+        - MicrosoftPeering
+      state?:
+        type: string
+        description: Gets or sets state of Peering
+        enum:
+        - Disabled
+        - Enabled
+      azureASN?:
+        type: integer
+        description: Gets or sets the azure ASN
+        format: int32
+      peerASN?:
+        type: integer
+        description: Gets or sets the peer ASN
+        format: int32
+      primaryPeerAddressPrefix?:
+        type: string
+        description: Gets or sets the primary address prefix
+      secondaryPeerAddressPrefix?:
+        type: string
+        description: Gets or sets the secondary address prefix
+      primaryAzurePort?:
+        type: string
+        description: Gets or sets the primary port
+      secondaryAzurePort?:
+        type: string
+        description: Gets or sets the secondary port
+      sharedKey?:
+        type: string
+        description: Gets or sets the shared key
+      vlanId?:
+        type: integer
+        description: Gets or sets the vlan id
+        format: int32
+      microsoftPeeringConfig?:
+        type: ExpressRouteCircuitPeeringConfig
+        description: Gets or sets the mircosoft peering config
+      stats?:
+        type: ExpressRouteCircuitStats
+        description: Gets or peering stats
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  ExpressRouteCircuitPropertiesFormat:
+    type: object
+    properties:
+      allowClassicOperations?:
+        type: boolean
+        description: allow classic operations
+      circuitProvisioningState?:
+        type: string
+        description: 'Gets or sets CircuitProvisioningState state of the resource '
+      serviceProviderProvisioningState?:
+        type: string
+        description: 'Gets or sets ServiceProviderProvisioningState state of the resource '
+        enum:
+        - NotProvisioned
+        - Provisioning
+        - Provisioned
+        - Deprovisioning
+      authorizations?:
+        type: array
+        description: Gets or sets list of authorizations
+        items:
+          type: ExpressRouteCircuitAuthorization
+      peerings?:
+        type: array
+        description: Gets or sets list of peerings
+        items:
+          type: ExpressRouteCircuitPeering
+      serviceKey?:
+        type: string
+        description: Gets or sets ServiceKey
+      serviceProviderNotes?:
+        type: string
+        description: Gets or sets ServiceProviderNotes
+      serviceProviderProperties?:
+        type: ExpressRouteCircuitServiceProviderProperties
+        description: Gets or sets ServiceProviderProperties
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of ExpressRouteCircuit
+  ExpressRouteCircuitRoutesTable:
+    type: object
+    properties:
+      network?:
+        type: string
+        description: network.
+      nextHop?:
+        type: string
+        description: nextHop
+      locPrf?:
+        type: string
+        description: locPrf.
+      weight?:
+        type: integer
+        description: weight.
+        format: int32
+      path?:
+        type: string
+        description: path .
+    description: The routes table associated with the ExpressRouteCircuit
+  ExpressRouteCircuitRoutesTableSummary:
+    type: object
+    properties:
+      neighbor?:
+        type: string
+        description: Neighbor.
+      v?:
+        type: integer
+        description: BGP version number spoken to the neighbor.
+        format: int32
+      as?:
+        type: integer
+        description: Autonomous system number.
+        format: int32
+      upDown?:
+        type: string
+        description: The length of time that the BGP session has been in the Established state, or the current status if not in the Established state.
+      statePfxRcd?:
+        type: string
+        description: Current state of the BGP session, and the number of prefixes that have been received from a neighbor or peer group.
+    description: The routes table associated with the ExpressRouteCircuit
+  ExpressRouteCircuitServiceProviderProperties:
+    type: object
+    properties:
+      serviceProviderName?:
+        type: string
+        description: Gets or sets serviceProviderName.
+      peeringLocation?:
+        type: string
+        description: Gets or sets peering location.
+      bandwidthInMbps?:
+        type: integer
+        description: Gets or sets BandwidthInMbps.
+        format: int32
+    description: Contains ServiceProviderProperties in an ExpressRouteCircuit
+  ExpressRouteCircuitSku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets name of the sku.
+      tier?:
+        type: string
+        description: Gets or sets tier of the sku.
+        enum:
+        - Standard
+        - Premium
+      family?:
+        type: string
+        description: Gets or sets family of the sku.
+        enum:
+        - UnlimitedData
+        - MeteredData
+    description: Contains sku in an ExpressRouteCircuit
+  ExpressRouteCircuitStats:
+    type: object
+    properties:
+      primarybytesIn?:
+        type: integer
+        description: Gets BytesIn of the peering.
+        format: int64
+      primarybytesOut?:
+        type: integer
+        description: Gets BytesOut of the peering.
+        format: int64
+      secondarybytesIn?:
+        type: integer
+        description: Gets BytesIn of the peering.
+        format: int64
+      secondarybytesOut?:
+        type: integer
+        description: Gets BytesOut of the peering.
+        format: int64
+    description: Contains Stats associated with the peering
+  ExpressRouteCircuitsArpTableListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of ArpTable
+        items:
+          type: ExpressRouteCircuitArpTable
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListArpTable associated with the Express Route Circuits Api
+  ExpressRouteCircuitsRoutesTableListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of RoutesTable
+        items:
+          type: ExpressRouteCircuitRoutesTable
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListRoutesTable associated with the Express Route Circuits Api
+  ExpressRouteCircuitsRoutesTableSummaryListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of RoutesTable
+        items:
+          type: ExpressRouteCircuitRoutesTableSummary
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListRoutesTable associated with the Express Route Circuits Api
+  ExpressRouteServiceProvider:
+    type: Resource
+    description: ExpressRouteResourceProvider object
+  ExpressRouteServiceProviderBandwidthsOffered:
+    type: object
+    properties:
+      offerName?:
+        type: string
+        description: Gets the OfferName
+      valueInMbps?:
+        type: integer
+        description: Gets the ValueInMbps.
+        format: int32
+    description: Contains Bandwidths offered in ExpressRouteServiceProviders
+  ExpressRouteServiceProviderListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of ExpressRouteResourceProvider
+        items:
+          type: ExpressRouteServiceProvider
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListExpressRouteServiceProvider Api service call
+  ExpressRouteServiceProviderPropertiesFormat:
+    type: object
+    properties:
+      peeringLocations?:
+        type: array
+        description: Gets or list of peering locations
+        items:
+          type: string
+      bandwidthsOffered?:
+        type: array
+        description: Gets or bandwidths offered
+        items:
+          type: ExpressRouteServiceProviderBandwidthsOffered
+      provisioningState?:
+        type: string
+        description: 'Gets or sets Provisioning state of the resource '
+    description: Properties of ExpressRouteServiceProvider
+  FrontendIPConfiguration:
+    type: SubResource
+    description: Frontend IP address of the load balancer
+  FrontendIPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      inboundNatRules?:
+        type: array
+        description: Read only.Inbound rules URIs that use this frontend IP
+        items:
+          type: SubResource
+      inboundNatPools?:
+        type: array
+        description: Read only.Inbound pools URIs that use this frontend IP
+        items:
+          type: SubResource
+      outboundNatRules?:
+        type: array
+        description: Read only.Outbound rules URIs that use this frontend IP
+        items:
+          type: SubResource
+      loadBalancingRules?:
+        type: array
+        description: Gets Load Balancing rules URIs that use this frontend IP
+        items:
+          type: SubResource
+      privateIPAddress?:
+        type: string
+        description: Gets or sets the privateIPAddress of the IP Configuration
+      privateIPAllocationMethod?:
+        type: string
+        description: Gets or sets PrivateIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      subnet?:
+        type: Subnet
+        description: Gets or sets the reference of the subnet resource
+      publicIPAddress?:
+        type: PublicIPAddress
+        description: Gets or sets the reference of the PublicIP resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of Frontend IP Configuration of the load balancer
+  IPConfiguration:
+    type: SubResource
+    description: IPConfiguration
+  IPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      privateIPAddress?:
+        type: string
+        description: Gets or sets the privateIPAddress of the IP Configuration
+      privateIPAllocationMethod?:
+        type: string
+        description: Gets or sets PrivateIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      subnet?:
+        type: Subnet
+        description: Gets or sets the reference of the subnet resource
+      publicIPAddress?:
+        type: PublicIPAddress
+        description: Gets or sets the reference of the PublicIP resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of IPConfiguration
+  InboundNatPool:
+    type: SubResource
+    description: Inbound NAT pool of the loadbalancer
+  InboundNatPoolPropertiesFormat:
+    type: object
+    properties:
+      frontendIPConfiguration?:
+        type: SubResource
+        description: Gets or sets a reference to frontend IP Addresses
+      protocol:
+        type: string
+        description: Gets or sets the transport potocol for the external endpoint. Possible values are Udp or Tcp
+        enum:
+        - Udp
+        - Tcp
+      frontendPortRangeStart:
+        type: integer
+        description: Gets or sets the starting port range for the NAT pool. You can spcify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
+        format: int32
+      frontendPortRangeEnd:
+        type: integer
+        description: Gets or sets the ending port range for the NAT pool. You can spcify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
+        format: int32
+      backendPort:
+        type: integer
+        description: Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal compotnent on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
+        format: int32
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of Inbound NAT pool
+  InboundNatRule:
+    type: SubResource
+    description: Inbound NAT rule of the loadbalancer
+  InboundNatRulePropertiesFormat:
+    type: object
+    properties:
+      frontendIPConfiguration?:
+        type: SubResource
+        description: Gets or sets a reference to frontend IP Addresses
+      backendIPConfiguration?:
+        type: NetworkInterfaceIPConfiguration
+        description: Gets or sets a reference to a private ip address defined on a NetworkInterface of a VM. Traffic sent to frontendPort of each of the frontendIPConfigurations is forwarded to the backed IP
+      protocol?:
+        type: string
+        description: Gets or sets the transport potocol for the external endpoint. Possible values are Udp or Tcp
+        enum:
+        - Udp
+        - Tcp
+      frontendPort?:
+        type: integer
+        description: Gets or sets the port for the external endpoint. You can spcify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
+        format: int32
+      backendPort?:
+        type: integer
+        description: Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal compotnent on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
+        format: int32
+      idleTimeoutInMinutes?:
+        type: integer
+        description: Gets or sets the timeout for the Tcp idle connection. The value can be set between 4 and 30 minutes. The default value is 4 minutes. This emlement is only used when the protocol is set to Tcp
+        format: int32
+      enableFloatingIP?:
+        type: boolean
+        description: Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn availability Group. This setting is required when using the SQL Always ON availability Groups in SQL server. This setting can't be changed after you create the endpoint
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of Inbound NAT rule
+  LoadBalancer:
+    type: Resource
+    description: LoadBalancer resource
+  LoadBalancerListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets a list of LoadBalancers in a resource group
+        items:
+          type: LoadBalancer
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListLoadBalancers Api service call
+  LoadBalancerPropertiesFormat:
+    type: object
+    properties:
+      frontendIPConfigurations?:
+        type: array
+        description: Gets or sets frontend IP addresses of the load balancer
+        items:
+          type: FrontendIPConfiguration
+      backendAddressPools?:
+        type: array
+        description: Gets or sets Pools of backend IP addresseses
+        items:
+          type: BackendAddressPool
+      loadBalancingRules?:
+        type: array
+        description: Gets or sets loadbalancing rules
+        items:
+          type: LoadBalancingRule
+      probes?:
+        type: array
+        description: Gets or sets list of Load balancer probes
+        items:
+          type: Probe
+      inboundNatRules?:
+        type: array
+        description: Gets or sets list of inbound rules
+        items:
+          type: InboundNatRule
+      inboundNatPools?:
+        type: array
+        description: Gets or sets inbound NAT pools
+        items:
+          type: InboundNatPool
+      outboundNatRules?:
+        type: array
+        description: Gets or sets outbound NAT rules
+        items:
+          type: OutboundNatRule
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the Load balancer resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of Load Balancer
+  LoadBalancingRule:
+    type: SubResource
+    description: Rules of the load balancer
+  LoadBalancingRulePropertiesFormat:
+    type: object
+    properties:
+      frontendIPConfiguration?:
+        type: SubResource
+        description: Gets or sets a reference to frontend IP Addresses
+      backendAddressPool?:
+        type: SubResource
+        description: Gets or sets  a reference to a pool of DIPs. Inbound traffic is randomly load balanced across IPs in the backend IPs
+      probe?:
+        type: SubResource
+        description: Gets or sets the reference of the load balancer probe used by the Load Balancing rule.
+      protocol:
+        type: string
+        description: Gets or sets the transport protocol for the external endpoint. Possible values are Udp or Tcp
+        enum:
+        - Udp
+        - Tcp
+      loadDistribution?:
+        type: string
+        description: Gets or sets the load distribution policy for this rule
+        enum:
+        - Default
+        - SourceIP
+        - SourceIPProtocol
+      frontendPort:
+        type: integer
+        description: Gets or sets the port for the external endpoint. You can specify any port number you choose, but the port numbers specified for each role in the service must be unique. Possible values range between 1 and 65535, inclusive
+        format: int32
+      backendPort?:
+        type: integer
+        description: Gets or sets a port used for internal connections on the endpoint. The localPort attribute maps the eternal port of the endpoint to an internal port on a role. This is useful in scenarios where a role must communicate to an internal compotnent on a port that is different from the one that is exposed externally. If not specified, the value of localPort is the same as the port attribute. Set the value of localPort to '*' to automatically assign an unallocated port that is discoverable using the runtime API
+        format: int32
+      idleTimeoutInMinutes?:
+        type: integer
+        description: Gets or sets the timeout for the Tcp idle connection. The value can be set between 4 and 30 minutes. The default value is 4 minutes. This emlement is only used when the protocol is set to Tcp
+        format: int32
+      enableFloatingIP?:
+        type: boolean
+        description: Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn availability Group. This setting is required when using the SQL Always ON availability Groups in SQL server. This setting can't be changed after you create the endpoint
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of the load balancer
+  LocalNetworkGateway:
+    type: Resource
+    description: A common class for general resource information
+  LocalNetworkGatewayListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of LocalNetworkGateways that exists in a resource group
+        items:
+          type: LocalNetworkGateway
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListLocalNetworkGateways Api service call
+  LocalNetworkGatewayPropertiesFormat:
+    type: object
+    properties:
+      localNetworkAddressSpace?:
+        type: AddressSpace
+        description: Local network site Address space
+      gatewayIpAddress?:
+        type: string
+        description: IP address of local network gateway.
+      bgpSettings?:
+        type: BgpSettings
+        description: Local network gateway's BGP speaker settings
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the LocalNetworkGateway resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the LocalNetworkGateway resource Updating/Deleting/Failed
+    description: LocalNetworkGateway properties
+  NetworkInterface:
+    type: Resource
+    description: A NetworkInterface in a resource group
+  NetworkInterfaceDnsSettings:
+    type: object
+    properties:
+      dnsServers?:
+        type: array
+        description: Gets or sets list of DNS servers IP addresses
+        items:
+          type: string
+      appliedDnsServers?:
+        type: array
+        description: Gets or sets list of Applied DNS servers IP addresses
+        items:
+          type: string
+      internalDnsNameLabel?:
+        type: string
+        description: Gets or sets the Internal DNS name
+      internalFqdn?:
+        type: string
+        description: Gets or sets the internal fqdn.
+      internalDomainNameSuffix?:
+        type: string
+        description: Gets or sets internal domain name suffix of the NIC.
+    description: Dns Settings of a network interface
+  NetworkInterfaceIPConfiguration:
+    type: SubResource
+    description: IPConfiguration in a NetworkInterface
+  NetworkInterfaceIPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      applicationGatewayBackendAddressPools?:
+        type: array
+        description: Gets or sets the reference of ApplicationGatewayBackendAddressPool resource
+        items:
+          type: ApplicationGatewayBackendAddressPool
+      loadBalancerBackendAddressPools?:
+        type: array
+        description: Gets or sets the reference of LoadBalancerBackendAddressPool resource
+        items:
+          type: BackendAddressPool
+      loadBalancerInboundNatRules?:
+        type: array
+        description: Gets or sets list of references of LoadBalancerInboundNatRules
+        items:
+          type: InboundNatRule
+      privateIPAddress?:
+        type: string
+      privateIPAllocationMethod?:
+        type: string
+        description: Gets or sets PrivateIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      privateIPAddressVersion?:
+        type: string
+        description: Gets or sets PrivateIP address version (IPv4/IPv6)
+        enum:
+        - IPv4
+        - IPv6
+      subnet?:
+        type: Subnet
+      primary?:
+        type: boolean
+        description: Gets whether this is a primary customer address on the NIC
+      publicIPAddress?:
+        type: PublicIPAddress
+      provisioningState?:
+        type: string
+    description: Properties of IPConfiguration
+  NetworkInterfaceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets list of NetworkInterfaces in a resource group
+        items:
+          type: NetworkInterface
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListNetworkInterface Api service call
+  NetworkInterfacePropertiesFormat:
+    type: object
+    properties:
+      virtualMachine?:
+        type: SubResource
+        description: Gets or sets the reference of a VirtualMachine
+      networkSecurityGroup?:
+        type: NetworkSecurityGroup
+        description: Gets or sets the reference of the NetworkSecurityGroup resource
+      ipConfigurations?:
+        type: array
+        description: Gets or sets list of IPConfigurations of the NetworkInterface
+        items:
+          type: NetworkInterfaceIPConfiguration
+      dnsSettings?:
+        type: NetworkInterfaceDnsSettings
+        description: Gets or sets DNS Settings in  NetworkInterface
+      macAddress?:
+        type: string
+        description: Gets the MAC Address of the network interface
+      primary?:
+        type: boolean
+        description: Gets whether this is a primary NIC on a virtual machine
+      enableIPForwarding?:
+        type: boolean
+        description: Gets or sets whether IPForwarding is enabled on the NIC
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the network interface resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: 'NetworkInterface properties. '
+  NetworkSecurityGroup:
+    type: Resource
+    description: NetworkSecurityGroup resource
+  NetworkSecurityGroupListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of NetworkSecurityGroups in a resource group
+        items:
+          type: NetworkSecurityGroup
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListNetworkSecurityGroups Api servive call
+  NetworkSecurityGroupPropertiesFormat:
+    type: object
+    properties:
+      securityRules?:
+        type: array
+        description: Gets or sets Security rules of network security group
+        items:
+          type: SecurityRule
+      defaultSecurityRules?:
+        type: array
+        description: Gets or sets Default security rules of network security group
+        items:
+          type: SecurityRule
+      networkInterfaces?:
+        type: array
+        description: Gets collection of references to Network Interfaces
+        items:
+          type: NetworkInterface
+      subnets?:
+        type: array
+        description: Gets collection of references to subnets
+        items:
+          type: Subnet
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the network security group resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Network Security Group resource
+  OutboundNatRule:
+    type: SubResource
+    description: Outbound NAT pool of the loadbalancer
+  OutboundNatRulePropertiesFormat:
+    type: object
+    properties:
+      allocatedOutboundPorts?:
+        type: integer
+        description: Gets or sets the number of outbound ports to be used for SNAT
+        format: int32
+      frontendIPConfigurations?:
+        type: array
+        description: Gets or sets Frontend IP addresses of the load balancer
+        items:
+          type: SubResource
+      backendAddressPool:
+        type: SubResource
+        description: Gets or sets a reference to a pool of DIPs. Outbound traffic is randomly load balanced across IPs in the backend IPs
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Outbound NAT pool of the loadbalancer
+  Probe:
+    type: SubResource
+    description: Load balancer Probe
+  ProbePropertiesFormat:
+    type: object
+    properties:
+      loadBalancingRules?:
+        type: array
+        description: Gets Load balancer rules that use this probe
+        items:
+          type: SubResource
+      protocol:
+        type: string
+        description: Gets or sets the protocol of the end point. Possible values are http pr Tcp. If Tcp is specified, a received ACK is required for the probe to be successful. If http is specified,a 200 OK response from the specifies URI is required for the probe to be successful
+        enum:
+        - Http
+        - Tcp
+      port:
+        type: integer
+        description: Gets or sets Port for communicating the probe. Possible values range from 1 to 65535, inclusive.
+        format: int32
+      intervalInSeconds?:
+        type: integer
+        description: Gets or sets the interval, in seconds, for how frequently to probe the endpoint for health status. Typically, the interval is slightly less than half the allocated timeout period (in seconds) which allows two full probes before taking the instance out of rotation. The default value is 15, the minimum value is 5
+        format: int32
+      numberOfProbes?:
+        type: integer
+        description: 'Gets or sets the number of probes where if no response, will
+          result in stopping further traffic from being delivered to the endpoint.
+          This values allows endponints to be taken out of rotation faster or slower
+          than the typical times used in Azure. '
+        format: int32
+      requestPath?:
+        type: string
+        description: Gets or sets the URI used for requesting health status from the VM. Path is required if a protocol is set to http. Otherwise, it is not allowed. There is no default value
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  PublicIPAddress:
+    type: Resource
+    description: PublicIPAddress resource
+  PublicIPAddressDnsSettings:
+    type: object
+    properties:
+      domainNameLabel?:
+        type: string
+        description: Gets or sets the Domain name label.The concatenation of the domain name label and the regionalized DNS zone make up the fully qualified domain name associated with the public IP address. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system.
+      fqdn?:
+        type: string
+        description: Gets the FQDN, Fully qualified domain name of the A DNS record associated with the public IP. This is the concatenation of the domainNameLabel and the regionalized DNS zone.
+      reverseFqdn?:
+        type: string
+        description: 'Gets or Sests the Reverse FQDN. A user-visible, fully qualified
+          domain name that resolves to this public IP address. If the reverseFqdn
+          is specified, then a PTR DNS record is created pointing from the IP address
+          in the in-addr.arpa domain to the reverse FQDN. '
+    description: Contains FQDN of the DNS record associated with the public IP address
+  PublicIPAddressListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of publicIP addresses that exists in a resource group
+        items:
+          type: PublicIPAddress
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListPublicIpAddresses Api service call
+  PublicIPAddressPropertiesFormat:
+    type: object
+    properties:
+      publicIPAllocationMethod?:
+        type: string
+        description: Gets or sets PublicIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      publicIPAddressVersion?:
+        type: string
+        description: Gets or sets PublicIP address version (IPv4/IPv6)
+        enum:
+        - IPv4
+        - IPv6
+      ipConfiguration?:
+        type: IPConfiguration
+      dnsSettings?:
+        type: PublicIPAddressDnsSettings
+        description: Gets or sets FQDN of the DNS record associated with the public IP address
+      ipAddress?:
+        type: string
+      idleTimeoutInMinutes?:
+        type: integer
+        description: Gets or sets the Idletimeout of the public IP address
+        format: int32
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the PublicIP resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: PublicIpAddress properties
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location?:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  Route:
+    type: SubResource
+    description: Route resource
+  RouteListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of Routes in a resource group
+        items:
+          type: Route
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListRoute Api servive call
+  RoutePropertiesFormat:
+    type: object
+    properties:
+      addressPrefix?:
+        type: string
+        description: Gets or sets the destination CIDR to which the route applies.
+      nextHopType:
+        type: string
+        description: Gets or sets the type of Azure hop the packet should be sent to.
+        enum:
+        - VirtualNetworkGateway
+        - VnetLocal
+        - Internet
+        - VirtualAppliance
+        - None
+      nextHopIpAddress?:
+        type: string
+        description: Gets or sets the IP address packets should be forwarded to. Next hop values are only allowed in routes where the next hop type is VirtualAppliance.
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the resource Updating/Deleting/Failed
+    description: Route resource
+  RouteTable:
+    type: Resource
+    description: RouteTable resource
+  RouteTableListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of RouteTables in a resource group
+        items:
+          type: RouteTable
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListRouteTable Api servive call
+  RouteTablePropertiesFormat:
+    type: object
+    properties:
+      routes?:
+        type: array
+        description: Gets or sets Routes in a Route Table
+        items:
+          type: Route
+      subnets?:
+        type: array
+        description: Gets collection of references to subnets
+        items:
+          type: Subnet
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the resource Updating/Deleting/Failed
+    description: Route Table resource
+  SecurityRule:
+    type: SubResource
+    description: Network security rule
+  SecurityRuleListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets security rules in a network security group
+        items:
+          type: SecurityRule
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListSecurityRule Api service callRetrieves all security rules that belongs to a network security group
+  SecurityRulePropertiesFormat:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: Gets or sets a description for this rule. Restricted to 140 chars.
+      protocol:
+        type: string
+        description: Gets or sets Network protocol this rule applies to. Can be Tcp, Udp or All(*).
+        enum:
+        - Tcp
+        - Udp
+        - '*'
+      sourcePortRange?:
+        type: string
+        description: Gets or sets Source Port or Range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports.
+      destinationPortRange?:
+        type: string
+        description: Gets or sets Destination Port or Range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports.
+      sourceAddressPrefix:
+        type: string
+        description: 'Gets or sets source address prefix. CIDR or source IP range.
+          Asterix ''*'' can also be used to match all source IPs. Default tags such
+          as ''VirtualNetwork'', ''AzureLoadBalancer'' and ''Internet'' can also be
+          used. If this is an ingress rule, specifies where network traffic originates
+          from. '
+      destinationAddressPrefix:
+        type: string
+        description: 'Gets or sets destination address prefix. CIDR or source IP range.
+          Asterix ''*'' can also be used to match all source IPs. Default tags such
+          as ''VirtualNetwork'', ''AzureLoadBalancer'' and ''Internet'' can also be
+          used. '
+      access:
+        type: string
+        description: Gets or sets network traffic is allowed or denied. Possible values are 'Allow' and 'Deny'
+        enum:
+        - Allow
+        - Deny
+      priority?:
+        type: integer
+        description: Gets or sets the priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the collection. The lower the priority number, the higher the priority of the rule.
+        format: int32
+      direction:
+        type: string
+        description: Gets or sets the direction of the rule.InBound or Outbound. The direction specifies if rule will be evaluated on incoming or outcoming traffic.
+        enum:
+        - Inbound
+        - Outbound
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+  Subnet:
+    type: SubResource
+    description: Subnet in a VirtualNework resource
+  SubnetListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the subnets in a virtual network
+        items:
+          type: Subnet
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListSubnets Api service callRetrieves all subnet that belongs to a virtual network
+  SubnetPropertiesFormat:
+    type: object
+    properties:
+      addressPrefix?:
+        type: string
+        description: Gets or sets Address prefix for the subnet.
+      networkSecurityGroup?:
+        type: NetworkSecurityGroup
+        description: Gets or sets the reference of the NetworkSecurityGroup resource
+      routeTable?:
+        type: RouteTable
+        description: Gets or sets the reference of the RouteTable resource
+      ipConfigurations?:
+        type: array
+        description: Gets array of references to the network interface IP configurations using subnet
+        items:
+          type: IPConfiguration
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  Usage:
+    type: object
+    properties:
+      unit:
+        type: string
+        description: Gets or sets an enum describing the unit of measurement.
+        enum:
+        - Count
+      currentValue:
+        type: integer
+        description: Gets or sets the current value of the usage.
+        format: int64
+      limit:
+        type: integer
+        description: Gets or sets the limit of usage.
+        format: int64
+      name:
+        type: UsageName
+        description: Gets or sets the name of the type of usage.
+    description: Describes Network Resource Usage.
+  UsageName:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Gets or sets a string describing the resource name.
+      localizedValue?:
+        type: string
+        description: Gets or sets a localized string describing the resource name.
+    description: The Usage Names.
+  UsagesListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list Network Resource Usages.
+        items:
+          type: Usage
+    description: The List Usages operation response.
+  VirtualNetwork:
+    type: Resource
+    description: Virtual Network resource
+  VirtualNetworkGateway:
+    type: Resource
+    description: A common class for general resource information
+  VirtualNetworkGatewayConnection:
+    type: Resource
+    description: A common class for general resource information
+  VirtualNetworkGatewayConnectionListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of VirtualNetworkGatewayConnections that exists in a resource group
+        items:
+          type: VirtualNetworkGatewayConnection
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListVirtualNetworkGatewayConnections Api service call
+  VirtualNetworkGatewayConnectionPropertiesFormat:
+    type: object
+    properties:
+      authorizationKey?:
+        type: string
+        description: The authorizationKey.
+      virtualNetworkGateway1?:
+        type: VirtualNetworkGateway
+      virtualNetworkGateway2?:
+        type: VirtualNetworkGateway
+      localNetworkGateway2?:
+        type: LocalNetworkGateway
+      connectionType?:
+        type: string
+        description: Gateway connection type -Ipsec/Dedicated/VpnClient/Vnet2Vnet
+        enum:
+        - IPsec
+        - Vnet2Vnet
+        - ExpressRoute
+        - VPNClient
+      routingWeight?:
+        type: integer
+        description: The Routing weight.
+        format: int32
+      sharedKey?:
+        type: string
+        description: The Ipsec share key.
+      connectionStatus?:
+        type: string
+        description: Virtual network Gateway connection status
+        enum:
+        - Unknown
+        - Connecting
+        - Connected
+        - NotConnected
+      egressBytesTransferred?:
+        type: integer
+        description: The Egress Bytes Transferred in this connection
+        format: int64
+      ingressBytesTransferred?:
+        type: integer
+        description: The Ingress Bytes Transferred in this connection
+        format: int64
+      peer?:
+        type: SubResource
+        description: The reference to peerings resource.
+      enableBgp?:
+        type: boolean
+        description: EnableBgp Flag
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the VirtualNetworkGatewayConnection resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the VirtualNetworkGatewayConnection resource Updating/Deleting/Failed
+    description: VirtualNeworkGatewayConnection properties
+  VirtualNetworkGatewayIPConfiguration:
+    type: SubResource
+    description: IpConfiguration for Virtual network gateway
+  VirtualNetworkGatewayIPConfigurationPropertiesFormat:
+    type: object
+    properties:
+      privateIPAddress?:
+        type: string
+        description: Gets or sets the privateIPAddress of the IP Configuration
+      privateIPAllocationMethod?:
+        type: string
+        description: Gets or sets PrivateIP allocation method (Static/Dynamic)
+        enum:
+        - Static
+        - Dynamic
+      subnet?:
+        type: SubResource
+        description: Gets or sets the reference of the subnet resource
+      publicIPAddress?:
+        type: SubResource
+        description: Gets or sets the reference of the PublicIP resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+    description: Properties of VirtualNetworkGatewayIPConfiguration
+  VirtualNetworkGatewayListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets List of VirtualNetworkGateways that exists in a resource group
+        items:
+          type: VirtualNetworkGateway
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListVirtualNetworkGateways Api service call
+  VirtualNetworkGatewayPropertiesFormat:
+    type: object
+    properties:
+      ipConfigurations?:
+        type: array
+        description: IpConfigurations for Virtual network gateway.
+        items:
+          type: VirtualNetworkGatewayIPConfiguration
+      gatewayType?:
+        type: string
+        description: The type of this virtual network gateway.
+        enum:
+        - Vpn
+        - ExpressRoute
+      vpnType?:
+        type: string
+        description: The type of this virtual network gateway.
+        enum:
+        - PolicyBased
+        - RouteBased
+      enableBgp?:
+        type: boolean
+        description: EnableBgp Flag
+      gatewayDefaultSite?:
+        type: SubResource
+        description: Gets or sets the reference of the LocalNetworkGateway resource which represents Local network site having default routes. Assign Null value in case of removing existing default site setting.
+      sku?:
+        type: VirtualNetworkGatewaySku
+        description: Gets or sets the reference of the VirtualNetworkGatewaySku resource which represents the sku selected for Virtual network gateway.
+      vpnClientConfiguration?:
+        type: VpnClientConfiguration
+        description: Gets or sets the reference of the VpnClientConfiguration resource which represents the P2S VpnClient configurations.
+      bgpSettings?:
+        type: BgpSettings
+        description: Virtual network gateway's BGP speaker settings
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the VirtualNetworkGateway resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the VirtualNetworkGateway resource Updating/Deleting/Failed
+    description: VirtualNeworkGateay properties
+  VirtualNetworkGatewaySku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gateway sku name -Basic/HighPerformance/Standard
+        enum:
+        - Basic
+        - HighPerformance
+        - Standard
+      tier?:
+        type: string
+        description: Gateway sku tier -Basic/HighPerformance/Standard
+        enum:
+        - Basic
+        - HighPerformance
+        - Standard
+      capacity?:
+        type: integer
+        description: The capacity
+        format: int32
+    description: VirtualNetworkGatewaySku details
+  VirtualNetworkListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets list of VirtualNetworks in a resource group
+        items:
+          type: VirtualNetwork
+      nextLink?:
+        type: string
+        description: Gets the URL to get the next set of results.
+    description: Response for ListVirtualNetworks Api servive call
+  VirtualNetworkPropertiesFormat:
+    type: object
+    properties:
+      addressSpace?:
+        type: AddressSpace
+        description: Gets or sets AddressSpace that contains an array of IP address ranges that can be used by subnets
+      dhcpOptions?:
+        type: DhcpOptions
+        description: Gets or sets DHCPOptions that contains an array of DNS servers available to VMs deployed in the virtual network
+      subnets?:
+        type: array
+        description: Gets or sets List of subnets in a VirtualNetwork
+        items:
+          type: Subnet
+      resourceGuid?:
+        type: string
+        description: Gets or sets resource guid property of the VirtualNetwork resource
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the PublicIP resource Updating/Deleting/Failed
+  VpnClientConfiguration:
+    type: object
+    properties:
+      vpnClientAddressPool?:
+        type: AddressSpace
+        description: Gets or sets the reference of the Address space resource which represents Address space for P2S VpnClient.
+      vpnClientRootCertificates?:
+        type: array
+        description: VpnClientRootCertificate for Virtual network gateway.
+        items:
+          type: VpnClientRootCertificate
+      vpnClientRevokedCertificates?:
+        type: array
+        description: VpnClientRevokedCertificate for Virtual network gateway.
+        items:
+          type: VpnClientRevokedCertificate
+    description: VpnClientConfiguration for P2S client
+  VpnClientParameters:
+    type: object
+    properties:
+      ProcessorArchitecture?:
+        type: string
+        description: VPN client Processor Architecture -Amd64/X86
+        enum:
+        - Amd64
+        - X86
+    description: Parameters supplied to the Begin Generating  Virtual Network Gateway Vpn client package operation through Network resource provider.
+  VpnClientRevokedCertificate:
+    type: SubResource
+    description: VPN client revoked certificate of virtual network gateway
+  VpnClientRevokedCertificatePropertiesFormat:
+    type: object
+    properties:
+      thumbprint?:
+        type: string
+        description: Gets or sets the revoked Vpn client certificate thumbprint
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the VPN client revoked certificate resource Updating/Deleting/Failed
+    description: Properties of the revoked VPN client certificate of virtual network gateway
+  VpnClientRootCertificate:
+    type: SubResource
+    description: VPN client root certificate of virtual network gateway
+  VpnClientRootCertificatePropertiesFormat:
+    type: object
+    properties:
+      publicCertData?:
+        type: string
+        description: Gets or sets the certificate public data
+      provisioningState?:
+        type: string
+        description: Gets or sets Provisioning state of the VPN client root certificate resource Updating/Deleting/Failed
+    description: Properties of SSL certificates of application gateway
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Network:
+        /applicationGateways:
+          get:
+            description: The List applicationgateway opertion retrieves all the applicationgateways in a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /expressRouteCircuits:
+          get:
+            description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /expressRouteServiceProviders:
+          get:
+            description: The List ExpressRouteServiceProvider opertion retrieves all the available ExpressRouteServiceProviders.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /loadBalancers:
+          get:
+            description: The List loadBalancer opertion retrieves all the loadbalancers in a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /locations:
+          /{location}:
+            uriParameters:
+              location:
+                type: string
+                description: The location of the domain name
+                displayName: location
+            /CheckDnsNameAvailability:
+              get:
+                description: Checks whether a domain name in the cloudapp.net zone is available for use.
+                queryParameters:
+                  domainNameLabel?:
+                    type: string
+                    description: 'The domain name to be verified. It must conform
+                      to the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$.'
+                    displayName: domainNameLabel
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /usages:
+              get:
+                description: Lists compute usages for a subscription.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+        /networkInterfaces:
+          get:
+            description: The List networkInterfaces opertion retrieves all the networkInterfaces in a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /networkSecurityGroups:
+          get:
+            description: The list NetworkSecurityGroups returns all network security groups in a subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /publicIPAddresses:
+          get:
+            description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /routeTables:
+          get:
+            description: The list RouteTables returns all route tables in a subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /virtualNetworks:
+          get:
+            description: The list VirtualNetwork returns all Virtual Networks in a subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Network:
+            /applicationGateways:
+              /{applicationGatewayName}:
+                uriParameters:
+                  applicationGatewayName:
+                    type: string
+                    description: The name of the applicationgateway.
+                    displayName: applicationGatewayName
+                /start:
+                  post:
+                    description: The Start ApplicationGateway operation starts application gatewayin the specified resource group through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /stop:
+                  post:
+                    description: The STOP ApplicationGateway operation stops application gatewayin the specified resource group through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The Get applicationgateway operation retreives information about the specified applicationgateway.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The delete applicationgateway operation deletes the specified applicationgateway.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put ApplicationGateway operation creates/updates a ApplicationGateway
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: ApplicationGateway
+                    text/json: ApplicationGateway
+              get:
+                description: The List ApplicationGateway opertion retrieves all the applicationgateways in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /connections:
+              /{connectionSharedKeyName}:
+                uriParameters:
+                  connectionSharedKeyName:
+                    type: string
+                    description: The virtual network gateway connection shared key name.
+                    displayName: connectionSharedKeyName
+                /sharedkey:
+                  get:
+                    description: The Get VirtualNetworkGatewayConnectionSharedKey operation retrieves information about the specified virtual network gateway connection shared key through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+              /{virtualNetworkGatewayConnectionName}:
+                uriParameters:
+                  virtualNetworkGatewayConnectionName:
+                    type: string
+                    description: The name of the virtual network gateway connection.
+                    displayName: virtualNetworkGatewayConnectionName
+                /sharedkey:
+                  /reset:
+                    post:
+                      description: The VirtualNetworkGatewayConnectionResetSharedKey operation resets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: ConnectionResetSharedKey
+                        text/json: ConnectionResetSharedKey
+                  put:
+                    description: The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: ConnectionSharedKey
+                      text/json: ConnectionSharedKey
+                get:
+                  description: The Get VirtualNetworkGatewayConnection operation retrieves information about the specified virtual network gateway connection through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The Delete VirtualNetworkGatewayConnection operation deletes the specifed virtual network Gateway connection through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put VirtualNetworkGatewayConnection operation creates/updates a virtual network gateway connection in the specified resource group through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VirtualNetworkGatewayConnection
+                    text/json: VirtualNetworkGatewayConnection
+              get:
+                description: The List VirtualNetworkGatewayConnections operation retrieves all the virtual network gateways connections created.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /expressRouteCircuits:
+              /{circuitName}:
+                uriParameters:
+                  circuitName:
+                    type: string
+                    description: The name of the circuit.
+                    displayName: circuitName
+                /authorizations:
+                  /{authorizationName}:
+                    uriParameters:
+                      authorizationName:
+                        type: string
+                        description: The name of the authorization.
+                        displayName: authorizationName
+                    get:
+                      description: The GET authorization operation retrieves the specified authorization from the specified ExpressRouteCircuit.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The delete authorization operation deletes the specified authorization from the specified ExpressRouteCircuit.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The Put Authorization operation creates/updates an authorization in thespecified ExpressRouteCircuits
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: ExpressRouteCircuitAuthorization
+                        text/json: ExpressRouteCircuitAuthorization
+                  get:
+                    description: The List authorization operation retrieves all the authorizations in an ExpressRouteCircuit.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /peerings:
+                  /{peeringName}:
+                    uriParameters:
+                      peeringName:
+                        type: string
+                        description: The name of the peering.
+                        displayName: peeringName
+                    /arpTables:
+                      /{devicePath}:
+                        uriParameters:
+                          devicePath:
+                            type: string
+                            description: The path of the device.
+                            displayName: devicePath
+                        post:
+                          description: The ListArpTable from ExpressRouteCircuit opertion retrieves the currently advertised arp table associated with the ExpressRouteCircuits in a resource group.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                    /routeTables:
+                      /{devicePath}:
+                        uriParameters:
+                          devicePath:
+                            type: string
+                            description: The path of the device.
+                            displayName: devicePath
+                        post:
+                          description: The ListRoutesTable from ExpressRouteCircuit opertion retrieves the currently advertised routes table associated with the ExpressRouteCircuits in a resource group.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                    /routeTablesSummary:
+                      /{devicePath}:
+                        uriParameters:
+                          devicePath:
+                            type: string
+                            description: The path of the device.
+                            displayName: devicePath
+                        post:
+                          description: The ListRoutesTable from ExpressRouteCircuit opertion retrieves the currently advertised routes table associated with the ExpressRouteCircuits in a resource group.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                    /stats:
+                      get:
+                        description: The Liststats ExpressRouteCircuit opertion retrieves all the stats from a ExpressRouteCircuits in a resource group.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: The GET peering operation retrieves the specified authorization from the ExpressRouteCircuit.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The delete peering operation deletes the specified peering from the ExpressRouteCircuit.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The Put Pering operation creates/updates an peering in the specified ExpressRouteCircuits
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: ExpressRouteCircuitPeering
+                        text/json: ExpressRouteCircuitPeering
+                  get:
+                    description: The List peering operation retrieves all the peerings in an ExpressRouteCircuit.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /stats:
+                  get:
+                    description: The Liststats ExpressRouteCircuit opertion retrieves all the stats from a ExpressRouteCircuits in a resource group.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: ExpressRouteCircuit
+                    text/json: ExpressRouteCircuit
+              get:
+                description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /loadBalancers:
+              /{loadBalancerName}:
+                uriParameters:
+                  loadBalancerName:
+                    type: string
+                    description: The name of the loadBalancer.
+                    displayName: loadBalancerName
+                get:
+                  description: The Get ntework interface operation retreives information about the specified network interface.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The delete loadbalancer operation deletes the specified loadbalancer.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put LoadBalancer operation creates/updates a LoadBalancer
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: LoadBalancer
+                    text/json: LoadBalancer
+              get:
+                description: The List loadBalancer opertion retrieves all the loadbalancers in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /localNetworkGateways:
+              /{localNetworkGatewayName}:
+                uriParameters:
+                  localNetworkGatewayName:
+                    type: string
+                    description: The name of the local network gateway.
+                    displayName: localNetworkGatewayName
+                get:
+                  description: The Get LocalNetworkGateway operation retrieves information about the specified local network gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The Delete LocalNetworkGateway operation deletes the specifed local network Gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put LocalNetworkGateway operation creates/updates a local network gateway in the specified resource group through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: LocalNetworkGateway
+                    text/json: LocalNetworkGateway
+              get:
+                description: The List LocalNetworkGateways opertion retrieves all the local network gateways stored.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /networkInterfaces:
+              /{networkInterfaceName}:
+                uriParameters:
+                  networkInterfaceName:
+                    type: string
+                    description: The name of the network interface.
+                    displayName: networkInterfaceName
+                get:
+                  description: The Get ntework interface operation retreives information about the specified network interface.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The delete netwokInterface operation deletes the specified netwokInterface.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put NetworkInterface operation creates/updates a networkInterface
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NetworkInterface
+                    text/json: NetworkInterface
+              get:
+                description: The List networkInterfaces opertion retrieves all the networkInterfaces in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /networkSecurityGroups:
+              /{networkSecurityGroupName}:
+                uriParameters:
+                  networkSecurityGroupName:
+                    type: string
+                    description: The name of the network security group.
+                    displayName: networkSecurityGroupName
+                /securityRules:
+                  /{securityRuleName}:
+                    uriParameters:
+                      securityRuleName:
+                        type: string
+                        description: The name of the security rule.
+                        displayName: securityRuleName
+                    get:
+                      description: The Get NetworkSecurityRule operation retreives information about the specified network security rule.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The delete network security rule operation deletes the specified network security rule.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The Put network security rule operation creates/updates a security rule in the specified network security group
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: SecurityRule
+                        text/json: SecurityRule
+                  get:
+                    description: The List network security rule opertion retrieves all the security rules in a network security group.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The Get NetworkSecurityGroups operation retrieves information about the specified network security group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The Delete NetworkSecurityGroup operation deletes the specifed network security group
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put NetworkSecurityGroup operation creates/updates a network security groupin the specified resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NetworkSecurityGroup
+                    text/json: NetworkSecurityGroup
+              get:
+                description: The list NetworkSecurityGroups returns all network security groups in a resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /publicIPAddresses:
+              /{publicIpAddressName}:
+                uriParameters:
+                  publicIpAddressName:
+                    type: string
+                    description: The name of the subnet.
+                    displayName: publicIpAddressName
+                get:
+                  description: The Get publicIpAddress operation retreives information about the specified pubicIpAddress
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The delete publicIpAddress operation deletes the specified publicIpAddress.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put PublicIPAddress operation creates/updates a stable/dynamic PublicIP address
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: PublicIPAddress
+                    text/json: PublicIPAddress
+              get:
+                description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /routeTables:
+              /{routeTableName}:
+                uriParameters:
+                  routeTableName:
+                    type: string
+                    description: The name of the route table.
+                    displayName: routeTableName
+                /routes:
+                  /{routeName}:
+                    uriParameters:
+                      routeName:
+                        type: string
+                        description: The name of the route.
+                        displayName: routeName
+                    get:
+                      description: The Get route operation retreives information about the specified route from the route table.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The delete route operation deletes the specified route from a route table.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The Put route operation creates/updates a route in the specified route table
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: Route
+                        text/json: Route
+                  get:
+                    description: The List network security rule opertion retrieves all the routes in a route table.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The Get RouteTables operation retrieves information about the specified route table.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The Delete RouteTable operation deletes the specifed Route Table
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put RouteTable operation creates/updates a route tablein the specified resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: RouteTable
+                    text/json: RouteTable
+              get:
+                description: The list RouteTables returns all route tables in a resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /virtualNetworkGateways:
+              /{virtualNetworkGatewayName}:
+                uriParameters:
+                  virtualNetworkGatewayName:
+                    type: string
+                    description: The name of the virtual network gateway.
+                    displayName: virtualNetworkGatewayName
+                /generatevpnclientpackage:
+                  post:
+                    description: The Generatevpnclientpackage operation generates Vpn client package for P2S client of the virtual network gateway in the specified resource group through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VpnClientParameters
+                      text/json: VpnClientParameters
+                /reset:
+                  post:
+                    description: The Reset VirtualNetworkGateway operation resets the primary of the virtual network gateway in the specified resource group through Network resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualNetworkGateway
+                      text/json: VirtualNetworkGateway
+                get:
+                  description: The Get VirtualNetworkGateway operation retrieves information about the specified virtual network gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The Delete VirtualNetworkGateway operation deletes the specifed virtual network Gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put VirtualNetworkGateway operation creates/updates a virtual network gateway in the specified resource group through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VirtualNetworkGateway
+                    text/json: VirtualNetworkGateway
+              get:
+                description: The List VirtualNetworkGateways opertion retrieves all the virtual network gateways stored.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /virtualNetworks:
+              /{virtualNetworkName}:
+                uriParameters:
+                  virtualNetworkName:
+                    type: string
+                    description: The name of the virtual network.
+                    displayName: virtualNetworkName
+                /subnets:
+                  /{subnetName}:
+                    uriParameters:
+                      subnetName:
+                        type: string
+                        description: The name of the subnet.
+                        displayName: subnetName
+                    get:
+                      description: The Get subnet operation retreives information about the specified subnet.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                        $expand?:
+                          type: string
+                          description: expand references resources.
+                          displayName: $expand
+                    delete:
+                      description: The delete subnet operation deletes the specified subnet.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The Put Subnet operation creates/updates a subnet in thespecified virtual network
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: Subnet
+                        text/json: Subnet
+                  get:
+                    description: The List subnets opertion retrieves all the subnets in a virtual network.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The Get VirtualNetwork operation retrieves information about the specified virtual network.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: expand references resources.
+                      displayName: $expand
+                delete:
+                  description: The Delete VirtualNetwork operation deletes the specifed virtual network
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The Put VirtualNetwork operation creates/updates a virtual network in the specified resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VirtualNetwork
+                    text/json: VirtualNetwork
+              get:
+                description: The list VirtualNetwork returns all Virtual Networks in a resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+          /microsoft.Compute:
+            /virtualMachineScaleSets:
+              /{virtualMachineScaleSetName}:
+                uriParameters:
+                  virtualMachineScaleSetName:
+                    type: string
+                    description: The name of the virtual machine scale set.
+                    displayName: virtualMachineScaleSetName
+                /networkInterfaces:
+                  get:
+                    description: The list network interface operation retrieves information about all network interfaces in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /virtualMachines:
+                  /{virtualmachineIndex}:
+                    uriParameters:
+                      virtualmachineIndex:
+                        type: string
+                        description: The virtual machine index.
+                        displayName: virtualmachineIndex
+                    /networkInterfaces:
+                      /{networkInterfaceName}:
+                        uriParameters:
+                          networkInterfaceName:
+                            type: string
+                            description: The name of the network interface.
+                            displayName: networkInterfaceName
+                        get:
+                          description: The Get ntework interface operation retreives information about the specified network interface in a virtual machine scale set.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                            $expand?:
+                              type: string
+                              description: expand references resources.
+                              displayName: $expand
+                      get:
+                        description: The list network interface operation retrieves information about all network interfaces in a virtual machine from a virtual machine scale set.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version

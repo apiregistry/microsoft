@@ -1,0 +1,572 @@
+#%RAML 1.0
+title: EventHubManagementClient
+version: '2015-08-01'
+baseUri: management.azure.com
+description: Azure EventHub client
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ConsumerGroupCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: Location of the resource.
+      type?:
+        type: string
+        description: ARM type of the namespace.
+      name?:
+        type: string
+        description: Name of the consumer group.
+      properties?:
+        type: ConsumerGroupProperties
+    description: Parameters supplied to create a Consumer Group Resource.
+  ConsumerGroupListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Consumer Group operation.
+        items:
+          type: ConsumerGroupResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Consumer Group
+    description: The response of the List Consumer Group operation.
+  ConsumerGroupProperties:
+    type: object
+    properties:
+      createdAt?:
+        type: datetime
+        description: Exact time the message was created.
+      eventHubPath?:
+        type: string
+        description: The path of the event hub.
+      updatedAt?:
+        type: datetime
+        description: The exact time the message has been updated.
+      userMetadata?:
+        type: string
+        description: The user metadata.
+  ConsumerGroupResource:
+    type: Resource
+    description: Description of Consumer Group Resource.
+  EventHubCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: Location of the resource.
+      type?:
+        type: string
+        description: ARM type of the namespace.
+      name?:
+        type: string
+        description: Name of the Event Hub.
+      properties?:
+        type: EventHubProperties
+    description: Parameters supplied to create a EventHub Resource.
+  EventHubListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List EventHub operation.
+        items:
+          type: EventHubResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of EventHub
+    description: The response of the List EventHub operation.
+  EventHubProperties:
+    type: object
+    properties:
+      createdAt?:
+        type: datetime
+        description: Exact time the Event was created.
+      messageRetentionInDays?:
+        type: integer
+        description: Number of days to retain the events for this Event Hub.
+        format: int64
+      partitionCount?:
+        type: integer
+        description: Number of partitions created for EventHub.
+        format: int64
+      partitionIds?:
+        type: array
+        description: Current number of shards on the Event Hub.
+        items:
+          type: string
+      status?:
+        type: string
+        description: Enumerates the possible values for the status of the EventHub.
+        enum:
+        - Active
+        - Disabled
+        - Restoring
+        - SendDisabled
+        - ReceiveDisabled
+        - Creating
+        - Deleting
+        - Renaming
+        - Unknown
+      updatedAt?:
+        type: datetime
+        description: The exact time the message has been updated.
+  EventHubResource:
+    type: Resource
+    description: Description of EventHub Resource.
+  NamespaceCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: Namespace location.
+      sku?:
+        type: Sku
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Namespace tags.
+      properties?:
+        type: NamespaceProperties
+    description: Parameters supplied to create a Namespace Resource.
+  NamespaceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Namespace operation.
+        items:
+          type: NamespaceResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Namespaces
+    description: The response of the List Namespace operation.
+  NamespaceProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Provisioning state of the Namespace.
+      status?:
+        type: string
+        description: State of the namespace.
+        enum:
+        - Unknown
+        - Creating
+        - Created
+        - Activating
+        - Enabling
+        - Active
+        - Disabling
+        - Disabled
+        - SoftDeleting
+        - SoftDeleted
+        - Removing
+        - Removed
+        - Failed
+      createdAt?:
+        type: datetime
+        description: The time the namespace was created.
+      updatedAt?:
+        type: datetime
+        description: The time the namespace was updated.
+      serviceBusEndpoint?:
+        type: string
+        description: Endpoint you can use to perform ServiceBus operations.
+      createACSNamespace?:
+        type: boolean
+        description: Indicates whether to create ACS namespace.
+      enabled?:
+        type: boolean
+        description: Specifies whether this instance is enabled.
+    description: Properties of the Namespace.
+  NamespaceResource:
+    type: Resource
+    description: Description of a Namespace resource.
+  RegenerateKeysParameters:
+    type: object
+    properties:
+      Policykey?:
+        type: string
+        description: Key that needs to be regenerated .
+        enum:
+        - PrimaryKey
+        - SecondaryKey
+    description: Parameters supplied to regenerate Auth Rule.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ResourceListKeys:
+    type: object
+    properties:
+      primaryConnectionString?:
+        type: string
+        description: PrimaryConnectionString of the created Namespace AuthorizationRule.
+      secondaryConnectionString?:
+        type: string
+        description: SecondaryConnectionString of the created Namespace AuthorizationRule
+      primaryKey?:
+        type: string
+        description: A base64-encoded 256-bit primary key for signing and validating the SAS token
+      secondaryKey?:
+        type: string
+        description: A base64-encoded 256-bit primary key for signing and validating the SAS token
+      keyName?:
+        type: string
+        description: A string that describes the authorization rule
+    description: Namespace/EventHub Connection String
+  SharedAccessAuthorizationRuleCreateOrUpdateParameters:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: data center location.
+      name?:
+        type: string
+        description: Name of the AuthorizationRule.
+      properties?:
+        type: SharedAccessAuthorizationRuleProperties
+    description: The shared access authorization rule.
+  SharedAccessAuthorizationRuleListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List AuthorizationRules operation.
+        items:
+          type: SharedAccessAuthorizationRuleResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of AuthorizationRules
+    description: The response of the List Namespace operation.
+  SharedAccessAuthorizationRuleProperties:
+    type: object
+    properties:
+      rights:
+        type: array
+        description: The rights associated with the rule.
+        items:
+          type: string
+          enum:
+          - Manage
+          - Send
+          - Listen
+    description: SharedAccessAuthorizationRule properties.
+  SharedAccessAuthorizationRuleResource:
+    type: Resource
+    description: Description of a Namespace AuthorizationRules.
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of this Sku
+        enum:
+        - Basic
+        - Standard
+        - Premium
+      tier:
+        type: string
+        description: The tier of this particular SKU
+        enum:
+        - Basic
+        - Standard
+        - Premium
+      capacity?:
+        type: integer
+        description: The eventhub throughput units
+        format: int32
+    description: Sku of the Namespace.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.EventHub:
+        /namespaces:
+          get:
+            description: Lists all the available namespaces within the subscription irrespective of the resourceGroups.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.EventHub:
+            /namespaces:
+              /{namespaceName}:
+                uriParameters:
+                  namespaceName:
+                    type: string
+                    description: The namespace name.
+                    displayName: namespaceName
+                /AuthorizationRules:
+                  /{authorizationRuleName}:
+                    uriParameters:
+                      authorizationRuleName:
+                        type: string
+                        description: Authorization rule name.
+                        displayName: authorizationRuleName
+                    /listKeys:
+                      post:
+                        description: 'Primary and Secondary ConnectionStrings to the
+                          namespace '
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /regenerateKeys:
+                      post:
+                        description: 'Regenerats the Primary or Secondary ConnectionStrings
+                          to the namespace '
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                        body:
+                          application/json: RegenerateKeysParameters
+                          text/json: RegenerateKeysParameters
+                    get:
+                      description: Authorization rule for a namespace by name.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a namespace authorization rule
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates an authorization rule for a namespace
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                        text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                  get:
+                    description: Authorization rules for a namespace.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /eventhubs:
+                  /{eventHubName}:
+                    uriParameters:
+                      eventHubName:
+                        type: string
+                        description: The EventHub name.
+                        displayName: eventHubName
+                    /authorizationRules:
+                      /{authorizationRuleName}:
+                        uriParameters:
+                          authorizationRuleName:
+                            type: string
+                            description: Authorization rule name.
+                            displayName: authorizationRuleName
+                        /ListKeys:
+                          post:
+                            description: Returns the ACS and SAS connection strings for the Event Hub.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                        /regenerateKeys:
+                          post:
+                            description: Regenerates the ACS and SAS connection strings for the Event Hub.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                            body:
+                              application/json: RegenerateKeysParameters
+                              text/json: RegenerateKeysParameters
+                        get:
+                          description: Authorization rule for a EventHub by name.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes a EventHub authorization rule
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        put:
+                          description: Creates an authorization rule for the specified Event Hub.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                          body:
+                            application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                            text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      get:
+                        description: Authorization rules for a EventHub.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /consumergroups:
+                      /{consumerGroupName}:
+                        uriParameters:
+                          consumerGroupName:
+                            type: string
+                            description: The Consumer Group name.
+                            displayName: consumerGroupName
+                        get:
+                          description: Returns an Consumer Group description for the specified Consumer Group.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes an ConsumerGroup from the specified EventHub and resource group.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        put:
+                          description: Creates/Updates a consumer group as a nested resource within a namespace.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                          body:
+                            application/json: ConsumerGroupCreateOrUpdateParameters
+                            text/json: ConsumerGroupCreateOrUpdateParameters
+                      get:
+                        description: Enumerates the consumer groups in a namespace. An empty feed is returned if no consumer group exists in the namespace.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: Returns an Event Hub description for the specified Event Hub.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes an Event hub from the specified namespace and resource group.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates/Updates a new Event Hub as a nested resource within a namespace.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: EventHubCreateOrUpdateParameters
+                        text/json: EventHubCreateOrUpdateParameters
+                  get:
+                    description: Enumerates the Event Hubs in a namespace.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Returns the description for the specified namespace.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes an existing namespace. This operation also removes all associated resources under the namespace.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Creates Updates namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NamespaceCreateOrUpdateParameters
+                    text/json: NamespaceCreateOrUpdateParameters
+              get:
+                description: Lists the available namespaces within a resourceGroup.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

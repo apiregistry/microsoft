@@ -1,0 +1,876 @@
+#%RAML 1.0
+title: ServiceBusManagementClient
+version: '2015-08-01'
+baseUri: management.azure.com
+description: Azure Service Bus client
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  EntityAvailabilityStatus:
+    type: string
+    description: Entity availability status.
+    enum:
+    - Available
+    - Limited
+    - Renaming
+    - Restoring
+    - Unknown
+  EntityStatus:
+    type: string
+    description: Entity status.
+    enum:
+    - Active
+    - Creating
+    - Deleting
+    - Disabled
+    - ReceiveDisabled
+    - Renaming
+    - Restoring
+    - SendDisabled
+    - Unknown
+  MessageCountDetails:
+    type: object
+    properties:
+      activeMessageCount?:
+        type: integer
+        description: Number of active messages in the queue, topic, or subscription.
+        format: int64
+      deadLetterMessageCount?:
+        type: integer
+        description: Number of messages that are dead letters.
+        format: int64
+      scheduledMessageCount?:
+        type: integer
+        description: Number scheduled messages.
+        format: int64
+      transferDeadLetterMessageCount?:
+        type: integer
+        description: Number of messages transferred into dead letters.
+        format: int64
+      transferMessageCount?:
+        type: integer
+        description: Number of messages transferred to another queue, topic, or subscription.
+        format: int64
+    description: Message Count Details.
+  NamespaceCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: Namespace location.
+      sku?:
+        type: Sku
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Namespace tags.
+      properties?:
+        type: NamespaceProperties
+    description: Parameters supplied to create a Namespace Resource.
+  NamespaceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Namespace operation.
+        items:
+          type: NamespaceResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Namespaces
+    description: The response of the List Namespace operation.
+  NamespaceProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Provisioning state of the Namespace.
+      status?:
+        type: string
+        description: State of the namespace.
+        enum:
+        - Unknown
+        - Creating
+        - Created
+        - Activating
+        - Enabling
+        - Active
+        - Disabling
+        - Disabled
+        - SoftDeleting
+        - SoftDeleted
+        - Removing
+        - Removed
+        - Failed
+      createdAt?:
+        type: datetime
+        description: The time the namespace was created.
+      updatedAt?:
+        type: datetime
+        description: The time the namespace was updated.
+      serviceBusEndpoint?:
+        type: string
+        description: Endpoint you can use to perform ServiceBus operations.
+      createACSNamespace?:
+        type: boolean
+        description: Indicates whether to create ACS namespace.
+      enabled?:
+        type: boolean
+        description: Specifies whether this instance is enabled.
+    description: Properties of the Namespace.
+  NamespaceResource:
+    type: Resource
+    description: Description of a Namespace resource.
+  QueueCreateOrUpdateParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Queue name.
+      location:
+        type: string
+        description: location of the resource.
+      properties?:
+        type: QueueProperties
+    description: Parameters supplied to create a Queue Resource.
+  QueueListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Queues operation.
+        items:
+          type: QueueResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Queues
+    description: The response of the List Queues operation.
+  QueueProperties:
+    type: object
+    properties:
+      lockDuration ?:
+        type: string
+        description: the duration of a peek lock; that is, the amount of time that the message is locked for other receivers. The maximum value for LockDuration is 5 minutes; the default value is 1 minute.
+      accessedAt?:
+        type: datetime
+        description: Last time a message was sent, or the last time there was a receive request to this queue.
+      autoDeleteOnIdle?:
+        type: string
+        description: the TimeSpan idle interval after which the queue is automatically deleted. The minimum duration is 5 minutes.
+      entityAvailabilityStatus ?:
+        type: EntityAvailabilityStatus
+        description: Entity availability status for the queue.
+      createdAt?:
+        type: datetime
+        description: the exact time the message was created.
+      defaultMessageTimeToLive?:
+        type: string
+        description: the default message time to live value. This is the duration after which the message expires, starting from when the message is sent to Service Bus. This is the default value used when TimeToLive is not set on a message itself.
+      duplicateDetectionHistoryTimeWindow ?:
+        type: string
+        description: TimeSpan structure that defines the duration of the duplicate detection history. The default value is 10 minutes..
+      enableBatchedOperations?:
+        type: boolean
+        description: value that indicates whether server-side batched operations are enabled..
+      deadLetteringOnMessageExpiration?:
+        type: boolean
+        description: a value that indicates whether this queue has dead letter support when a message expires.
+      enableExpress?:
+        type: boolean
+        description: a value that indicates whether Express Entities are enabled. An express queue holds a message in memory temporarily before writing it to persistent storage.
+      enablePartitioning?:
+        type: boolean
+        description: value that indicates whether the queue to be partitioned across multiple message brokers is enabled.
+      isAnonymousAccessible?:
+        type: boolean
+        description: a value that indicates whether the message is anonymous accessible.
+      maxDeliveryCount ?:
+        type: integer
+        description: the maximum delivery count. A message is automatically deadlettered after this number of deliveries.
+        format: int32
+      maxSizeInMegabytes?:
+        type: integer
+        description: the maximum size of the queue in megabytes, which is the size of memory allocated for the queue.
+        format: int64
+      messageCount ?:
+        type: integer
+        description: the number of messages in the queue.
+        format: int64
+      countDetails?:
+        type: MessageCountDetails
+      requiresDuplicateDetection?:
+        type: boolean
+        description: the value indicating if this queue requires duplicate detection.
+      requiresSession?:
+        type: boolean
+        description: a value that indicates whether the queue supports the concept of session.
+      sizeInBytes ?:
+        type: integer
+        description: the size of the queue in bytes.
+        format: int64
+      status?:
+        type: EntityStatus
+        description: Enumerates the possible values for the status of a messaging entity.
+      supportOrdering?:
+        type: boolean
+        description: a value that indicates whether the queue supports ordering.
+      updatedAt?:
+        type: datetime
+        description: the exact time the message has been updated.
+  QueueResource:
+    type: Resource
+    description: Description of queue Resource.
+  RegenerateKeysParameters:
+    type: object
+    properties:
+      Policykey?:
+        type: string
+        description: Key that needs to be regenerated .
+        enum:
+        - PrimaryKey
+        - SecondaryKey
+    description: Parameters supplied to regenerate Auth Rule.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ResourceListKeys:
+    type: object
+    properties:
+      primaryConnectionString?:
+        type: string
+        description: PrimaryConnectionString of the created Namespace AuthorizationRule.
+      secondaryConnectionString?:
+        type: string
+        description: SecondaryConnectionString of the created Namespace AuthorizationRule
+      primaryKey?:
+        type: string
+        description: A base64-encoded 256-bit primary key for signing and validating the SAS token
+      secondaryKey?:
+        type: string
+        description: A base64-encoded 256-bit primary key for signing and validating the SAS token
+      keyName?:
+        type: string
+        description: A string that describes the authorization rule
+    description: Namespace/ServiceBus Connection String
+  SharedAccessAuthorizationRuleCreateOrUpdateParameters:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: data center location.
+      name?:
+        type: string
+        description: Name of the AuthorizationRule.
+      properties?:
+        type: SharedAccessAuthorizationRuleProperties
+    description: The shared access authorization rule.
+  SharedAccessAuthorizationRuleListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List AuthorizationRules operation.
+        items:
+          type: SharedAccessAuthorizationRuleResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of AuthorizationRules
+    description: The response of the List Namespace operation.
+  SharedAccessAuthorizationRuleProperties:
+    type: object
+    properties:
+      rights:
+        type: array
+        description: The rights associated with the rule.
+        items:
+          type: string
+          enum:
+          - Manage
+          - Send
+          - Listen
+    description: SharedAccessAuthorizationRule properties.
+  SharedAccessAuthorizationRuleResource:
+    type: Resource
+    description: Description of a Namespace AuthorizationRules.
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of this Sku
+        enum:
+        - Basic
+        - Standard
+        - Premium
+      tier:
+        type: string
+        description: The tier of this particular SKU
+        enum:
+        - Basic
+        - Standard
+        - Premium
+      capacity?:
+        type: integer
+        description: The messaging units for the tier specified
+        format: int32
+    description: Sku of the Namespace.
+  SubscriptionCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: Subscription data center location.
+      type?:
+        type: string
+        description: Resource Manager type of the resource.
+      properties?:
+        type: SubscriptionProperties
+    description: Parameters supplied to create a subscription Resource.
+  SubscriptionListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Subscriptions operation.
+        items:
+          type: SubscriptionResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Subscriptions
+    description: The response of the List Subscriptions operation.
+  SubscriptionProperties:
+    type: object
+    properties:
+      accessedAt?:
+        type: datetime
+        description: Last time a there was a receive request to this subscription.
+      autoDeleteOnIdle?:
+        type: string
+        description: TimeSpan idle interval after which the topic is automatically deleted. The minimum duration is 5 minutes.
+      countDetails?:
+        type: MessageCountDetails
+      createdAt?:
+        type: datetime
+        description: Exact time the message was created.
+      defaultMessageTimeToLive?:
+        type: string
+        description: Default message time to live value. This is the duration after which the message expires, starting from when the message is sent to Service Bus. This is the default value used when TimeToLive is not set on a message itself.
+      deadLetteringOnFilterEvaluationExceptions?:
+        type: boolean
+        description: Value that indicates if a subscription has dead letter support on Filter evaluation exceptions.
+      deadLetteringOnMessageExpiration?:
+        type: boolean
+        description: Value that indicates if a subscription has dead letter support when a message expires.
+      enableBatchedOperations?:
+        type: boolean
+        description: Value that indicates whether server-side batched operations are enabled..
+      entityAvailabilityStatus?:
+        type: EntityAvailabilityStatus
+        description: Entity availability status for the topic.
+      isReadOnly?:
+        type: boolean
+        description: Value that indicates whether the entity description is read-only.
+      lockDuration?:
+        type: string
+        description: The lock duration time span for the subscription.
+      maxDeliveryCount?:
+        type: integer
+        description: Number of maximum deliveries.
+        format: int32
+      messageCount?:
+        type: integer
+        description: Number of messages.
+        format: int64
+      requiresSession?:
+        type: boolean
+        description: Value indicating if a subscription supports the concept of session.
+      status?:
+        type: EntityStatus
+        description: Enumerates the possible values for the status of a messaging entity.
+      updatedAt?:
+        type: datetime
+        description: The exact time the message has been updated.
+    description: Description of Subscription Resource.
+  SubscriptionResource:
+    type: Resource
+    description: Description of Subscription Resource.
+  TopicCreateOrUpdateParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Topic name.
+      location:
+        type: string
+        description: Location of the resource.
+      properties?:
+        type: TopicProperties
+    description: Parameters supplied to create a Topic Resource.
+  TopicListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Result of the List Topics operation.
+        items:
+          type: TopicResource
+      nextLink?:
+        type: string
+        description: Link to the next set of results. Not empty if Value contains incomplete list of Topics
+    description: The response of the List Topics operation.
+  TopicProperties:
+    type: object
+    properties:
+      accessedAt?:
+        type: datetime
+        description: Last time the message was sent or a request was received for this topic.
+      autoDeleteOnIdle?:
+        type: string
+        description: TimeSpan idle interval after which the topic is automatically deleted. The minimum duration is 5 minutes.
+      entityAvailabilityStatus ?:
+        type: EntityAvailabilityStatus
+        description: Entity availability status for the topic.
+      createdAt?:
+        type: datetime
+        description: Exact time the message was created.
+      countDetails?:
+        type: MessageCountDetails
+      defaultMessageTimeToLive?:
+        type: string
+        description: Default message time to live value. This is the duration after which the message expires, starting from when the message is sent to Service Bus. This is the default value used when TimeToLive is not set on a message itself.
+      duplicateDetectionHistoryTimeWindow ?:
+        type: string
+        description: TimeSpan structure that defines the duration of the duplicate detection history. The default value is 10 minutes..
+      enableBatchedOperations?:
+        type: boolean
+        description: Value that indicates whether server-side batched operations are enabled..
+      enableExpress?:
+        type: boolean
+        description: Value that indicates whether Express Entities are enabled. An express topic holds a message in memory temporarily before writing it to persistent storage.
+      enablePartitioning?:
+        type: boolean
+        description: Value that indicates whether the topic to be partitioned across multiple message brokers is enabled.
+      enableSubscriptionPartitioning?:
+        type: boolean
+        description: Value that indicates whether partitioning is enabled or disabled..
+      filteringMessagesBeforePublishing?:
+        type: boolean
+        description: Whether messages should be filtered before publishing.
+      isAnonymousAccessible?:
+        type: boolean
+        description: Value that indicates whether the message is anonymous accessible.
+      isExpress?:
+        type: boolean
+      maxSizeInMegabytes?:
+        type: integer
+        description: Maximum size of the topic in megabytes, which is the size of memory allocated for the topic.
+        format: int64
+      requiresDuplicateDetection?:
+        type: boolean
+        description: Value indicating if this topic requires duplicate detection.
+      sizeInBytes?:
+        type: integer
+        description: Size of the topic in bytes.
+        format: int64
+      status?:
+        type: EntityStatus
+        description: Enumerates the possible values for the status of a messaging entity.
+      subscriptionCount?:
+        type: integer
+        description: Number of subscriptions.
+        format: int32
+      supportOrdering?:
+        type: boolean
+        description: Value that indicates whether the topic supports ordering.
+      updatedAt?:
+        type: datetime
+        description: The exact time the message has been updated.
+  TopicResource:
+    type: Resource
+    description: Description of topic Resource.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.ServiceBus:
+        /namespaces:
+          get:
+            description: Lists all the available namespaces within the subscription irrespective of the resourceGroups.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.ServiceBus:
+            /namespaces:
+              /{namespaceName}:
+                uriParameters:
+                  namespaceName:
+                    type: string
+                    description: The namespace name.
+                    displayName: namespaceName
+                /AuthorizationRules:
+                  /{authorizationRuleName}:
+                    uriParameters:
+                      authorizationRuleName:
+                        type: string
+                        description: Authorization rule name.
+                        displayName: authorizationRuleName
+                    /listKeys:
+                      post:
+                        description: 'Primary and Secondary ConnectionStrings to the
+                          namespace '
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /regenerateKeys:
+                      post:
+                        description: 'Regenerats the Primary or Secondary ConnectionStrings
+                          to the namespace '
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                        body:
+                          application/json: RegenerateKeysParameters
+                          text/json: RegenerateKeysParameters
+                    get:
+                      description: Authorization rule for a namespace by name.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a namespace authorization rule
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates an authorization rule for a namespace
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                        text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                  get:
+                    description: Authorization rules for a namespace.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /queues:
+                  /{queueName}:
+                    uriParameters:
+                      queueName:
+                        type: string
+                        description: The queue name.
+                        displayName: queueName
+                    /authorizationRules:
+                      /{authorizationRuleName}:
+                        uriParameters:
+                          authorizationRuleName:
+                            type: string
+                            description: Authorization rule name.
+                            displayName: authorizationRuleName
+                        /ListKeys:
+                          post:
+                            description: Primary and Secondary ConnectionStrings to the queue.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                        /regenerateKeys:
+                          post:
+                            description: Regenerates the Primary or Secondary ConnectionStrings to the Queue
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                            body:
+                              application/json: RegenerateKeysParameters
+                              text/json: RegenerateKeysParameters
+                        get:
+                          description: Queue authorizationRule for a queue by name.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes a queue authorization rule
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        put:
+                          description: Creates an authorization rule for a queue
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                          body:
+                            application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                            text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      get:
+                        description: Returns all Queue authorizationRules.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: Returns the description for the specified queue.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a queue from the specified namespace in resource group.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates/Updates a service Queue. This operation is idempotent.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: QueueCreateOrUpdateParameters
+                        text/json: QueueCreateOrUpdateParameters
+                  get:
+                    description: Lists the queues within the namespace.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /topics:
+                  /{topicName}:
+                    uriParameters:
+                      topicName:
+                        type: string
+                        description: The topic name.
+                        displayName: topicName
+                    /authorizationRules:
+                      /{authorizationRuleName}:
+                        uriParameters:
+                          authorizationRuleName:
+                            type: string
+                            description: Authorization rule name.
+                            displayName: authorizationRuleName
+                        /ListKeys:
+                          post:
+                            description: Primary and Secondary ConnectionStrings to the topic
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                        /regenerateKeys:
+                          post:
+                            description: Regenerates Primary or Secondary ConnectionStrings to the topic
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                            body:
+                              application/json: RegenerateKeysParameters
+                              text/json: RegenerateKeysParameters
+                        get:
+                          description: Returns the specified authorizationRule.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes a topic authorizationRule
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        put:
+                          description: Creates an authorizatioRule for the specified topic.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                          body:
+                            application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                            text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      get:
+                        description: Authorization rules for a topic.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /subscriptions:
+                      /{subscriptionName}:
+                        uriParameters:
+                          subscriptionName:
+                            type: string
+                            description: The subscription name.
+                            displayName: subscriptionName
+                        get:
+                          description: Returns a subscription description for the specified topic.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes a subscription from the specified topic.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                        put:
+                          description: Creates a topic subscription
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+                          body:
+                            application/json: SubscriptionCreateOrUpdateParameters
+                            text/json: SubscriptionCreateOrUpdateParameters
+                      get:
+                        description: Lsit all the subscriptions under a specified topic
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: Returns the description for the specified topic
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a topic from the specified namespace and resource group.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates a topic in the specified namespace
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: TopicCreateOrUpdateParameters
+                        text/json: TopicCreateOrUpdateParameters
+                  get:
+                    description: Lists all the topics in a namespace.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Returns the description for the specified namespace.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes an existing namespace. This operation also removes all associated resources under the namespace.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Creates/Updates a service namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NamespaceCreateOrUpdateParameters
+                    text/json: NamespaceCreateOrUpdateParameters
+              get:
+                description: Lists the available namespaces within a resourceGroup.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

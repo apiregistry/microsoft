@@ -1,0 +1,153 @@
+#%RAML 1.0
+title: SubscriptionClient
+version: '2015-11-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  Location:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the resource (/subscriptions/SubscriptionId).
+      subscriptionId?:
+        type: string
+        description: Gets or sets the subscription Id.
+      name?:
+        type: string
+        description: Gets or sets the location name
+      displayName?:
+        type: string
+        description: Gets or sets the display name of the location
+      latitude?:
+        type: string
+        description: Gets or sets the latitude of the location
+      longitude?:
+        type: string
+        description: Gets or sets the longitude of the location
+    description: Location information.
+  LocationListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the locations.
+        items:
+          type: Location
+    description: Location list operation response.
+  Subscription:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the resource (/subscriptions/SubscriptionId).
+      subscriptionId?:
+        type: string
+        description: Gets or sets the subscription Id.
+      displayName?:
+        type: string
+        description: Gets or sets the subscription display name
+      state?:
+        type: string
+        description: Gets or sets the subscription state
+      subscriptionPolicies?:
+        type: SubscriptionPolicies
+        description: Gets or sets the subscription policies.
+    description: Subscription information.
+  SubscriptionListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets subscriptions.
+        items:
+          type: Subscription
+      nextLink:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Subscription list operation response.
+  SubscriptionPolicies:
+    type: object
+    properties:
+      locationPlacementId?:
+        type: string
+        description: Gets or sets the subscription location placement Id.
+      quotaId?:
+        type: string
+        description: Gets or sets the subscription quota Id.
+    description: Subscription policies.
+  TenantIdDescription:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets Id
+      tenantId?:
+        type: string
+        description: Gets or sets tenantId
+    description: Tenant Id information
+  TenantListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets tenant Ids.
+        items:
+          type: TenantIdDescription
+      nextLink:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: Tenant Ids information.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Id of the subscription.
+        displayName: subscriptionId
+    /locations:
+      get:
+        description: Gets a list of the subscription locations.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets details about particular subscription.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+  get:
+    description: Gets a list of the subscriptionIds.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+/tenants:
+  get:
+    description: Gets a list of the tenantIds.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version

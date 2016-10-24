@@ -1,0 +1,310 @@
+#%RAML 1.0
+title: TrafficManagerManagementClient
+version: '2015-11-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  CheckTrafficManagerRelativeDnsNameAvailabilityParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the name of the resource.
+      type?:
+        type: string
+        description: Gets or sets the type of the resource.
+    description: The Traffic Manager name parameters supplied to the CheckTrafficManagerNameAvailability operation.
+  DnsConfig:
+    type: object
+    properties:
+      relativeName?:
+        type: string
+        description: Gets or sets the relative DNS name provided by this Traffic Manager profile.  This value is combined with the DNS domain name used by Azure Traffic Manager to form the fully-qualified domain name (FQDN) of the profile.
+      fqdn?:
+        type: string
+        description: Gets or sets the fully-qualified domain name (FQDN) of the Traffic Manager profile.  This is formed from the concatenation of the RelativeName with the DNS domain used by Azure Traffic Manager.
+      ttl?:
+        type: integer
+        description: Gets or sets the DNS Ttime-To-Live (TTL), in seconds.  This informs the local DNS resolvers and DNS clients how long to cache DNS responses provided by this Traffic Manager profile.
+        format: int64
+    description: Class containing DNS settings in a Traffic Manager profile.
+  Endpoint:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the Traffic Manager endpoint.
+      name?:
+        type: string
+        description: Gets or sets the name of the Traffic Manager endpoint.
+      type?:
+        type: string
+        description: Gets or sets the endpoint type of the Traffic Manager endpoint.
+      properties?:
+        type: EndpointProperties
+    description: The Traffic Manager endpoint parameters supplied to the CreateOrUpdate operation.
+  EndpointProperties:
+    type: object
+    properties:
+      targetResourceId?:
+        type: string
+        description: Gets or sets the Azure Resource URI of the of the endpoint.  Not applicable to endpoints of type 'ExternalEndpoints'.
+      target?:
+        type: string
+        description: Gets or sets the fully-qualified DNS name of the endpoint.  Traffic Manager returns this value in DNS responses to direct traffic to this endpoint.
+      endpointStatus?:
+        type: string
+        description: Gets or sets the status of the endpoint..  If the endpoint is Enabled, it is probed for endpoint health and is included in the traffic routing method.  Possible values are 'Enabled' and 'Disabled'.
+      weight?:
+        type: integer
+        description: Gets or sets the weight of this endpoint when using the 'Weighted' traffic routing method. Possible values are from 1 to 1000.
+        format: int64
+      priority?:
+        type: integer
+        description: Gets or sets the priority of this endpoint when using the ‘Priority’ traffic routing method. Possible values are from 1 to 1000, lower values represent higher priority. This is an optional parameter.  If specified, it must be specified on all endpoints, and no two endpoints can share the same priority value.
+        format: int64
+      endpointLocation?:
+        type: string
+        description: Specifies the location of the external or nested endpoints when using the ‘Performance’ traffic routing method.
+      endpointMonitorStatus?:
+        type: string
+        description: Gets or sets the monitoring status of the endpoint.
+      minChildEndpoints?:
+        type: integer
+        description: Gets or sets the minimum number of endpoints that must be available in the child profile in order for the parent profile to be considered available. Only applicable to endpoint of type 'NestedEndpoints'.
+        format: int64
+    description: Class representing a Traffic Manager endpoint properties.
+  MonitorConfig:
+    type: object
+    properties:
+      profileMonitorStatus?:
+        type: string
+        description: Gets or sets the profile-level monitoring status of the Traffic Manager profile.
+      protocol?:
+        type: string
+        description: Gets or sets the protocol (HTTP or HTTPS) used to probe for endpoint health.
+      port?:
+        type: integer
+        description: Gets or sets the TCP port used to probe for endpoint health.
+        format: int64
+      path?:
+        type: string
+        description: Gets or sets the path relative to the endpoint domain name used to probe for endpoint health.
+    description: Class containing endpoint monitoring settings in a Traffic Manager profile.
+  Profile:
+    type: Resource
+    description: Class representing a Traffic Manager profile.
+  ProfileListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the list of Traffic manager profiles.
+        items:
+          type: Profile
+    description: The list Traffic Manager profiles operation response.
+  ProfileProperties:
+    type: object
+    properties:
+      profileStatus?:
+        type: string
+        description: Gets or sets the status of the Traffic Manager profile.  Possible values are 'Enabled' and 'Disabled'.
+      trafficRoutingMethod?:
+        type: string
+        description: Gets or sets the traffic routing method of the Traffic Manager profile.  Possible values are 'Performance', 'Weighted', or 'Priority'.
+      dnsConfig?:
+        type: DnsConfig
+        description: Gets or sets the DNS settings of the Traffic Manager profile.
+      monitorConfig?:
+        type: MonitorConfig
+        description: Gets or sets the endpoint monitoring settings of the Traffic Manager profile.
+      endpoints?:
+        type: array
+        description: Gets or sets the list of endpoints in the Traffic Manager profile.
+        items:
+          type: Endpoint
+    description: Class representing the Traffic Manager profile properties.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location?:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+  TrafficManagerNameAvailability:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The relative name.
+      type?:
+        type: string
+        description: Traffic Manager profile resource type.
+      nameAvailable?:
+        type: boolean
+        description: Describes whether the relative name is available or not.
+      reason?:
+        type: string
+        description: The reason why the name is not available, when applicable.
+      message?:
+        type: string
+        description: Descriptive message that explains why the name is not available, when applicable.
+    description: Class representing a Traffic Manager Name Availability response.
+/providers:
+  /Microsoft.Network:
+    /checkTrafficManagerNameAvailability:
+      post:
+        description: Checks the availability of a Traffic Manager Relative DNS name.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        body:
+          application/json: CheckTrafficManagerRelativeDnsNameAvailabilityParameters
+          text/json: CheckTrafficManagerRelativeDnsNameAvailabilityParameters
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Network:
+        /trafficmanagerprofiles:
+          get:
+            description: Lists all Traffic Manager profiles within a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group containing the Traffic Manager profiles to be listed.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Network:
+            /trafficmanagerprofiles:
+              /{profileName}:
+                uriParameters:
+                  profileName:
+                    type: string
+                    description: The name of the Traffic Manager profile.
+                    displayName: profileName
+                /{endpointType}:
+                  uriParameters:
+                    endpointType:
+                      type: string
+                      description: The type of the Traffic Manager endpoint.
+                      displayName: endpointType
+                  /{endpointName}:
+                    uriParameters:
+                      endpointName:
+                        type: string
+                        description: The name of the Traffic Manager endpoint.
+                        displayName: endpointName
+                    get:
+                      description: Gets a Traffic Manager endpoint.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a Traffic Manager endpoint.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    patch:
+                      description: Update a Traffic Manager endpoint.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: Endpoint
+                        text/json: Endpoint
+                    put:
+                      description: Create or update a Traffic Manager endpoint.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: Endpoint
+                        text/json: Endpoint
+                get:
+                  description: Gets a Traffic Manager profile.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes a Traffic Manager profile.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                patch:
+                  description: Update a Traffic Manager profile.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: Profile
+                    text/json: Profile
+                put:
+                  description: Create or update a Traffic Manager profile.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: Profile
+                    text/json: Profile
+              get:
+                description: Lists all Traffic Manager profiles within a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

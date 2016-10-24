@@ -1,0 +1,925 @@
+#%RAML 1.0
+title: LogicManagementClient
+version: 2015-02-01-preview
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  KeyType:
+    type: string
+    enum:
+    - NotSpecified
+    - Primary
+    - Secondary
+  ParameterType:
+    type: string
+    enum:
+    - NotSpecified
+    - String
+    - SecureString
+    - Int
+    - Float
+    - Bool
+    - Array
+    - Object
+    - SecureObject
+  RecurrenceFrequency:
+    type: string
+    enum:
+    - Second
+    - Minute
+    - Hour
+    - Day
+    - Week
+    - Month
+    - Year
+  SkuName:
+    type: string
+    enum:
+    - NotSpecified
+    - Free
+    - Shared
+    - Basic
+    - Standard
+    - Premium
+  WorkflowProvisioningState:
+    type: string
+    enum:
+    - NotSpecified
+    - Moving
+    - Succeeded
+  WorkflowState:
+    type: string
+    enum:
+    - NotSpecified
+    - Enabled
+    - Disabled
+    - Deleted
+    - Suspended
+  WorkflowStatus:
+    type: string
+    enum:
+    - NotSpecified
+    - Paused
+    - Running
+    - Waiting
+    - Succeeded
+    - Skipped
+    - Suspended
+    - Cancelled
+    - Failed
+    - Faulted
+    - TimedOut
+    - Aborted
+  WorkflowTriggerProvisioningState:
+    type: string
+    enum:
+    - NotSpecified
+    - Creating
+    - Succeeded
+    - Updating
+  ContentHash:
+    type: object
+    properties:
+      algorithm?:
+        type: string
+        description: Gets or sets the algorithm.
+      value?:
+        type: string
+        description: Gets or sets the value.
+  ContentLink:
+    type: object
+    properties:
+      uri?:
+        type: string
+        description: Gets or sets the content link URI.
+      contentVersion?:
+        type: string
+        description: Gets or sets the content version.
+      contentSize?:
+        type: integer
+        description: Gets or sets the content size.
+        format: int64
+      contentHash?:
+        type: ContentHash
+        description: Gets or sets the content hash.
+      metadata?:
+        type: Object
+        description: Gets or sets the metadata.
+  Object:
+    type: object
+  RegenerateSecretKeyParameters:
+    type: object
+    properties:
+      keyType?:
+        type: KeyType
+        description: Gets or sets the key type.
+    description: The parameters.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the resource id.
+      name?:
+        type: string
+        description: Gets the resource name.
+      type?:
+        type: string
+        description: Gets the resource type.
+      location?:
+        type: string
+        description: Gets or sets the resource location.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Gets or sets the resource tags.
+  ResourceReference:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the resource id.
+      name?:
+        type: string
+        description: Gets the resource name.
+      type?:
+        type: string
+        description: Gets the resource type.
+  RunWorkflowParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the name of workflow run trigger.
+      outputs?:
+        type: object
+        description: Gets or sets the outputs of workflow run trigger.
+    description: The parameters.
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: SkuName
+        description: Gets or sets the name.
+      plan?:
+        type: ResourceReference
+        description: Gets or sets the reference to plan.
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the resource id.
+  Workflow:
+    type: Resource
+  WorkflowAccessKey:
+    type: SubResource
+  WorkflowAccessKeyListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets a list of workflow access keys.
+        items:
+          type: WorkflowAccessKey
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowAccessKeyProperties:
+    type: object
+    properties:
+      notBefore?:
+        type: datetime
+        description: Gets or sets the not-before time.
+      notAfter?:
+        type: datetime
+        description: Gets or sets the not-after time.
+  WorkflowFilter:
+    type: object
+    properties:
+      state?:
+        type: WorkflowState
+        description: Gets or sets the state of workflows.
+  WorkflowListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of workflows.
+        items:
+          type: Workflow
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowOutputParameter:
+    type: WorkflowParameter
+  WorkflowParameter:
+    type: object
+    properties:
+      type?:
+        type: ParameterType
+        description: Gets or sets the type.
+      value?:
+        type: Object
+        description: Gets or sets the value.
+      metadata?:
+        type: Object
+        description: Gets or sets the metadata.
+  WorkflowProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: WorkflowProvisioningState
+        description: Gets the provisioning state.
+      createdTime?:
+        type: datetime
+        description: Gets the created time.
+      changedTime?:
+        type: datetime
+        description: Gets the changed time.
+      state?:
+        type: WorkflowState
+        description: Gets or sets the state.
+      version?:
+        type: string
+        description: Gets the version.
+      accessEndpoint?:
+        type: string
+        description: Gets the access endpoint.
+      sku?:
+        type: Sku
+        description: Gets or sets the sku.
+      definitionLink?:
+        type: ContentLink
+        description: Gets or sets the link to definition.
+      definition?:
+        type: Object
+        description: Gets or sets the definition.
+      parametersLink?:
+        type: ContentLink
+        description: Gets or sets the link to parameters.
+      parameters?:
+        type: object
+        properties:
+          //:
+            type: WorkflowParameter
+        description: Gets or sets the parameters.
+  WorkflowRun:
+    type: SubResource
+  WorkflowRunAction:
+    type: SubResource
+  WorkflowRunActionFilter:
+    type: object
+    properties:
+      status?:
+        type: WorkflowStatus
+        description: Gets or sets the status of workflow run action.
+  WorkflowRunActionListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets a list of workflow run actions.
+        items:
+          type: WorkflowRunAction
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowRunActionProperties:
+    type: object
+    properties:
+      startTime?:
+        type: datetime
+        description: Gets the start time.
+      endTime?:
+        type: datetime
+        description: Gets the end time.
+      status?:
+        type: WorkflowStatus
+        description: Gets the status.
+      code?:
+        type: string
+        description: Gets the code.
+      error?:
+        type: Object
+        description: Gets the error.
+      trackingId?:
+        type: string
+        description: Gets the trackingId.
+      inputsLink?:
+        type: ContentLink
+        description: Gets the link to inputs.
+      outputsLink?:
+        type: ContentLink
+        description: Gets the link to outputs.
+  WorkflowRunFilter:
+    type: object
+    properties:
+      status?:
+        type: WorkflowStatus
+        description: Gets or sets the status of workflow run.
+  WorkflowRunListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets a list of workflow runs.
+        items:
+          type: WorkflowRun
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowRunProperties:
+    type: object
+    properties:
+      startTime?:
+        type: datetime
+        description: Gets the start time.
+      endTime?:
+        type: datetime
+        description: Gets the end time.
+      status?:
+        type: WorkflowStatus
+        description: Gets the status.
+      code?:
+        type: string
+        description: Gets the code.
+      error?:
+        type: Object
+        description: Gets the error.
+      correlationId?:
+        type: string
+        description: Gets the correlation id.
+      workflow?:
+        type: ResourceReference
+        description: Gets the reference to workflow version.
+      trigger?:
+        type: WorkflowRunTrigger
+        description: Gets the fired trigger.
+      outputs?:
+        type: object
+        properties:
+          //:
+            type: WorkflowOutputParameter
+        description: Gets the outputs.
+  WorkflowRunTrigger:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets the name.
+      inputs?:
+        type: Object
+        description: Gets the inputs.
+      inputsLink?:
+        type: ContentLink
+        description: Gets the link to inputs.
+      outputs?:
+        type: Object
+        description: Gets the outputs.
+      outputsLink?:
+        type: ContentLink
+        description: Gets the link to outputs.
+      startTime?:
+        type: datetime
+        description: Gets the start time.
+      endTime?:
+        type: datetime
+        description: Gets the end time.
+      trackingId?:
+        type: string
+        description: Gets the trackingId.
+      code?:
+        type: string
+        description: Gets the code.
+      status?:
+        type: WorkflowStatus
+        description: Gets the status.
+      error?:
+        type: Object
+        description: Gets the error.
+  WorkflowSecretKeys:
+    type: object
+    properties:
+      primarySecretKey?:
+        type: string
+        description: Gets the primary secret key.
+      secondarySecretKey?:
+        type: string
+        description: Gets the secondary secret key.
+  WorkflowTrigger:
+    type: SubResource
+  WorkflowTriggerFilter:
+    type: object
+    properties:
+      state?:
+        type: WorkflowState
+        description: Gets or sets the state of workflow trigger.
+  WorkflowTriggerHistory:
+    type: SubResource
+  WorkflowTriggerHistoryFilter:
+    type: object
+    properties:
+      status?:
+        type: WorkflowStatus
+        description: Gets or sets the status of workflow trigger history.
+  WorkflowTriggerHistoryListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets a list of workflow trigger histories.
+        items:
+          type: WorkflowTriggerHistory
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowTriggerHistoryProperties:
+    type: object
+    properties:
+      startTime?:
+        type: datetime
+        description: Gets the start time.
+      endTime?:
+        type: datetime
+        description: Gets the end time.
+      status?:
+        type: WorkflowStatus
+        description: Gets the status.
+      code?:
+        type: string
+        description: Gets the code.
+      error?:
+        type: Object
+        description: Gets the error.
+      trackingId?:
+        type: string
+        description: Gets the tracking id.
+      inputsLink?:
+        type: ContentLink
+        description: Gets the link to input parameters.
+      outputsLink?:
+        type: ContentLink
+        description: Gets the link to output parameters.
+      fired?:
+        type: boolean
+        description: Gets a value indicating whether trigger was fired.
+      run?:
+        type: ResourceReference
+        description: Gets the reference to workflow run.
+  WorkflowTriggerListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets a list of workflow triggers.
+        items:
+          type: WorkflowTrigger
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+  WorkflowTriggerProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: WorkflowTriggerProvisioningState
+        description: Gets the provisioning state.
+      createdTime?:
+        type: datetime
+        description: Gets the created time.
+      changedTime?:
+        type: datetime
+        description: Gets the changed time.
+      state?:
+        type: WorkflowState
+        description: Gets the state.
+      status?:
+        type: WorkflowStatus
+        description: Gets the status.
+      lastExecutionTime?:
+        type: datetime
+        description: Gets the last execution time.
+      nextExecutionTime?:
+        type: datetime
+        description: Gets the next execution time.
+      recurrence?:
+        type: WorkflowTriggerRecurrence
+        description: Gets the workflow trigger recurrence.
+      workflow?:
+        type: ResourceReference
+        description: Gets the reference to workflow.
+  WorkflowTriggerRecurrence:
+    type: object
+    properties:
+      frequency?:
+        type: RecurrenceFrequency
+        description: Gets or sets the frequency.
+      interval?:
+        type: integer
+        description: Gets or sets the interval.
+        format: int32
+      startTime?:
+        type: datetime
+        description: Gets or sets the start time.
+      timeZone?:
+        type: string
+        description: Gets or sets the time zone.
+  WorkflowVersion:
+    type: Resource
+  WorkflowVersionProperties:
+    type: object
+    properties:
+      createdTime?:
+        type: datetime
+        description: Gets the created time.
+      changedTime?:
+        type: datetime
+        description: Gets the changed time.
+      state?:
+        type: WorkflowState
+        description: Gets or sets the state.
+      version?:
+        type: string
+        description: Gets the version.
+      accessEndpoint?:
+        type: string
+        description: Gets the access endpoint.
+      sku?:
+        type: Sku
+        description: Gets or sets the sku.
+      definitionLink?:
+        type: ContentLink
+        description: Gets or sets the link to definition.
+      definition?:
+        type: Object
+        description: Gets or sets the definition.
+      parametersLink?:
+        type: ContentLink
+        description: Gets or sets the link to parameters.
+      parameters?:
+        type: object
+        properties:
+          //:
+            type: WorkflowParameter
+        description: Gets or sets the parameters.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The subscription id.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Logic:
+        /workflows:
+          get:
+            description: Gets a list of workflows by subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: The API version.
+                displayName: api-version
+              $top?:
+                type: integer
+                description: The number of items to be included in the result.
+                displayName: $top
+                format: int32
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The resource group name.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Logic:
+            /workflows:
+              /{workflowName}:
+                uriParameters:
+                  workflowName:
+                    type: string
+                    description: The workflow name.
+                    displayName: workflowName
+                /accessKeys:
+                  /{accessKeyName}:
+                    uriParameters:
+                      accessKeyName:
+                        type: string
+                        description: The workflow access key name.
+                        displayName: accessKeyName
+                    /list:
+                      post:
+                        description: Lists secret keys.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                    /regenerate:
+                      post:
+                        description: Regenerates secret key.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                        body:
+                          application/json: RegenerateSecretKeyParameters
+                          text/json: RegenerateSecretKeyParameters
+                    get:
+                      description: Gets a workflow access key.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a workflow access key.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                    put:
+                      description: Creates or updates a workflow access key.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                      body:
+                        application/json: WorkflowAccessKey
+                        text/json: WorkflowAccessKey
+                  get:
+                    description: Gets a list of workflow access keys.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                      $top?:
+                        type: integer
+                        description: The number of items to be included in the result.
+                        displayName: $top
+                        format: int32
+                /disable:
+                  post:
+                    description: Disables a workflow.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                /enable:
+                  post:
+                    description: Enables a workflow.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                /run:
+                  post:
+                    description: Runs a workflow.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                    body:
+                      application/json: RunWorkflowParameters
+                      text/json: RunWorkflowParameters
+                /runs:
+                  /{runName}:
+                    uriParameters:
+                      runName:
+                        type: string
+                        description: The workflow run name.
+                        displayName: runName
+                    /actions:
+                      /{actionName}:
+                        uriParameters:
+                          actionName:
+                            type: string
+                            description: The workflow action name.
+                            displayName: actionName
+                        get:
+                          description: Gets a workflow run action.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: The API version.
+                              displayName: api-version
+                      get:
+                        description: Gets a list of workflow run actions.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                          $top?:
+                            type: integer
+                            description: The number of items to be included in the result.
+                            displayName: $top
+                            format: int32
+                          $filter?:
+                            type: string
+                            description: The filter to apply on the operation.
+                            displayName: $filter
+                    /cancel:
+                      post:
+                        description: Cancels a workflow run.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                    get:
+                      description: Gets a workflow run.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                  get:
+                    description: Gets a list of workflow runs.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                      $top?:
+                        type: integer
+                        description: The number of items to be included in the result.
+                        displayName: $top
+                        format: int32
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                /triggers:
+                  /:
+                    get:
+                      description: Gets a list of workflow triggers.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                        $top?:
+                          type: integer
+                          description: The number of items to be included in the result.
+                          displayName: $top
+                          format: int32
+                        $filter?:
+                          type: string
+                          description: The filter to apply on the operation.
+                          displayName: $filter
+                  /{triggerName}:
+                    uriParameters:
+                      triggerName:
+                        type: string
+                        description: The workflow trigger name.
+                        displayName: triggerName
+                    /histories:
+                      /{historyName}:
+                        uriParameters:
+                          historyName:
+                            type: string
+                            description: The workflow trigger history name.
+                            displayName: historyName
+                        get:
+                          description: Gets a workflow trigger history.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: The API version.
+                              displayName: api-version
+                      get:
+                        description: Gets a list of workflow trigger histories.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                          $top?:
+                            type: integer
+                            description: The number of items to be included in the result.
+                            displayName: $top
+                            format: int32
+                          $filter?:
+                            type: string
+                            description: The filter to apply on the operation.
+                            displayName: $filter
+                    /run:
+                      post:
+                        description: Runs a workflow trigger.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: The API version.
+                            displayName: api-version
+                    get:
+                      description: Gets a workflow trigger.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                /validate:
+                  post:
+                    description: Validates a workflow.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                    body:
+                      application/json: Workflow
+                      text/json: Workflow
+                /versions:
+                  /{versionId}:
+                    uriParameters:
+                      versionId:
+                        type: string
+                        description: The workflow versionId.
+                        displayName: versionId
+                    get:
+                      description: Gets a workflow version.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The API version.
+                          displayName: api-version
+                get:
+                  description: Gets a workflow.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The API version.
+                      displayName: api-version
+                delete:
+                  description: Deletes a workflow.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The API version.
+                      displayName: api-version
+                patch:
+                  description: Updates a workflow.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The API version.
+                      displayName: api-version
+                  body:
+                    application/json: Workflow
+                    text/json: Workflow
+                put:
+                  description: Creates or updates a workflow.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The API version.
+                      displayName: api-version
+                  body:
+                    application/json: Workflow
+                    text/json: Workflow
+              get:
+                description: Gets a list of workflows by resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The API version.
+                    displayName: api-version
+                  $top?:
+                    type: integer
+                    description: The number of items to be included in the result.
+                    displayName: $top
+                    format: int32
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter

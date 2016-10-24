@@ -1,0 +1,257 @@
+#%RAML 1.0
+title: KeyVaultManagementClient
+version: '2015-06-01'
+baseUri: management.azure.com
+description: The Azure management API provides a RESTful set of web services that interact with Azure Key Vault.
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  AccessPolicyEntry:
+    type: object
+    properties:
+      tenantId:
+        type: string
+        description: The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
+      objectId:
+        type: string
+        description: The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies.
+      applicationId?:
+        type: string
+        description: ' Application ID of the client making request on behalf of a
+          principal'
+      permissions:
+        type: Permissions
+        description: Permissions the identity has for keys, secrets and certificates.
+    description: An identity that have access to the key vault. All identities in the array must use the same tenant ID as the key vault's tenant ID.
+  Permissions:
+    type: object
+    properties:
+      keys?:
+        type: array
+        description: Permissions to keys
+        items:
+          type: string
+          enum:
+          - all
+          - encrypt
+          - decrypt
+          - wrapKey
+          - unwrapKey
+          - sign
+          - verify
+          - get
+          - list
+          - create
+          - update
+          - import
+          - delete
+          - backup
+          - restore
+      secrets?:
+        type: array
+        description: Permissions to secrets
+        items:
+          type: string
+          enum:
+          - all
+          - get
+          - list
+          - set
+          - delete
+      certificates?:
+        type: array
+        description: Permissions to certificates
+        items:
+          type: string
+          enum:
+          - all
+          - get
+          - list
+          - delete
+          - create
+          - import
+          - update
+          - managecontacts
+          - getissuers
+          - listissuers
+          - setissuers
+          - deleteissuers
+          - manageissuers
+    description: Permissions the identity has for keys, secrets and certificates.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The Azure Resource Manager resource ID for the key vault.
+      name:
+        type: string
+        description: The name of the key vault.
+      type?:
+        type: string
+        description: The resource type of the key vault.
+      location:
+        type: string
+        description: The supported Azure location where the key vault should be created.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: 'The tags that will be assigned to the key vault. '
+    description: Key Vault resource
+  Sku:
+    type: object
+    properties:
+      family:
+        type: string
+        description: SKU family name
+        enum:
+        - A
+      name:
+        type: string
+        description: SKU name to specify whether the key vault is a standard vault or a premium vault.
+        enum:
+        - standard
+        - premium
+    description: SKU details
+  Vault:
+    type: Resource
+    description: Resource information with extended details.
+  VaultCreateOrUpdateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: The supported Azure location where the key vault should be created.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: 'The tags that will be assigned to the key vault. '
+      properties:
+        type: VaultProperties
+        description: Properties of the vault
+    description: Parameters to create or update the vault
+  VaultListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of vaults.
+        items:
+          type: Vault
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of vaults.
+    description: List of vaults
+  VaultProperties:
+    type: object
+    properties:
+      vaultUri?:
+        type: string
+        description: The URI of the vault for performing operations on keys and secrets.
+      tenantId:
+        type: string
+        description: The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
+      sku:
+        type: Sku
+        description: SKU details
+      accessPolicies:
+        type: array
+        description: An array of 0 to 16 identities that have access to the key vault. All identities in the array must use the same tenant ID as the key vault's tenant ID.
+        items:
+          type: AccessPolicyEntry
+      enabledForDeployment?:
+        type: boolean
+        description: Property to specify whether Azure Virtual Machines are permitted to retrieve certificates stored as secrets from the key vault.
+      enabledForDiskEncryption?:
+        type: boolean
+        description: Property to specify whether Azure Disk Encryption is permitted to retrieve secrets from the vault and unwrap keys.
+      enabledForTemplateDeployment?:
+        type: boolean
+        description: Property to specify whether Azure Resource Manager is permitted to retrieve secrets from the key vault.
+    description: Properties of the vault
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the Resource Group to which the vault belongs.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.KeyVault:
+            /vaults:
+              /{vaultName}:
+                uriParameters:
+                  vaultName:
+                    type: string
+                    description: The name of the vault.
+                    displayName: vaultName
+                get:
+                  description: Gets the specified Azure key vault.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes the specified Azure key vault.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Create or update a key vault in the specified subscription.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VaultCreateOrUpdateParameters
+              get:
+                description: The List operation gets information about the vaults associated with the subscription and within the specified resource group.
+                queryParameters:
+                  $top?:
+                    type: integer
+                    description: Maximum number of results to return.
+                    displayName: $top
+                    format: int32
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+    /resources:
+      get:
+        description: The List operation gets information about the vaults associated with the subscription.
+        queryParameters:
+          $filter:
+            type: string
+            description: The filter to apply on the operation.
+            displayName: $filter
+            enum:
+            - resourceType eq 'Microsoft.KeyVault/vaults'
+          $top?:
+            type: integer
+            description: Maximum number of results to return.
+            displayName: $top
+            format: int32
+          api-version:
+            type: string
+            description: Azure Resource Manager Api Version.
+            displayName: api-version
+            enum:
+            - '2015-11-01'

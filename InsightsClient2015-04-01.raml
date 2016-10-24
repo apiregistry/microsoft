@@ -1,0 +1,232 @@
+#%RAML 1.0
+title: InsightsClient
+version: '2015-04-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  EventCategoryCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        description: the list that includes the Azure event categories.
+        items:
+          type: LocalizableString
+    description: Represents collection of event categories.
+  EventData:
+    type: object
+    properties:
+      authorization?:
+        type: SenderAuthorization
+        description: the authorization used by the user who has performed the operation that led to this event.
+      channels:
+        type: string
+        description: the event channels. The regular event logs, that you see in the Azure Management Portals, flow through the 'Operation' channel.
+        enum:
+        - Admin
+        - Operation
+        - Debug
+        - Analytics
+      claims?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: key value pairs to identify ARM permissions.
+      caller?:
+        type: string
+        description: the email address of the user who has performed the operation, the UPN claim or SPN claim based on availability.
+      description?:
+        type: string
+        description: the description of the event.
+      id?:
+        type: string
+        description: the resource Id.
+      eventDataId?:
+        type: string
+        description: the event data Id. This is a unique identifier for an event.
+      correlationId?:
+        type: string
+        description: the correlation Id. The correlation Id is shared among the events that belong to the same deployment.
+      eventName?:
+        type: LocalizableString
+        description: the event name. This value should not be confused with OperationName. For practical purposes, OperationName might be more appealing to end users.
+      category?:
+        type: LocalizableString
+        description: the event category.
+      httpRequest?:
+        type: HttpRequestInfo
+        description: the HTTP request info. The client IP address of the user who initiated the event is captured as part of the HTTP request info.
+      level:
+        type: string
+        description: the event level
+        enum:
+        - Critical
+        - Error
+        - Warning
+        - Informational
+        - Verbose
+      resourceGroupName?:
+        type: string
+        description: the resource group name.
+      resourceProviderName?:
+        type: LocalizableString
+        description: the resource provider name.
+      resourceId?:
+        type: string
+        description: the resource uri
+      resourceType?:
+        type: LocalizableString
+        description: the resource type
+      operationId?:
+        type: string
+        description: It is usually a GUID shared among the events corresponding to single operation. This value should not be confused with EventName.
+      operationName?:
+        type: LocalizableString
+        description: the operation name.
+      properties?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: the property bag that includes details about the event.
+      status?:
+        type: LocalizableString
+        description: 'the event status. Some typical values are: Started, Succeeded,
+          Failed. For more information see: https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx'
+      subStatus?:
+        type: LocalizableString
+        description: 'the event sub status. Most of the time, when included, this
+          captures the HTTP status code. For more information see: https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx'
+      eventTimestamp:
+        type: datetime
+        description: the occurrence time of event in ISO 8601 format
+      submissionTimestamp:
+        type: datetime
+        description: the event submission time in ISO 8601 format. This value should not be confused eventTimestamp. As there might be a delay between the occurence time of the event, and the time that the event is submitted to the Azure logging infrastructure.
+      subscriptionId?:
+        type: string
+        description: the Azure subscription Id
+      tenantId?:
+        type: string
+        description: the Azure tenant Id
+    description: The Azure event log entries are of type EventData
+  EventDataCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        description: this list that includes the Azure audit logs.
+        items:
+          type: EventData
+    description: Represents collection of events.
+  HttpRequestInfo:
+    type: object
+    properties:
+      clientRequestId?:
+        type: string
+        description: the client request id.
+      clientIpAddress?:
+        type: string
+        description: the client Ip Address
+      method?:
+        type: string
+        description: the Http request method.
+      uri?:
+        type: string
+        description: the Uri.
+    description: The Http request info.
+  LocalizableString:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: the invariant value.
+      localizedValue?:
+        type: string
+        description: the locale specific value.
+    description: The localizable string class.
+  SenderAuthorization:
+    type: object
+    properties:
+      action?:
+        type: string
+        description: 'the permissible actions. For instance: microsoft.support/supporttickets/write'
+      condition?:
+        type: string
+        description: the condition.
+      role?:
+        type: string
+        description: 'the role of the user. For instance: Subscription Admin'
+      scope?:
+        type: string
+        description: the scope.
+    description: The RBAC properties of the event.
+/providers:
+  /microsoft.insights:
+    /eventtypes:
+      /management:
+        /eventcategories:
+          get:
+            description: The list of event categories.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /values:
+          get:
+            description: Provides the list of tenant events.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+              $filter?:
+                type: string
+                description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
+                displayName: $filter
+              $select?:
+                type: string
+                description: 'The list of property names to be returned. Possible
+                  values are: authorization, channels, claims, correlationId, description,
+                  eventDataId, eventName, eventTimestamp, httpRequest, level, operationId,
+                  operationName, properties, resourceGroupName, resourceProviderName,
+                  resourceId, status, submissionTimestamp, subStatus, subscriptionId'
+                displayName: $select
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The Azure subscription Id.
+        displayName: subscriptionId
+    /providers:
+      /microsoft.insights:
+        /eventtypes:
+          /management:
+            /values:
+              get:
+                description: Provides the list of events.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
+                    displayName: $filter
+                  $select?:
+                    type: string
+                    description: 'The list of property names to be returned. Possible
+                      values are: authorization, channels, claims, correlationId,
+                      description, eventDataId, eventName, eventTimestamp, httpRequest,
+                      level, operationId, operationName, properties, resourceGroupName,
+                      resourceProviderName, resourceId, status, submissionTimestamp,
+                      subStatus, subscriptionId'
+                    displayName: $select

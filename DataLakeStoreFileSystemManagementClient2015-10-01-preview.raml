@@ -1,0 +1,835 @@
+#%RAML 1.0
+title: DataLakeStoreFileSystemManagementClient
+version: 2015-10-01-preview
+description: Creates an Azure Data Lake Store filesystem client.
+mediaType:
+- application/json
+- text/json
+- application/octet-stream
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  AclStatus:
+    type: object
+    properties:
+      entries?:
+        type: array
+        description: Gets or sets the list of ACLSpec entries on a file or directory.
+        items:
+          type: string
+      group?:
+        type: string
+        description: Gets or sets the group owner, an AAD Object ID.
+      owner?:
+        type: string
+        description: Gets or sets the user owner, an AAD Object ID.
+      stickyBit?:
+        type: boolean
+        description: Gets or sets the indicator of whether the sticky bit is on or off.
+    description: Data Lake Store file or directory Access Control List information.
+  AclStatusResult:
+    type: object
+    properties:
+      AclStatus?:
+        type: AclStatus
+        description: Gets or sets the AclStatus object for a given file or directory.
+    description: Data Lake Store file or directory Access Control List information.
+  ContentSummary:
+    type: object
+    properties:
+      directoryCount?:
+        type: integer
+        description: Gets the number of directories.
+        format: int64
+      fileCount?:
+        type: integer
+        description: Gets the number of files.
+        format: int64
+      length?:
+        type: integer
+        description: Gets the number of bytes used by the contet.
+        format: int64
+      spaceConsumed?:
+        type: integer
+        description: Gets the disk space consumed by the content.
+        format: int64
+    description: Data Lake Store content summary information
+  ContentSummaryResult:
+    type: object
+    properties:
+      ContentSummary?:
+        type: ContentSummary
+        description: Gets the content summary for the specified path
+    description: Data Lake Store filesystem content summary information response.
+  FileInfoProperties:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets the file unique identifier (as a GUID).
+      name?:
+        type: string
+        description: Gets the file name.
+      length?:
+        type: integer
+        description: Gets the number of bytes in a file.
+        format: int64
+      modificationTime?:
+        type: integer
+        description: Gets the modification time as ticks since the epoch.
+        format: int64
+      creationTime?:
+        type: integer
+        description: Gets the creation time as ticks since the epoch.
+        format: int64
+      expirationTime?:
+        type: integer
+        description: Gets the expiration time, if any, as ticks since the epoch. If this is set to 0 or DateTime.MaxValue there is no expiration.
+        format: int64
+    description: Data Lake Store file information.
+  FileInfoResult:
+    type: object
+    properties:
+      FileInfo?:
+        type: FileInfoProperties
+        description: Gets the file information object associated with the specified file path.
+    description: Data Lake Store filesystem file information response used with file expiration.
+  FileOperationResult:
+    type: object
+    properties:
+      boolean?:
+        type: boolean
+        description: Gets the result of the operation or request.
+    description: The result of the request or operation.
+  FileStatusProperties:
+    type: object
+    properties:
+      accessTime?:
+        type: integer
+        description: Gets the last access time as ticks since the epoch.
+        format: int64
+      blockSize?:
+        type: integer
+        description: Gets the block size for the file.
+        format: int64
+      childrenNum?:
+        type: integer
+        description: Gets the number of children in the directory.
+        format: int64
+      group?:
+        type: string
+        description: Gets the group owner.
+      length?:
+        type: integer
+        description: Gets the number of bytes in a file.
+        format: int64
+      modificationTime?:
+        type: integer
+        description: Gets the modification time as ticks since the epoch.
+        format: int64
+      owner?:
+        type: string
+        description: Gets the user who is the owner.
+      pathSuffix?:
+        type: string
+        description: Gets the path suffix.
+      permission?:
+        type: string
+        description: Gets the permission represented as an string.
+      type?:
+        type: string
+        description: Gets the type of the path object.
+        enum:
+        - File
+        - Directory
+    description: Data Lake Store file or directory information.
+  FileStatusResult:
+    type: object
+    properties:
+      FileStatus?:
+        type: FileStatusProperties
+        description: Gets the file status object associated with the specified path.
+    description: Data Lake Store filesystem file status information response.
+  FileStatuses:
+    type: object
+    properties:
+      FileStatus?:
+        type: array
+        description: Gets the object containing the list of properties of the files.
+        items:
+          type: FileStatusProperties
+    description: Data Lake Store file status list information.
+  FileStatusesResult:
+    type: object
+    properties:
+      FileStatuses?:
+        type: FileStatuses
+        description: Gets the object representing the list of file statuses.
+    description: Data Lake Store filesystem file status list information response.
+  HomeDirectoryResult:
+    type: object
+    properties:
+      Path?:
+        type: string
+        description: Gets or sets the path to the home directory
+    description: Data Lake Store filesystem home path response.
+/WebHdfsExt:
+  /{filePath}:
+    uriParameters:
+      filePath:
+        type: string
+        description: The Data Lake Store path (starting with '/') of the file for which you want the file expiration information.
+        displayName: filePath
+    get:
+      description: Gets the file information object containing the expiration time for the file at the file path.
+      queryParameters:
+        op:
+          type: string
+          description: The constant value for the operation.
+          displayName: op
+          enum:
+          - GETFILEINFO
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      headers:
+        subscriptionId:
+          type: string
+          description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+          displayName: subscriptionId
+    post:
+      description: 'Appends to the specified file. This method supports multiple concurrent
+        appends to the file. NOTE: Concurrent append and normal (serial) append CANNOT
+        be used interchangeably. Once a file has been appended to using either append
+        option, it can only be appended to using that append option.'
+      queryParameters:
+        appendMode?:
+          type: string
+          description: Indicates the concurrent append call should create the file if it doesn't exist or just open the existing file for append
+          displayName: appendMode
+          enum:
+          - autocreate
+        op:
+          type: string
+          description: The constant value for the operation.
+          displayName: op
+          enum:
+          - CONCURRENTAPPEND
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      headers:
+        subscriptionId:
+          type: string
+          description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+          displayName: subscriptionId
+      body:
+        application/octet-stream:
+          type: object
+          description: 'A list of Data Lake Store paths (starting with ''/'') of the
+            source files. Must be in the format: sources=<comma separated list>'
+    put:
+      description: Sets or removes the expiration time on the specified file. This operation can only be executed against files. Folders are not supported.
+      queryParameters:
+        expiryOption:
+          type: string
+          description: 'Indicates the type of expiration to use for the file: 1. NeverExpire:
+            ExpireTime is ignored. 2. RelativeToNow: ExpireTime is an integer in milliseconds
+            representing the expiration date relative to when file expiration is updated.
+            3. RelativeToCreationDate: ExpireTime is an integer in milliseconds representing
+            the expiration date relative to file creation. 4. Absolute: ExpireTime
+            is an integer in milliseconds, as a Unix timestamp relative to 1/1/1970
+            00:00:00.'
+          displayName: expiryOption
+          enum:
+          - NeverExpire
+          - RelativeToNow
+          - RelativeToCreationDate
+          - Absolute
+        expireTime?:
+          type: integer
+          description: The time that the file will expire, corresponding to the ExpiryOption that was set.
+          displayName: expireTime
+          format: int64
+        op:
+          type: string
+          description: The constant value for the operation.
+          displayName: op
+          enum:
+          - SETEXPIRY
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      headers:
+        subscriptionId:
+          type: string
+          description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+          displayName: subscriptionId
+/webhdfs:
+  /v1:
+    /:
+      get:
+        description: Get the home directory for the specified account.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - GETHOMEDIRECTORY
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{aclFilePath}:
+      uriParameters:
+        aclFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory for which to get the ACL.
+          displayName: aclFilePath
+      get:
+        description: Gets Access Control List (ACL) entries for the specified file or directory.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - GETACLSTATUS
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+      put:
+        description: Removes the existing Access Control List (ACL) of the specified file or directory.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - REMOVEACL
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{destinationPath}:
+      uriParameters:
+        destinationPath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the destination file resulting from the concatenation.
+          displayName: destinationPath
+      post:
+        description: Concatenates the list of source files into the destination file.
+        queryParameters:
+          sources:
+            type: array
+            description: A list of comma seperated Data Lake Store paths (starting with '/') of the files to concatenate, in the order in which they should be concatenated.
+            displayName: sources
+            items:
+              type: string
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - CONCAT
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{directFilePath}:
+      uriParameters:
+        directFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file to open.
+          displayName: directFilePath
+      get:
+        description: Opens and reads from the specified file.
+        queryParameters:
+          length?:
+            type: integer
+            displayName: length
+            format: int64
+          offset?:
+            type: integer
+            displayName: offset
+            format: int64
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - OPEN
+          read:
+            type: string
+            description: The constant value for the operation.
+            displayName: read
+            enum:
+            - 'true'
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+      post:
+        description: 'Appends to the specified file. This method does not support
+          multiple concurrent appends to the file. NOTE: Concurrent append and normal
+          (serial) append CANNOT be used interchangeably. Once a file has been appended
+          to using either append option, it can only be appended to using that append
+          option. Use the ConcurrentAppend option if you would like support for concurrent
+          appends.'
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - APPEND
+          append:
+            type: string
+            description: The constant value for the operation.
+            displayName: append
+            enum:
+            - 'true'
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+        body:
+          application/octet-stream:
+            type: object
+            description: 'A list of Data Lake Store paths (starting with ''/'') of
+              the source files. Must be in the format: sources=<comma separated list>'
+      put:
+        description: Creates a file with optionally specified content.
+        queryParameters:
+          overwrite?:
+            type: boolean
+            description: The indication of if the file should be overwritten.
+            displayName: overwrite
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - CREATE
+          write:
+            type: string
+            description: The constant value for the operation.
+            displayName: write
+            enum:
+            - 'true'
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+        body:
+          application/octet-stream:
+            type: object
+            description: 'A list of Data Lake Store paths (starting with ''/'') of
+              the source files. Must be in the format: sources=<comma separated list>'
+    /{filePath}:
+      uriParameters:
+        filePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory to delete.
+          displayName: filePath
+      delete:
+        description: Deletes the requested file or directory, optionally recursively.
+        queryParameters:
+          recursive?:
+            type: boolean
+            description: The optional switch indicating if the delete should be recursive
+            displayName: recursive
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - DELETE
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{getFilePath}:
+      uriParameters:
+        getFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory for which to retrieve the status.
+          displayName: getFilePath
+      get:
+        description: Get the file status object specified by the file path.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - GETFILESTATUS
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{listFilePath}:
+      uriParameters:
+        listFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the directory to list.
+          displayName: listFilePath
+      get:
+        description: Get the list of file status objects specified by the file path, with optional pagination parameters
+        queryParameters:
+          listSize?:
+            type: integer
+            description: Gets or sets the number of items to return. Optional.
+            displayName: listSize
+            format: int32
+          listAfter?:
+            type: string
+            description: Gets or sets the item or lexographical index after which to begin returning results. For example, a file list of 'a','b','d' and listAfter='b' will return 'd', and a listAfter='c' will also return 'd'. Optional.
+            displayName: listAfter
+          listBefore?:
+            type: string
+            description: Gets or sets the item or lexographical index before which to begin returning results. For example, a file list of 'a','b','d' and listBefore='d' will return 'a','b', and a listBefore='c' will also return 'a','b'. Optional.
+            displayName: listBefore
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - MSLISTSTATUS
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{modifyAclFilePath}:
+      uriParameters:
+        modifyAclFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory with the ACL being modified.
+          displayName: modifyAclFilePath
+      put:
+        description: Modifies existing Access Control List (ACL) entries on a file or folder.
+        queryParameters:
+          aclspec:
+            type: string
+            description: The ACL specification included in ACL modification operations in the format '[default:]user|group|other::r|-w|-x|-'
+            displayName: aclspec
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - MODIFYACLENTRIES
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{msConcatDestinationPath}:
+      uriParameters:
+        msConcatDestinationPath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the destination file resulting from the concatenation.
+          displayName: msConcatDestinationPath
+      post:
+        description: Concatenates the list of source files into the destination file. This method accepts more source file paths than the Concat method. This method and the parameters it accepts are subject to change for usability in an upcoming version.
+        queryParameters:
+          deletesourcedirectory?:
+            type: boolean
+            description: 'Caution: Setting this parameter to true will delete the
+              parent directory of all source files provided to the MsConcat method.'
+            displayName: deletesourcedirectory
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - MSCONCAT
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+        body:
+          application/octet-stream:
+            type: object
+            description: 'A list of Data Lake Store paths (starting with ''/'') of
+              the source files. Must be in the format: sources=<comma separated list>'
+    /{path}:
+      uriParameters:
+        path:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory for which to check access.
+          displayName: path
+      get:
+        description: Checks if the specified access is available at the given path.
+        queryParameters:
+          fsaction?:
+            type: string
+            description: File system operation read/write/execute in string form, matching regex pattern '[rwx-]{3}'
+            displayName: fsaction
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - CHECKACCESS
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+      put:
+        description: Creates a directory.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - MKDIRS
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{removeAclFilePath}:
+      uriParameters:
+        removeAclFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory with the ACL being removed.
+          displayName: removeAclFilePath
+      put:
+        description: Removes existing Access Control List (ACL) entries for a file or folder.
+        queryParameters:
+          aclspec:
+            type: string
+            description: The ACL spec included in ACL removal operations in the format '[default:]user|group|other'
+            displayName: aclspec
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - REMOVEACLENTRIES
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{renameFilePath}:
+      uriParameters:
+        renameFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory to move/rename.
+          displayName: renameFilePath
+      put:
+        description: Rename a file or directory.
+        queryParameters:
+          destination:
+            type: string
+            description: The path to move/rename the file or folder to
+            displayName: destination
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - RENAME
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{setAclFilePath}:
+      uriParameters:
+        setAclFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory on which to set the ACL.
+          displayName: setAclFilePath
+      put:
+        description: Sets the Access Control List (ACL) for a file or folder.
+        queryParameters:
+          aclspec:
+            type: string
+            description: The ACL spec included in ACL creation operations in the format '[default:]user|group|other::r|-w|-x|-'
+            displayName: aclspec
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - SETACL
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{setOwnerFilePath}:
+      uriParameters:
+        setOwnerFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory for which to set the owner.
+          displayName: setOwnerFilePath
+      put:
+        description: Sets the owner of a file or directory.
+        queryParameters:
+          owner?:
+            type: string
+            description: The AAD Object ID of the user owner of the file or directory. If empty, the property will remain unchanged.
+            displayName: owner
+          group?:
+            type: string
+            description: The AAD Object ID of the group owner of the file or directory. If empty, the property will remain unchanged.
+            displayName: group
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - SETOWNER
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+    /{setPermissionFilePath}:
+      uriParameters:
+        setPermissionFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file or directory for which to set the permission.
+          displayName: setPermissionFilePath
+      put:
+        description: Sets the permission of the file or folder.
+        queryParameters:
+          permission?:
+            type: string
+            description: A string representation of the permission (i.e 'rwx'). If empty, this property remains unchanged.
+            displayName: permission
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - SETPERMISSION
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId
+  /va:
+    /{getContentSummaryFilePath}:
+      uriParameters:
+        getContentSummaryFilePath:
+          type: string
+          description: The Data Lake Store path (starting with '/') of the file for which to retrieve the summary.
+          displayName: getContentSummaryFilePath
+      get:
+        description: Gets the file content summary object specified by the file path.
+        queryParameters:
+          op:
+            type: string
+            description: The constant value for the operation.
+            displayName: op
+            enum:
+            - GETCONTENTSUMMARY
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+        headers:
+          subscriptionId:
+            type: string
+            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+            displayName: subscriptionId

@@ -1,0 +1,250 @@
+#%RAML 1.0
+title: SearchManagementClient
+version: '2015-02-28'
+baseUri: management.azure.com
+description: Client that can be used to manage Azure Search services and API keys.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AdminKeyResult:
+    type: object
+    properties:
+      primaryKey?:
+        type: string
+        description: The primary API key of the Search service.
+      secondaryKey?:
+        type: string
+        description: The secondary API key of the Search service.
+    description: Response containing the primary and secondary API keys for a given Azure Search service.
+  ListQueryKeysResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: The query keys for the Azure Search service.
+        items:
+          type: QueryKey
+    description: Response containing the query API keys for a given Azure Search service.
+  QueryKey:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The name of the query API key; may be empty.
+      key?:
+        type: string
+        description: The value of the query API key.
+    description: Describes an API key for a given Azure Search service that has permissions for query operations only.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  SearchServiceCreateOrUpdateParameters:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: The geographic location of the Search service.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Tags to help categorize the Search service in the Azure Portal.
+      properties?:
+        type: SearchServiceProperties
+        description: Properties of the Search service.
+    description: The properties to set or update on the Search service.
+  SearchServiceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: The Search services in the resource group.
+        items:
+          type: SearchServiceResource
+    description: Response containing a list of Azure Search services for a given resource group.
+  SearchServiceProperties:
+    type: object
+    properties:
+      sku?:
+        type: Sku
+        description: The SKU of the Search Service, which determines price tier and capacity limits.
+      replicaCount?:
+        type: integer
+        description: The number of replicas in the Search service. If specified, it must be a value between 1 and 6 inclusive.
+        format: int32
+      partitionCount?:
+        type: integer
+        description: The number of partitions in the Search service; if specified, it can be 1, 2, 3, 4, 6, or 12.
+        format: int32
+    description: Defines properties of an Azure Search service that can be modified.
+  SearchServiceReadableProperties:
+    type: object
+    properties:
+      status?:
+        type: string
+        description: The status of the Search service.
+        enum:
+        - running
+        - provisioning
+        - deleting
+        - degraded
+        - disabled
+        - error
+      statusDetails?:
+        type: string
+        description: The details of the Search service status.
+      provisioningState?:
+        type: string
+        description: The state of the last provisioning operation performed on the Search service.
+        enum:
+        - succeeded
+        - provisioning
+        - failed
+      sku?:
+        type: Sku
+        description: The SKU of the Search Service, which determines price tier and capacity limits.
+      replicaCount?:
+        type: integer
+        description: The number of replicas in the Search service. If specified, it must be a value between 1 and 6 inclusive.
+        format: int32
+      partitionCount?:
+        type: integer
+        description: The number of partitions in the Search service; if specified, it can be 1, 2, 3, 4, 6, or 12.
+        format: int32
+    description: Defines all the properties of an Azure Search service.
+  SearchServiceResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The resource Id of the Azure Search service.
+      name?:
+        type: string
+        description: The name of the Search service.
+      location?:
+        type: string
+        description: The geographic location of the Search service.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Tags to help categorize the Search service in the Azure Portal.
+      properties?:
+        type: SearchServiceReadableProperties
+        description: Properties of the Search service.
+    description: Describes an Azure Search service and its current state.
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The SKU of the Search service.
+        enum:
+        - free
+        - standard
+        - standard2
+    description: Defines the SKU of an Azure Search Service, which determines price tier and capacity limits.
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group within the current subscription.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Search:
+            /searchServices:
+              /{serviceName}:
+                uriParameters:
+                  serviceName:
+                    type: string
+                    description: The name of the Search service to delete.
+                    displayName: serviceName
+                /listAdminKeys:
+                  post:
+                    description: Returns the primary and secondary API keys for the given Azure Search service.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /listQueryKeys:
+                  get:
+                    description: Returns the list of query API keys for the given Azure Search service.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                delete:
+                  description: Deletes a Search service in the given resource group, along with its associated resources.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Creates or updates a Search service in the given resource group. If the Search service already exists, all properties will be updated with the given values.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: SearchServiceCreateOrUpdateParameters
+                    text/json: SearchServiceCreateOrUpdateParameters
+              get:
+                description: Returns a list of all Search services in the given resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

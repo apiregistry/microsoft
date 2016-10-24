@@ -1,0 +1,110 @@
+#%RAML 1.0
+title: FeatureClient
+version: '2015-12-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  FeatureOperationsListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of Features.
+        items:
+          type: FeatureResult
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of previewed features.
+  FeatureProperties:
+    type: object
+    properties:
+      state?:
+        type: string
+        description: Gets or sets the state of the previewed feature.
+    description: Previewed feature information.
+  FeatureResult:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the name of the feature.
+      properties?:
+        type: FeatureProperties
+        description: Gets or sets the properties of the previewed feature.
+      id?:
+        type: string
+        description: Gets or sets the Id of the feature.
+      type?:
+        type: string
+        description: Gets or sets the type of the feature.
+    description: Previewed feature information.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Features:
+        /features:
+          get:
+            description: Gets a list of previewed features for all the providers in the current subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /providers:
+          /{resourceProviderNamespace}:
+            uriParameters:
+              resourceProviderNamespace:
+                type: string
+                description: The namespace of the resource provider.
+                displayName: resourceProviderNamespace
+            /features:
+              /{featureName}:
+                uriParameters:
+                  featureName:
+                    type: string
+                    description: Previewed feature name in the resource provider.
+                    displayName: featureName
+                /register:
+                  post:
+                    description: Registers for a previewed feature of a resource provider.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Get all features under the subscription.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Gets a list of previewed features of a resource provider.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

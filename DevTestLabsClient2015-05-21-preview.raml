@@ -1,0 +1,1968 @@
+#%RAML 1.0
+title: DevTestLabsClient
+version: 2015-05-21-preview
+baseUri: management.azure.com
+description: The DevTest Labs client version 2015-05-21-preview.
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  oauth2:
+    type: OAuth 2.0
+    description: OAuth2 Implicit Grant
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ApplyArtifactsRequest:
+    type: object
+    properties:
+      artifacts?:
+        type: array
+        description: The list of artifacts to apply.
+        items:
+          type: ArtifactInstallProperties
+    description: Request body for applying artifacts to a virtual machine.
+  ArmTemplateInfo:
+    type: object
+    properties:
+      template?:
+        type: Object
+        description: The template's contents.
+      parameters?:
+        type: Object
+        description: The parameters of the ARM template.
+    description: Information about a generated ARM template.
+  Artifact:
+    type: object
+    properties:
+      properties?:
+        type: ArtifactProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: An artifact.
+  ArtifactDeploymentStatusProperties:
+    type: object
+    properties:
+      deploymentStatus?:
+        type: string
+        description: The deployment status of the artifact.
+      artifactsApplied?:
+        type: integer
+        description: The total count of the artifacts that were successfully applied.
+        format: int32
+      totalArtifacts?:
+        type: integer
+        description: The total count of the artifacts that were tentatively applied.
+        format: int32
+    description: Properties of an artifact deployment.
+  ArtifactInstallProperties:
+    type: object
+    properties:
+      artifactId?:
+        type: string
+        description: The artifact's identifier.
+      parameters?:
+        type: array
+        description: The parameters of the artifact.
+        items:
+          type: ArtifactParameterProperties
+    description: Properties of an artifact.
+  ArtifactParameterProperties:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The name of the artifact parameter.
+      value?:
+        type: string
+        description: The value of the artifact parameter.
+    description: Properties of an artifact parameter.
+  ArtifactProperties:
+    type: object
+    properties:
+      title?:
+        type: string
+        description: The title of the artifact.
+      description?:
+        type: string
+        description: The description of the artifact.
+      filePath?:
+        type: string
+        description: The file path of the artifact.
+      icon?:
+        type: string
+        description: The icon of the artifact.
+      targetOsType?:
+        type: string
+        description: Gets or sets the type of the target os.
+      parameters?:
+        type: Object
+        description: The parameters of the artifact.
+    description: Properties of an artifact.
+  ArtifactSource:
+    type: object
+    properties:
+      properties?:
+        type: ArtifactSourceProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: Properties of an artifact source.
+  ArtifactSourceProperties:
+    type: object
+    properties:
+      displayName?:
+        type: string
+        description: The display name of the artifact source.
+      uri?:
+        type: string
+        description: The URI of the artifact source.
+      sourceType?:
+        type: string
+        description: The type of the artifact source.
+        enum:
+        - VsoGit
+        - GitHub
+      folderPath?:
+        type: string
+        description: The folder path of the artifact source.
+      branchRef?:
+        type: string
+        description: The branch reference of the artifact source.
+      securityToken?:
+        type: string
+        description: The security token of the artifact source.
+      status?:
+        type: string
+        description: The status of the artifact source.
+        enum:
+        - Enabled
+        - Disabled
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of an artifact source.
+  CloudError:
+    type: object
+    properties:
+      error?:
+        type: CloudErrorBody
+  CloudErrorBody:
+    type: object
+    properties:
+      code?:
+        type: string
+      message?:
+        type: string
+      target?:
+        type: string
+      details?:
+        type: array
+        items:
+          type: CloudErrorBody
+  Cost:
+    type: object
+    properties:
+      properties?:
+        type: CostProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A cost item.
+  CostInsight:
+    type: object
+    properties:
+      properties?:
+        type: CostInsightProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+  CostInsightProperties:
+    type: object
+    properties:
+      currencyCode?:
+        type: string
+      vmCosts?:
+        type: array
+        items:
+          type: VMCostProperties
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+  CostPerDayProperties:
+    type: object
+    properties:
+      date?:
+        type: datetime
+        description: The date of the cost item.
+      cost?:
+        type: number
+        description: The cost of the cost item.
+        format: double
+      costType?:
+        type: string
+        description: The type of the cost.
+        enum:
+        - Unavailable
+        - Reported
+        - Projected
+    description: The per-day properties of a cost item.
+  CostProperties:
+    type: object
+    properties:
+      currencyCode?:
+        type: string
+        description: The currency code of the cost.
+      costs?:
+        type: array
+        description: The per-day costs items of the cost.
+        items:
+          type: CostPerDayProperties
+    description: Properties of a cost item.
+  CustomImage:
+    type: object
+    properties:
+      properties?:
+        type: CustomImageProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A custom image.
+  CustomImageProperties:
+    type: object
+    properties:
+      vm?:
+        type: CustomImagePropertiesFromVm
+      vhd?:
+        type: CustomImagePropertiesCustom
+        description: The VHD from which the image is to be created.
+      description?:
+        type: string
+        description: The description of the custom image.
+      osType?:
+        type: string
+        description: The OS type of the custom image.
+        enum:
+        - Windows
+        - Linux
+        - None
+      author?:
+        type: string
+        description: The author of the custom image.
+      creationDate?:
+        type: datetime
+        description: The creation date of the custom image.
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a custom image.
+  CustomImagePropertiesCustom:
+    type: object
+    properties:
+      imageName?:
+        type: string
+        description: The image name.
+      sysPrep?:
+        type: boolean
+        description: Indicates whether sysprep has been run on the VHD.
+    description: Properties for creating a custom image from a VHD.
+  CustomImagePropertiesFromVm:
+    type: object
+    properties:
+      sourceVmId?:
+        type: string
+        description: The source vm identifier.
+      sysPrep?:
+        type: boolean
+        description: Indicates whether sysprep has been run on the VHD.
+      windowsOsInfo?:
+        type: WindowsOsInfo
+        description: The Windows OS information of the VM.
+      linuxOsInfo?:
+        type: LinuxOsInfo
+        description: The Linux OS information of the VM.
+    description: Properties for creating a custom image from a virtual machine.
+  DayDetails:
+    type: object
+    properties:
+      time?:
+        type: string
+    description: Properties of a daily schedule.
+  EvaluatePoliciesProperties:
+    type: object
+    properties:
+      factName?:
+        type: string
+        description: The fact name.
+      factData?:
+        type: string
+        description: The fact data.
+      valueOffset?:
+        type: string
+        description: The value offset.
+    description: Properties for evaluating a policy set.
+  EvaluatePoliciesRequest:
+    type: object
+    properties:
+      policies?:
+        type: array
+        description: Policies to evaluate.
+        items:
+          type: EvaluatePoliciesProperties
+    description: Request body for evaluating a policy set.
+  EvaluatePoliciesResponse:
+    type: object
+    properties:
+      results?:
+        type: array
+        description: Results of evaluating a policy set.
+        items:
+          type: PolicySetResult
+    description: Response body for evaluating a policy set.
+  Formula:
+    type: object
+    properties:
+      properties?:
+        type: FormulaProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A formula.
+  FormulaProperties:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: The description of the formula.
+      author?:
+        type: string
+        description: The author of the formula.
+      osType?:
+        type: string
+        description: The OS type of the formula.
+      creationDate?:
+        type: datetime
+        description: The creation date of the formula.
+      formulaContent?:
+        type: LabVirtualMachine
+        description: The content of the formula.
+      vm?:
+        type: FormulaPropertiesFromVm
+        description: Information about a VM from which a formula is to be created.
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a formula.
+  FormulaPropertiesFromVm:
+    type: object
+    properties:
+      labVmId?:
+        type: string
+        description: The identifier of the VM from which a formula is to be created.
+    description: Information about a VM from which a formula is to be created.
+  GalleryImage:
+    type: object
+    properties:
+      properties?:
+        type: GalleryImageProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A gallery image.
+  GalleryImageProperties:
+    type: object
+    properties:
+      author?:
+        type: string
+        description: The author of the gallery image.
+      createdDate?:
+        type: datetime
+        description: The creation date of the gallery image.
+      description?:
+        type: string
+        description: The description of the gallery image.
+      imageReference?:
+        type: GalleryImageReference
+        description: The image reference of the gallery image.
+      icon?:
+        type: string
+        description: The icon of the gallery image.
+      enabled?:
+        type: boolean
+        description: Indicates whether this gallery image is enabled.
+    description: Properties of a gallery image.
+  GalleryImageReference:
+    type: object
+    properties:
+      offer?:
+        type: string
+        description: The offer of the gallery image.
+      publisher?:
+        type: string
+        description: The publisher of the gallery image.
+      sku?:
+        type: string
+        description: The SKU of the gallery image.
+      osType?:
+        type: string
+        description: The OS type of the gallery image.
+      version?:
+        type: string
+        description: The version of the gallery image.
+    description: The reference information for an Azure Marketplace image.
+  GenerateArmTemplateRequest:
+    type: object
+    properties:
+      virtualMachineName?:
+        type: string
+        description: The resource name of the virtual machine.
+      parameters?:
+        type: array
+        description: The parameters of the ARM template.
+        items:
+          type: ParameterInfo
+      location?:
+        type: string
+        description: The location of the virtual machine.
+    description: Parameters for generating an ARM template for deploying artifacts.
+  GenerateUploadUriParameter:
+    type: object
+    properties:
+      blobName?:
+        type: string
+        description: The blob name of the upload URI.
+    description: Properties for generating an upload URI.
+  GenerateUploadUriResponse:
+    type: object
+    properties:
+      uploadUri?:
+        type: string
+        description: The upload URI for the VHD.
+    description: Reponse body for generating an upload URI.
+  HourDetails:
+    type: object
+    properties:
+      minute?:
+        type: integer
+        description: Minutes of the hour the schedule will run.
+        format: int32
+    description: Properties of an hourly schedule.
+  Lab:
+    type: object
+    properties:
+      properties?:
+        type: LabProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A lab.
+  LabProperties:
+    type: object
+    properties:
+      defaultStorageAccount?:
+        type: string
+        description: The lab's default storage account.
+      artifactsStorageAccount?:
+        type: string
+        description: The artifact storage account of the lab.
+      storageAccounts?:
+        type: array
+        description: The storage accounts of the lab.
+        items:
+          type: string
+      vaultName?:
+        type: string
+        description: The name of the key vault of the lab.
+      labStorageType?:
+        type: string
+        description: The type of the lab storage.
+        enum:
+        - Standard
+        - Premium
+      defaultVirtualNetworkId?:
+        type: string
+        description: The default virtual network identifier of the lab.
+      createdDate?:
+        type: datetime
+        description: The creation date of the lab.
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a lab.
+  LabVhd:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The absolute URI of the VHD.
+    description: Properties of a VHD in the lab.
+  LabVirtualMachine:
+    type: object
+    properties:
+      properties?:
+        type: LabVirtualMachineProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A virtual machine.
+  LabVirtualMachineProperties:
+    type: object
+    properties:
+      notes?:
+        type: string
+        description: The notes of the virtual machine.
+      ownerObjectId?:
+        type: string
+        description: The object identifier of the owner of the virtual machine.
+      createdByUserId?:
+        type: string
+        description: The object identifier of the creator of the virtual machine.
+      createdByUser?:
+        type: string
+        description: The email address of creator of the virtual machine.
+      computeId?:
+        type: string
+        description: The resource identifier (Microsoft.Compute) of the virtual machine.
+      customImageId?:
+        type: string
+        description: The custom image identifier of the virtual machine.
+      osType?:
+        type: string
+        description: The OS type of the virtual machine.
+      size?:
+        type: string
+        description: The size of the virtual machine.
+      userName?:
+        type: string
+        description: The user name of the virtual machine.
+      password?:
+        type: string
+        description: The password of the virtual machine administrator.
+      sshKey?:
+        type: string
+        description: The SSH key of the virtual machine administrator.
+      isAuthenticationWithSshKey?:
+        type: boolean
+        description: A value indicating whether this virtual machine uses an SSH key for authentication.
+      fqdn?:
+        type: string
+        description: The fully-qualified domain name of the virtual machine.
+      labSubnetName?:
+        type: string
+        description: The lab subnet name of the virtual machine.
+      labVirtualNetworkId?:
+        type: string
+        description: The lab virtual network identifier of the virtual machine.
+      disallowPublicIpAddress?:
+        type: boolean
+        description: Indicates whether the virtual machine is to be created without a public IP address.
+      artifacts?:
+        type: array
+        description: The artifacts to be installed on the virtual machine.
+        items:
+          type: ArtifactInstallProperties
+      artifactDeploymentStatus?:
+        type: ArtifactDeploymentStatusProperties
+        description: The artifact deployment status for the virtual machine.
+      galleryImageReference?:
+        type: GalleryImageReference
+        description: The Microsoft Azure Marketplace image reference of the virtual machine.
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a virtual machine.
+  LinuxOsInfo:
+    type: object
+    properties:
+      linuxOsState?:
+        type: string
+        description: The state of the Linux OS.
+        enum:
+        - NonDeprovisioned
+        - DeprovisionRequested
+        - DeprovisionApplied
+    description: Information about a Linux OS.
+  Object:
+    type: object
+  ParameterInfo:
+    type: object
+    properties:
+      name?:
+        type: string
+      value?:
+        type: string
+  Policy:
+    type: object
+    properties:
+      properties?:
+        type: PolicyProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A Policy.
+  PolicyProperties:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: The description of the policy.
+      status?:
+        type: string
+        description: The status of the policy.
+        enum:
+        - Enabled
+        - Disabled
+      factName?:
+        type: string
+        description: The fact name of the policy.
+        enum:
+        - UserOwnedLabVmCount
+        - LabVmCount
+        - LabVmSize
+        - GalleryImage
+        - UserOwnedLabVmCountInSubnet
+      factData?:
+        type: string
+        description: The fact data of the policy.
+      threshold?:
+        type: string
+        description: The threshold of the policy.
+      evaluatorType?:
+        type: string
+        description: The evaluator type of the policy.
+        enum:
+        - AllowedValuesPolicy
+        - MaxValuePolicy
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a Policy.
+  PolicySetResult:
+    type: object
+    properties:
+      hasError?:
+        type: boolean
+        description: A value indicating whether this policy set evaluation has discovered violations.
+      policyViolations?:
+        type: array
+        description: The list of policy violations.
+        items:
+          type: PolicyViolation
+    description: Result of a policy set evaluation.
+  PolicyViolation:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: The code of the policy violation.
+      message?:
+        type: string
+        description: The message of the policy violation.
+    description: Policy violation.
+  ResponseWithContinuation_ArtifactSource_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: ArtifactSource
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Artifact_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Artifact
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_CostInsight_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: CostInsight
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Cost_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Cost
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_CustomImage_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: CustomImage
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Formula_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Formula
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_GalleryImage_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: GalleryImage
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_LabVhd_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: LabVhd
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_LabVirtualMachine_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: LabVirtualMachine
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Lab_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Lab
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Policy_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Policy
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_Schedule_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: Schedule
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  ResponseWithContinuation_VirtualNetwork_:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation.
+        items:
+          type: VirtualNetwork
+      nextLink?:
+        type: string
+        description: Link for next set of results.
+    description: The response of a list operation.
+  Schedule:
+    type: object
+    properties:
+      properties?:
+        type: ScheduleProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A schedule.
+  ScheduleProperties:
+    type: object
+    properties:
+      status?:
+        type: string
+        description: The status of the schedule.
+        enum:
+        - Enabled
+        - Disabled
+      taskType?:
+        type: string
+        description: The task type of the schedule.
+        enum:
+        - LabVmsShutdownTask
+        - LabVmsStartupTask
+        - LabBillingTask
+      weeklyRecurrence?:
+        type: WeekDetails
+        description: The weekly recurrence of the schedule.
+      dailyRecurrence?:
+        type: DayDetails
+        description: The daily recurrence of the schedule.
+      hourlyRecurrence?:
+        type: HourDetails
+        description: The hourly recurrence of the schedule.
+      timeZoneId?:
+        type: string
+        description: The time zone id.
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a schedule.
+  Subnet:
+    type: object
+    properties:
+      resourceId?:
+        type: string
+      labSubnetName?:
+        type: string
+      allowPublicIp?:
+        type: string
+        enum:
+        - Default
+        - Deny
+        - Allow
+  SubnetOverride:
+    type: object
+    properties:
+      resourceId?:
+        type: string
+        description: The resource identifier of the subnet.
+      labSubnetName?:
+        type: string
+        description: The name given to the subnet within the lab.
+      useInVmCreationPermission?:
+        type: string
+        description: Indicates whether this subnet can be used during virtual machine creation.
+        enum:
+        - Default
+        - Deny
+        - Allow
+      usePublicIpAddressPermission?:
+        type: string
+        description: Indicates whether public IP addresses can be assigned to virtual machines on this subnet.
+        enum:
+        - Default
+        - Deny
+        - Allow
+    description: Property overrides on a subnet of a virtual network.
+  SubscriptionNotification:
+    type: object
+    properties:
+      registrationDate?:
+        type: string
+      state?:
+        type: string
+        enum:
+        - NotDefined
+        - Registered
+        - Unregistered
+        - Warned
+        - Suspended
+        - Deleted
+      properties?:
+        type: SubscriptionNotificationProperties
+  SubscriptionNotificationProperties:
+    type: object
+    properties:
+      tenantId?:
+        type: string
+  VMCostProperties:
+    type: object
+    properties:
+      name?:
+        type: string
+      resourceGroupName?:
+        type: string
+      cost?:
+        type: number
+        format: double
+  VirtualNetwork:
+    type: object
+    properties:
+      properties?:
+        type: VirtualNetworkProperties
+        description: The properties of the resource.
+      id?:
+        type: string
+        description: The identifier of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource.
+      location?:
+        type: string
+        description: The location of the resource.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource.
+    description: A virtual network.
+  VirtualNetworkProperties:
+    type: object
+    properties:
+      allowedSubnets?:
+        type: array
+        description: The allowed subnets of the virtual network.
+        items:
+          type: Subnet
+      description?:
+        type: string
+        description: The description of the virtual network.
+      externalProviderResourceId?:
+        type: string
+        description: The Microsoft.Network resource identifier of the virtual network.
+      subnetOverrides?:
+        type: array
+        description: The subnet overrides of the virtual network.
+        items:
+          type: SubnetOverride
+      provisioningState?:
+        type: string
+        description: The provisioning status of the resource.
+    description: Properties of a virtual network.
+  WeekDetails:
+    type: object
+    properties:
+      weekdays?:
+        type: array
+        description: The days of the week.
+        items:
+          type: string
+      time?:
+        type: string
+        description: The time of the day.
+    description: Properties of a weekly schedule.
+  WindowsOsInfo:
+    type: object
+    properties:
+      windowsOsState?:
+        type: string
+        description: The state of the Windows OS.
+        enum:
+        - NonSysprepped
+        - SysprepRequested
+        - SysprepApplied
+    description: Information about a Windows OS.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The subscription ID.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.DevTestLab:
+        /labs:
+          get:
+            description: List labs.
+            queryParameters:
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                displayName: $top
+                format: int32
+              $orderBy?:
+                type: string
+                displayName: $orderBy
+              api-version:
+                type: string
+                description: Client API version.
+                displayName: api-version
+                default: 2015-05-21-preview
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.DevTestLab:
+            /labs:
+              /{labName}:
+                uriParameters:
+                  labName:
+                    type: string
+                    description: The name of the lab.
+                    displayName: labName
+                /artifactsources:
+                  /{artifactSourceName}:
+                    uriParameters:
+                      artifactSourceName:
+                        type: string
+                        description: The name of the artifact source.
+                        displayName: artifactSourceName
+                    /artifacts:
+                      /{name}:
+                        uriParameters:
+                          name:
+                            type: string
+                            description: The name of the artifact.
+                            displayName: name
+                        /generateArmTemplate:
+                          post:
+                            description: Generates an ARM template for the given artifact, uploads the required files to a storage account, and validates the generated artifact.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client API version.
+                                displayName: api-version
+                                default: 2015-05-21-preview
+                            body:
+                              application/json: GenerateArmTemplateRequest
+                              text/json: GenerateArmTemplateRequest
+                        get:
+                          description: Get artifact.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API version.
+                              displayName: api-version
+                              default: 2015-05-21-preview
+                      get:
+                        description: List artifacts.
+                        queryParameters:
+                          $filter?:
+                            type: string
+                            description: The filter to apply on the operation.
+                            displayName: $filter
+                          $top?:
+                            type: integer
+                            displayName: $top
+                            format: int32
+                          $orderBy?:
+                            type: string
+                            displayName: $orderBy
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the artifact source.
+                        displayName: name
+                    get:
+                      description: Get artifact source.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete artifact source.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    patch:
+                      description: Modify properties of artifact sources.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: ArtifactSource
+                        text/json: ArtifactSource
+                    put:
+                      description: Create or replace an existing artifact source.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: ArtifactSource
+                        text/json: ArtifactSource
+                  get:
+                    description: List artifact sources.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /costinsights:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the cost insight.
+                        displayName: name
+                    /refreshData:
+                      post:
+                        description: Refresh Lab's Cost Insight Data. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                    get:
+                      description: Get cost insight.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                  get:
+                    description: List cost insights.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /costs:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the cost.
+                        displayName: name
+                    /refreshData:
+                      post:
+                        description: Refresh Lab's Cost Data. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                    get:
+                      description: Get cost.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                  get:
+                    description: List costs.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /customimages:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the custom image.
+                        displayName: name
+                    get:
+                      description: Get custom image.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete custom image. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    put:
+                      description: Create or replace an existing custom image. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: CustomImage
+                        text/json: CustomImage
+                  get:
+                    description: List custom images.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /formulas:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the formula.
+                        displayName: name
+                    get:
+                      description: Get formula.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete formula.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    put:
+                      description: Create or replace an existing Formula. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: Formula
+                        text/json: Formula
+                  get:
+                    description: List formulas.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /galleryimages:
+                  get:
+                    description: List gallery images.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /policysets:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the policy set.
+                        displayName: name
+                    /evaluatePolicies:
+                      post:
+                        description: Evaluates Lab Policy.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                        body:
+                          application/json: EvaluatePoliciesRequest
+                          text/json: EvaluatePoliciesRequest
+                  /{policySetName}:
+                    uriParameters:
+                      policySetName:
+                        type: string
+                        description: The name of the policy set.
+                        displayName: policySetName
+                    /policies:
+                      /{name}:
+                        uriParameters:
+                          name:
+                            type: string
+                            description: The name of the policy.
+                            displayName: name
+                        get:
+                          description: Get policy.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API version.
+                              displayName: api-version
+                              default: 2015-05-21-preview
+                        delete:
+                          description: Delete policy.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API version.
+                              displayName: api-version
+                              default: 2015-05-21-preview
+                        patch:
+                          description: Modify properties of policies.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API version.
+                              displayName: api-version
+                              default: 2015-05-21-preview
+                          body:
+                            application/json: Policy
+                            text/json: Policy
+                        put:
+                          description: Create or replace an existing policy.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API version.
+                              displayName: api-version
+                              default: 2015-05-21-preview
+                          body:
+                            application/json: Policy
+                            text/json: Policy
+                      get:
+                        description: List policies.
+                        queryParameters:
+                          $filter?:
+                            type: string
+                            description: The filter to apply on the operation.
+                            displayName: $filter
+                          $top?:
+                            type: integer
+                            displayName: $top
+                            format: int32
+                          $orderBy?:
+                            type: string
+                            displayName: $orderBy
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                /schedules:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the schedule.
+                        displayName: name
+                    /execute:
+                      post:
+                        description: Execute a schedule. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                    get:
+                      description: Get schedule.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete schedule. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    patch:
+                      description: Modify properties of schedules.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: Schedule
+                        text/json: Schedule
+                    put:
+                      description: Create or replace an existing schedule. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: Schedule
+                        text/json: Schedule
+                  get:
+                    description: List schedules.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /virtualmachines:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the virtual Machine.
+                        displayName: name
+                    /applyArtifacts:
+                      post:
+                        description: Apply artifacts to Lab VM. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                        body:
+                          application/json: ApplyArtifactsRequest
+                          text/json: ApplyArtifactsRequest
+                    /start:
+                      post:
+                        description: Start a Lab VM. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                    /stop:
+                      post:
+                        description: Stop a Lab VM. This operation can take a while to complete.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client API version.
+                            displayName: api-version
+                            default: 2015-05-21-preview
+                    get:
+                      description: Get virtual machine.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete virtual machine. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    patch:
+                      description: Modify properties of virtual machines.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: LabVirtualMachine
+                        text/json: LabVirtualMachine
+                    put:
+                      description: Create or replace an existing Virtual Machine. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: LabVirtualMachine
+                        text/json: LabVirtualMachine
+                  get:
+                    description: List virtual machines.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                /virtualnetworks:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the virtual network.
+                        displayName: name
+                    get:
+                      description: Get virtual network.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    delete:
+                      description: Delete virtual network. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                    patch:
+                      description: Modify properties of virtual networks.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: VirtualNetwork
+                        text/json: VirtualNetwork
+                    put:
+                      description: Create or replace an existing virtual network. This operation can take a while to complete.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API version.
+                          displayName: api-version
+                          default: 2015-05-21-preview
+                      body:
+                        application/json: VirtualNetwork
+                        text/json: VirtualNetwork
+                  get:
+                    description: List virtual networks.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        displayName: $top
+                        format: int32
+                      $orderBy?:
+                        type: string
+                        displayName: $orderBy
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: The name of the lab.
+                    displayName: name
+                /createEnvironment:
+                  post:
+                    description: Create virtual machines in a Lab. This operation can take a while to complete.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                    body:
+                      application/json: LabVirtualMachine
+                      text/json: LabVirtualMachine
+                /generateUploadUri:
+                  post:
+                    description: Generate a URI for uploading custom disk images to a Lab.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                    body:
+                      application/json: GenerateUploadUriParameter
+                      text/json: GenerateUploadUriParameter
+                /listVhds:
+                  post:
+                    description: List disk images available for custom image creation.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API version.
+                        displayName: api-version
+                        default: 2015-05-21-preview
+                get:
+                  description: Get lab.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API version.
+                      displayName: api-version
+                      default: 2015-05-21-preview
+                delete:
+                  description: Delete lab. This operation can take a while to complete.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API version.
+                      displayName: api-version
+                      default: 2015-05-21-preview
+                patch:
+                  description: Modify properties of labs.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API version.
+                      displayName: api-version
+                      default: 2015-05-21-preview
+                  body:
+                    application/json: Lab
+                    text/json: Lab
+                put:
+                  description: Create or replace an existing Lab. This operation can take a while to complete.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API version.
+                      displayName: api-version
+                      default: 2015-05-21-preview
+                  body:
+                    application/json: Lab
+                    text/json: Lab
+              get:
+                description: List labs.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    displayName: $top
+                    format: int32
+                  $orderBy?:
+                    type: string
+                    displayName: $orderBy
+                  api-version:
+                    type: string
+                    description: Client API version.
+                    displayName: api-version
+                    default: 2015-05-21-preview

@@ -1,0 +1,382 @@
+#%RAML 1.0
+title: StorageManagementClient
+version: 2015-05-01-preview
+baseUri: management.azure.com
+description: The Storage Management Client.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  CheckNameAvailabilityResult:
+    type: object
+    properties:
+      nameAvailable?:
+        type: boolean
+        description: Gets a boolean value that indicates whether the name is available for you to use. If true, the name is available. If false, the name has already been taken or invalid and cannot be used.
+      reason?:
+        type: string
+        description: Gets the reason that a storage account name could not be used. The Reason element is only returned if NameAvailable is false.
+        enum:
+        - AccountNameInvalid
+        - AlreadyExists
+      message?:
+        type: string
+        description: Gets an error message explaining the Reason value in more detail.
+    description: The CheckNameAvailability operation response.
+  CustomDomain:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the custom domain name. Name is the CNAME source.
+      useSubDomain?:
+        type: boolean
+        description: Indicates whether indirect CName validation is enabled. Default value is false. This should only be set on updates
+    description: The custom domain assigned to this storage account. This can be set via Update.
+  Endpoints:
+    type: object
+    properties:
+      blob?:
+        type: string
+        description: Gets the blob endpoint.
+      queue?:
+        type: string
+        description: Gets the queue endpoint.
+      table?:
+        type: string
+        description: Gets the table endpoint.
+    description: The URIs that are used to perform a retrieval of a public blob, queue or table object.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  StorageAccount:
+    type: Resource
+    description: The storage account.
+  StorageAccountCheckNameAvailabilityParameters:
+    type: object
+    properties:
+      name?:
+        type: string
+      type?:
+        type: string
+    description: 'The name of the storage account within the specified resource group.
+      Storage account names must be between 3 and 24 characters in length and use
+      numbers and lower-case letters only.  '
+  StorageAccountCreateParameters:
+    type: Resource
+    description: The parameters to provide for the account.
+  StorageAccountKeys:
+    type: object
+    properties:
+      key1?:
+        type: string
+        description: Gets the value of key 1.
+      key2?:
+        type: string
+        description: Gets the value of key 2.
+    description: The access keys for the storage account.
+  StorageAccountListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the list of storage accounts and their properties.
+        items:
+          type: StorageAccount
+      nextLink?:
+        type: string
+        description: Gets the link to the next set of results. Currently this will always be empty as the API does not support pagination.
+    description: The list storage accounts operation response.
+  StorageAccountProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Gets the status of the storage account at the time the operation was called.
+        enum:
+        - Creating
+        - ResolvingDNS
+        - Succeeded
+      accountType?:
+        type: string
+        description: Gets the type of the storage account.
+        enum:
+        - Standard_LRS
+        - Standard_ZRS
+        - Standard_GRS
+        - Standard_RAGRS
+        - Premium_LRS
+      primaryEndpoints?:
+        type: Endpoints
+        description: Gets the URLs that are used to perform a retrieval of a public blob, queue or table object.Note that StandardZRS and PremiumLRS accounts only return the blob endpoint.
+      primaryLocation?:
+        type: string
+        description: Gets the location of the primary for the storage account.
+      statusOfPrimary?:
+        type: string
+        description: Gets the status indicating whether the primary location of the storage account is available or unavailable.
+        enum:
+        - Available
+        - Unavailable
+      lastGeoFailoverTime?:
+        type: datetime
+        description: Gets the timestamp of the most recent instance of a failover to the secondary location. Only the most recent timestamp is retained. This element is not returned if there has never been a failover instance. Only available if the accountType is StandardGRS or StandardRAGRS.
+      secondaryLocation?:
+        type: string
+        description: Gets the location of the geo replicated secondary for the storage account. Only available if the accountType is StandardGRS or StandardRAGRS.
+      statusOfSecondary?:
+        type: string
+        description: Gets the status indicating whether the secondary location of the storage account is available or unavailable. Only available if the accountType is StandardGRS or StandardRAGRS.
+        enum:
+        - Available
+        - Unavailable
+      creationTime?:
+        type: datetime
+        description: Gets the creation date and time of the storage account in UTC.
+      customDomain?:
+        type: CustomDomain
+        description: Gets the user assigned custom domain assigned to this storage account.
+      secondaryEndpoints?:
+        type: Endpoints
+        description: Gets the URLs that are used to perform a retrieval of a public blob, queue or table object from the secondary location of the storage account. Only available if the accountType is StandardRAGRS.
+  StorageAccountPropertiesCreateParameters:
+    type: object
+    properties:
+      accountType?:
+        type: string
+        description: Gets or sets the account type.
+        enum:
+        - Standard_LRS
+        - Standard_ZRS
+        - Standard_GRS
+        - Standard_RAGRS
+        - Premium_LRS
+  StorageAccountPropertiesUpdateParameters:
+    type: object
+    properties:
+      accountType?:
+        type: string
+        description: Gets or sets the account type. Note that StandardZRS and PremiumLRS accounts cannot be changed to other account types, and other account types cannot be changed to StandardZRS or PremiumLRS.
+        enum:
+        - Standard_LRS
+        - Standard_ZRS
+        - Standard_GRS
+        - Standard_RAGRS
+        - Premium_LRS
+      customDomain?:
+        type: CustomDomain
+        description: User domain assigned to the storage account. Name is the CNAME source. Only one custom domain is supported per storage account at this time. To clear the existing custom domain, use an empty string for the custom domain name property.
+  StorageAccountRegenerateKeyParameters:
+    type: object
+    properties:
+      keyName?:
+        type: string
+        enum:
+        - key1
+        - key2
+    description: Specifies name of the key which should be regenerated.
+  StorageAccountUpdateParameters:
+    type: Resource
+    description: The parameters to update on the account.
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+  Usage:
+    type: object
+    properties:
+      unit?:
+        type: string
+        description: Gets the unit of measurement.
+        enum:
+        - Count
+        - Bytes
+        - Seconds
+        - Percent
+        - CountsPerSecond
+        - BytesPerSecond
+      currentValue?:
+        type: integer
+        description: Gets the current count of the allocated resources in the subscription.
+        format: int32
+      limit?:
+        type: integer
+        description: Gets the maximum count of the resources that can be allocated in the subscription.
+        format: int32
+      name?:
+        type: UsageName
+        description: Gets the name of the type of usage.
+    description: Describes Storage Resource Usage.
+  UsageListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list Storage Resource Usages.
+        items:
+          type: Usage
+    description: The List Usages operation response.
+  UsageName:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Gets a string describing the resource name.
+      localizedValue?:
+        type: string
+        description: Gets a localized string describing the resource name.
+    description: The Usage Names.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Storage:
+        /checkNameAvailability:
+          post:
+            description: Checks that account name is valid and is not in use.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: StorageAccountCheckNameAvailabilityParameters
+              text/json: StorageAccountCheckNameAvailabilityParameters
+        /storageAccounts:
+          get:
+            description: Lists all the storage accounts available under the subscription. Note that storage keys are not returned; use the ListKeys operation for this.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /usages:
+          get:
+            description: Gets the current usage count and the limit for the resources under the subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group within the user's subscription.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Storage:
+            /storageAccounts:
+              /{accountName}:
+                uriParameters:
+                  accountName:
+                    type: string
+                    description: 'The name of the storage account within the specified
+                      resource group. Storage account names must be between 3 and
+                      24 characters in length and use numbers and lower-case letters
+                      only.  '
+                    displayName: accountName
+                /listKeys:
+                  post:
+                    description: Lists the access keys for the specified storage account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /regenerateKey:
+                  post:
+                    description: Regenerates the access keys for the specified storage account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: StorageAccountRegenerateKeyParameters
+                      text/json: StorageAccountRegenerateKeyParameters
+                get:
+                  description: Returns the properties for the specified storage account including but not limited to name, account type, location, and account status. The ListKeys operation should be used to retrieve storage keys.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes a storage account in Microsoft Azure.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                patch:
+                  description: Updates the account type or tags for a storage account. It can also be used to add a custom domain (note that custom domains cannot be added via the Create operation). Only one custom domain is supported per storage account. This API can only be used to update one of tags, accountType, or customDomain per call. To update multiple of these properties, call the API multiple times with one change per call. This call does not change the storage keys for the account. If you want to change storage account keys, use the RegenerateKey operation. The location and name of the storage account cannot be changed after creation.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: StorageAccountUpdateParameters
+                    text/json: StorageAccountUpdateParameters
+                put:
+                  description: 'Asynchronously creates a new storage account with
+                    the specified parameters. Existing accounts cannot be updated
+                    with this API and should instead use the Update Storage Account
+                    API. If an account is already created and subsequent PUT request
+                    is issued with exact same set of properties, then HTTP 200 would
+                    be returned. '
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: StorageAccountCreateParameters
+                    text/json: StorageAccountCreateParameters
+              get:
+                description: Lists all the storage accounts available under the given resource group. Note that storage keys are not returned; use the ListKeys operation for this.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

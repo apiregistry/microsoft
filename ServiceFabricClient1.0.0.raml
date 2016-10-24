@@ -1,0 +1,2303 @@
+#%RAML 1.0
+title: ServiceFabricClient
+version: 1.0.0
+baseUri: localhost:19080
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  DefaultMoveCost:
+    type: string
+    enum:
+    - Zero
+    - Low
+    - Medium
+    - High
+  FailureAction:
+    type: string
+    enum:
+    - Invalid
+    - Rollback
+    - Manual
+  FailureReason:
+    type: string
+    enum:
+    - Invalid
+    - Interrupted
+    - HealthCheck
+    - UpgradeDomainTimeout
+    - OverallUpgradeTimeout
+  HealthState:
+    type: string
+    enum:
+    - Invalid
+    - Ok
+    - Warning
+    - Error
+    - Unknown
+  PartitionScheme:
+    type: string
+    enum:
+    - Invalid
+    - Singleton
+    - UniformInt64
+    - Named
+  ReplicaRole:
+    type: string
+    enum:
+    - Invalid
+    - None
+    - Primary
+    - IdleSecondary
+    - ActiveSecondary
+  ReplicaStatus:
+    type: string
+    enum:
+    - Invalid
+    - InBuild
+    - Standby
+    - Ready
+    - Down
+    - Dropped
+  RollingUpgradeMode:
+    type: string
+    enum:
+    - Invalid
+    - UnmonitoredAuto
+    - UnmonitoredManual
+    - Monitored
+  ServiceKind:
+    type: string
+    enum:
+    - Invalid
+    - Stateless
+    - Stateful
+  UpgradeState:
+    type: string
+    enum:
+    - Invalid
+    - RollingBackInProgress
+    - RollingBackCompleted
+    - RollingForwardPending
+    - RollingForwardInProgress
+    - RollingForwardCompleted
+  Application:
+    type: object
+    properties:
+      Id?:
+        type: string
+      Name?:
+        type: string
+      TypeName?:
+        type: string
+      TypeVersion?:
+        type: string
+      Status?:
+        type: string
+      Parameters?:
+        type: array
+        items:
+          type: object
+          properties:
+            Value?:
+              type: string
+            Key?:
+              type: string
+          description: The parameters
+      HealthState?:
+        type: HealthState
+    description: The application
+  ApplicationDescription:
+    type: object
+    properties:
+      Name?:
+        type: string
+      TypeName?:
+        type: string
+      TypeVersion?:
+        type: string
+      ParameterList?:
+        type: array
+        items:
+          type: object
+          properties:
+            Value?:
+              type: string
+            Key?:
+              type: string
+          description: The list of the parameter
+    description: The description of the application
+  ApplicationHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      UnhealthyEvaluations?:
+        type: string
+      Name?:
+        type: string
+      ServiceHealthStates?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            ServiceName?:
+              type: string
+          description: The states of the service health
+      DeployedApplicationHealthStates?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            ApplicationName?:
+              type: string
+            NodeName?:
+              type: string
+          description: The states of the deployed application health
+    description: The health of the application
+  ApplicationHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the application health
+  ApplicationHealthPolicy:
+    type: object
+    properties:
+      ConsiderWarningAsError?:
+        type: boolean
+      MaxPercentUnhealthyDeployedApplications?:
+        type: integer
+      DefaultServiceTypeHealthPolicy?:
+        type: object
+        properties:
+          MaxPercentUnhealthyReplicasPerPartition?:
+            type: integer
+          MaxPercentUnhealthyServices?:
+            type: integer
+          MaxPercentUnhealthyPartitionsPerService?:
+            type: integer
+        description: The policy of the default service type health
+    description: The policy of the application health
+  ApplicationHealthReport:
+    type: HealthReport
+    description: The report of the application health
+  ApplicationList:
+    type: object
+    properties:
+      ContinuationToken?:
+        type: string
+      Items?:
+        type: array
+        items:
+          type: Application
+    description: The list of the application
+  ApplicationManifest:
+    type: object
+    properties:
+      Manifest?:
+        type: string
+    description: The manifest of the application
+  ApplicationType:
+    type: object
+    properties:
+      Name?:
+        type: string
+      Version?:
+        type: string
+      DefaultParameterList?:
+        type: array
+        items:
+          type: object
+          properties:
+            Value?:
+              type: string
+            Key?:
+              type: string
+          description: The list of the default parameter
+    description: The type of the application
+  ApplicationTypeHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the application type health
+  ApplicationUpgrade:
+    type: object
+    properties:
+      Name?:
+        type: string
+      TypeName?:
+        type: string
+      TargetApplicationTypeVersion?:
+        type: string
+      UpgradeDomains?:
+        type: string
+      UpgradeState?:
+        type: UpgradeState
+      NextUpgradeDomain?:
+        type: string
+      RollingUpgradeMode?:
+        type: RollingUpgradeMode
+      UpgradeDurationInMilliseconds?:
+        type: string
+      UpgradeDomainDurationInMilliseconds?:
+        type: string
+      UnhealthyEvaluations?:
+        type: string
+      CurrentUpgradeDomainProgress?:
+        type: object
+        properties:
+          DomainName?:
+            type: string
+          NodeUpgradeProgressList?:
+            type: string
+        description: The progress of the current upgrade domain
+      StartTimestampUtc?:
+        type: string
+      FailureTimestampUtc?:
+        type: string
+      FailureReason?:
+        type: FailureReason
+      DeployedApplicationHealthStates?:
+        type: object
+        properties:
+          DomainName?:
+            type: string
+          NodeUpgradeProgressList?:
+            type: string
+        description: The states of the deployed application health
+    description: The upgrade of the application
+  ApplicationsHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the applications health
+  ClusterHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      UnhealthyEvaluations?:
+        type: array
+        items:
+          type: UnhealthyEvaluation
+      NodeHealthStates?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            Id?:
+              type: object
+              properties:
+                Id?:
+                  type: string
+              description: The id
+            Name?:
+              type: string
+          description: The states of tehe node health
+      ApplicationHealthState?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            Name?:
+              type: string
+          description: The state of the application health
+    description: The health of the cluster
+  ClusterHealthReport:
+    type: HealthReport
+    description: The report of the cluster health
+  ClusterLoadInformation:
+    type: object
+    properties:
+      LastBalancingStartTimeUtc?:
+        type: string
+      LastBalancingEndTimeUtc?:
+        type: string
+      LoadMetricInformation?:
+        type: array
+        items:
+          type: LoadMetricInformation
+    description: The information of the cluster load
+  ClusterUpgradeProgress:
+    type: object
+    properties:
+      CodeVersion?:
+        type: string
+      ConfigVersion?:
+        type: string
+      UpgradeDomains?:
+        type: array
+        items:
+          type: string
+      UpgradeState?:
+        type: UpgradeState
+      NextUpgradeDomain?:
+        type: string
+      RollingUpgradeMode?:
+        type: RollingUpgradeMode
+      UpgradeDurationInMilliseconds?:
+        type: string
+      UpgradeDomainDurationInMilliseconds?:
+        type: string
+      UnhealthyEvaluations?:
+        type: array
+        items:
+          type: UnhealthyEvaluation
+      CurrentUpgradeDomainProgress?:
+        type: object
+        properties:
+          DomainName?:
+            type: string
+          NodeUpgradeProgressList?:
+            type: string
+        description: The progress of the current upgrade domain
+      StartTimestampUtc?:
+        type: string
+      FailureTimestampUtc?:
+        type: string
+      FailureReason?:
+        type: FailureReason
+      UpgradeDomainProgressAtFailure?:
+        type: object
+        properties:
+          DomainName?:
+            type: string
+          NodeUpgradeProgressList?:
+            type: string
+        description: The failure of the upgrade domain progress at
+    description: The progress of the cluster upgrade
+  CodePackageEntryPointStatistics:
+    type: object
+    properties:
+      LastExitCode?:
+        type: integer
+      LastActivationTime?:
+        type: string
+      LastExitTime?:
+        type: string
+      LastSuccessfulActivationTime?:
+        type: string
+      LastSuccessfulExitTime?:
+        type: string
+      ActivationFailureCount?:
+        type: integer
+      ContinuousActivationFailureCount?:
+        type: integer
+      ExitFailureCount?:
+        type: integer
+      ContinuousExitFailureCount?:
+        type: integer
+      ActivationCount?:
+        type: integer
+      ExitCount?:
+        type: integer
+    description: The statistics of the code package entry point
+  CreateServiceDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      ApplicationName?:
+        type: string
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      PartitionDescription?:
+        type: PartitionDescription
+      PlacementConstraints?:
+        type: string
+      CorrelationScheme?:
+        type: ServiceCorrelationDescription
+      ServiceLoadMetrics?:
+        type: ServiceCorrelationDescription
+      ServicePlacementPolicies?:
+        type: ServiceCorrelationDescription
+      Flags?:
+        type: integer
+    description: The description of the service
+    discriminator: ServiceKind
+  CreateServiceGroupDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      ApplicationName?:
+        type: string
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      PartitionDescription?:
+        type: PartitionDescription
+      PlacementConstraints?:
+        type: string
+      CorrelationScheme?:
+        type: ServiceCorrelationDescription
+      ServiceLoadMetrics?:
+        type: ServiceCorrelationDescription
+      ServicePlacementPolicies?:
+        type: ServiceCorrelationDescription
+      Flags?:
+        type: integer
+      ServiceGroupMemberDescription?:
+        type: array
+        items:
+          type: ServiceGroupMemberDescription
+    description: The description of the service group
+    discriminator: ServiceKind
+  DeltaNodesCheckHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the delta nodes check health
+  DeployedApplication:
+    type: object
+    properties:
+      Id?:
+        type: string
+      Name?:
+        type: string
+      TypeName?:
+        type: string
+      Status?:
+        type: string
+      WorkDirectory?:
+        type: string
+      LogDirectory?:
+        type: string
+      TempDirectory?:
+        type: string
+    description: The application of the deployed
+  DeployedApplicationHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      UnhealthyEvaluations?:
+        type: string
+      Name?:
+        type: string
+      NodeName?:
+        type: string
+      DeployedServicePackageHealthStates?:
+        type: DeployedServicePackageHealthState
+    description: The health of the deployed application
+  DeployedApplicationHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the deployed application health
+  DeployedApplicationHealthReport:
+    type: HealthReport
+    description: The report of the deployed application health
+  DeployedApplicationsHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the deployed applications health
+  DeployedCodePackage:
+    type: object
+    properties:
+      Name?:
+        type: string
+      Version?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      Status?:
+        type: string
+      RunFrequencyInterval?:
+        type: string
+      SetupEntryPoint?:
+        type: EntryPoint
+      MainEntryPoint?:
+        type: EntryPoint
+      HasSetupEntryPoint?:
+        type: boolean
+    description: The package of the deployed code
+  DeployedReplica:
+    type: object
+    properties:
+      ServiceKind?:
+        type: ServiceKind
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      ServiceManifestVersion?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      CodePackageName?:
+        type: string
+      PartitionId?:
+        type: string
+      InstanceId?:
+        type: string
+      ReplicaId?:
+        type: string
+      ReplicaRole?:
+        type: ReplicaRole
+      ReplicaStatus?:
+        type: ReplicaStatus
+      Address?:
+        type: string
+    description: The replica of the deployed
+  DeployedReplicaDetail:
+    type: object
+    properties:
+      ServiceKind?:
+        type: ServiceKind
+      ServiceName?:
+        type: string
+      PartitionId?:
+        type: string
+      CurrentServiceOperation?:
+        type: integer
+      CurrentReplicatorOperation?:
+        type: integer
+      CurrentServiceOperationStartTimeUtc?:
+        type: string
+      InstanceId?:
+        type: string
+      ReplicaId?:
+        type: string
+      ReadStatus?:
+        type: integer
+      WriteStatus?:
+        type: integer
+      ReplicatorStatus?:
+        type: object
+        properties:
+          Kind?:
+            type: integer
+          ReplicationQueueStatus?:
+            type: object
+            properties:
+              LastSequenceNumber?:
+                type: string
+              QueueUtilizationPercentage?:
+                type: string
+              CompletedSequenceNumber?:
+                type: string
+              QueueMemorySize?:
+                type: string
+              FirstSequenceNumber?:
+                type: string
+              CommittedSequenceNumber?:
+                type: string
+            description: The status of the replication queue
+        description: The status of the replicator
+    description: The detail of the deployed replica
+  DeployedServiceHealthReport:
+    type: HealthReport
+    description: The report of the deployed service package health
+  DeployedServicePackage:
+    type: object
+    properties:
+      Name?:
+        type: string
+      Version?:
+        type: string
+      Status?:
+        type: string
+    description: The package of the deployed service
+  DeployedServicePackageHealth:
+    type: object
+    properties:
+      ApplicationName?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      NodeName?:
+        type: string
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+    description: The health of the deployed service package
+  DeployedServicePackageHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the deployed service package health
+  DeployedServicePackageHealthState:
+    type: object
+    properties:
+      ApplicationName?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      NodeName?:
+        type: string
+      AggregatedHealthState?:
+        type: HealthState
+    description: The state of the deployed service package health
+  DeployedServicePackagesHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the deployed service packages health
+  DeployedServiceType:
+    type: object
+    properties:
+      ServiceTypeName?:
+        type: string
+      CodePackageName?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      Status?:
+        type: string
+    description: The type of the deploye service
+  DisableNode:
+    type: object
+    properties:
+      DeactivationIntent?:
+        type: string
+        enum:
+        - Pause
+        - Restart
+        - RemoveData
+        - RemoveNode
+    description: The node
+  EntryPoint:
+    type: object
+    properties:
+      EntryPointLocation?:
+        type: integer
+      ProcessId?:
+        type: integer
+      RunAsUserName?:
+        type: integer
+      NextActivationTime?:
+        type: integer
+      Status?:
+        type: string
+      CodePackageEntryPointStatistics?:
+        type: CodePackageEntryPointStatistics
+    description: The point of the entry
+  ErrorModel:
+    type: object
+    properties:
+      Error?:
+        type: object
+        properties:
+          Message?:
+            type: string
+          Code?:
+            type: string
+        description: The error
+    description: The model of the error
+  EventHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the event health
+  HealthEvaluation:
+    type: object
+    properties:
+      Kind:
+        type: string
+        enum:
+        - Invalid
+        - Event
+        - Replicas
+        - Partitions
+        - DeployedServicePackages
+        - DeployedApplications
+        - Services
+        - Nodes
+        - Applications
+        - SystemApplication
+        - UpgradeDomainDeployedApplications
+        - UpgradeDomainNodes
+        - Node
+        - Replica
+        - Partition
+        - Service
+        - DeployedServicePackage
+        - DeployedApplication
+        - Application
+        - DeltaNodesCheck
+        - UpgradeDomainDeltaNodesCheck
+        - ApplicationTypeApplications
+      Description?:
+        type: string
+      AggregatedHealthState?:
+        type: HealthState
+    description: The evauation of the health
+    discriminator: Kind
+  HealthEvent:
+    type: object
+    properties:
+      SourceId?:
+        type: string
+      Property?:
+        type: string
+      HealthState?:
+        type: HealthState
+      TimeToLiveInMilliSeconds?:
+        type: string
+      Description?:
+        type: string
+      SequenceNumber?:
+        type: string
+      RemoveWhenExpired?:
+        type: boolean
+      SourceUtcTimestamp?:
+        type: string
+      LastModifiedUtcTimestamp?:
+        type: string
+      IsExpired?:
+        type: boolean
+      LastOkTransitionAt?:
+        type: string
+      LastWarningTransitionAt?:
+        type: string
+      LastErrorTransitionAt?:
+        type: string
+    description: The event of the health
+  HealthReport:
+    type: object
+    properties:
+      SourceId?:
+        type: string
+      Property?:
+        type: string
+      HealthState?:
+        type: HealthState
+      Description?:
+        type: string
+      TimeToLiveInMilliSeconds?:
+        type: string
+      SequenceNumber?:
+        type: string
+      RemoveWhenExpired?:
+        type: boolean
+    description: The report of the health
+  LoadMetricInformation:
+    type: object
+    properties:
+      Name?:
+        type: string
+      IsBalancedBefore?:
+        type: boolean
+      IsBalancedAfter?:
+        type: boolean
+      DeviationBefore?:
+        type: integer
+      DeviationAfter?:
+        type: integer
+      BalancingThreshold?:
+        type: integer
+      Action?:
+        type: string
+      ActivityThreshold?:
+        type: integer
+      ClusterCapacity?:
+        type: string
+      ClusterLoad?:
+        type: string
+      RemainingUnbufferedCapacity?:
+        type: string
+      NodeBufferPercentage?:
+        type: integer
+      BufferedCapacity?:
+        type: string
+      RemainingBufferedCapacity?:
+        type: string
+      IsClusterCapacityViolation?:
+        type: boolean
+      MinNodeLoadValue?:
+        type: string
+      MinNodeLoadId?:
+        type: object
+        properties:
+          Id?:
+            type: string
+        description: The id of the min node
+      MaxNodeLoadValue?:
+        type: string
+      MaxNodeLoadId?:
+        type: object
+        properties:
+          Id?:
+            type: string
+        description: The id of the max node load
+    description: The information of the load metric
+  MonitoringPolicy:
+    type: object
+    properties:
+      FailureAction?:
+        type: string
+      HealthCheckWaitDurationInMilliseconds?:
+        type: string
+      HealthCheckStableDurationInMilliseconds?:
+        type: string
+      HealthCheckRetryTimeoutInMilliseconds?:
+        type: string
+      UpgradeTimeoutInMilliseconds?:
+        type: string
+      UpgradeDomainTimeoutInMilliseconds?:
+        type: string
+    description: The policy of the monitoring
+  Node:
+    type: object
+    properties:
+      Name?:
+        type: string
+      IpAddressOrFQDN?:
+        type: string
+      Type?:
+        type: string
+      CodeVersion?:
+        type: string
+      ConfigVersion?:
+        type: string
+      NodeStatus?:
+        type: string
+        enum:
+        - Invalid
+        - Up
+        - Down
+        - Enabling
+        - Disabling
+        - Disabled
+        - Unknown
+        - Removed
+      NodeUpTimeInSeconds?:
+        type: string
+      HealthState?:
+        type: HealthState
+      IsSeedNode?:
+        type: boolean
+      UpgradeDomain?:
+        type: string
+      FaultDomain?:
+        type: string
+      Id?:
+        type: object
+        properties:
+          Id?:
+            type: string
+        description: The id
+      InstanceId?:
+        type: string
+      NodeDeactivationInfo?:
+        type: object
+        properties:
+          NodeDeactivationStatus?:
+            type: string
+            enum:
+            - Invalid
+            - SafetyCheckInProgress
+            - SafetyCheckComplete
+            - Completed
+          NodeDeactivationIntent?:
+            type: string
+            enum:
+            - Invalid
+            - Pause
+            - Restart
+            - RemoveData
+        description: The info of the deactivation info
+    description: The node
+  NodeHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      Name?:
+        type: string
+    description: The health of the node
+  NodeHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the node health
+  NodeHealthReport:
+    type: HealthReport
+    description: The report of the node health
+  NodeList:
+    type: object
+    properties:
+      ContinuationToken?:
+        type: string
+      Items?:
+        type: array
+        items:
+          type: Node
+    description: The list of the node
+  NodeLoadInformation:
+    type: object
+    properties:
+      NodeName?:
+        type: string
+      NodeLoadMetricInformation?:
+        type: NodeLoadMetricInformation
+    description: The information of the node load
+  NodeLoadMetricInformation:
+    type: object
+    properties:
+      Name?:
+        type: string
+      NodeCapacity?:
+        type: string
+      NodeLoad?:
+        type: string
+      NodeRemainingCapacity?:
+        type: string
+      IsCapacityViolation?:
+        type: boolean
+      NodeBufferedCapacity?:
+        type: string
+      NodeRemainingBufferedCapacity?:
+        type: string
+    description: The information of the node load metric
+  NodesHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the nodes health
+  Partition:
+    type: object
+    properties:
+      ServiceKind?:
+        type: ServiceKind
+      PartitionInformation?:
+        type: PartitionInformation
+      InstanceCount?:
+        type: integer
+      TargetReplicaSetSize?:
+        type: integer
+      MinReplicaSetSize?:
+        type: integer
+      HealthState?:
+        type: HealthState
+      PartitionStatus?:
+        type: string
+        enum:
+        - Invalid
+        - Ready
+        - NotReady
+        - InQuorumLoss
+        - Reconfiguring
+        - Deleting
+      CurrentConfigurationEpoch?:
+        type: object
+        properties:
+          ConfigurationVersion?:
+            type: string
+          DataLossVersion?:
+            type: string
+        description: The epoch of the current configuration
+    description: The partition
+  PartitionDescription:
+    type: object
+    properties:
+      PartitionScheme?:
+        type: PartitionScheme
+      Count?:
+        type: integer
+      Names?:
+        type: array
+        items:
+          type: string
+      LowKey?:
+        type: string
+      HighKey?:
+        type: string
+    description: The description of the partition
+  PartitionHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      PartitionId?:
+        type: string
+      ReplicaHealthStates?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            HealthEvents?:
+              type: integer
+            PartitionId?:
+              type: string
+            ReplicaId?:
+              type: string
+          description: The states of the replica health
+    description: The health of the partition
+  PartitionHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the partition health
+  PartitionHealthReport:
+    type: HealthReport
+    description: The report of the partition health
+  PartitionInformation:
+    type: object
+    properties:
+      ServicePartitionKind?:
+        type: string
+        enum:
+        - Invalid
+        - Singleton
+        - Int64Range
+        - Named
+      Id?:
+        type: string
+      Name?:
+        type: array
+        items:
+          type: string
+      LowKey?:
+        type: string
+      HighKey?:
+        type: string
+    description: The information of the partition
+  PartitionList:
+    type: object
+    properties:
+      ContinuationToken?:
+        type: string
+      Items?:
+        type: array
+        items:
+          type: Partition
+    description: The list of the partition
+  PartitionLoadInformation:
+    type: object
+    properties:
+      PartitionId?:
+        type: string
+      PrimaryLoadMetricReports?:
+        type: array
+        items:
+          type: string
+      SecondaryLoadMetricReports?:
+        type: array
+        items:
+          type: string
+    description: The information of the partition load
+  PartitionsHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the partitions health
+  RegisterApplicationType:
+    type: object
+    properties:
+      ApplicationTypeBuildPath?:
+        type: string
+    description: The type of the register application
+  Replica:
+    type: object
+    properties:
+      ServiceKind?:
+        type: ServiceKind
+      InstanceId?:
+        type: string
+      ReplicaId?:
+        type: string
+      ReplicaRole?:
+        type: ReplicaRole
+      ReplicaStatus?:
+        type: ReplicaStatus
+      HealthState?:
+        type: HealthState
+      Address?:
+        type: string
+      NodeName?:
+        type: string
+      LastInBuildDurationInSeconds?:
+        type: string
+    description: The replica
+  ReplicaHealth:
+    type: object
+    properties:
+      ServiceKind?:
+        type: ServiceKind
+      PartitionId?:
+        type: string
+      ReplicaId?:
+        type: string
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+    description: The health of the replica
+  ReplicaHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the replica health
+  ReplicaHealthReport:
+    type: HealthReport
+    description: The report of the replica health
+  ReplicaList:
+    type: object
+    properties:
+      ContinuationToken?:
+        type: string
+      Items?:
+        type: array
+        items:
+          type: Replica
+    description: The list of the replica
+  ReplicaLoadInformation:
+    type: object
+    properties:
+      PartitionId?:
+        type: string
+      ReplicaOrInstanceId?:
+        type: string
+      ReportedLoad?:
+        type: array
+        items:
+          type: string
+    description: The information of the replica load
+  ReplicasHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the replicas health
+  ResolvedServicePartition:
+    type: object
+    properties:
+      Name?:
+        type: string
+      PartitionInformation?:
+        type: PartitionInformation
+      Endpoints?:
+        type: array
+        items:
+          type: object
+          properties:
+            Address?:
+              type: string
+            Kind?:
+              type: integer
+          description: The endpoints
+      Version?:
+        type: string
+    description: The partition of the resolved service
+  ResumeApplicationUpgrade:
+    type: object
+    properties:
+      UpgradeDomainName?:
+        type: string
+    description: The upgrade of the resume application
+  Service:
+    type: object
+    properties:
+      Id?:
+        type: string
+      ServiceKind?:
+        type: ServiceKind
+      Name?:
+        type: string
+      TypeName?:
+        type: string
+      ManifestVersion?:
+        type: string
+      HasPersistedState?:
+        type: boolean
+      HealthState?:
+        type: HealthState
+      ServiceStatus?:
+        type: string
+        enum:
+        - Invalid
+        - Active
+        - Upgrading
+        - Deleting
+        - Creating
+        - Faile
+      IsServiceGroup?:
+        type: boolean
+    description: The service
+  ServiceCorrelationDescription:
+    type: object
+    properties:
+      ServiceName?:
+        type: string
+      ServiceCorrelationScheme?:
+        type: string
+        enum:
+        - Invalid
+        - Affinity
+        - AlignedAffinity
+        - NonAlignedAffinity
+    description: The description of the service correlation
+  ServiceDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      ApplicationName?:
+        type: string
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      PartitionDescription?:
+        type: PartitionDescription
+      PlacementConstraints?:
+        type: string
+      CorrelationScheme?:
+        type: ServiceCorrelationDescription
+      ServiceLoadMetrics?:
+        type: ServiceCorrelationDescription
+      ServicePlacementPolicies?:
+        type: ServiceCorrelationDescription
+      Flags?:
+        type: integer
+    description: The description of the service
+    discriminator: ServiceKind
+  ServiceDescriptionTemplate:
+    type: object
+    properties:
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+    description: The template of the service description
+  ServiceGroupDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      ApplicationName?:
+        type: string
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      PartitionDescription?:
+        type: PartitionDescription
+      PlacementConstraints?:
+        type: string
+      CorrelationScheme?:
+        type: ServiceCorrelationDescription
+      ServiceLoadMetrics?:
+        type: ServiceCorrelationDescription
+      ServicePlacementPolicies?:
+        type: ServiceCorrelationDescription
+      Flags?:
+        type: integer
+      ServiceGroupMemberDescription?:
+        type: array
+        items:
+          type: ServiceGroupMemberDescription
+    description: The description of the service group
+    discriminator: ServiceKind
+  ServiceGroupMember:
+    type: object
+    properties:
+      Name?:
+        type: string
+      ServiceGroupMemberDescription?:
+        type: array
+        items:
+          type: ServiceGroupMemberDescription
+    description: The member of the service group
+  ServiceGroupMemberDescription:
+    type: object
+    properties:
+      ServiceName?:
+        type: string
+      ServiceTypeName?:
+        type: string
+      ServiceKind?:
+        type: ServiceKind
+    description: The description of the service group member
+  ServiceHealth:
+    type: object
+    properties:
+      HealthEvents?:
+        type: array
+        items:
+          type: HealthEvent
+      AggregatedHealthState?:
+        type: HealthState
+      Name?:
+        type: string
+      PartitionHealthStates?:
+        type: array
+        items:
+          type: object
+          properties:
+            AggregatedHealthState?:
+              type: HealthState
+            PartitionId?:
+              type: string
+          description: The states of the partition health
+    description: The health of the service
+  ServiceHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the service health
+  ServiceHealthReport:
+    type: HealthReport
+    description: The report of the service health
+  ServiceList:
+    type: object
+    properties:
+      ContinuationToken?:
+        type: string
+      Items?:
+        type: array
+        items:
+          type: Service
+    description: The list of the service
+  ServiceLoadMetricDescription:
+    type: object
+    properties:
+      Name?:
+        type: string
+      ServiceLoadMetricWeight?:
+        type: string
+        enum:
+        - Zero
+        - Low
+        - Medium
+        - High
+      PrimaryDefaultLoad?:
+        type: integer
+      SecondaryDefaultLoad?:
+        type: integer
+    description: The description of the service load metric
+  ServiceManifest:
+    type: object
+    properties:
+      Manifest?:
+        type: string
+    description: The manifest of the service
+  ServicePlacementPolicyDescription:
+    type: object
+    properties:
+      Type?:
+        type: string
+    description: The description of the service placement policy
+  ServiceType:
+    type: object
+    properties:
+      ServiceTypeDescription?:
+        type: object
+        properties:
+          ServiceTypeName?:
+            type: string
+          HasPersistedState?:
+            type: boolean
+          PlacementConstraints?:
+            type: string
+          IsStateful?:
+            type: boolean
+        description: The description of the service type
+      ServiceManifestVersion?:
+        type: string
+      ServiceManifestName?:
+        type: string
+      IsServiceGroup?:
+        type: boolean
+    description: The type of the service
+  ServicesHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the services health
+  StartApplicationUpgradeDescription:
+    type: object
+    properties:
+      Name?:
+        type: string
+      TargetApplicationTypeVersion?:
+        type: string
+      Parameters?:
+        type: array
+        items:
+          type: string
+      UpgradeKind?:
+        type: string
+        enum:
+        - Invalid
+        - Rolling
+      RollingUpgradeMode?:
+        type: RollingUpgradeMode
+      UpgradeReplicaSetCheckTimeoutInSeconds?:
+        type: integer
+      ForceRestart?:
+        type: boolean
+      MonitoringPolicy?:
+        type: MonitoringPolicy
+      ApplicationHealthPolicy?:
+        type: ApplicationHealthPolicy
+    description: The description of the start application upgrade
+  StatefulCreateServiceDescription:
+    type: CreateServiceDescription
+    description: The description of the stateful create service
+  StatefulCreateServiceGroupDescription:
+    type: CreateServiceGroupDescription
+    description: The description of the stateful create service group
+  StatefulServiceDescription:
+    type: ServiceDescription
+    description: The description of the stateful service
+  StatefulServiceGroupDescription:
+    type: ServiceGroupDescription
+    description: The description of the stateful service group
+  StatefulUpdateServiceDescription:
+    type: UpdateServiceDescription
+    description: The description of the stateful update service
+  StatefulUpdateServiceGroupDescription:
+    type: UpdateServiceGroupDescription
+    description: The description of the stateful update service group
+  StatelessCreateServiceDescription:
+    type: CreateServiceDescription
+    description: The description of the stateless create service
+  StatelessCreateServiceGroupDescription:
+    type: CreateServiceGroupDescription
+    description: The description of the stateless create service group
+  StatelessServiceDescription:
+    type: ServiceDescription
+    description: The description of the stateless service
+  StatelessServiceGroupDescription:
+    type: ServiceGroupDescription
+    description: The description of the stateless service group
+  StatelessUpdateServiceDescription:
+    type: UpdateServiceDescription
+    description: The description of the stateless update service
+  StatelessUpdateServiceGroupDescription:
+    type: UpdateServiceGroupDescription
+    description: The description of the stateless update service group
+  SystemApplicationHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the system application health
+  UnhealthyEvaluation:
+    type: object
+    properties:
+      HealthEvaluation?:
+        type: HealthEvaluation
+    description: The evaluation of the unhealthy
+  UnregisterApplicationType:
+    type: object
+    properties:
+      ApplicationTypeVersion?:
+        type: string
+    description: The type of the unregister application
+  UpdateApplicationUpgradeDescription:
+    type: object
+    properties:
+      Name?:
+        type: string
+      UpgradeKind?:
+        type: string
+      UpdateDescription?:
+        type: object
+        properties:
+          UpgradeDomainTimeoutInMilliseconds?:
+            type: string
+          FailureAction?:
+            type: string
+          UpgradeTimeoutInMilliseconds?:
+            type: string
+          RollingUpgradeMode?:
+            type: RollingUpgradeMode
+          ForceRestart?:
+            type: boolean
+          HealthCheckStableDurationInMilliseconds?:
+            type: string
+          UpgradeReplicaSetCheckTimeoutInSeconds?:
+            type: integer
+          HealthCheckRetryTimeoutInMilliseconds?:
+            type: string
+          HealthCheckWaitDurationInMilliseconds?:
+            type: string
+        description: The description of the update
+      ApplicationHealthPolicy?:
+        type: ApplicationHealthPolicy
+    description: The description of the application upgrade
+  UpdateServiceDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      Flags?:
+        type: integer
+    description: The description of the service update
+    discriminator: ServiceKind
+  UpdateServiceGroupDescription:
+    type: object
+    properties:
+      ServiceKind:
+        type: ServiceKind
+      Flags?:
+        type: integer
+    description: The description of the service group update
+    discriminator: ServiceKind
+  UpgradeDomainDeltaNodesCheckHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the upgrade domain delta nodes check health
+  UpgradeDomainDeployedApplicationsHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the upgrade domain deployed applications health
+  UpgradeDomainNodesHealthEvaluation:
+    type: HealthEvaluation
+    description: The evaluation of the upgrade domain nodes health
+/$:
+  /GetClusterHealth:
+    get:
+      description: Get cluster healths
+      queryParameters:
+        EventsHealthStateFilter?:
+          type: string
+          description: The filter of the events health state
+          displayName: EventsHealthStateFilter
+        NodesHealthStateFilter?:
+          type: string
+          description: The filter of the nodes health state
+          displayName: NodesHealthStateFilter
+        ApplicationsHealthStateFilter?:
+          type: string
+          description: The filter of the applications health state
+          displayName: ApplicationsHealthStateFilter
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  /GetClusterManifest:
+    get:
+      description: Get cluster manifests
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  /GetLoadInformation:
+    get:
+      description: Get cluster load informations
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  /GetUpgradeProgress:
+    get:
+      description: Get upgrade progresses
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  /ReportClusterHealth:
+    post:
+      description: Report cluster healths
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+/ApplicationTypes:
+  /$:
+    /Provision:
+      post:
+        description: Register application types
+        queryParameters:
+          api-version:
+            type: string
+            description: The version of the api
+            displayName: api-version
+  /{applicationTypeName}:
+    uriParameters:
+      applicationTypeName:
+        type: string
+        description: The name of the application type
+        displayName: applicationTypeName
+    /$:
+      /GetApplicationManifest:
+        get:
+          description: Get application manifests
+          queryParameters:
+            ApplicationTypeVersion:
+              type: string
+              description: The version of the application type
+              displayName: ApplicationTypeVersion
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetServiceManifest:
+        get:
+          description: Get service manifests
+          queryParameters:
+            ApplicationTypeVersion:
+              type: string
+              description: The version of the application type
+              displayName: ApplicationTypeVersion
+            ServiceManifestName:
+              type: string
+              description: The name of the service manifest
+              displayName: ServiceManifestName
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetServiceTypes:
+        get:
+          description: Get service types
+          queryParameters:
+            ApplicationTypeVersion:
+              type: string
+              description: The version of the application type
+              displayName: ApplicationTypeVersion
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /Unprovision:
+        post:
+          description: Unregister application types
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+    get:
+      description: Get application types
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  get:
+    description: List application types
+    queryParameters:
+      api-version:
+        type: string
+        description: The version of the api
+        displayName: api-version
+/Applications:
+  /$:
+    /Create:
+      post:
+        description: Create applications
+        queryParameters:
+          api-version:
+            type: string
+            description: The version of the api
+            displayName: api-version
+  /{applicationName}:
+    uriParameters:
+      applicationName:
+        type: string
+        description: The name of the application
+        displayName: applicationName
+    /$:
+      /Delete:
+        post:
+          description: Remove applications
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetHealth:
+        get:
+          description: Get application healths
+          queryParameters:
+            EventsHealthStateFilter?:
+              type: string
+              description: The filter of the events health state
+              displayName: EventsHealthStateFilter
+            DeployedApplicationsHealthStateFilter?:
+              type: string
+              description: The filter of the deployed application health state
+              displayName: DeployedApplicationsHealthStateFilter
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetServiceGroups:
+        /$:
+          /CreateServiceGroupFromTemplate:
+            post:
+              description: Create service group from templates
+              queryParameters:
+                api-version:
+                  type: string
+                  description: The version of the api
+                  displayName: api-version
+        /{serviceName}:
+          uriParameters:
+            serviceName:
+              type: string
+              description: The name of the service
+              displayName: serviceName
+          /$:
+            /Delete:
+              post:
+                description: Remove service groups
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+      /GetServices:
+        /$:
+          /Create:
+            post:
+              description: Create services
+              queryParameters:
+                api-version:
+                  type: string
+                  description: The version of the api
+                  displayName: api-version
+          /CreateFromTemplate:
+            post:
+              description: Create service from templates
+              queryParameters:
+                api-version:
+                  type: string
+                  description: The version of the api
+                  displayName: api-version
+          /CreateServiceGroup:
+            post:
+              description: Create service groups
+              queryParameters:
+                api-version:
+                  type: string
+                  description: The version of the api
+                  displayName: api-version
+        /{serviceName}:
+          uriParameters:
+            serviceName:
+              type: string
+              description: The name of the service
+              displayName: serviceName
+          /$:
+            /GetServiceGroupDescription:
+              get:
+                description: Get service group descriptions
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetServiceGroupMembers:
+              get:
+                description: Get service group members
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /UpdateServiceGroup:
+              post:
+                description: Update service groups
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+          get:
+            description: Get services
+            queryParameters:
+              api-version:
+                type: string
+                description: The version of the api
+                displayName: api-version
+        get:
+          description: List services
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetUpgradeProgress:
+        get:
+          description: Get application upgrades
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /MoveNextUpgradeDomain:
+        post:
+          description: Resume application upgrades
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ReportHealth:
+        post:
+          description: Send application health
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /RollbackUpgrade:
+        post:
+          description: Start application upgrade rollbacks
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /UpdateUpgrade:
+        post:
+          description: Update application upgrades
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /Upgrade:
+        post:
+          description: Start application upgrades
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+    get:
+      description: Get applications
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  get:
+    description: List applications
+    queryParameters:
+      api-version:
+        type: string
+        description: The version of the api
+        displayName: api-version
+      continuation-token?:
+        type: string
+        description: The token of the continuation
+        displayName: continuation-token
+/Nodes:
+  /{nodeName}:
+    uriParameters:
+      nodeName:
+        type: string
+        description: The name of the node
+        displayName: nodeName
+    /$:
+      /Activate:
+        post:
+          description: Enable nodes
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /Deactivate:
+        post:
+          description: Disable nodes
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetApplications:
+        /{applicationName}:
+          uriParameters:
+            applicationName:
+              type: string
+              description: The name of the application
+              displayName: applicationName
+          /$:
+            /GetCodePackages:
+              get:
+                description: Get deployed code packages
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetHealth:
+              get:
+                description: Get deployed application healths
+                queryParameters:
+                  EventsHealthStateFilter?:
+                    type: string
+                    description: The filter of the events health state
+                    displayName: EventsHealthStateFilter
+                  DeployedServicePackagesHealthStateFilter?:
+                    type: string
+                    description: The filter of the deployed service packages health state
+                    displayName: DeployedServicePackagesHealthStateFilter
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetReplicas:
+              get:
+                description: Get deployed replicas
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetServicePackages:
+              /{serviceManifestName}:
+                uriParameters:
+                  serviceManifestName:
+                    type: string
+                    description: The name of the service manifest
+                    displayName: serviceManifestName
+                /$:
+                  /ReportHealth:
+                    post:
+                      description: Send deployed service package health
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The version of the api
+                          displayName: api-version
+              /{servicePackageName}:
+                uriParameters:
+                  servicePackageName:
+                    type: string
+                    description: The name of the service package
+                    displayName: servicePackageName
+                /$:
+                  /GetHealth:
+                    get:
+                      description: Get deployed service package healths
+                      queryParameters:
+                        EventsHealthStateFilter?:
+                          type: string
+                          description: The filter of the events health state
+                          displayName: EventsHealthStateFilter
+                        api-version:
+                          type: string
+                          description: The version of the api
+                          displayName: api-version
+              get:
+                description: Get deployed service packages
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetServiceTypes:
+              get:
+                description: Get deployed service types
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /ReportHealth:
+              post:
+                description: Send deployed application health
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+          get:
+            description: Get deployed applications
+            queryParameters:
+              api-version:
+                type: string
+                description: The version of the api
+                displayName: api-version
+        get:
+          description: List deployed applications
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetHealth:
+        get:
+          description: Get node healths
+          queryParameters:
+            EventsHealthStateFilter?:
+              type: string
+              description: The filter of the events health state
+              displayName: EventsHealthStateFilter
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetLoadInformation:
+        get:
+          description: Get node load informations
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetPartitions:
+        /{partitionName}:
+          uriParameters:
+            partitionName:
+              type: string
+              description: The name of the partition
+              displayName: partitionName
+          /$:
+            /GetReplicas:
+              /{replicaId}:
+                uriParameters:
+                  replicaId:
+                    type: string
+                    description: The id of the replica
+                    displayName: replicaId
+                /$:
+                  /GetDetail:
+                    get:
+                      description: Get deployed replica details
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: The version of the api
+                          displayName: api-version
+      /RemoveNodeState:
+        post:
+          description: Remove node states
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ReportHealth:
+        post:
+          description: Send node health
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+    get:
+      description: Get nodes
+      queryParameters:
+        api-version:
+          type: string
+          description: The version of the api
+          displayName: api-version
+  get:
+    description: List nodes
+    queryParameters:
+      api-version:
+        type: string
+        description: The version of the api
+        displayName: api-version
+      continuation-token?:
+        type: string
+        description: The token of the continuation
+        displayName: continuation-token
+/Partitions:
+  /{partitionId}:
+    uriParameters:
+      partitionId:
+        type: string
+        description: The id of the partition
+        displayName: partitionId
+    /$:
+      /GetHealth:
+        get:
+          description: Get partition healths
+          queryParameters:
+            EventsHealthStateFilter?:
+              type: string
+              description: The filter of the events health state
+              displayName: EventsHealthStateFilter
+            ReplicasHealthStateFilter?:
+              type: string
+              description: The filter of the replicas health state
+              displayName: ReplicasHealthStateFilter
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetLoadInformation:
+        get:
+          description: Get partition load informations
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetReplicas:
+        /{replicaId}:
+          uriParameters:
+            replicaId:
+              type: string
+              description: The id of the replica
+              displayName: replicaId
+          /$:
+            /GetHealth:
+              get:
+                description: Get replica healths
+                queryParameters:
+                  EventsHealthStateFilter?:
+                    type: string
+                    description: The filter of the events health state
+                    displayName: EventsHealthStateFilter
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /GetLoadInformation:
+              get:
+                description: Get replica load informations
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+            /ReportHealth:
+              post:
+                description: Send replica healths
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the api
+                    displayName: api-version
+          get:
+            description: Get replicas
+            queryParameters:
+              api-version:
+                type: string
+                description: The version of the api
+                displayName: api-version
+        get:
+          description: List replicas
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /Recover:
+        post:
+          description: Repair partitions
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ReportHealth:
+        post:
+          description: Send partition health
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ResetLoad:
+        post:
+          description: Reset partition loads
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+/Services:
+  /{serviceName}:
+    uriParameters:
+      serviceName:
+        type: string
+        description: The name of the service
+        displayName: serviceName
+    /$:
+      /Delete:
+        post:
+          description: Remove services
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetDescription:
+        get:
+          description: Get service descriptions
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetHealth:
+        get:
+          description: Get service healths
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /GetPartitions:
+        /$:
+          /Recover:
+            post:
+              description: Repair partition lists
+              queryParameters:
+                api-version:
+                  type: string
+                  description: The version of the api
+                  displayName: api-version
+        /{partitionId}:
+          uriParameters:
+            partitionId:
+              type: string
+              description: The id of the partition
+              displayName: partitionId
+          get:
+            description: Get partitions
+            queryParameters:
+              api-version:
+                type: string
+                description: The version of the api
+                displayName: api-version
+        get:
+          description: List partitions
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ReportHealth:
+        post:
+          description: Send service healths
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /ResolvePartition:
+        get:
+          description: Resolve services
+          queryParameters:
+            PartitionKeyType?:
+              type: integer
+              description: The type of the partition key
+              displayName: PartitionKeyType
+            PartitionKeyValue?:
+              type: string
+              description: The value of the partition key
+              displayName: PartitionKeyValue
+            PreviousRspVersion?:
+              type: string
+              description: The version of the previous rsp
+              displayName: PreviousRspVersion
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version
+      /Update:
+        post:
+          description: Update services
+          queryParameters:
+            api-version:
+              type: string
+              description: The version of the api
+              displayName: api-version

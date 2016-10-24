@@ -1,0 +1,1953 @@
+#%RAML 1.0
+title: ComputeManagementClient
+version: '2015-06-15'
+baseUri: management.azure.com
+description: The Compute Management Client.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AdditionalUnattendContent:
+    type: object
+    properties:
+      passName?:
+        type: string
+        description: Gets or sets the pass name. Currently, the only allowable value is oobeSystem.
+        enum:
+        - oobeSystem
+      componentName?:
+        type: string
+        description: Gets or sets the component name. Currently, the only allowable value is Microsoft-Windows-Shell-Setup.
+        enum:
+        - Microsoft-Windows-Shell-Setup
+      settingName?:
+        type: string
+        description: Gets or sets setting name (e.g. FirstLogonCommands, AutoLogon )
+        enum:
+        - AutoLogon
+        - FirstLogonCommands
+      content?:
+        type: string
+        description: Gets or sets XML formatted content that is added to the unattend.xml file in the specified pass and component.The XML must be less than 4 KB and must include the root element for the setting or feature that is being inserted.
+    description: Gets or sets additional XML formatted information that can be included in the Unattend.xml file, which is used by Windows Setup. Contents are defined by setting name, component name, and the pass in which the content is a applied.
+  ApiEntityReference:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets ARM resource id in the form of /subscriptions/{SubcriptionId}/resourceGroups/{ResourceGroupName}/...
+    description: The API entity reference.
+  ApiError:
+    type: object
+    properties:
+      details?:
+        type: array
+        description: Gets or sets the Api error details
+        items:
+          type: ApiErrorBase
+      innererror?:
+        type: InnerError
+        description: Gets or sets the Api inner error
+      code?:
+        type: string
+        description: Gets or sets the error code.
+      target?:
+        type: string
+        description: Gets or sets the target of the particular error.
+      message?:
+        type: string
+        description: Gets or sets the error message.
+    description: Api error.
+  ApiErrorBase:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Gets or sets the error code.
+      target?:
+        type: string
+        description: Gets or sets the target of the particular error.
+      message?:
+        type: string
+        description: Gets or sets the error message.
+    description: Api error base.
+  AvailabilitySet:
+    type: Resource
+    description: Create or update Availability Set parameters.
+  AvailabilitySetListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of availability sets
+        items:
+          type: AvailabilitySet
+    description: The List Availability Set operation response.
+  AvailabilitySetProperties:
+    type: object
+    properties:
+      platformUpdateDomainCount?:
+        type: integer
+        description: Gets or sets Update Domain count.
+        format: int32
+      platformFaultDomainCount?:
+        type: integer
+        description: Gets or sets Fault Domain count.
+        format: int32
+      virtualMachines?:
+        type: array
+        description: Gets or sets a list containing reference to all Virtual Machines  created under this Availability Set.
+        items:
+          type: SubResource
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of a resource.
+  BootDiagnostics:
+    type: object
+    properties:
+      enabled?:
+        type: boolean
+        description: Gets or sets whether boot diagnostics should be enabled on the Virtual Machine.
+      storageUri?:
+        type: string
+        description: Gets or sets the boot diagnostics storage Uri. It should be a valid Uri
+    description: Describes Boot Diagnostics.
+  BootDiagnosticsInstanceView:
+    type: object
+    properties:
+      consoleScreenshotBlobUri?:
+        type: string
+        description: Gets or sets the console screenshot blob Uri.
+      serialConsoleLogBlobUri?:
+        type: string
+        description: Gets or sets the Linux serial console log blob Uri.
+    description: The instance view of a virtual machine boot diagnostics.
+  ComputeLongRunningOperationProperties:
+    type: object
+    properties:
+      output?:
+        type: object
+        description: Operation output data (raw JSON)
+    description: Compute-specific operation properties, including output
+  DataDisk:
+    type: object
+    properties:
+      lun:
+        type: integer
+        description: Gets or sets the logical unit number.
+        format: int32
+      name:
+        type: string
+        description: Gets or sets the disk name.
+      vhd:
+        type: VirtualHardDisk
+        description: Gets or sets the Virtual Hard Disk.
+      image?:
+        type: VirtualHardDisk
+        description: Gets or sets the Source User Image VirtualHardDisk. This VirtualHardDisk will be copied before using it to attach to the Virtual Machine.If SourceImage is provided, the destination VirtualHardDisk should not exist.
+      caching?:
+        type: string
+        description: Gets or sets the caching type.
+        enum:
+        - None
+        - ReadOnly
+        - ReadWrite
+      createOption:
+        type: string
+        description: Gets or sets the create option.
+        enum:
+        - fromImage
+        - empty
+        - attach
+      diskSizeGB?:
+        type: integer
+        description: Gets or sets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks.
+        format: int32
+    description: Describes a data disk.
+  DataDiskImage:
+    type: object
+    properties:
+      lun?:
+        type: integer
+        description: Gets the LUN number for a data disk.This value is used to identify data disk image inside the VMImage therefore it must be unique for each data disk.The allowed character for the value is digit.
+        format: int32
+    description: Contains the data disk images information.
+  DiagnosticsProfile:
+    type: object
+    properties:
+      bootDiagnostics?:
+        type: BootDiagnostics
+        description: Gets or sets the boot diagnostics.
+    description: Describes a diagnostics profile.
+  DiskEncryptionSettings:
+    type: object
+    properties:
+      diskEncryptionKey:
+        type: KeyVaultSecretReference
+        description: Gets or sets the disk encryption key which is a KeyVault Secret.
+      keyEncryptionKey?:
+        type: KeyVaultKeyReference
+        description: Gets or sets the key encryption key which is KeyVault Key.
+      enabled?:
+        type: boolean
+        description: Gets or sets whether disk encryption should be enabled on the Virtual Machine.
+    description: Describes a Encryption Settings for a Disk
+  DiskInstanceView:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the disk name.
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of the disk.
+  HardwareProfile:
+    type: object
+    properties:
+      vmSize?:
+        type: string
+        description: The virtual machine size name.
+        enum:
+        - Basic_A0
+        - Basic_A1
+        - Basic_A2
+        - Basic_A3
+        - Basic_A4
+        - Standard_A0
+        - Standard_A1
+        - Standard_A2
+        - Standard_A3
+        - Standard_A4
+        - Standard_A5
+        - Standard_A6
+        - Standard_A7
+        - Standard_A8
+        - Standard_A9
+        - Standard_A10
+        - Standard_A11
+        - Standard_D1
+        - Standard_D2
+        - Standard_D3
+        - Standard_D4
+        - Standard_D11
+        - Standard_D12
+        - Standard_D13
+        - Standard_D14
+        - Standard_D1_v2
+        - Standard_D2_v2
+        - Standard_D3_v2
+        - Standard_D4_v2
+        - Standard_D5_v2
+        - Standard_D11_v2
+        - Standard_D12_v2
+        - Standard_D13_v2
+        - Standard_D14_v2
+        - Standard_DS1
+        - Standard_DS2
+        - Standard_DS3
+        - Standard_DS4
+        - Standard_DS11
+        - Standard_DS12
+        - Standard_DS13
+        - Standard_DS14
+        - Standard_G1
+        - Standard_G2
+        - Standard_G3
+        - Standard_G4
+        - Standard_G5
+        - Standard_GS1
+        - Standard_GS2
+        - Standard_GS3
+        - Standard_GS4
+        - Standard_GS5
+    description: Describes a hardware profile.
+  ImageReference:
+    type: object
+    properties:
+      publisher?:
+        type: string
+        description: Gets or sets the image publisher.
+      offer?:
+        type: string
+        description: Gets or sets the image offer.
+      sku?:
+        type: string
+        description: Gets or sets the image sku.
+      version?:
+        type: string
+        description: Gets or sets the image version. The allowed formats are Major.Minor.Build or 'latest'. Major, Minor and Build being decimal numbers. Specify 'latest' to use the latest version of image.
+    description: The image reference.
+  InnerError:
+    type: object
+    properties:
+      exceptiontype?:
+        type: string
+        description: Gets or sets the exception type.
+      errordetail?:
+        type: string
+        description: Gets or sets the internal error message or exception dump.
+    description: Inner error details.
+  InstanceViewStatus:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Gets the status Code.
+      level?:
+        type: string
+        description: Gets or sets the level Code.
+        enum:
+        - Info
+        - Warning
+        - Error
+      displayStatus?:
+        type: string
+        description: Gets or sets the short localizable label for the status.
+      message?:
+        type: string
+        description: Gets or sets the detailed Message, including for alerts and error messages.
+      time?:
+        type: datetime
+        description: Gets or sets the time of the status.
+    description: Instance view status.
+  KeyVaultKeyReference:
+    type: object
+    properties:
+      keyUrl:
+        type: string
+        description: Gets or sets the URL referencing a key in a Key Vault.
+      sourceVault:
+        type: SubResource
+        description: Gets or sets the Relative URL of the Key Vault containing the key
+    description: Describes a reference to Key Vault Key
+  KeyVaultSecretReference:
+    type: object
+    properties:
+      secretUrl:
+        type: string
+        description: Gets or sets the URL referencing a secret in a Key Vault.
+      sourceVault:
+        type: SubResource
+        description: Gets or sets the Relative URL of the Key Vault containing the secret.
+    description: Describes a reference to Key Vault Secret
+  LinuxConfiguration:
+    type: object
+    properties:
+      disablePasswordAuthentication?:
+        type: boolean
+        description: Gets or sets whether Authentication using user name and password is allowed or not
+      ssh?:
+        type: SshConfiguration
+        description: Gets or sets the SSH configuration for linux VMs
+    description: Describes Windows Configuration of the OS Profile.
+  ListUsagesResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list Compute Resource Usages.
+        items:
+          type: Usage
+    description: The List Usages operation response.
+  NetworkInterfaceReference:
+    type: SubResource
+    description: Describes a network interface reference.
+  NetworkInterfaceReferenceProperties:
+    type: object
+    properties:
+      primary?:
+        type: boolean
+        description: Gets or sets whether this is a primary NIC on a virtual machine
+    description: Describes a network interface reference properties.
+  NetworkProfile:
+    type: object
+    properties:
+      networkInterfaces?:
+        type: array
+        description: Gets or sets the network interfaces.
+        items:
+          type: NetworkInterfaceReference
+    description: Describes a network profile.
+  OSDisk:
+    type: object
+    properties:
+      osType?:
+        type: string
+        description: Gets or sets the Operating System type.
+        enum:
+        - Windows
+        - Linux
+      encryptionSettings?:
+        type: DiskEncryptionSettings
+        description: Gets or sets the disk encryption settings.
+      name:
+        type: string
+        description: Gets or sets the disk name.
+      vhd:
+        type: VirtualHardDisk
+        description: Gets or sets the Virtual Hard Disk.
+      image?:
+        type: VirtualHardDisk
+        description: Gets or sets the Source User Image VirtualHardDisk. This VirtualHardDisk will be copied before using it to attach to the Virtual Machine.If SourceImage is provided, the destination VirtualHardDisk should not exist.
+      caching?:
+        type: string
+        description: Gets or sets the caching type.
+        enum:
+        - None
+        - ReadOnly
+        - ReadWrite
+      createOption:
+        type: string
+        description: Gets or sets the create option.
+        enum:
+        - fromImage
+        - empty
+        - attach
+      diskSizeGB?:
+        type: integer
+        description: Gets or sets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks.
+        format: int32
+    description: Describes an Operating System disk.
+  OSDiskImage:
+    type: object
+    properties:
+      operatingSystem:
+        type: string
+        description: Gets or sets the operating system of the osDiskImage.
+        enum:
+        - Windows
+        - Linux
+    description: Contains the os disk image information.
+  OSProfile:
+    type: object
+    properties:
+      computerName?:
+        type: string
+        description: Gets or sets the computer name.
+      adminUsername?:
+        type: string
+        description: Gets or sets the admin user name.
+      adminPassword?:
+        type: string
+        description: Gets or sets the admin user password.
+      customData?:
+        type: string
+        description: Gets or sets a base-64 encoded string of custom data.
+      windowsConfiguration?:
+        type: WindowsConfiguration
+        description: Gets or sets the Windows Configuration of the OS profile.
+      linuxConfiguration?:
+        type: LinuxConfiguration
+        description: Gets or sets the Linux Configuration of the OS profile.
+      secrets?:
+        type: array
+        description: Gets or sets the List of certificates for addition to the VM.
+        items:
+          type: VaultSecretGroup
+    description: Describes an OS profile.
+  Plan:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the plan ID.
+      publisher?:
+        type: string
+        description: Gets or sets the publisher ID.
+      product?:
+        type: string
+        description: Gets or sets the offer ID.
+      promotionCode?:
+        type: string
+        description: Gets or sets the promotion code.
+    description: Plan for the resource.
+  PurchasePlan:
+    type: object
+    properties:
+      publisher:
+        type: string
+        description: Gets or sets the publisher ID.
+      name:
+        type: string
+        description: Gets or sets the plan ID.
+      product:
+        type: string
+        description: Gets or sets the product ID.
+    description: Used for establishing the purchase context of any 3rd Party artifact through MarketPlace.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  Sku:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the sku name.
+      tier?:
+        type: string
+        description: Gets or sets the sku tier.
+      capacity?:
+        type: integer
+        description: Gets or sets the sku capacity.
+        format: int64
+    description: Describes a virtual machine scale set sku.
+  SshConfiguration:
+    type: object
+    properties:
+      publicKeys?:
+        type: array
+        description: Gets or sets the list of SSH public keys used to authenticate with linux based VMs
+        items:
+          type: SshPublicKey
+    description: SSH configuration for Linux based VMs running on Azure
+  SshPublicKey:
+    type: object
+    properties:
+      path?:
+        type: string
+        description: Gets or sets the full path on the created VM where SSH public key is stored. If the file already exists, the specified key is appended to the file.
+      keyData?:
+        type: string
+        description: Gets or sets Certificate public key used to authenticate with VM through SSH.The certificate must be in Pem format with or without headers.
+    description: Contains information about SSH certificate public key and the path on the Linux VM where the public key is placed.
+  StorageProfile:
+    type: object
+    properties:
+      imageReference?:
+        type: ImageReference
+        description: Gets or sets the image reference.
+      osDisk?:
+        type: OSDisk
+        description: Gets or sets the OS disk.
+      dataDisks?:
+        type: array
+        description: Gets or sets the data disks.
+        items:
+          type: DataDisk
+    description: Describes a storage profile.
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+  UpgradePolicy:
+    type: object
+    properties:
+      mode?:
+        type: string
+        description: Gets or sets the upgrade mode.
+        enum:
+        - Automatic
+        - Manual
+    description: Describes an upgrade policy - automatic or manual.
+  Usage:
+    type: object
+    properties:
+      unit:
+        type: string
+        description: Gets or sets an enum describing the unit of measurement.
+        enum:
+        - Count
+      currentValue:
+        type: integer
+        description: Gets or sets the current value of the usage.
+        format: int32
+      limit:
+        type: integer
+        description: Gets or sets the limit of usage.
+        format: int64
+      name:
+        type: UsageName
+        description: Gets or sets the name of the type of usage.
+    description: Describes Compute Resource Usage.
+  UsageName:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Gets or sets a string describing the resource name.
+      localizedValue?:
+        type: string
+        description: Gets or sets a localized string describing the resource name.
+    description: The Usage Names.
+  VaultCertificate:
+    type: object
+    properties:
+      certificateUrl?:
+        type: string
+        description: Gets or sets the URL referencing a secret in a Key Vault which contains a properly formatted certificate.
+      certificateStore?:
+        type: string
+        description: Gets or sets the Certificate store in LocalMachine to add the certificate to on Windows, leave empty on Linux.
+    description: Describes a single certificate reference in a Key Vault, and where the certificate should reside on the VM.
+  VaultSecretGroup:
+    type: object
+    properties:
+      sourceVault?:
+        type: SubResource
+        description: Gets or sets the Relative URL of the Key Vault containing all of the certificates in VaultCertificates.
+      vaultCertificates?:
+        type: array
+        description: Gets or sets the list of key vault references in SourceVault which contain certificates
+        items:
+          type: VaultCertificate
+    description: Describes a set of certificates which are all in the same Key Vault.
+  VirtualHardDisk:
+    type: object
+    properties:
+      uri?:
+        type: string
+        description: Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk.
+    description: Describes the uri of a disk.
+  VirtualMachine:
+    type: Resource
+    description: Describes a Virtual Machine.
+  VirtualMachineAgentInstanceView:
+    type: object
+    properties:
+      vmAgentVersion?:
+        type: string
+        description: Gets or sets the VM Agent full version.
+      extensionHandlers?:
+        type: array
+        description: Gets or sets the virtual machine extension handler instance view.
+        items:
+          type: VirtualMachineExtensionHandlerInstanceView
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of the VM Agent running on the virtual machine.
+  VirtualMachineCaptureParameters:
+    type: object
+    properties:
+      vhdPrefix:
+        type: string
+        description: Gets or sets the captured VirtualHardDisk's name prefix.
+      destinationContainerName:
+        type: string
+        description: Gets or sets the destination container name.
+      overwriteVhds:
+        type: boolean
+        description: Gets or sets whether it overwrites destination VirtualHardDisk if true, in case of conflict.
+    description: Parameters supplied to the Capture Virtual Machine operation.
+  VirtualMachineCaptureResult:
+    type: SubResource
+    description: Resource Id.
+  VirtualMachineCaptureResultProperties:
+    type: object
+    properties:
+      output?:
+        type: object
+        description: Operation output data (raw JSON)
+    description: Compute-specific operation properties, including output
+  VirtualMachineExtension:
+    type: Resource
+    description: Describes a Virtual Machine Extension.
+  VirtualMachineExtensionHandlerInstanceView:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: Gets or sets full type of the extension handler which includes both publisher and type.
+      typeHandlerVersion?:
+        type: string
+        description: Gets or sets the type version of the extension handler.
+      status?:
+        type: InstanceViewStatus
+        description: Gets or sets the extension handler status.
+    description: The instance view of a virtual machine extension handler.
+  VirtualMachineExtensionImage:
+    type: Resource
+    description: Describes a Virtual Machine Extension Image.
+  VirtualMachineExtensionImageProperties:
+    type: object
+    properties:
+      operatingSystem:
+        type: string
+        description: Gets or sets the operating system this extension supports.
+      computeRole:
+        type: string
+        description: Gets or sets the type of role (IaaS or PaaS) this extension supports.
+      handlerSchema:
+        type: string
+        description: Gets or sets the schema defined by publisher, where extension consumers should provide settings in a matching schema.
+      vmScaleSetEnabled?:
+        type: boolean
+        description: Gets or sets whether the extension can be used on xRP VMScaleSets.By default existing extensions are usable on scalesets, but there might be cases where a publisher wants to explicitly indicate the extension is only enabled for CRP VMs but not VMSS.
+      supportsMultipleExtensions?:
+        type: boolean
+        description: Gets or sets whether the handler can support multiple extensions.
+    description: Describes the properties of a Virtual Machine Extension Image.
+  VirtualMachineExtensionInstanceView:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the virtual machine extension name.
+      type?:
+        type: string
+        description: Gets or sets the full type of the extension handler which includes both publisher and type.
+      typeHandlerVersion?:
+        type: string
+        description: Gets or sets the type version of the extension handler.
+      substatuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of a virtual machine extension.
+  VirtualMachineExtensionProperties:
+    type: object
+    properties:
+      forceUpdateTag?:
+        type: string
+        description: Gets or sets how the extension handler should be forced to update even if the extension configuration has not changed.
+      publisher?:
+        type: string
+        description: Gets or sets the name of the extension handler publisher.
+      type?:
+        type: string
+        description: Gets or sets the type of the extension handler.
+      typeHandlerVersion?:
+        type: string
+        description: Gets or sets the type version of the extension handler.
+      autoUpgradeMinorVersion?:
+        type: boolean
+        description: Gets or sets whether the extension handler should be automatically upgraded across minor versions.
+      settings?:
+        type: object
+        description: Gets or sets Json formatted public settings for the extension.
+      protectedSettings?:
+        type: object
+        description: Gets or sets Json formatted protected settings for the extension.
+      provisioningState?:
+        type: string
+        description: Gets or sets the provisioning state, which only appears in the response.
+      instanceView?:
+        type: VirtualMachineExtensionInstanceView
+        description: Gets or sets the virtual machine extension instance view.
+    description: Describes the properties of a Virtual Machine Extension.
+  VirtualMachineImage:
+    type: VirtualMachineImageResource
+    description: Describes a Virtual Machine Image.
+  VirtualMachineImageProperties:
+    type: object
+    properties:
+      plan?:
+        type: PurchasePlan
+      osDiskImage?:
+        type: OSDiskImage
+      dataDiskImages?:
+        type: array
+        items:
+          type: DataDiskImage
+    description: Describes the properties of a Virtual Machine Image.
+  VirtualMachineImageResource:
+    type: SubResource
+    description: Virtual machine image resource information.
+  VirtualMachineInstanceView:
+    type: object
+    properties:
+      platformUpdateDomain?:
+        type: integer
+        description: Gets or sets the Update Domain count.
+        format: int32
+      platformFaultDomain?:
+        type: integer
+        description: Gets or sets the Fault Domain count.
+        format: int32
+      rdpThumbPrint?:
+        type: string
+        description: Gets or sets the Remote desktop certificate thumbprint.
+      vmAgent?:
+        type: VirtualMachineAgentInstanceView
+        description: Gets or sets the VM Agent running on the virtual machine.
+      disks?:
+        type: array
+        description: Gets or sets the disks information.
+        items:
+          type: DiskInstanceView
+      extensions?:
+        type: array
+        description: Gets or sets the extensions information.
+        items:
+          type: VirtualMachineExtensionInstanceView
+      bootDiagnostics?:
+        type: BootDiagnosticsInstanceView
+        description: Gets or sets the boot diagnostics.
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of a virtual machine.
+  VirtualMachineListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of virtual machines.
+        items:
+          type: VirtualMachine
+      nextLink?:
+        type: string
+        description: Gets or sets the uri to fetch the next page of VMs. Call ListNext() with this to fetch the next page of Virtual Machines.
+    description: The List Virtual Machine operation response.
+  VirtualMachineProperties:
+    type: object
+    properties:
+      hardwareProfile?:
+        type: HardwareProfile
+        description: Gets or sets the hardware profile.
+      storageProfile?:
+        type: StorageProfile
+        description: Gets or sets the storage profile.
+      osProfile?:
+        type: OSProfile
+        description: Gets or sets the OS profile.
+      networkProfile?:
+        type: NetworkProfile
+        description: Gets or sets the network profile.
+      diagnosticsProfile?:
+        type: DiagnosticsProfile
+        description: Gets or sets the diagnostics profile.
+      availabilitySet?:
+        type: SubResource
+        description: Gets or sets the reference Id of the availability set to which this virtual machine belongs.
+      provisioningState?:
+        type: string
+        description: Gets or sets the provisioning state, which only appears in the response.
+      instanceView?:
+        type: VirtualMachineInstanceView
+        description: Gets the virtual machine instance view.
+      licenseType?:
+        type: string
+        description: Gets or sets the license type, which is for bring your own license scenario.
+    description: Describes the properties of a Virtual Machine.
+  VirtualMachineScaleSet:
+    type: Resource
+    description: Describes a Virtual Machine Scale Set.
+  VirtualMachineScaleSetExtension:
+    type: SubResource
+    description: Describes a Virtual Machine Scale Set Extension.
+  VirtualMachineScaleSetExtensionProfile:
+    type: object
+    properties:
+      extensions?:
+        type: array
+        description: Gets the virtual machine scale set child extension resources.
+        items:
+          type: VirtualMachineScaleSetExtension
+    description: Describes a virtual machine scale set extension profile.
+  VirtualMachineScaleSetExtensionProperties:
+    type: object
+    properties:
+      publisher?:
+        type: string
+        description: Gets or sets the name of the extension handler publisher.
+      type?:
+        type: string
+        description: Gets or sets the type of the extension handler.
+      typeHandlerVersion?:
+        type: string
+        description: Gets or sets the type version of the extension handler.
+      autoUpgradeMinorVersion?:
+        type: boolean
+        description: Gets or sets whether the extension handler should be automatically upgraded across minor versions.
+      settings?:
+        type: object
+        description: Gets or sets Json formatted public settings for the extension.
+      protectedSettings?:
+        type: object
+        description: Gets or sets Json formatted protected settings for the extension.
+      provisioningState?:
+        type: string
+        description: Gets the provisioning state, which only appears in the response.
+    description: Describes the properties of a Virtual Machine Scale Set Extension.
+  VirtualMachineScaleSetIPConfiguration:
+    type: SubResource
+    description: Describes a virtual machine scale set network profile's IP configuration.
+  VirtualMachineScaleSetIPConfigurationProperties:
+    type: object
+    properties:
+      subnet:
+        type: ApiEntityReference
+        description: Gets or sets the subnet.
+      loadBalancerBackendAddressPools?:
+        type: array
+        description: Gets or sets the load balancer backend address pools.
+        items:
+          type: SubResource
+      loadBalancerInboundNatPools?:
+        type: array
+        description: Gets or sets the load balancer inbound nat pools.
+        items:
+          type: SubResource
+    description: Describes a virtual machine scale set network profile's IP configuration properties.
+  VirtualMachineScaleSetInstanceView:
+    type: object
+    properties:
+      virtualMachine?:
+        type: VirtualMachineScaleSetInstanceViewStatusesSummary
+        description: Gets the instance view status summary for the virtual machine scale set.
+      extensions?:
+        type: array
+        description: Gets the extensions information.
+        items:
+          type: VirtualMachineScaleSetVMExtensionsSummary
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of a virtual machine scale set.
+  VirtualMachineScaleSetInstanceViewStatusesSummary:
+    type: object
+    properties:
+      statusesSummary?:
+        type: array
+        description: Gets the extensions information.
+        items:
+          type: VirtualMachineStatusCodeCount
+    description: Instance view statuses summary for virtual machines of a virtual machine scale set.
+  VirtualMachineScaleSetListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of virtual machine scale sets.
+        items:
+          type: VirtualMachineScaleSet
+    description: The List Virtual Machine operation response.
+  VirtualMachineScaleSetListSkusResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets the list of skus available for the virtual machine scale set.
+        items:
+          type: VirtualMachineScaleSetSku
+    description: The Virtual Machine Scale Set List Skus operation response.
+  VirtualMachineScaleSetListWithLinkResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of virtual machine scale sets.
+        items:
+          type: VirtualMachineScaleSet
+      nextLink?:
+        type: string
+        description: Gets or sets the uri to fetch the next page of Virtual Machine Scale Sets. Call ListNext() with this to fetch the next page of Virtual Machine Scale Sets.
+    description: The List Virtual Machine operation response.
+  VirtualMachineScaleSetNetworkConfiguration:
+    type: SubResource
+    description: Describes a virtual machine scale set network profile's network configurations.
+  VirtualMachineScaleSetNetworkConfigurationProperties:
+    type: object
+    properties:
+      primary?:
+        type: boolean
+        description: Gets or sets whether this is a primary NIC on a virtual machine.
+      ipConfigurations:
+        type: array
+        description: Gets or sets the virtual machine scale set IP Configuration.
+        items:
+          type: VirtualMachineScaleSetIPConfiguration
+    description: Describes a virtual machine scale set network profile's IP configuration.
+  VirtualMachineScaleSetNetworkProfile:
+    type: object
+    properties:
+      networkInterfaceConfigurations?:
+        type: array
+        description: Gets or sets the list of network configurations.
+        items:
+          type: VirtualMachineScaleSetNetworkConfiguration
+    description: Describes a virtual machine scale set network profile.
+  VirtualMachineScaleSetOSDisk:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Gets or sets the disk name.
+      caching?:
+        type: string
+        description: Gets or sets the caching type.
+        enum:
+        - None
+        - ReadOnly
+        - ReadWrite
+      createOption:
+        type: string
+        description: Gets or sets the create option.
+        enum:
+        - fromImage
+        - empty
+        - attach
+      osType?:
+        type: string
+        description: Gets or sets the Operating System type.
+        enum:
+        - Windows
+        - Linux
+      image?:
+        type: VirtualHardDisk
+        description: Gets or sets the Source User Image VirtualHardDisk. This VirtualHardDisk will be copied before using it to attach to the Virtual Machine.If SourceImage is provided, the destination VirtualHardDisk should not exist.
+      vhdContainers?:
+        type: array
+        description: Gets or sets the list of virtual hard disk container uris.
+        items:
+          type: string
+    description: Describes a virtual machine scale set operating system disk.
+  VirtualMachineScaleSetOSProfile:
+    type: object
+    properties:
+      computerNamePrefix?:
+        type: string
+        description: Gets or sets the computer name prefix.
+      adminUsername?:
+        type: string
+        description: Gets or sets the admin user name.
+      adminPassword?:
+        type: string
+        description: Gets or sets the admin user password.
+      customData?:
+        type: string
+        description: Gets or sets a base-64 encoded string of custom data.
+      windowsConfiguration?:
+        type: WindowsConfiguration
+        description: Gets or sets the Windows Configuration of the OS profile.
+      linuxConfiguration?:
+        type: LinuxConfiguration
+        description: Gets or sets the Linux Configuration of the OS profile.
+      secrets?:
+        type: array
+        description: Gets or sets the List of certificates for addition to the VM.
+        items:
+          type: VaultSecretGroup
+    description: Describes a virtual machine scale set OS profile.
+  VirtualMachineScaleSetProperties:
+    type: object
+    properties:
+      upgradePolicy?:
+        type: UpgradePolicy
+        description: Gets or sets the upgrade policy.
+      virtualMachineProfile?:
+        type: VirtualMachineScaleSetVMProfile
+        description: Gets or sets the virtual machine profile.
+      provisioningState?:
+        type: string
+        description: Gets or sets the provisioning state, which only appears in the response.
+      overProvision?:
+        type: boolean
+        description: Specifies whether the Virtual Machine Scale Set should be overprovisioned.
+    description: Describes the properties of a Virtual Machine Scale Set.
+  VirtualMachineScaleSetSku:
+    type: object
+    properties:
+      resourceType?:
+        type: string
+        description: Gets the type of resource the sku applies to.
+      sku?:
+        type: Sku
+        description: Gets the Sku.
+      capacity?:
+        type: VirtualMachineScaleSetSkuCapacity
+        description: Gets available scaling information.
+    description: Describes an available virtual machine scale set sku.
+  VirtualMachineScaleSetSkuCapacity:
+    type: object
+    properties:
+      minimum?:
+        type: integer
+        description: Gets the minimum capacity.
+        format: int64
+      maximum?:
+        type: integer
+        description: Gets the maximum capacity that can be set.
+        format: int64
+      defaultCapacity?:
+        type: integer
+        description: Gets the default capacity.
+        format: int64
+      scaleType?:
+        type: string
+        description: Gets the scale type applicable to the sku.
+        enum:
+        - Automatic
+        - None
+    description: Describes scaling information of a sku.
+  VirtualMachineScaleSetStorageProfile:
+    type: object
+    properties:
+      imageReference?:
+        type: ImageReference
+        description: Gets or sets the image reference.
+      osDisk?:
+        type: VirtualMachineScaleSetOSDisk
+        description: Gets or sets the OS disk.
+    description: Describes a virtual machine scale set storage profile.
+  VirtualMachineScaleSetVM:
+    type: Resource
+    description: Describes a virtual machine scale set virtual machine.
+  VirtualMachineScaleSetVMExtensionsSummary:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets the extension name.
+      statusesSummary?:
+        type: array
+        description: Gets the extensions information.
+        items:
+          type: VirtualMachineStatusCodeCount
+    description: Extensions summary for virtual machines of a virtual machine scale set.
+  VirtualMachineScaleSetVMInstanceIDs:
+    type: object
+    properties:
+      instanceIds?:
+        type: array
+        description: Gets or sets the virtual machine scale set instance ids.
+        items:
+          type: string
+    description: The list of virtual machine scale set instance IDs.
+  VirtualMachineScaleSetVMInstanceRequiredIDs:
+    type: object
+    properties:
+      instanceIds:
+        type: array
+        description: Gets or sets the virtual machine scale set instance ids.
+        items:
+          type: string
+    description: The list of virtual machine scale set instance IDs.
+  VirtualMachineScaleSetVMInstanceView:
+    type: object
+    properties:
+      platformUpdateDomain?:
+        type: integer
+        description: Gets or sets the Update Domain count.
+        format: int32
+      platformFaultDomain?:
+        type: integer
+        description: Gets or sets the Fault Domain count.
+        format: int32
+      rdpThumbPrint?:
+        type: string
+        description: Gets or sets the Remote desktop certificate thumbprint.
+      vmAgent?:
+        type: VirtualMachineAgentInstanceView
+        description: Gets or sets the VM Agent running on the virtual machine.
+      disks?:
+        type: array
+        description: Gets or sets the disks information.
+        items:
+          type: DiskInstanceView
+      extensions?:
+        type: array
+        description: Gets or sets the extensions information.
+        items:
+          type: VirtualMachineExtensionInstanceView
+      bootDiagnostics?:
+        type: BootDiagnosticsInstanceView
+        description: Gets or sets the boot diagnostics.
+      statuses?:
+        type: array
+        description: Gets or sets the resource status information.
+        items:
+          type: InstanceViewStatus
+    description: The instance view of a virtual machine scale set VM.
+  VirtualMachineScaleSetVMListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of virtual machine scale sets VMs.
+        items:
+          type: VirtualMachineScaleSetVM
+    description: The List Virtual Machine Scale Set VMs operation response.
+  VirtualMachineScaleSetVMProfile:
+    type: object
+    properties:
+      osProfile?:
+        type: VirtualMachineScaleSetOSProfile
+        description: Gets or sets the virtual machine scale set OS profile.
+      storageProfile?:
+        type: VirtualMachineScaleSetStorageProfile
+        description: Gets or sets the virtual machine scale set storage profile.
+      networkProfile?:
+        type: VirtualMachineScaleSetNetworkProfile
+        description: Gets or sets the virtual machine scale set network profile.
+      extensionProfile?:
+        type: VirtualMachineScaleSetExtensionProfile
+        description: Gets the virtual machine scale set extension profile.
+    description: Describes a virtual machine scale set virtual machine profile.
+  VirtualMachineScaleSetVMProperties:
+    type: object
+    properties:
+      latestModelApplied?:
+        type: boolean
+        description: Specifies whether the latest model has been applied to the virtual machine.
+      instanceView?:
+        type: VirtualMachineInstanceView
+        description: Gets the virtual machine instance view.
+      hardwareProfile?:
+        type: HardwareProfile
+        description: Gets or sets the hardware profile.
+      storageProfile?:
+        type: StorageProfile
+        description: Gets or sets the storage profile.
+      osProfile?:
+        type: OSProfile
+        description: Gets or sets the OS profile.
+      networkProfile?:
+        type: NetworkProfile
+        description: Gets or sets the network profile.
+      diagnosticsProfile?:
+        type: DiagnosticsProfile
+        description: Gets or sets the diagnostics profile.
+      availabilitySet?:
+        type: SubResource
+        description: Gets or sets the reference Id of the availability set to which this virtual machine belongs.
+      provisioningState?:
+        type: string
+        description: Gets or sets the provisioning state, which only appears in the response.
+      licenseType?:
+        type: string
+        description: Gets or sets the license type, which is for bring your own license scenario.
+    description: Describes the properties of a virtual machine scale set virtual machine.
+  VirtualMachineSize:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the VM size name.
+      numberOfCores?:
+        type: integer
+        description: Gets or sets the Number of cores supported by a VM size.
+        format: int32
+      osDiskSizeInMB?:
+        type: integer
+        description: Gets or sets the OS disk size allowed by a VM size.
+        format: int32
+      resourceDiskSizeInMB?:
+        type: integer
+        description: Gets or sets the Resource disk size allowed by a VM size.
+        format: int32
+      memoryInMB?:
+        type: integer
+        description: Gets or sets the Memory size supported by a VM size.
+        format: int32
+      maxDataDiskCount?:
+        type: integer
+        description: Gets or sets the Maximum number of data disks allowed by a VM size.
+        format: int32
+    description: Describes the properties of a VM size.
+  VirtualMachineSizeListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of virtual machine sizes.
+        items:
+          type: VirtualMachineSize
+    description: The List Virtual Machine operation response.
+  VirtualMachineStatusCodeCount:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Gets the instance view status code.
+      count?:
+        type: integer
+        description: Gets the number of instances having a particular status code.
+        format: int32
+    description: The status code and count of the virtual machine scale set instance view status summary.
+  WinRMConfiguration:
+    type: object
+    properties:
+      listeners?:
+        type: array
+        description: Gets or sets the list of Windows Remote Management listeners
+        items:
+          type: WinRMListener
+    description: Describes Windows Remote Management configuration of the VM
+  WinRMListener:
+    type: object
+    properties:
+      protocol?:
+        type: string
+        description: Gets or sets the Protocol used by WinRM listener. Currently only Http and Https are supported.
+        enum:
+        - Http
+        - Https
+      certificateUrl?:
+        type: string
+        description: Gets or sets the Certificate URL in KMS for Https listeners. Should be null for Http listeners.
+    description: Describes Protocol and thumbprint of Windows Remote Management listener
+  WindowsConfiguration:
+    type: object
+    properties:
+      provisionVMAgent?:
+        type: boolean
+        description: Gets or sets whether VM Agent should be provisioned on the Virtual Machine.
+      enableAutomaticUpdates?:
+        type: boolean
+        description: Gets or sets whether Windows updates are automatically installed on the VM
+      timeZone?:
+        type: string
+        description: Gets or sets the Time Zone of the VM
+      additionalUnattendContent?:
+        type: array
+        description: Gets or sets the additional base-64 encoded XML formatted information that can be included in the Unattend.xml file.
+        items:
+          type: AdditionalUnattendContent
+      winRM?:
+        type: WinRMConfiguration
+        description: Gets or sets the Windows Remote Management configuration of the VM
+    description: Describes Windows Configuration of the OS Profile.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Compute:
+        /locations:
+          /{location}:
+            uriParameters:
+              location:
+                type: string
+                displayName: location
+            /publishers:
+              /{publisherName}:
+                uriParameters:
+                  publisherName:
+                    type: string
+                    displayName: publisherName
+                /artifacttypes:
+                  /vmextension:
+                    /types:
+                      /{type}:
+                        uriParameters:
+                          type:
+                            type: string
+                            displayName: type
+                        /versions:
+                          /{version}:
+                            uriParameters:
+                              version:
+                                type: string
+                                displayName: version
+                            get:
+                              description: Gets a virtual machine extension image.
+                              queryParameters:
+                                api-version:
+                                  type: string
+                                  description: Client Api Version.
+                                  displayName: api-version
+                          get:
+                            description: Gets a list of virtual machine extension image versions.
+                            queryParameters:
+                              $filter?:
+                                type: string
+                                description: The filter to apply on the operation.
+                                displayName: $filter
+                              $top?:
+                                type: integer
+                                displayName: $top
+                                format: int32
+                              $orderby?:
+                                type: string
+                                displayName: $orderby
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                      get:
+                        description: Gets a list of virtual machine extension image types.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                  /vmimage:
+                    /offers:
+                      /{offer}:
+                        uriParameters:
+                          offer:
+                            type: string
+                            displayName: offer
+                        /skus:
+                          /{skus}:
+                            uriParameters:
+                              skus:
+                                type: string
+                                displayName: skus
+                            /versions:
+                              /{version}:
+                                uriParameters:
+                                  version:
+                                    type: string
+                                    displayName: version
+                                get:
+                                  description: Gets a virtual machine image.
+                                  queryParameters:
+                                    api-version:
+                                      type: string
+                                      description: Client Api Version.
+                                      displayName: api-version
+                              get:
+                                description: Gets a list of virtual machine images.
+                                queryParameters:
+                                  $filter?:
+                                    type: string
+                                    description: The filter to apply on the operation.
+                                    displayName: $filter
+                                  $top?:
+                                    type: integer
+                                    displayName: $top
+                                    format: int32
+                                  $orderby?:
+                                    type: string
+                                    displayName: $orderby
+                                  api-version:
+                                    type: string
+                                    description: Client Api Version.
+                                    displayName: api-version
+                          get:
+                            description: Gets a list of virtual machine image skus.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                      get:
+                        description: Gets a list of virtual machine image offers.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+              get:
+                description: Gets a list of virtual machine image publishers.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /usages:
+              get:
+                description: Lists compute usages for a subscription.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /vmSizes:
+              get:
+                description: Lists all available virtual machine sizes for a subscription in a location.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+        /virtualMachineScaleSets:
+          get:
+            description: Gets the list of Virtual Machine Scale Sets in the subscription. Use nextLink property in the response to get the next page of Virtual Machine Scale Sets. Do this till nextLink is not null to fetch all the Virtual Machine Scale Sets.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /virtualMachines:
+          get:
+            description: Gets the list of Virtual Machines in the subscription. Use nextLink property in the response to get the next page of Virtual Machines. Do this till nextLink is not null to fetch all the Virtual Machines.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Compute:
+            /availabilitySets:
+              /{availabilitySetName}:
+                uriParameters:
+                  availabilitySetName:
+                    type: string
+                    description: The name of the availability set.
+                    displayName: availabilitySetName
+                /vmSizes:
+                  get:
+                    description: Lists all available virtual machine sizes that can be used to create a new virtual machine in an existing availability set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The operation to get the availability set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The operation to delete the availability set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: Parameters supplied to the Create Availability Set operation.
+                    displayName: name
+                put:
+                  description: The operation to create or update the availability set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: AvailabilitySet
+                    text/json: AvailabilitySet
+              get:
+                description: The operation to list the availability sets.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /virtualMachineScaleSets:
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: Parameters supplied to the Create Virtual Machine Scale Set operation.
+                    displayName: name
+                put:
+                  description: The operation to create or update a virtual machine scale set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VirtualMachineScaleSet
+                    text/json: VirtualMachineScaleSet
+              /{virtualMachineScaleSetName}:
+                uriParameters:
+                  virtualMachineScaleSetName:
+                    type: string
+                    description: The name of the virtual machine scale set.
+                    displayName: virtualMachineScaleSetName
+                /virtualMachines:
+                  get:
+                    description: The operation to list virtual machine scale sets VMs.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                      $select?:
+                        type: string
+                        description: The list parameters.
+                        displayName: $select
+                      $expand?:
+                        type: string
+                        description: The expand expression to apply on the operation.
+                        displayName: $expand
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+              /{vmScaleSetName}:
+                uriParameters:
+                  vmScaleSetName:
+                    type: string
+                    description: The name of the virtual machine scale set.
+                    displayName: vmScaleSetName
+                /deallocate:
+                  post:
+                    description: The operation to deallocate virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceIDs
+                      text/json: VirtualMachineScaleSetVMInstanceIDs
+                /delete:
+                  post:
+                    description: The operation to delete virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                      text/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                /instanceView:
+                  get:
+                    description: The operation to get a virtual machine scale set instance view.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /manualupgrade:
+                  post:
+                    description: The operation to manually upgrade virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                      text/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                /poweroff:
+                  post:
+                    description: The operation to power off (stop) virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceIDs
+                      text/json: VirtualMachineScaleSetVMInstanceIDs
+                /reimage:
+                  post:
+                    description: The operation to re-image virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /restart:
+                  post:
+                    description: The operation to restart virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceIDs
+                      text/json: VirtualMachineScaleSetVMInstanceIDs
+                /skus:
+                  get:
+                    description: The operation to list available skus for a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /start:
+                  post:
+                    description: The operation to start virtual machines in a virtual machine scale set.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineScaleSetVMInstanceIDs
+                      text/json: VirtualMachineScaleSetVMInstanceIDs
+                /virtualmachines:
+                  /{instanceId}:
+                    uriParameters:
+                      instanceId:
+                        type: string
+                        description: The instance id of the virtual machine.
+                        displayName: instanceId
+                    /deallocate:
+                      post:
+                        description: The operation to deallocate a virtual machine scale set.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /instanceView:
+                      get:
+                        description: The operation to get a virtual machine scale set virtual machine.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /poweroff:
+                      post:
+                        description: The operation to power off (stop) a virtual machine scale set.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /reimage:
+                      post:
+                        description: The operation to re-image a virtual machine scale set instance.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /restart:
+                      post:
+                        description: The operation to restart a virtual machine scale set.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    /start:
+                      post:
+                        description: The operation to start a virtual machine scale set.
+                        queryParameters:
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+                    get:
+                      description: The operation to get a virtual machine scale set virtual machine.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The operation to delete a virtual machine scale set.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                get:
+                  description: The operation to get a virtual machine scale set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The operation to delete a virtual machine scale set.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: The operation to list virtual machine scale sets under a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /virtualMachines:
+              /{vmName}:
+                uriParameters:
+                  vmName:
+                    type: string
+                    description: The name of the virtual machine.
+                    displayName: vmName
+                /capture:
+                  post:
+                    description: Captures the VM by copying virtual hard disks of the VM and outputs a template that can be used to create similar VMs.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: VirtualMachineCaptureParameters
+                      text/json: VirtualMachineCaptureParameters
+                /deallocate:
+                  post:
+                    description: Shuts down the Virtual Machine and releases the compute resources. You are not billed for the compute resources that this Virtual Machine uses.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /extensions:
+                  /{vmExtensionName}:
+                    uriParameters:
+                      vmExtensionName:
+                        type: string
+                        description: The name of the virtual machine extension.
+                        displayName: vmExtensionName
+                    get:
+                      description: The operation to get the extension.
+                      queryParameters:
+                        $expand?:
+                          type: string
+                          description: The expand expression to apply on the operation.
+                          displayName: $expand
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: The operation to delete the extension.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: The operation to create or update the extension.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: VirtualMachineExtension
+                        text/json: VirtualMachineExtension
+                /generalize:
+                  post:
+                    description: Sets the state of the VM as Generalized.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /powerOff:
+                  post:
+                    description: The operation to power off (stop) a virtual machine.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /redeploy:
+                  post:
+                    description: The operation to redeploy a virtual machine.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /restart:
+                  post:
+                    description: The operation to restart a virtual machine.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /start:
+                  post:
+                    description: The operation to start a virtual machine.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /vmSizes:
+                  get:
+                    description: Lists all available virtual machine sizes it can be resized to for a virtual machine.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: The operation to get a virtual machine.
+                  queryParameters:
+                    $expand?:
+                      type: string
+                      description: The expand expression to apply on the operation.
+                      displayName: $expand
+                      enum:
+                      - instanceView
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The operation to delete a virtual machine.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The operation to create or update a virtual machine.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: VirtualMachine
+                    text/json: VirtualMachine
+              get:
+                description: The operation to list virtual machines under a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

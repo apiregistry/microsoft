@@ -1,0 +1,102 @@
+#%RAML 1.0
+title: InsightsClient
+version: '2016-09-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  Unit:
+    type: string
+    description: the unit of the metric.
+    enum:
+    - Count
+    - Bytes
+    - Seconds
+    - CountPerSecond
+    - BytesPerSecond
+    - Percent
+    - MilliSeconds
+  LocalizableString:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: the invariant value.
+      localizedValue?:
+        type: string
+        description: the locale specific value.
+    description: The localizable string class.
+  Metric:
+    type: object
+    properties:
+      name:
+        type: LocalizableString
+        description: the name and the display name of the metric.
+      unit:
+        type: Unit
+        description: the unit of the metric.
+      data:
+        type: array
+        description: Array of data points representing the metric values.
+        items:
+          type: MetricValue
+    description: A set of metric values in a time range.
+  MetricCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        description: the value of the collection.
+        items:
+          type: Metric
+    description: The collection of metric value sets.
+  MetricValue:
+    type: object
+    properties:
+      timestamp:
+        type: datetime
+        description: the timestamp for the metric value in ISO 8601 format.
+      average?:
+        type: number
+        description: the average value in the time range.
+        format: double
+      minimum?:
+        type: number
+        description: the least value in the time range.
+        format: double
+      maximum?:
+        type: number
+        description: the greatest value in the time range.
+        format: double
+      total?:
+        type: number
+        description: the sum of all of the values in the time range.
+        format: double
+      count?:
+        type: integer
+        description: the number of samples in the time range. Can be used to determine the number of values that contributed to the average value.
+        format: int64
+    description: Represents a metric value.
+/{resourceUri}:
+  uriParameters:
+    resourceUri:
+      type: string
+      description: The identifier of the resource.
+      displayName: resourceUri
+  /providers:
+    /microsoft.insights:
+      /metrics:
+        get:
+          description: Lists the metric values for a resource.
+          queryParameters:
+            $filter?:
+              type: string
+              description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
+              displayName: $filter
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version

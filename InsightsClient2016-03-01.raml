@@ -1,0 +1,101 @@
+#%RAML 1.0
+title: InsightsClient
+version: '2016-03-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  Unit:
+    type: string
+    description: the unit of the metric.
+    enum:
+    - Count
+    - Bytes
+    - Seconds
+    - CountPerSecond
+    - BytesPerSecond
+    - Percent
+    - MilliSeconds
+  LocalizableString:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: the invariant value.
+      localizedValue?:
+        type: string
+        description: the locale specific value.
+    description: The localizable string class.
+  MetricAvailability:
+    type: object
+    properties:
+      timeGrain?:
+        type: string
+        description: the time grain specifies the aggregation interval for the metric. Expressed as a duration 'PT1M', 'P1D' etc.
+      retention?:
+        type: string
+        description: the retention period for the metric at the specified timegrain.  Expressed as a duration 'PT1M', 'P1D' etc.
+    description: Metric availability specifies the time grain (aggregation interval or frequency) and the retention period for that time grain.
+  MetricDefinition:
+    type: object
+    properties:
+      resourceId?:
+        type: string
+        description: the resource identifier of the resource that has emitted the metric.
+      name?:
+        type: LocalizableString
+        description: the name and the display name of the metric.
+      unit?:
+        type: Unit
+        description: the unit of the metric.
+      primaryAggregationType?:
+        type: string
+        description: the primary aggregation type value defining how to use the values for display.
+        enum:
+        - None
+        - Average
+        - Count
+        - Minimum
+        - Maximum
+        - Total
+      metricAvailabilities?:
+        type: array
+        description: the collection of what aggregation intervals are available to be queried.
+        items:
+          type: MetricAvailability
+      id?:
+        type: string
+        description: the resource identifier of the metric definition.
+    description: Metric definition class specifies the metadata for a metric.
+  MetricDefinitionCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        description: the values for the metric definitions.
+        items:
+          type: MetricDefinition
+    description: Represents collection of metric definitions.
+/{resourceUri}:
+  uriParameters:
+    resourceUri:
+      type: string
+      description: The identifier of the resource.
+      displayName: resourceUri
+  /providers:
+    /microsoft.insights:
+      /metricDefinitions:
+        get:
+          description: Lists the metric definitions for the resource.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+            $filter?:
+              type: string
+              description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
+              displayName: $filter

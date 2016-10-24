@@ -1,0 +1,1147 @@
+#%RAML 1.0
+title: ResourceManagementClient
+version: '2015-11-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  BasicDependency:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the dependency.
+      resourceType?:
+        type: string
+        description: Gets or sets the dependency resource type.
+      resourceName?:
+        type: string
+        description: Gets or sets the dependency resource name.
+    description: Deployment dependency information.
+  Dependency:
+    type: object
+    properties:
+      dependsOn?:
+        type: array
+        description: Gets the list of dependencies.
+        items:
+          type: BasicDependency
+      id?:
+        type: string
+        description: Gets or sets the ID of the dependency.
+      resourceType?:
+        type: string
+        description: Gets or sets the dependency resource type.
+      resourceName?:
+        type: string
+        description: Gets or sets the dependency resource name.
+    description: Deployment dependency information.
+  Deployment:
+    type: object
+    properties:
+      properties?:
+        type: DeploymentProperties
+        description: Gets or sets the deployment properties.
+    description: Deployment to validate.
+  DeploymentExtended:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the deployment.
+      name:
+        type: string
+        description: Gets or sets the name of the deployment.
+      properties?:
+        type: DeploymentPropertiesExtended
+        description: Gets or sets deployment properties.
+    description: Deployment information.
+  DeploymentExtendedFilter:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Gets or sets the provisioning state.
+    description: Deployment filter.
+  DeploymentListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of deployments.
+        items:
+          type: DeploymentExtended
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of deployments.
+  DeploymentOperation:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets full deployment operation id.
+      operationId?:
+        type: string
+        description: Gets or sets deployment operation id.
+      properties?:
+        type: DeploymentOperationProperties
+        description: Gets or sets deployment properties.
+    description: Deployment operation information.
+  DeploymentOperationProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Gets or sets the state of the provisioning.
+      timestamp?:
+        type: datetime
+        description: Gets or sets the date and time of the operation.
+      statusCode?:
+        type: string
+        description: Gets or sets operation status code.
+      statusMessage?:
+        type: object
+        description: Gets or sets operation status message.
+      targetResource?:
+        type: TargetResource
+        description: Gets or sets the target resource.
+    description: Deployment operation properties.
+  DeploymentOperationsListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of deployments.
+        items:
+          type: DeploymentOperation
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of deployment operations.
+  DeploymentProperties:
+    type: object
+    properties:
+      template?:
+        type: object
+        description: Gets or sets the template content. Use only one of Template or TemplateLink.
+      templateLink?:
+        type: TemplateLink
+        description: Gets or sets the URI referencing the template. Use only one of Template or TemplateLink.
+      parameters?:
+        type: object
+        description: Deployment parameters. Use only one of Parameters or ParametersLink.
+      parametersLink?:
+        type: ParametersLink
+        description: Gets or sets the URI referencing the parameters. Use only one of Parameters or ParametersLink.
+      mode?:
+        type: string
+        description: Gets or sets the deployment mode.
+        enum:
+        - Incremental
+        - Complete
+    description: Deployment properties.
+  DeploymentPropertiesExtended:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Gets or sets the state of the provisioning.
+      correlationId?:
+        type: string
+        description: Gets or sets the correlation ID of the deployment.
+      timestamp?:
+        type: datetime
+        description: Gets or sets the timestamp of the template deployment.
+      outputs?:
+        type: object
+        description: Gets or sets key/value pairs that represent deploymentoutput.
+      providers?:
+        type: array
+        description: Gets the list of resource providers needed for the deployment.
+        items:
+          type: Provider
+      dependencies?:
+        type: array
+        description: Gets the list of deployment dependencies.
+        items:
+          type: Dependency
+      template?:
+        type: object
+        description: Gets or sets the template content. Use only one of Template or TemplateLink.
+      templateLink?:
+        type: TemplateLink
+        description: Gets or sets the URI referencing the template. Use only one of Template or TemplateLink.
+      parameters?:
+        type: object
+        description: Deployment parameters. Use only one of Parameters or ParametersLink.
+      parametersLink?:
+        type: ParametersLink
+        description: Gets or sets the URI referencing the parameters. Use only one of Parameters or ParametersLink.
+      mode?:
+        type: string
+        description: Gets or sets the deployment mode.
+        enum:
+        - Incremental
+        - Complete
+    description: Deployment properties with additional details.
+  DeploymentValidateResult:
+    type: object
+    properties:
+      error?:
+        type: ResourceManagementErrorWithDetails
+        description: Gets or sets validation error.
+      properties?:
+        type: DeploymentPropertiesExtended
+        description: Gets or sets the template deployment properties.
+    description: Information from validate template deployment response.
+  GenericResource:
+    type: Resource
+    description: Resource information.
+  GenericResourceFilter:
+    type: object
+    properties:
+      resourceType?:
+        type: string
+        description: Gets or sets the resource type.
+      tagname?:
+        type: string
+        description: Gets or sets the tag name.
+      tagvalue?:
+        type: string
+        description: Gets or sets the tag value.
+    description: Resource filter.
+  ParametersLink:
+    type: object
+    properties:
+      uri:
+        type: string
+        description: URI referencing the template.
+      contentVersion?:
+        type: string
+        description: If included it must match the ContentVersion in the template.
+    description: Entity representing the reference to the deployment paramaters.
+  Plan:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the plan ID.
+      publisher?:
+        type: string
+        description: Gets or sets the publisher ID.
+      product?:
+        type: string
+        description: Gets or sets the offer ID.
+      promotionCode?:
+        type: string
+        description: Gets or sets the promotion code.
+    description: Plan for the resource.
+  PolicyAssignment:
+    type: object
+    properties:
+      properties?:
+        type: PolicyAssignmentProperties
+        description: Gets or sets the policy assignment properties.
+      name?:
+        type: string
+        description: Gets or sets the policy assignment name.
+    description: Policy assignment.
+  PolicyAssignmentListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Policy assignment list.
+        items:
+          type: PolicyAssignment
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of policy assignment results.
+    description: Policy assignment list operation result.
+  PolicyAssignmentProperties:
+    type: object
+    properties:
+      scope?:
+        type: string
+        description: Gets or sets the policy assignment scope.
+      displayName?:
+        type: string
+        description: Gets or sets the policy assignment display name.
+      policyDefinitionId?:
+        type: string
+        description: Gets or sets the policy definition Id.
+    description: Policy Assignment properties.
+  PolicyDefinition:
+    type: object
+    properties:
+      properties?:
+        type: PolicyDefinitionProperties
+        description: Gets or sets the policy definition properties.
+      name?:
+        type: string
+        description: Gets or sets the policy definition name.
+    description: The policy definition properties
+  PolicyDefinitionProperties:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: Gets or sets the policy definition description.
+      displayName?:
+        type: string
+        description: Gets or sets the policy definition display name.
+      policyRule?:
+        type: object
+        description: The policy rule json.
+    description: Policy definition properties.
+  Provider:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the provider id.
+      namespace?:
+        type: string
+        description: Gets or sets the namespace of the provider.
+      registrationState?:
+        type: string
+        description: Gets or sets the registration state of the provider.
+      resourceTypes?:
+        type: array
+        description: Gets or sets the collection of provider resource types.
+        items:
+          type: ProviderResourceType
+    description: Resource provider information.
+  ProviderListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of resource providers.
+        items:
+          type: Provider
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of resource providers.
+  ProviderResourceType:
+    type: object
+    properties:
+      resourceType?:
+        type: string
+        description: Gets or sets the resource type.
+      locations?:
+        type: array
+        description: Gets or sets the collection of locations where this resource type can be created in.
+        items:
+          type: string
+      apiVersions?:
+        type: array
+        description: Gets or sets the api version.
+        items:
+          type: string
+      properties?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Gets or sets the properties.
+    description: Resource type managed by the resource provider.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ResourceGroup:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets the ID of the resource group.
+      name?:
+        type: string
+        description: Gets or sets the Name of the resource group.
+      properties?:
+        type: ResourceGroupProperties
+      location:
+        type: string
+        description: Gets or sets the location of the resource group. It cannot be changed after the resource group has been created. Has to be one of the supported Azure Locations, such as West US, East US, West Europe, East Asia, etc.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Gets or sets the tags attached to the resource group.
+    description: Parameters supplied to the create or update resource group service operation.
+  ResourceGroupFilter:
+    type: object
+    properties:
+      tagName?:
+        type: string
+        description: Gets or sets the tag name.
+      tagValue?:
+        type: string
+        description: Gets or sets the tag value.
+    description: Resource group filter.
+  ResourceGroupListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of resource groups.
+        items:
+          type: ResourceGroup
+      nextLink:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of resource groups.
+  ResourceGroupProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Gets resource group provisioning state.
+    description: The resource group properties.
+  ResourceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of resource groups.
+        items:
+          type: GenericResource
+      nextLink:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of resource groups.
+  ResourceManagementError:
+    type: object
+    properties:
+      code:
+        type: string
+        description: Gets or sets the error code returned from the server.
+      message:
+        type: string
+        description: Gets or sets the error message returned from the server.
+      target?:
+        type: string
+        description: Gets or sets the target of the error.
+  ResourceManagementErrorWithDetails:
+    type: ResourceManagementError
+  ResourceProviderOperationDefinition:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Gets or sets the provider operation name.
+      display?:
+        type: ResourceProviderOperationDisplayProperties
+        description: Gets or sets the display property of the provider operation.
+    description: Resource provider operation information.
+  ResourceProviderOperationDetailListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of resource provider operations.
+        items:
+          type: ResourceProviderOperationDefinition
+    description: List of resource provider operations.
+  ResourceProviderOperationDisplayProperties:
+    type: object
+    properties:
+      publisher?:
+        type: string
+        description: Gets or sets operation description.
+      provider?:
+        type: string
+        description: Gets or sets operation provider.
+      resource?:
+        type: string
+        description: Gets or sets operation resource.
+      operation?:
+        type: string
+        description: Gets or sets operation.
+      description?:
+        type: string
+        description: Gets or sets operation description.
+    description: Resource provider operation's display properties.
+  ResourcesMoveInfo:
+    type: object
+    properties:
+      resources?:
+        type: array
+        description: Gets or sets the ids of the resources.
+        items:
+          type: string
+      targetResourceGroup?:
+        type: string
+        description: The target resource group.
+    description: move resources' parameters.
+  SubResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+  TagCount:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: Type of count.
+      value?:
+        type: string
+        description: Value of count.
+    description: Tag count.
+  TagDetails:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the tag ID.
+      tagName?:
+        type: string
+        description: Gets or sets the tag name.
+      count?:
+        type: TagCount
+        description: Gets or sets the tag count.
+      values?:
+        type: array
+        description: Gets or sets the list of tag values.
+        items:
+          type: TagValue
+    description: Tag details.
+  TagValue:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the tag ID.
+      tagValue?:
+        type: string
+        description: Gets or sets the tag value.
+      count?:
+        type: TagCount
+        description: Gets or sets the tag value count.
+    description: Tag information.
+  TagsListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of tags.
+        items:
+          type: TagDetails
+      nextLink:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of subscription tags.
+  TargetResource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Gets or sets the ID of the resource.
+      resourceName?:
+        type: string
+        description: Gets or sets the name of the resource.
+      resourceType?:
+        type: string
+        description: Gets or sets the type of the resource.
+    description: Target resource.
+  TemplateLink:
+    type: object
+    properties:
+      uri:
+        type: string
+        description: URI referencing the template.
+      contentVersion?:
+        type: string
+        description: If included it must match the ContentVersion in the template.
+    description: Entity representing the reference to the template.
+/providers:
+  /{resourceProviderNamespace}:
+    uriParameters:
+      resourceProviderNamespace:
+        type: string
+        description: Resource identity.
+        displayName: resourceProviderNamespace
+    /operations:
+      get:
+        description: Gets a list of resource providers.
+        queryParameters:
+          api-version:
+            type: string
+            displayName: api-version
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Authorization:
+        /policyAssignments:
+          get:
+            description: Gets policy assignments of the subscription.
+            queryParameters:
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /policydefinitions:
+          /{policyDefinitionName}:
+            uriParameters:
+              policyDefinitionName:
+                type: string
+                description: The policy definition name.
+                displayName: policyDefinitionName
+            get:
+              description: Gets policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            delete:
+              description: Deletes policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            put:
+              description: Create or update policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+              body:
+                application/json: PolicyDefinition
+      /{resourceProviderNamespace}:
+        uriParameters:
+          resourceProviderNamespace:
+            type: string
+            description: Namespace of the resource provider.
+            displayName: resourceProviderNamespace
+        /register:
+          post:
+            description: Registers provider to be used with a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /unregister:
+          post:
+            description: Unregisters provider from a subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        get:
+          description: Gets a resource provider.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+      get:
+        description: Gets a list of resource providers.
+        queryParameters:
+          $top?:
+            type: integer
+            description: Query parameters. If null is passed returns all deployments.
+            displayName: $top
+            format: int32
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Resource group name.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /providers:
+          /Microsoft.Authorization:
+            /policyAssignments:
+              get:
+                description: Gets policy assignments of the resource group.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+        /resources:
+          get:
+            description: Get all of the resources under a subscription.
+            queryParameters:
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: Query parameters. If null is passed returns all resource groups.
+                displayName: $top
+                format: int32
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+      /{sourceResourceGroupName}:
+        uriParameters:
+          sourceResourceGroupName:
+            type: string
+            description: Source resource group name.
+            displayName: sourceResourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /moveResources:
+          post:
+            description: Begin moving resources.To determine whether the operation has finished processing the request, call GetLongRunningOperationStatus.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: ResourcesMoveInfo
+    /resourcegroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group to get. The name is case insensitive.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /deployments:
+          /{deploymentName}:
+            uriParameters:
+              deploymentName:
+                type: string
+                description: The name of the deployment.
+                displayName: deploymentName
+            /operations:
+              /{operationId}:
+                uriParameters:
+                  operationId:
+                    type: string
+                    description: Operation Id.
+                    displayName: operationId
+                get:
+                  description: Get a list of deployments operations.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              get:
+                description: Gets a list of deployments operations.
+                queryParameters:
+                  $top?:
+                    type: integer
+                    description: Query parameters.
+                    displayName: $top
+                    format: int32
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+        /providers:
+          /Microsoft.Resources:
+            /deployments:
+              /:
+                get:
+                  description: Get a list of deployments.
+                  queryParameters:
+                    $filter?:
+                      type: string
+                      description: The filter to apply on the operation.
+                      displayName: $filter
+                    $top?:
+                      type: integer
+                      description: Query parameters. If null is passed returns all deployments.
+                      displayName: $top
+                      format: int32
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              /{deploymentName}:
+                uriParameters:
+                  deploymentName:
+                    type: string
+                    description: The name of the deployment.
+                    displayName: deploymentName
+                /cancel:
+                  post:
+                    description: Cancel a currently running template deployment.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /validate:
+                  post:
+                    description: Validate a deployment template.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: Deployment
+                get:
+                  description: Get a deployment.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                head:
+                  description: Checks whether deployment exists.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Begin deleting deployment.To determine whether the operation has finished processing the request, call GetLongRunningOperationStatus.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Create a named template deployment using a template.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: Deployment
+          /{resourceProviderNamespace}:
+            uriParameters:
+              resourceProviderNamespace:
+                type: string
+                description: Resource identity.
+                displayName: resourceProviderNamespace
+            /{parentResourcePath}:
+              uriParameters:
+                parentResourcePath:
+                  type: string
+                  description: Resource identity.
+                  displayName: parentResourcePath
+              /{resourceType}:
+                uriParameters:
+                  resourceType:
+                    type: string
+                    description: Resource identity.
+                    displayName: resourceType
+                /{resourceName}:
+                  uriParameters:
+                    resourceName:
+                      type: string
+                      description: Resource identity.
+                      displayName: resourceName
+                  get:
+                    description: Returns a resource belonging to a resource group.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        displayName: api-version
+                  head:
+                    description: Checks whether resource exists.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        displayName: api-version
+                  delete:
+                    description: 'Delete resource and all of its resources. '
+                    queryParameters:
+                      api-version:
+                        type: string
+                        displayName: api-version
+                  put:
+                    description: Create a resource.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        displayName: api-version
+                    body:
+                      application/json: GenericResource
+                /{resourceName}providers:
+                  uriParameters:
+                    resourceName:
+                      type: string
+                      description: The resource name.
+                      displayName: resourceName
+                  /Microsoft.Authorization:
+                    /policyAssignments:
+                      get:
+                        description: Gets policy assignments of the resource.
+                        queryParameters:
+                          $filter?:
+                            type: string
+                            description: The filter to apply on the operation.
+                            displayName: $filter
+                          api-version:
+                            type: string
+                            description: Client Api Version.
+                            displayName: api-version
+        get:
+          description: Get a resource group.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        head:
+          description: Checks whether resource group exists.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        delete:
+          description: Begin deleting resource group.To determine whether the operation has finished processing the request, call GetLongRunningOperationStatus.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        patch:
+          description: 'Resource groups can be updated through a simple PATCH operation
+            to a group address. The format of the request is the same as that for
+            creating a resource groups, though if a field is unspecified current value
+            will be carried over. '
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: ResourceGroup
+        put:
+          description: Create a resource group.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+          body:
+            application/json: ResourceGroup
+      get:
+        description: Gets a collection of resource groups.
+        queryParameters:
+          $filter?:
+            type: string
+            description: The filter to apply on the operation.
+            displayName: $filter
+          $top?:
+            type: integer
+            description: Query parameters. If null is passed returns all resource groups.
+            displayName: $top
+            format: int32
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /resources:
+      get:
+        description: Get all of the resources under a subscription.
+        queryParameters:
+          $filter?:
+            type: string
+            description: The filter to apply on the operation.
+            displayName: $filter
+          $top?:
+            type: integer
+            description: Query parameters. If null is passed returns all resource groups.
+            displayName: $top
+            format: int32
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /tagNames:
+      /{tagName}:
+        uriParameters:
+          tagName:
+            type: string
+            description: The name of the tag.
+            displayName: tagName
+        /tagValues:
+          /{tagValue}:
+            uriParameters:
+              tagValue:
+                type: string
+                description: The value of the tag.
+                displayName: tagValue
+            delete:
+              description: Delete a subscription resource tag value.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            put:
+              description: Create a subscription resource tag value.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+        delete:
+          description: Delete a subscription resource tag.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+        put:
+          description: Create a subscription resource tag.
+          queryParameters:
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version
+      get:
+        description: Get a list of subscription resource tags.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+/{policyAssignmentId}:
+  uriParameters:
+    policyAssignmentId:
+      type: string
+      description: Policy assignment Id
+      displayName: policyAssignmentId
+  get:
+    description: Get single policy assignment.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+  delete:
+    description: Delete policy assignment.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+  put:
+    description: Create policy assignment by Id.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+    body:
+      application/json: PolicyAssignment
+/{scope}:
+  uriParameters:
+    scope:
+      type: string
+      description: Scope.
+      displayName: scope
+  /providers:
+    /Microsoft.Authorization:
+      /policyAssignments:
+        /{policyAssignmentName}:
+          uriParameters:
+            policyAssignmentName:
+              type: string
+              description: Policy assignment name.
+              displayName: policyAssignmentName
+          get:
+            description: Get single policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+          delete:
+            description: Delete policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+          put:
+            description: Create policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: PolicyAssignment
+        get:
+          description: Gets policy assignments of the scope.
+          queryParameters:
+            $filter?:
+              type: string
+              description: The filter to apply on the operation.
+              displayName: $filter
+            api-version:
+              type: string
+              description: Client Api Version.
+              displayName: api-version

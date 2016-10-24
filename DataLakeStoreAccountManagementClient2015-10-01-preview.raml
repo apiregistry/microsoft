@@ -1,0 +1,469 @@
+#%RAML 1.0
+title: DataLakeStoreAccountManagementClient
+version: 2015-10-01-preview
+baseUri: management.azure.com
+description: Creates an Azure Data Lake Store account management client.
+mediaType:
+- application/json
+- text/json
+- application/octet-stream
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AzureAsyncOperationResult:
+    type: object
+    properties:
+      status?:
+        type: string
+        description: the status of the AzureAsuncOperation
+        enum:
+        - InProgress
+        - Succeeded
+        - Failed
+      error?:
+        type: Error
+    description: The response body contains the status of the specified asynchronous operation, indicating whether it has succeeded, is in progress, or has failed. Note that this status is distinct from the HTTP status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body includes the HTTP status code for the failed request and error information regarding the failure.
+  DataLakeStoreAccount:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: the account regional location.
+      name?:
+        type: string
+        description: the account name.
+      type?:
+        type: string
+        description: the namespace and type of the account.
+      id?:
+        type: string
+        description: the account subscription ID.
+      identity?:
+        type: EncryptionIdentity
+        description: The Key vault encryption identity, if any.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: the value of custom properties.
+      properties?:
+        type: DataLakeStoreAccountProperties
+        description: the Data Lake Store account properties.
+    description: Parameters supplied to create the Data Lake Store account.
+  DataLakeStoreAccountListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: DataLakeStoreAccount
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+      count?:
+        type: integer
+        description: the total count of results that are available, but might not be returned in the current page.
+        format: int64
+    description: Data Lake Store account list information response.
+  DataLakeStoreAccountProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: the status of the Data Lake Store account while being provisioned.
+        enum:
+        - Failed
+        - Creating
+        - Running
+        - Succeeded
+        - Patching
+        - Suspending
+        - Resuming
+        - Deleting
+        - Deleted
+      state?:
+        type: string
+        description: the status of the Data Lake Store account after provisioning has completed.
+        enum:
+        - active
+        - suspended
+      creationTime?:
+        type: datetime
+        description: the account creation time.
+      encryptionState?:
+        type: string
+        description: The current state of encryption for this Data Lake store account.
+        enum:
+        - Enabled
+        - Disabled
+      encryptionProvisioningState?:
+        type: string
+        description: The current state of encryption provisioning for this Data Lake store account.
+        enum:
+        - Creating
+        - Succeeded
+      encryptionConfig?:
+        type: EncryptionConfig
+        description: The Key vault encryption configuration.
+      lastModifiedTime?:
+        type: datetime
+        description: the account last modified time.
+      endpoint?:
+        type: string
+        description: the gateway host.
+      defaultGroup?:
+        type: string
+        description: the default owner group for all new folders and files created in the Data Lake Store account.
+    description: Data Lake Store account properties information
+  DataLakeStoreFirewallRuleListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the results of the list operation
+        items:
+          type: FirewallRule
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+      count?:
+        type: integer
+        description: the total count of results that are available, but might not be returned in the current page.
+        format: int64
+    description: Data Lake Store firewall rule list information.
+  EncryptionConfig:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: The type of encryption configuration being used. Currently the only supported types are 'UserManaged' and 'ServiceManaged'.
+        enum:
+        - UserManaged
+        - ServiceManaged
+      keyVaultMetaInfo?:
+        type: KeyVaultMetaInfo
+        description: The Key vault information for connecting to user managed encryption keys.
+  EncryptionIdentity:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: The type of encryption being used. Currently the only supported type is 'SystemAssigned'.
+        enum:
+        - SystemAssigned
+      principalId?:
+        type: string
+        description: The principal identifier associated with the encryption.
+      tenantId?:
+        type: string
+        description: The tenant identifier associated with the encryption.
+  Error:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: the HTTP status code or error code associated with this error
+      message?:
+        type: string
+        description: the error message to display.
+      target?:
+        type: string
+        description: the target of the error.
+      details?:
+        type: array
+        description: the list of error details
+        items:
+          type: ErrorDetails
+      innerError?:
+        type: InnerError
+        description: the inner exceptions or errors, if any
+    description: Data Lake Store error information
+  ErrorDetails:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: the HTTP status code or error code associated with this error
+      message?:
+        type: string
+        description: the error message localized based on Accept-Language
+      target?:
+        type: string
+        description: the target of the particular error (for example, the name of the property in error).
+    description: Data Lake Store error details information
+  FirewallRule:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the firewall rule's name.
+      type?:
+        type: string
+        description: the namespace and type of the firewall Rule.
+      id?:
+        type: string
+        description: the firewall rule's subscription ID.
+      location?:
+        type: string
+        description: the firewall rule's regional location.
+      properties?:
+        type: FirewallRuleProperties
+        description: the properties of the firewall rule.
+    description: Parameters supplied to create the create firewall rule.
+  FirewallRuleProperties:
+    type: object
+    properties:
+      startIpAddress?:
+        type: string
+        description: the start IP address for the firewall rule.
+      endIpAddress?:
+        type: string
+        description: the end IP address for the firewall rule.
+    description: Data Lake Store firewall rule properties information
+  InnerError:
+    type: object
+    properties:
+      trace?:
+        type: string
+        description: the stack trace for the error
+      context?:
+        type: string
+        description: the context for the error message
+    description: Data Lake Store inner error information
+  KeyVaultMetaInfo:
+    type: object
+    properties:
+      keyVaultResourceId?:
+        type: string
+        description: The resource identifier for the user managed Key Vault being used to encrypt.
+      encryptionKeyName?:
+        type: string
+        description: The name of the user managed encryption key.
+      encryptionKeyVersion?:
+        type: string
+        description: The version of the user managed encryption key.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.DataLakeStore:
+        /accounts:
+          get:
+            description: Lists the Data Lake Store accounts within the subscription. The response includes a link to the next page of results, if any.
+            queryParameters:
+              $filter?:
+                type: string
+                description: OData filter. Optional.
+                displayName: $filter
+              $top?:
+                type: integer
+                description: The number of items to return. Optional.
+                displayName: $top
+                format: int32
+              $skip?:
+                type: integer
+                description: The number of items to skip over before returning elements. Optional.
+                displayName: $skip
+                format: int32
+              $expand?:
+                type: string
+                description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                displayName: $expand
+              $select?:
+                type: string
+                description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                displayName: $select
+              $orderby?:
+                type: string
+                description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                displayName: $orderby
+              $count?:
+                type: boolean
+                description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                displayName: $count
+              $search?:
+                type: string
+                description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                displayName: $search
+              $format?:
+                type: string
+                description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                displayName: $format
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the Azure resource group that contains the Data Lake Store account(s).
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.DataLakeStore:
+            /accounts:
+              /{accountName}:
+                uriParameters:
+                  accountName:
+                    type: string
+                    description: The name of the Data Lake Store account to retrieve.
+                    displayName: accountName
+                /enableKeyVault:
+                  post:
+                    description: Attempts to enable a user managed key vault for encryption of the specified Data Lake Store account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /firewallRules:
+                  /{firewallRuleName}:
+                    uriParameters:
+                      firewallRuleName:
+                        type: string
+                        description: The name of the firewall rule to retrieve.
+                        displayName: firewallRuleName
+                    get:
+                      description: Gets the specified Data Lake Store firewall rule.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes the specified firewall rule from the specified Data Lake Store account
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: The name of the firewall rule to create or update.
+                        displayName: name
+                    put:
+                      description: Creates or updates the specified firewall rule.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: FirewallRule
+                        text/json: FirewallRule
+                        application/octet-stream: FirewallRule
+                  get:
+                    description: Lists the Data Lake Store firewall rules within the specified Data Lake Store account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Gets the specified Data Lake Store account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes the specified Data Lake Store account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: The name of the Data Lake Store account to update.
+                    displayName: name
+                patch:
+                  description: Updates the specified Data Lake Store account information.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: DataLakeStoreAccount
+                    text/json: DataLakeStoreAccount
+                    application/octet-stream: DataLakeStoreAccount
+                put:
+                  description: Creates the specified Data Lake Store account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: DataLakeStoreAccount
+                    text/json: DataLakeStoreAccount
+                    application/octet-stream: DataLakeStoreAccount
+              get:
+                description: Lists the Data Lake Store accounts within a specific resource group. The response includes a link to the next page of results, if any.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: OData filter. Optional.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: The number of items to return. Optional.
+                    displayName: $top
+                    format: int32
+                  $skip?:
+                    type: integer
+                    description: The number of items to skip over before returning elements. Optional.
+                    displayName: $skip
+                    format: int32
+                  $expand?:
+                    type: string
+                    description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                    displayName: $expand
+                  $select?:
+                    type: string
+                    description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                    displayName: $select
+                  $orderby?:
+                    type: string
+                    description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                    displayName: $orderby
+                  $count?:
+                    type: boolean
+                    description: A Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                    displayName: $count
+                  $search?:
+                    type: string
+                    description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                    displayName: $search
+                  $format?:
+                    type: string
+                    description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                    displayName: $format
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

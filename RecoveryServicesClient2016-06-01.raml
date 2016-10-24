@@ -1,0 +1,128 @@
+#%RAML 1.0
+title: RecoveryServicesClient
+version: '2016-06-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  Object:
+    type: object
+    description: Base of all objects.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource Name
+      type?:
+        type: string
+        description: Resource Type
+      location?:
+        type: string
+        description: Resource Location
+      sku?:
+        type: Sku
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource Tags
+  Sku:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The Sku name.
+        enum:
+        - Standard
+        - RS0
+    description: Identifies the unique system identifier for each Azure resource.
+  Vault:
+    type: Resource
+    description: Resource information, as returned by the resource provider.
+  VaultList:
+    type: object
+    properties:
+      value?:
+        type: array
+        items:
+          type: Vault
+    description: The response model for Vault.
+  VaultProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: Provisioning State.
+    description: Properties of the vault.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The subscription Id.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group where the recovery services vault is present.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.RecoveryServices:
+            /vaults:
+              /{vaultName}:
+                uriParameters:
+                  vaultName:
+                    type: string
+                    description: The name of the recovery services vault.
+                    displayName: vaultName
+                get:
+                  description: Get the Vault details.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes a vault.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Creates or updates a Recovery Services vault.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: Vault
+              get:
+                displayName: Retrieve a list of Vaults.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

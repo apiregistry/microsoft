@@ -1,0 +1,469 @@
+#%RAML 1.0
+title: BatchManagement
+version: '2015-12-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ActivateApplicationPackageParameters:
+    type: object
+    properties:
+      format:
+        type: string
+        description: The format of the application package binary file.
+    description: The parameters for the request.
+  AddApplicationParameters:
+    type: object
+    properties:
+      allowUpdates?:
+        type: boolean
+        description: A value indicating whether packages within the application may be overwritten using the same version string.
+      displayName?:
+        type: string
+        description: The display name for the application.
+    description: The parameters for the request.
+  Application:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: A string that uniquely identifies the application within the account.
+      displayName?:
+        type: string
+        description: The display name for the application.
+      packages?:
+        type: array
+        description: The list of packages under this application.
+        items:
+          type: ApplicationPackage
+      allowUpdates?:
+        type: boolean
+        description: A value indicating whether packages within the application may be overwritten using the same version string.
+      defaultVersion?:
+        type: string
+        description: The package to use if a client requests the application but does not specify a version.
+    description: Contains information about an application in a Batch account.
+  ApplicationPackage:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The id of the application.
+      version?:
+        type: string
+        description: 'The version of the application package. '
+      state?:
+        type: string
+        description: The current state of the application package.
+        enum:
+        - pending
+        - active
+        - unmapped
+      format?:
+        type: string
+        description: The format of the application package, if the package is active.
+      storageUrl?:
+        type: string
+        description: The storage URL at which the application package is stored.
+      storageUrlExpiry?:
+        type: datetime
+        description: The UTC time at which the storage URL will expire.
+      lastActivationTime?:
+        type: datetime
+        description: The time at which the package was last activated, if the package is active.
+    description: An application package which represents a particular version of an application.
+  AutoStorageBaseProperties:
+    type: object
+    properties:
+      storageAccountId:
+        type: string
+        description: The resource id of the storage account to be used for auto storage account.
+    description: The properties related to auto storage account.
+  AutoStorageProperties:
+    type: object
+    properties:
+      storageAccountId:
+        type: string
+        description: The resource id of the storage account to be used for auto storage account.
+      lastKeySync:
+        type: datetime
+        description: The UTC time at which storage keys were last synchronized with the Batch account.
+    description: Contains information about the auto storage account associated with a Batch account.
+  BatchAccount:
+    type: Resource
+    description: Contains information about an Azure Batch account.
+  BatchAccountBaseProperties:
+    type: object
+    properties:
+      autoStorage?:
+        type: AutoStorageBaseProperties
+        description: The properties related to auto storage account.
+    description: The properties of a Batch account.
+  BatchAccountCreateParameters:
+    type: object
+    properties:
+      location:
+        type: string
+        description: The region in which to create the account.
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The user specified tags associated with the account.
+      properties?:
+        type: BatchAccountBaseProperties
+        description: The properties of the account.
+    description: Additional parameters for account creation.
+  BatchAccountKeys:
+    type: object
+    properties:
+      primary?:
+        type: string
+        description: The primary key associated with the account.
+      secondary?:
+        type: string
+        description: The secondary key associated with the account.
+    description: A set of Azure Batch account keys.
+  BatchAccountListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: The collection of returned Batch accounts.
+        items:
+          type: BatchAccount
+      nextLink?:
+        type: string
+        description: The continuation token.
+    description: Values returned by the List operation.
+  BatchAccountProperties:
+    type: object
+    properties:
+      accountEndpoint?:
+        type: string
+        description: The endpoint used by this account to interact with the Batch services.
+      provisioningState?:
+        type: string
+        description: The provisioned state of the resource
+        enum:
+        - Invalid
+        - Creating
+        - Deleting
+        - Succeeded
+        - Failed
+        - Cancelled
+      autoStorage?:
+        type: AutoStorageProperties
+        description: The properties and status of any auto storage account associated with the account.
+      coreQuota:
+        type: integer
+        description: The core quota for this Batch account.
+        format: int32
+      poolQuota:
+        type: integer
+        description: The pool quota for this Batch account.
+        format: int32
+      activeJobAndJobScheduleQuota:
+        type: integer
+        description: The active job and job schedule quota for this Batch account.
+        format: int32
+    description: Account specific properties.
+  BatchAccountRegenerateKeyParameters:
+    type: object
+    properties:
+      keyName:
+        type: string
+        description: The type of account key to regenerate.
+        enum:
+        - Primary
+        - Secondary
+    description: The type of key to regenerate.
+  BatchAccountUpdateParameters:
+    type: object
+    properties:
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The user specified tags associated with the account.
+      properties?:
+        type: BatchAccountBaseProperties
+        description: The properties of the account.
+    description: Additional parameters for account update.
+  BatchLocationQuota:
+    type: object
+    properties:
+      accountQuota?:
+        type: integer
+        description: The number of Batch accounts that may be created under the subscription in the specified region.
+        format: int32
+    description: Quotas associated with a Batch region for a particular subscription.
+  ListApplicationsResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: The list of applications.
+        items:
+          type: Application
+      nextLink?:
+        type: string
+        description: The URL to get the next set of results.
+    description: Response to an ApplicationOperations.ListApplications request.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The id of the resource
+      name?:
+        type: string
+        description: The name of the resource
+      type?:
+        type: string
+        description: The type of the resource
+      location?:
+        type: string
+        description: The location of the resource
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The tags of the resource
+    description: A definition of an Azure resource.
+  UpdateApplicationParameters:
+    type: object
+    properties:
+      allowUpdates?:
+        type: boolean
+        description: A value indicating whether packages within the application may be overwritten using the same version string.
+      defaultVersion?:
+        type: string
+        description: The package to use if a client requests the application but does not specify a version.
+      displayName?:
+        type: string
+        description: The display name for the application.
+    description: The parameters for the request.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: A unique identifier of a Microsoft Azure subscription. The subscription id forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Batch:
+        /batchAccounts:
+          get:
+            description: Gets information about the Batch accounts associated with the subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client API Version.
+                displayName: api-version
+        /locations:
+          /{locationName}:
+            uriParameters:
+              locationName:
+                type: string
+                description: The desired region for the quotas.
+                displayName: locationName
+            /quotas:
+              get:
+                description: Gets the Batch service quotas for the specified subscription at the given location.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client API Version.
+                    displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group whose Batch accounts to list.
+            displayName: resourceGroupName
+            pattern: ^[-\w\._]+$
+        /providers:
+          /Microsoft.Batch:
+            /batchAccounts:
+              /{accountName}:
+                uriParameters:
+                  accountName:
+                    type: string
+                    description: The name of the account.
+                    displayName: accountName
+                    maxLength: 24
+                    minLength: 3
+                    pattern: ^[-\w\._]+$
+                /applications:
+                  /{applicationId}:
+                    uriParameters:
+                      applicationId:
+                        type: string
+                        description: The id of the application.
+                        displayName: applicationId
+                    /versions:
+                      /{version}:
+                        uriParameters:
+                          version:
+                            type: string
+                            description: The version of the application.
+                            displayName: version
+                        /activate:
+                          post:
+                            description: Activates the specified application package.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client API Version.
+                                displayName: api-version
+                            body:
+                              application/json: ActivateApplicationPackageParameters
+                        get:
+                          description: Gets information about the specified application package.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API Version.
+                              displayName: api-version
+                        delete:
+                          description: Deletes an application package record and its associated binary file.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API Version.
+                              displayName: api-version
+                        put:
+                          description: Creates an application package record.
+                          queryParameters:
+                            api-version:
+                              type: string
+                              description: Client API Version.
+                              displayName: api-version
+                    get:
+                      description: Gets information about the specified application.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes an application.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API Version.
+                          displayName: api-version
+                    patch:
+                      description: Updates settings for the specified application.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API Version.
+                          displayName: api-version
+                      body:
+                        application/json: UpdateApplicationParameters
+                    put:
+                      description: Adds an application to the specified Batch account.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client API Version.
+                          displayName: api-version
+                      body:
+                        application/json: AddApplicationParameters
+                  get:
+                    description: Lists all of the applications in the specified account.
+                    queryParameters:
+                      maxresults?:
+                        type: integer
+                        description: The maximum number of items to return in the response.
+                        displayName: maxresults
+                        format: int32
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                /listKeys:
+                  post:
+                    description: Gets the account keys for the specified Batch account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                /regenerateKeys:
+                  post:
+                    description: Regenerates the specified account key for the specified Batch account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                    body:
+                      application/json: BatchAccountRegenerateKeyParameters
+                /syncAutoStorageKeys:
+                  post:
+                    description: Synchronizes access keys for the auto storage account configured for the specified Batch account.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                get:
+                  description: Gets information about the specified Batch account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes the specified Batch account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                patch:
+                  description: Updates the properties of an existing Batch account.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                  body:
+                    application/json: BatchAccountUpdateParameters
+                put:
+                  description: Creates a new Batch account with the specified parameters. Existing accounts cannot be updated with this API and should instead be updated with the Update Batch Account API.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                  body:
+                    application/json: BatchAccountCreateParameters
+              get:
+                description: Gets information about the Batch accounts associated within the specified resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client API Version.
+                    displayName: api-version

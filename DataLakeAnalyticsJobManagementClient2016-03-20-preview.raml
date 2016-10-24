@@ -1,0 +1,504 @@
+#%RAML 1.0
+title: DataLakeAnalyticsJobManagementClient
+version: 2016-03-20-preview
+description: Creates an Azure Data Lake Analytics job client.
+mediaType:
+- application/json
+- text/json
+- application/octet-stream
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  Diagnostics:
+    type: object
+    properties:
+      columnNumber?:
+        type: integer
+        description: the column where the error occured.
+        format: int32
+      end?:
+        type: integer
+        description: the ending index of the error.
+        format: int32
+      lineNumber?:
+        type: integer
+        description: the line number the error occured on.
+        format: int32
+      message?:
+        type: string
+        description: the error message.
+      severity?:
+        type: string
+        description: the severity of the error.
+        enum:
+        - Warning
+        - Error
+        - Info
+      start?:
+        type: integer
+        description: the starting index of the error.
+        format: int32
+  HiveJobProperties:
+    type: JobProperties
+  JobDataPath:
+    type: object
+    properties:
+      jobId?:
+        type: string
+        description: the id of the job this data is for.
+      command?:
+        type: string
+        description: the command that this job data relates to.
+      paths?:
+        type: array
+        description: the list of paths to all of the job data.
+        items:
+          type: string
+    description: A Data Lake Analytics job data path item.
+  JobErrorDetails:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: the error message description
+      details?:
+        type: string
+        description: the details of the error message.
+      endOffset?:
+        type: integer
+        description: the end offset in the job where the error was found.
+        format: int32
+      errorId?:
+        type: string
+        description: the specific identifier for the type of error encountered in the job.
+      filePath?:
+        type: string
+        description: the path to any supplemental error files, if any.
+      helpLink?:
+        type: string
+        description: the link to MSDN or Azure help for this type of error, if any.
+      internalDiagnostics?:
+        type: string
+        description: the internal diagnostic stack trace if the user requesting the job error details has sufficient permissions it will be retrieved, otherwise it will be empty.
+      lineNumber?:
+        type: integer
+        description: the specific line number in the job where the error occured.
+        format: int32
+      message?:
+        type: string
+        description: the user friendly error message for the failure.
+      resolution?:
+        type: string
+        description: the recommended resolution for the failure, if any.
+      innerError?:
+        type: JobInnerError
+        description: the inner error of this specific job error message, if any.
+      severity?:
+        type: string
+        description: the severity level of the failure.
+        enum:
+        - Warning
+        - Error
+        - Info
+      source?:
+        type: string
+        description: the ultimate source of the failure (usually either SYSTEM or USER).
+      startOffset?:
+        type: integer
+        description: the start offset in the job where the error was found
+        format: int32
+    description: The Data Lake Analytics job error details.
+  JobInfoListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the list of jobInfo items.
+        items:
+          type: JobInformation
+      nextLink?:
+        type: string
+        description: the link (url) to the next page of results.
+      count?:
+        type: integer
+        description: the total count of results that are available, but might not be returned in the current page.
+        format: int64
+    description: List of jobInfo items.
+  JobInformation:
+    type: object
+    properties:
+      jobId?:
+        type: string
+        description: the job's unique identifier (a GUID).
+      name:
+        type: string
+        description: the friendly name of the job.
+      type:
+        type: string
+        description: the job type of the current job (Hive or USql).
+        enum:
+        - USql
+        - Hive
+      submitter?:
+        type: string
+        description: the user or account that submitted the job.
+      errorMessage?:
+        type: array
+        description: the error message details for the job, if the job failed.
+        items:
+          type: JobErrorDetails
+      degreeOfParallelism?:
+        type: integer
+        description: the degree of parallelism used for this job. This must be greater than 0.
+        format: int32
+      priority?:
+        type: integer
+        description: the priority value for the current job. Lower numbers have a higher priority. By default, a job has a priority of 1000. This must be greater than 0.
+        format: int32
+      submitTime?:
+        type: datetime
+        description: the time the job was submitted to the service.
+      startTime?:
+        type: datetime
+        description: the start time of the job.
+      endTime?:
+        type: datetime
+        description: the completion time of the job.
+      state?:
+        type: string
+        description: the job state. When the job is in the Ended state, refer to Result and ErrorMessage for details.
+        enum:
+        - Accepted
+        - Compiling
+        - Ended
+        - New
+        - Queued
+        - Running
+        - Scheduling
+        - Starting
+        - Paused
+        - WaitingForCapacity
+      result?:
+        type: string
+        description: the result of job execution or the current result of the running job.
+        enum:
+        - None
+        - Succeeded
+        - Cancelled
+        - Failed
+      logFolder?:
+        type: string
+        description: 'the log folder path to use in the following format: adl://<accountName>.azuredatalakestore.net/system/jobservice/jobs/Usql/2016/03/13/17/18/5fe51957-93bc-4de0-8ddc-c5a4753b068b/logs/.'
+      logFilePatterns?:
+        type: array
+        description: 'the list of log file name patterns to find in the logFolder.
+          ''*'' is the only matching character allowed. Example format: jobExecution*.log
+          or *mylog*.txt'
+        items:
+          type: string
+      stateAuditRecords?:
+        type: array
+        description: the job state audit records, indicating when various operations have been performed on this job.
+        items:
+          type: JobStateAuditRecord
+      properties:
+        type: JobProperties
+        description: the job specific properties.
+    description: The parameters to submit a job.
+  JobInnerError:
+    type: object
+    properties:
+      diagnosticCode?:
+        type: integer
+        description: the diagnostic error code.
+        format: int32
+      severity?:
+        type: string
+        description: the severity level of the failure.
+        enum:
+        - Warning
+        - Error
+        - Info
+      details?:
+        type: string
+        description: the details of the error message.
+      component?:
+        type: string
+        description: the component that failed.
+      errorId?:
+        type: string
+        description: the specific identifier for the type of error encountered in the job.
+      helpLink?:
+        type: string
+        description: the link to MSDN or Azure help for this type of error, if any.
+      internalDiagnostics?:
+        type: string
+        description: the internal diagnostic stack trace if the user requesting the job error details has sufficient permissions it will be retrieved, otherwise it will be empty.
+      message?:
+        type: string
+        description: the user friendly error message for the failure.
+      resolution?:
+        type: string
+        description: the recommended resolution for the failure, if any.
+      source?:
+        type: string
+        description: the ultimate source of the failure (usually either SYSTEM or USER).
+      description?:
+        type: string
+        description: the error message description
+    description: The Data Lake Analytics job error details.
+  JobProperties:
+    type: object
+    properties:
+      runtimeVersion?:
+        type: string
+        description: the runtime version of the Data Lake Analytics engine to use for the specific type of job being run.
+      script:
+        type: string
+        description: the script to run
+      type:
+        type: string
+        description: the job type of the current job (i.e. Hive or U-SQL).
+    description: The common Data Lake Analytics job properties.
+    discriminator: type
+  JobResource:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the resource.
+      resourcePath?:
+        type: string
+        description: the path to the resource.
+      type?:
+        type: string
+        description: the job resource type.
+        enum:
+        - VertexResource
+        - JobManagerResource
+        - StatisticsResource
+        - VertexResourceInUserFolder
+        - JobManagerResourceInUserFolder
+        - StatisticsResourceInUserFolder
+    description: The Data Lake Analytics job resources.
+  JobStateAuditRecord:
+    type: object
+    properties:
+      newState?:
+        type: string
+        description: the new state the job is in.
+      timeStamp?:
+        type: datetime
+        description: the time stamp that the state change took place.
+      requestedByUser?:
+        type: string
+        description: the user who requests the change.
+      details?:
+        type: string
+        description: ' the details of the audit log.'
+    description: The Data Lake Analytics job state audit records for tracking the lifecycle of a job.
+  JobStatistics:
+    type: object
+    properties:
+      lastUpdateTimeUtc?:
+        type: datetime
+        description: the last update time for the statistics.
+      finalizingTimeUtc?:
+        type: datetime
+        description: the job finalizing start time.
+      stages?:
+        type: array
+        description: the list of stages for the job.
+        items:
+          type: JobStatisticsVertexStage
+    description: The Data Lake Analytics job execution statistics.
+  JobStatisticsVertexStage:
+    type: object
+    properties:
+      dataRead?:
+        type: integer
+        description: the amount of data read, in bytes.
+        format: int64
+      dataReadCrossPod?:
+        type: integer
+        description: the amount of data read across multiple pods, in bytes.
+        format: int64
+      dataReadIntraPod?:
+        type: integer
+        description: the amount of data read in one pod, in bytes.
+        format: int64
+      dataToRead?:
+        type: integer
+        description: the amount of data remaining to be read, in bytes.
+        format: int64
+      dataWritten?:
+        type: integer
+        description: the amount of data written, in bytes.
+        format: int64
+      duplicateDiscardCount?:
+        type: integer
+        description: the number of duplicates that were discarded.
+        format: int32
+      failedCount?:
+        type: integer
+        description: the number of failures that occured in this stage.
+        format: int32
+      maxVertexDataRead?:
+        type: integer
+        description: the maximum amount of data read in a single vertex, in bytes.
+        format: int64
+      minVertexDataRead?:
+        type: integer
+        description: the minimum amount of data read in a single vertex, in bytes.
+        format: int64
+      readFailureCount?:
+        type: integer
+        description: the number of read failures in this stage.
+        format: int32
+      revocationCount?:
+        type: integer
+        description: the number of vertices that were revoked during this stage.
+        format: int32
+      runningCount?:
+        type: integer
+        description: the number of currently running vertices in this stage.
+        format: int32
+      scheduledCount?:
+        type: integer
+        description: the number of currently scheduled vertices in this stage
+        format: int32
+      stageName?:
+        type: string
+        description: the name of this stage in job execution.
+      succeededCount?:
+        type: integer
+        description: the number of vertices that succeeded in this stage.
+        format: int32
+      tempDataWritten?:
+        type: integer
+        description: the amount of temporary data written, in bytes.
+        format: int64
+      totalCount?:
+        type: integer
+        description: the total vertex count for this stage.
+        format: int32
+      totalFailedTime?:
+        type: string
+        description: the amount of time that failed vertices took up in this stage.
+      totalProgress?:
+        type: integer
+        description: the current progress of this stage, as a percentage.
+        format: int32
+      totalSucceededTime?:
+        type: string
+        description: the amount of time all successful vertices took in this stage.
+    description: The Data Lake Analytics job statistics vertex stage information.
+  USqlJobProperties:
+    type: JobProperties
+/BuildJob:
+  post:
+    description: Builds (compiles) the specified job in the specified Data Lake Analytics account for job correctness and validation.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+    body:
+      application/json: JobInformation
+      text/json: JobInformation
+      application/octet-stream: JobInformation
+/Jobs:
+  /{jobIdentity}:
+    uriParameters:
+      jobIdentity:
+        type: string
+        description: JobInfo ID.
+        displayName: jobIdentity
+    /CancelJob:
+      post:
+        description: Cancels the running job specified by the job ID.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /GetDebugDataPath:
+      post:
+        description: Gets the job debug data information specified by the job ID.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    /GetStatistics:
+      get:
+        description: Gets statistics of the specified job.
+        queryParameters:
+          api-version:
+            type: string
+            description: Client Api Version.
+            displayName: api-version
+    get:
+      description: Gets the job information for the specified job ID.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+    put:
+      description: Submits a job to the specified Data Lake Analytics account.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      body:
+        application/json: JobInformation
+        text/json: JobInformation
+        application/octet-stream: JobInformation
+  get:
+    description: Lists the jobs, if any, associated with the specified Data Lake Analytics account. The response includes a link to the next page of results, if any.
+    queryParameters:
+      $filter?:
+        type: string
+        description: OData filter. Optional.
+        displayName: $filter
+      $top?:
+        type: integer
+        description: The number of items to return. Optional.
+        displayName: $top
+        format: int32
+      $skip?:
+        type: integer
+        description: The number of items to skip over before returning elements. Optional.
+        displayName: $skip
+        format: int32
+      $expand?:
+        type: string
+        description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories?$expand=Products would expand Product data in line with each Category entry. Optional.
+        displayName: $expand
+      $select?:
+        type: string
+        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+        displayName: $select
+      $orderby?:
+        type: string
+        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+        displayName: $orderby
+      $count?:
+        type: boolean
+        description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+        displayName: $count
+      $search?:
+        type: string
+        description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+        displayName: $search
+      $format?:
+        type: string
+        description: The return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+        displayName: $format
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version

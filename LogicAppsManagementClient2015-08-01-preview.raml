@@ -1,0 +1,468 @@
+#%RAML 1.0
+title: LogicAppsManagementClient
+version: 2015-08-01-preview
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ApiEntity:
+    type: Resource
+    description: API Management
+  ApiOAuthSettings:
+    type: object
+    properties:
+      identityProvider?:
+        type: string
+        description: Identity provider
+      clientId?:
+        type: string
+        description: Resource provider client id
+      clientSecret?:
+        type: string
+        description: Client Secret needed for OAuth
+      scopes?:
+        type: array
+        description: OAuth scopes
+        items:
+          type: string
+      redirectUrl?:
+        type: string
+        description: Url
+      properties?:
+        type: Object
+        description: Read only properties for this oauth setting.
+      customParameters?:
+        type: object
+        properties:
+          //:
+            type: ApiOAuthSettingsParameter
+        description: OAuth parameters key is the name of parameter
+    description: OAuth settings for the conenction provider
+  ApiOAuthSettingsParameter:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Value
+      options?:
+        type: Object
+        description: 'Read only: Options available to this parameter'
+      uiDefinition?:
+        type: Object
+        description: UI definitions per culture as caller can specify the culture
+    description: OAuth Settings Parameter
+  ApiPolicies:
+    type: Resource
+    description: Api policies
+  ApisCollection:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of resources
+        items:
+          type: ApiEntity
+      nextLink?:
+        type: string
+        description: Link to next page of resources
+    description: Collection of Apis
+  ArmPlan:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The name
+      publisher?:
+        type: string
+        description: The publisher
+      product?:
+        type: string
+        description: The product
+      promotionCode?:
+        type: string
+        description: The promotion code
+      version?:
+        type: string
+        description: Version of product
+    description: The plan object in an ARM, represents a marketplace plan
+  BackendServiceDefinition:
+    type: Resource
+    description: API definitions with backend urls
+  ConfirmConsentCodeInput:
+    type: Resource
+    description: Confirm Consent Code Input payload
+  Connection:
+    type: Resource
+    description: Api Connection
+  ConnectionCollection:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of resources
+        items:
+          type: Connection
+      nextLink?:
+        type: string
+        description: Link to next page of resources
+    description: Collection of conenctions
+  ConnectionError:
+    type: Resource
+    description: Connection error
+  ConnectionParameter:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: Type of the parameter
+        enum:
+        - string
+        - securestring
+        - secureobject
+        - int
+        - bool
+        - object
+        - array
+        - oauthSetting
+        - connection
+      defaultValue?:
+        type: Object
+        description: Default parameter value
+      oAuthSettings?:
+        type: ApiOAuthSettings
+        description: Settings defining OAuth flow for the back end provider
+      uiDefinition?:
+        type: Object
+        description: UI definitions
+    description: connection provider parameters
+  ConnectionSecrets:
+    type: object
+    properties:
+      parameterValues?:
+        type: object
+        properties:
+          //:
+            type: Object
+        description: Tokens/Claim
+      connectionKey?:
+        type: string
+        description: Connection Key
+  ConnectionStatus:
+    type: Resource
+    description: Connection status
+  ConsentLink:
+    type: object
+    properties:
+      link?:
+        type: string
+        description: Uri for the consent link
+      firstPartyLoginUri?:
+        type: string
+        description: Uri for first party login
+      displayName?:
+        type: string
+        description: Display Name of the parameter in the connection provider's oauthSettings
+      status?:
+        type: string
+        description: Status of the link
+        enum:
+        - Unauthenticated
+        - Authenticated
+        - Error
+  ConsentLinkInput:
+    type: Resource
+    description: Connection Constent Link payload
+  ConsentLinkInputParameter:
+    type: object
+    properties:
+      principalType?:
+        type: string
+        description: Principal type
+        enum:
+        - ActiveDirectory
+        - Connection
+        - MicrosoftAccount
+      tenantId?:
+        type: string
+        description: Tenant Id
+      objectId?:
+        type: string
+        description: "AAD OID (user or group) if the principal type is ActiveDirectory.\r\
+          \n            MSA PUID if the principal type is MicrosoftAccount."
+      parameterName?:
+        type: string
+        description: Name of the parameter in the connection provider's oauthSettings
+      redirectUrl?:
+        type: string
+        description: Name of the parameter in the connection provider's oauthSettings
+  ConsentLinkPayload:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of resources
+        items:
+          type: ConsentLink
+    description: Collection of consent links
+  CustomLoginSettingValue:
+    type: Resource
+    description: Custom logging setting value
+  ExpandedParent_ApiEntity_:
+    type: Resource
+    description: expanded parent object for expansion
+  GeneralApiInformation:
+    type: Resource
+    description: General API information
+  HostingEnvironmentServiceDescriptions:
+    type: object
+    properties:
+      hostingEnvironmentId?:
+        type: string
+        description: Hosting environment Id
+      hostId?:
+        type: string
+        description: Host Id
+      serviceUrl?:
+        type: string
+        description: service url to use
+      useInternalRouting?:
+        type: boolean
+        description: "When the backend url is in same ASE, for performance reason\
+          \ this flag can be set to true\r\n            If WebApp.DisableHostNames\
+          \ is also set it improves the security by making the back end accesible\
+          \ only \r\n            via API calls\r\n            Note: calls will fail\
+          \ if this option is used but back end is not on the same ASE"
+    description: Back end service per ASE
+  ListConnectionKeysInput:
+    type: Resource
+    description: List Connection Keys Input payload
+  Object:
+    type: object
+  ParameterCustomLoginSettingValues:
+    type: Resource
+    description: Custom logging setting values
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource Name
+      kind?:
+        type: string
+        description: Kind of resource
+      location:
+        type: string
+        description: Resource Location
+      type?:
+        type: string
+        description: Resource type
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ResponseMessageEnvelope_ApiEntity_:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: "Resource Id. Typically id is populated only for responses to\
+          \ GET requests. Caller is responsible for passing in this\r\n          \
+          \  value for GET requests only.\r\n            For example: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupId}/providers/Microsoft.Web/sites/{sitename}"
+      name?:
+        type: string
+        description: Name of resource
+      type?:
+        type: string
+        description: Type of resource e.g Microsoft.Web/sites
+      location?:
+        type: string
+        description: Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Tags associated with resource
+      plan?:
+        type: ArmPlan
+        description: Azure resource manager plan
+      properties?:
+        type: ApiEntity
+        description: Resource specific properties
+      sku?:
+        type: SkuDescription
+        description: Sku description of the resource
+    description: Message envelope that contains the common Azure resource manager properties and the resource provider specific content
+  SkuDescription:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the resource sku
+      tier?:
+        type: string
+        description: Service Tier of the resource sku
+      size?:
+        type: string
+        description: Size specifier of the resource sku
+      family?:
+        type: string
+        description: Family code of the resource sku
+      capacity?:
+        type: integer
+        description: Current number of instances assigned to the resource
+        format: int32
+    description: Describes a sku for a scalable resource
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Subscription Id
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Web:
+        /locations:
+          /{location}:
+            uriParameters:
+              location:
+                type: string
+                description: The location.
+                displayName: location
+            /managedApis:
+              /{apiName}:
+                uriParameters:
+                  apiName:
+                    type: string
+                    description: The managed API name.
+                    displayName: apiName
+                get:
+                  description: Gets a managed API.
+                  displayName: Get managed Api
+                  queryParameters:
+                    export?:
+                      type: boolean
+                      description: flag showing whether to export API definition in format specified by Accept header.
+                      displayName: export
+                    api-version:
+                      type: string
+                      description: API Version
+                      displayName: api-version
+              get:
+                description: Gets a list of managed APIs.
+                displayName: List managed Apis
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: API Version
+                    displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Resource Group Name
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Web:
+            /connections:
+              /{connectionName}:
+                uriParameters:
+                  connectionName:
+                    type: string
+                    description: The connection name.
+                    displayName: connectionName
+                /confirmConsentCode:
+                  post:
+                    description: Confirms consent code of a connection.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: API Version
+                        displayName: api-version
+                    body:
+                      application/json: ConfirmConsentCodeInput
+                      text/json: ConfirmConsentCodeInput
+                /listConnectionKeys:
+                  post:
+                    description: Lists connection keys.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: API Version
+                        displayName: api-version
+                    body:
+                      application/json: ListConnectionKeysInput
+                      text/json: ListConnectionKeysInput
+                /listConsentLinks:
+                  post:
+                    description: Lists consent links of a connection.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: API Version
+                        displayName: api-version
+                    body:
+                      application/json: ConsentLinkInput
+                      text/json: ConsentLinkInput
+                get:
+                  description: Gets a connection.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: API Version
+                      displayName: api-version
+                delete:
+                  description: Deletes a connection.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: API Version
+                      displayName: api-version
+                put:
+                  description: Creates or updates a connection.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: API Version
+                      displayName: api-version
+                  body:
+                    application/json: Connection
+                    text/json: Connection
+              get:
+                description: Gets a list of connections.
+                displayName: Get Connections
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: API Version
+                    displayName: api-version
+                  $top?:
+                    type: integer
+                    description: The number of items to be included in the result.
+                    displayName: $top
+                    format: int32
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter

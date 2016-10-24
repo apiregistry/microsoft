@@ -1,0 +1,275 @@
+#%RAML 1.0
+title: MediaServicesManagementClient
+version: '2015-10-01'
+baseUri: management.azure.com
+description: Media Services resource management APIs.
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ResourceType:
+    type: string
+    description: Type of MediaService resource used in CheckNameAvailability.
+    enum:
+    - mediaservices
+  ApiEndpoint:
+    type: object
+    properties:
+      endpoint?:
+        type: string
+        description: The Media Services REST endpoint.
+      majorVersion?:
+        type: string
+        description: The version of Media Services REST API.
+    description: The properties for a Media Services REST API endpoint.
+  ApiError:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Error code.
+      message?:
+        type: string
+        description: Error message.
+    description: The error returned from a failed Media Services REST API call.
+  CheckNameAvailabilityInput:
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of the resource. A name must be globally unique.
+        maxLength: 24
+        minLength: 3
+        pattern: ^[a-z0-9]
+      type:
+        type: ResourceType
+        description: Specifies the type of the resource.
+    description: Properties needed to check the availability of a name.
+  CheckNameAvailabilityOutput:
+    type: object
+    properties:
+      NameAvailable?:
+        type: boolean
+        description: Specifies if the name is available.
+      Reason?:
+        type: string
+        description: Specifies the reason if the name is not available.
+        enum:
+        - None
+        - Invalid
+        - AlreadyExists
+      Message?:
+        type: string
+        description: Specifies the detailed reason if the name is not available.
+    description: The response body for CheckNameAvailability API.
+  MediaService:
+    type: TrackedResource
+    description: The properties of a Media Service resource.
+  MediaServiceCollection:
+    type: object
+    properties:
+      value?:
+        type: array
+        items:
+          type: MediaService
+    description: The collection of Media Service resources.
+  MediaServiceProperties:
+    type: object
+    properties:
+      apiEndpoints?:
+        type: array
+        description: The Media Services REST API endpoints for this resource.
+        items:
+          type: ApiEndpoint
+      storageAccounts?:
+        type: array
+        description: The storage accounts for this resource.
+        items:
+          type: StorageAccount
+    description: The additional properties of a Media Service resource.
+  RegenerateKeyInput:
+    type: object
+    properties:
+      keyType?:
+        type: string
+        description: The keyType indicating which key you want to regenerate, Primary or Secondary.
+        enum:
+        - Primary
+        - Secondary
+    description: Properties needed to regenerate the Media Service key.
+  RegenerateKeyOutput:
+    type: object
+    properties:
+      key?:
+        type: string
+        description: The new value of either the primary or secondary key.
+    description: The response body for a RegenerateKey API.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The id of the resource.
+      name?:
+        type: string
+        description: The name of the resource.
+      type?:
+        type: string
+        description: The type of the resource
+  ServiceKeys:
+    type: object
+    properties:
+      primaryAuthEndpoint?:
+        type: string
+        description: The primary Authorization endpoint.
+      secondaryAuthEndpoint?:
+        type: string
+        description: The secondary Authorization endpoint.
+      primaryKey?:
+        type: string
+        description: The primary resource.
+      secondaryKey?:
+        type: string
+        description: The secondary resource.
+      scope?:
+        type: string
+        description: The authorization scope.
+    description: The response body for a ListKeys API.
+  StorageAccount:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The id of the storage account resource.
+      isPrimary?:
+        type: boolean
+        description: Is this storage account resource the primary storage account for the Media Service resource.
+    description: The properties of a storage account associated with this resource.
+  SyncStorageKeysInput:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: The id of the storage account resource.
+    description: Properties needed to sycnronize the keys for a storage account to the Media Service.
+  TrackedResource:
+    type: Resource
+    description: ARM tracked resource
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Azure subscription id.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Media:
+        /CheckNameAvailability:
+          post:
+            displayName: Check whether the Media Service resource name is available. The name must be globally unique.
+            queryParameters:
+              api-version:
+                type: string
+                description: Version of the API to be used with the client request. Current version is 2015-10-01
+                displayName: api-version
+            body:
+              application/json: CheckNameAvailabilityInput
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Name of the resource group within the Azure subscription.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Media:
+            /mediaservices:
+              /{mediaServiceName}:
+                uriParameters:
+                  mediaServiceName:
+                    type: string
+                    description: Name of the Media Service.
+                    displayName: mediaServiceName
+                    maxLength: 24
+                    minLength: 3
+                    pattern: ^[a-z0-9]
+                /listKeys:
+                  post:
+                    displayName: List the keys for a Media Service.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Version of the API to be used with the client request. Current version is 2015-10-01
+                        displayName: api-version
+                /regenerateKey:
+                  post:
+                    displayName: Regenerate the key for a Media Service.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Version of the API to be used with the client request. Current version is 2015-10-01
+                        displayName: api-version
+                    body:
+                      application/json: RegenerateKeyInput
+                /syncStorageKeys:
+                  post:
+                    displayName: Synchronize the keys for a storage account to the Media Service.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Version of the API to be used with the client request. Current version is 2015-10-01
+                        displayName: api-version
+                    body:
+                      application/json: SyncStorageKeysInput
+                get:
+                  displayName: Get a Media Service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2015-10-01
+                      displayName: api-version
+                delete:
+                  displayName: Delete a Media Service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2015-10-01
+                      displayName: api-version
+                patch:
+                  displayName: Update a Media Service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2015-10-01
+                      displayName: api-version
+                  body:
+                    application/json: MediaService
+                put:
+                  displayName: Create a Media Service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Version of the API to be used with the client request. Current version is 2015-10-01
+                      displayName: api-version
+                  body:
+                    application/json: MediaService
+              get:
+                displayName: List all of the Media Services in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Version of the API to be used with the client request. Current version is 2015-10-01
+                    displayName: api-version

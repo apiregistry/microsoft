@@ -1,0 +1,206 @@
+#%RAML 1.0
+title: AzureAnalysisServices
+version: '2016-05-16'
+baseUri: management.azure.com
+description: The Azure Analysis Services Web API provides a RESTful set of web services that enables users to create, retrieve, update, and delete Analysis Services servers
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  AnalysisServicesServer:
+    type: Resource
+    description: Represents an instance of Analysis Services resource
+  AnalysisServicesServerMutableProperties:
+    type: object
+    properties:
+      asAdministrators?:
+        type: ServerAdministrators
+    description: Represents a set of mutable Analysis Services resource properties
+  AnalysisServicesServerProperties:
+    type: AnalysisServicesServerMutableProperties
+    description: Properties of Analysis Services resource
+  AnalysisServicesServerUpdateParameters:
+    type: object
+    properties:
+      sku?:
+        type: ResourceSku
+        description: Sku of the Analysis Services resource
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Key value pairs of additional properties that can ebe specified
+      properties?:
+        type: AnalysisServicesServerMutableProperties
+        description: Provision request properties
+    description: Request object for updating the server
+  AnalysisServicesServers:
+    type: object
+    properties:
+      value:
+        type: array
+        description: The collection of Analysis Services resources
+        items:
+          type: AnalysisServicesServer
+    description: A collection of Analysis Services resources
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Identifier that represents the Analysis Services resource
+      name?:
+        type: string
+        description: Name of the Analysis Services resource
+      type?:
+        type: string
+        description: Specifies the type of Analysis Services resource
+      location:
+        type: string
+        description: Location of the Analysis Services resource
+      sku:
+        type: ResourceSku
+        description: Sku of the Analysis Services resource
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Key value pairs of additional properties that can ebe specified
+    description: Represents an instance of Analysis Services resource
+  ResourceSku:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name of the Sku level for the server being provisioned.
+        enum:
+        - S1
+        - S2
+        - S4
+        - D1
+      tier?:
+        type: string
+        description: Name of the tier to which the Sku applies.
+        enum:
+        - Development
+        - Standard
+    description: Represents the SKU name and tier for Analysis Services resource
+  ServerAdministrators:
+    type: object
+    properties:
+      members?:
+        type: array
+        description: Collection of administrator user identities
+        items:
+          type: string
+          description: UPN of the user. Example johnsmith@contoso.com.
+    description: Array of administrator user identities
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: A unique identifier of a Microsoft Azure subscription. The subscription id forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.AnalysisServices:
+        /servers:
+          get:
+            description: List all the Analysis Services servers for the given subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client API Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Name of the Azure Resource group which a given Analysis Services server is part of.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /providers:
+          /Microsoft.AnalysisServices:
+            /servers:
+              /{serverName}:
+                uriParameters:
+                  serverName:
+                    type: string
+                    description: Name of the Analysis Services server
+                    displayName: serverName
+                    maxLength: 63
+                    minLength: 3
+                    pattern: ^[a-z][a-z0-9]*$
+                /resume:
+                  post:
+                    description: Resumes the specified Analysis Services server instance
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                /suspend:
+                  post:
+                    description: Supends the specified Analysis Services server instance
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client API Version.
+                        displayName: api-version
+                get:
+                  description: Gets details about the specified Analysis Services server
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes the specified Analysis Services server.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                patch:
+                  description: Updates the current state of the specified Analysis Services server
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                  body:
+                    application/json: AnalysisServicesServerUpdateParameters
+                put:
+                  description: Provisions the specified Analysis Services server based on the configuration specified in the request
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client API Version.
+                      displayName: api-version
+                  body:
+                    application/json: AnalysisServicesServer
+              get:
+                description: Gets all the Analysis Services servers for the given resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client API Version.
+                    displayName: api-version

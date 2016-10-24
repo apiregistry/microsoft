@@ -1,0 +1,637 @@
+#%RAML 1.0
+title: ServerManagement
+version: 2015-07-01-preview
+baseUri: management.azure.com
+description: REST API for Azure Server Management Service
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  Error:
+    type: object
+    properties:
+      code?:
+        type: integer
+        format: int32
+      message?:
+        type: string
+      fields?:
+        type: string
+    description: Error message
+  GatewayParameters:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: location of the resource
+      tags?:
+        type: object
+        description: resource tags
+      properties?:
+        type: object
+        properties:
+          autoUpgrade?:
+            type: string
+            description: The autoUpgrade property gives the flexibility to gateway to auto upgrade itself. If properties value not specified, then we assume autoUpgrade = Off.
+            enum:
+            - 'On'
+            - 'Off'
+    description: Parameters supplied to the CreateOrUpdate operation.
+  GatewayProfile:
+    type: object
+    properties:
+      dataPlaneServiceBaseAddress?:
+        type: string
+        description: the Dataplane connection URL
+      gatewayId?:
+        type: string
+        description: the ID of the gateway
+      environment?:
+        type: string
+        description: the environment for the gateway (DEV, DogFood, or Production)
+      upgradeManifestUrl?:
+        type: string
+        description: Gateway upgrade manifest URL
+      messagingNamespace?:
+        type: string
+        description: Messaging namespace
+      messagingAccount?:
+        type: string
+        description: Messaging Account
+      messagingKey?:
+        type: string
+        description: Messaging Key
+      requestQueue?:
+        type: string
+        description: Request queue name
+      responseTopic?:
+        type: string
+        description: Response topic name
+      statusBlobSignature?:
+        type: string
+        description: The gateway status blob SAS url
+    description: JSON properties that the gateway service uses know how to communicate with the resource.
+  GatewayResource:
+    type: Resource
+  GatewayResources:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: collection of Gateway Resources
+        items:
+          type: GatewayResource
+      nextLink?:
+        type: string
+        description: the URL to the next set of resources
+    description: collection of Gateway Resources
+  GatewayStatus:
+    type: object
+    properties:
+      availableMemoryMByte?:
+        type: number
+        description: The available memory on the gateway host machine in megabytes.
+      gatewayCpuUtilizationPercent?:
+        type: number
+        description: The CPU utilization of the gateway process (numeric value between 0 and 100).
+        format: float
+        maximum: 100
+        minimum: 0
+      totalCpuUtilizationPercent?:
+        type: number
+        description: CPU Utilization of the whole system.
+      gatewayVersion?:
+        type: string
+        description: The version of the gateway that is installed on the system.
+      friendlyOsName?:
+        type: string
+        description: The Plaintext description of the OS on the gateway.
+      installedDate?:
+        type: datetime
+        description: The date the gateway was installed
+      logicalProcessorCount?:
+        type: integer
+        description: Number of logical processors in the gateway system.
+      name?:
+        type: string
+        description: The computer name of the gateway system.
+      gatewayId?:
+        type: string
+        description: The gateway resource id.
+      gatewayWorkingSetMByte?:
+        type: number
+        description: The working set size of the gateway process in megabytes.
+      statusUpdated?:
+        type: datetime
+        description: UTC date and time when gateway status was last updated
+    description: Expanded gateway status information
+  NodeParameters:
+    type: object
+    properties:
+      location?:
+        type: string
+        description: location of the resource?
+      tags?:
+        type: object
+        description: resource tags
+      properties?:
+        type: object
+        properties:
+          password?:
+            type: string
+            description: Password associated with user name
+          connectionName?:
+            type: string
+            description: myhost.domain.com
+          userName?:
+            type: string
+            description: User name to be used to connect to node
+          gatewayId?:
+            type: string
+            description: Gateway id which will manage this node
+    description: Parameters supplied to the CreateOrUpdate operation.
+  NodeResource:
+    type: Resource
+    description: A Node Resource
+  NodeResources:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Collection of Node Resources
+        items:
+          type: NodeResource
+      nextLink?:
+        type: string
+        description: the URL to the next set of resources
+    description: a collection of node resource objects
+  PowerShellCommandParameters:
+    type: object
+    properties:
+      properties?:
+        type: object
+        properties:
+          command?:
+            type: string
+            description: Script to execute
+    description: Parameters supplied to the Invoke PowerShell Command operation.
+  PowerShellCommandResult:
+    type: object
+    properties:
+      messageType?:
+        type: integer
+        description: the type of message
+      foregroundColor?:
+        type: string
+        description: the HTML color string representing the foreground color.
+      backgroundColor?:
+        type: string
+        description: the HTML color string representing the background color.
+      value?:
+        type: string
+        description: actual result text from the PowerShell Command
+      prompt?:
+        type: string
+        description: The interactive prompt message
+      exitCode?:
+        type: integer
+        description: the exit code from a executable that was called from powershell.
+      id?:
+        type: integer
+        description: ID of the prompt message
+      caption?:
+        type: string
+        description: text that precedes the prompt.
+      message?:
+        type: string
+        description: text of the prompt.
+      descriptions?:
+        type: array
+        description: collection of PromptFieldDescription objects that contains the user input
+        items:
+          type: PromptFieldDescription
+  PowerShellCommandResults:
+    type: object
+    properties:
+      results?:
+        type: array
+        items:
+          type: PowerShellCommandResult
+      pssession?:
+        type: string
+      command?:
+        type: string
+      completed?:
+        type: boolean
+    description: a collection of results from a powershell command
+  PowerShellCommandStatus:
+    type: Resource
+  PowerShellSessionResource:
+    type: Resource
+    description: A powershell session resource (practically equivalent to a runspace instance)
+  PowerShellSessionResources:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Colleciton of powershell session resources
+        items:
+          type: PowerShellSessionResource
+      nextLink?:
+        type: string
+        description: the URL to the next set of resources
+    description: a collaction of powershell session resources
+  PowerShellTabCompletionParameters:
+    type: object
+    properties:
+      command?:
+        type: string
+        description: Command to get tab completion for.
+    description: Parameters supplied to the tab completion call.
+  PowerShellTabCompletionResults:
+    type: object
+    properties:
+      results?:
+        type: array
+        items:
+          type: string
+    description: an array of strings representing the different values that can be tabbed thru
+  PromptFieldDescription:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: the name of the prompt
+      label?:
+        type: string
+        description: the label text of the prompt
+      helpMessage?:
+        type: string
+        description: the help message of the prompt
+      promptFieldTypeIsList?:
+        type: boolean
+        description: when set to 'true' the prompt field type is a list of values
+      promptFieldType?:
+        type: string
+        enum:
+        - String
+        - SecureString
+        - Credential
+    description: Field description for the implementation of PSHostUserInterface.Prompt
+  PromptMessageResponse:
+    type: object
+    properties:
+      response?:
+        type: array
+        description: the list of responses a cmdlet expects
+        items:
+          type: string
+    description: the response to a prompt message
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: ARM Resource ID
+      type?:
+        type: string
+        description: ARM Resource Type
+      name?:
+        type: string
+        description: ARM Resource Name
+      location?:
+        type: string
+        description: ARM Resource Location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: ARM Resource Tags
+      etag?:
+        type: string
+    description: ARM Resource Information
+  SessionParameters:
+    type: object
+    properties:
+      properties?:
+        type: object
+        properties:
+          password?:
+            type: string
+            description: Password associated with user name
+          userName?:
+            type: string
+            description: User name to be used to connect to node
+    description: Parameters supplied to the CreateOrUpdate operation.
+  SessionResource:
+    type: Resource
+    description: the session object
+  Version:
+    type: object
+    properties:
+      major?:
+        type: integer
+        description: the leftmost number of the version
+      minor?:
+        type: integer
+        description: the second leftmost number of the version
+      build?:
+        type: integer
+        description: the third number of the version
+      revision?:
+        type: integer
+        description: the fourth number of the version
+      majorRevision?:
+        type: integer
+        description: the MSW of the fourth part
+      minorRevision?:
+        type: integer
+        description: the LSW of the fourth part
+    description: A multipart-numeric version number
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.ServerManagement:
+        /gateways:
+          get:
+            description: Returns gateways in a subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /nodes:
+          get:
+            description: Returns nodes in a subscription
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The resource group name uniquely identifies the resource group within the user subscriptionId.
+            displayName: resourceGroupName
+            minLength: 3
+            pattern: '[a-zA-Z0-9]+'
+        /providers:
+          /Microsoft.ServerManagement:
+            /gateways:
+              /{gatewayName}:
+                uriParameters:
+                  gatewayName:
+                    type: string
+                    description: The gateway name (256 characters maximum)
+                    displayName: gatewayName
+                    maxLength: 256
+                    minLength: 1
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9_.-]*$
+                /profile:
+                  post:
+                    description: Gets a gateway profile
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /regenerateprofile:
+                  post:
+                    description: Regenerate a gateway's profile
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /upgradetolatest:
+                  post:
+                    description: Upgrade a gateway
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Returns a gateway
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                    $expand?:
+                      type: string
+                      description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+                      displayName: $expand
+                      enum:
+                      - status
+                delete:
+                  description: Deletes a gateway from a resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                patch:
+                  description: Updates a gateway belonging to a resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: GatewayParameters
+                    text/json: GatewayParameters
+                put:
+                  description: Creates or updates a ManagementService gateway.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: GatewayParameters
+                    text/json: GatewayParameters
+              get:
+                description: Returns gateways in a resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+            /nodes:
+              /{nodeName}:
+                uriParameters:
+                  nodeName:
+                    type: string
+                    description: The node name (256 characters maximum).
+                    displayName: nodeName
+                    maxLength: 256
+                    minLength: 1
+                    pattern: ^[a-zA-Z0-9][a-zA-Z0-9_.-]*$
+                /sessions:
+                  /{session}:
+                    uriParameters:
+                      session:
+                        type: string
+                        description: The sessionId from the user
+                        displayName: session
+                    /features:
+                      /powerShellConsole:
+                        /pssessions:
+                          /{pssession}:
+                            uriParameters:
+                              pssession:
+                                type: string
+                                description: The PowerShell sessionId from the user
+                                displayName: pssession
+                            /cancel:
+                              post:
+                                description: Cancels a PowerShell command.
+                                queryParameters:
+                                  api-version:
+                                    type: string
+                                    description: Client Api Version.
+                                    displayName: api-version
+                            /invokeCommand:
+                              post:
+                                description: Creates a PowerShell script and invokes it.
+                                queryParameters:
+                                  api-version:
+                                    type: string
+                                    description: Client Api Version.
+                                    displayName: api-version
+                                body:
+                                  application/json: PowerShellCommandParameters
+                                  text/json: PowerShellCommandParameters
+                            /tab:
+                              post:
+                                description: gets tab completion values for a command.
+                                queryParameters:
+                                  api-version:
+                                    type: string
+                                    description: Client Api Version.
+                                    displayName: api-version
+                                body:
+                                  application/json: PowerShellTabCompletionParameters
+                                  text/json: PowerShellTabCompletionParameters
+                            get:
+                              description: Gets the status of a command.
+                              queryParameters:
+                                api-version:
+                                  type: string
+                                  description: Client Api Version.
+                                  displayName: api-version
+                                $expand?:
+                                  type: string
+                                  description: Gets current output from an ongoing call.
+                                  displayName: $expand
+                                  enum:
+                                  - output
+                            patch:
+                              description: updates a running PowerShell command with more data.
+                              queryParameters:
+                                api-version:
+                                  type: string
+                                  description: Client Api Version.
+                                  displayName: api-version
+                            put:
+                              description: Creates a PowerShell session
+                              queryParameters:
+                                api-version:
+                                  type: string
+                                  description: Client Api Version.
+                                  displayName: api-version
+                          get:
+                            description: Gets a list of the active sessions.
+                            queryParameters:
+                              api-version:
+                                type: string
+                                description: Client Api Version.
+                                displayName: api-version
+                    get:
+                      description: Gets a session for a node
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes a session for a node
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates a session for a node
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: SessionParameters
+                        text/json: SessionParameters
+                get:
+                  description: gets a management node
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: deletes a management node
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                patch:
+                  description: Updates a management node
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NodeParameters
+                    text/json: NodeParameters
+                put:
+                  description: Creates or updates a management node
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: NodeParameters
+                    text/json: NodeParameters
+              get:
+                description: Returns nodes in a resource group
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

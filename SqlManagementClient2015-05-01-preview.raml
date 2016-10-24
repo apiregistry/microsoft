@@ -1,0 +1,119 @@
+#%RAML 1.0
+title: SqlManagementClient
+version: 2015-05-01-preview
+baseUri: management.azure.com
+description: The Azure SQL Database management API provides a RESTful set of web services that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete Databases, Servers and related resources.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ServerSecurityAlertPolicy:
+    type: Resource
+    description: Represents an Azure SQL Server Security Alert Policy.
+  ServerSecurityAlertPolicyCreateOrUpdateParameters:
+    type: object
+    properties:
+      properties:
+        type: ServerSecurityAlertPolicyProperties
+        description: Properties of the request.
+    description: The required parameters for creating or updating a Azure SQL Server security alert policy.
+  ServerSecurityAlertPolicyProperties:
+    type: object
+    properties:
+      state?:
+        type: string
+        description: The state of the Azure SQL Security alert policy (New, Enabled or Disabled).
+        enum:
+        - Enabled
+        - Disabled
+        - New
+      disabledAlerts?:
+        type: string
+        description: The disable alerts of the Azure SQL Security alert policy.
+      emailAddresses?:
+        type: string
+        description: The list of email addresses to send the alert.
+      emailAccountAdmins?:
+        type: string
+        description: Value that indicated whether to email the azure account admins.
+        enum:
+        - Enabled
+        - Disabled
+    description: Represents the properties of an Azure SQL Security alert policy.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The subscription credentials which uniquely identify Microsoft Azure subscription.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the Resource Group to which the server belongs.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Sql:
+            /servers:
+              /{serverName}:
+                uriParameters:
+                  serverName:
+                    type: string
+                    description: The name of the Azure SQL Server.
+                    displayName: serverName
+                /securityAlertPolicies:
+                  /Default:
+                    get:
+                      description: Returns an Azure SQL Server security alert policy.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Creates or updates an Azure SQL Server security alert policy.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: ServerSecurityAlertPolicyCreateOrUpdateParameters
+                        text/json: ServerSecurityAlertPolicyCreateOrUpdateParameters

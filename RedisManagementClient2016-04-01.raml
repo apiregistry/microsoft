@@ -1,0 +1,420 @@
+#%RAML 1.0
+title: RedisManagementClient
+version: '2016-04-01'
+baseUri: management.azure.com
+description: REST API for Azure Redis Cache Service
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  ExportRDBParameters:
+    type: object
+    properties:
+      format?:
+        type: string
+        description: File format.
+      prefix:
+        type: string
+        description: Prefix to use for exported files.
+      container:
+        type: string
+        description: Container name to export to.
+    description: Parameters for redis export operation.
+  ImportRDBParameters:
+    type: object
+    properties:
+      format?:
+        type: string
+        description: File format.
+      files:
+        type: array
+        description: files to import
+        items:
+          type: string
+    description: Parameters for redis import operation.
+  RedisAccessKeys:
+    type: object
+    properties:
+      primaryKey?:
+        type: string
+        description: The current primary key that clients can use to authenticate with redis cache.
+      secondaryKey?:
+        type: string
+        description: The current secondary key that clients can use to authenticate with redis cache.
+    description: Redis cache access keys.
+  RedisCreateParameters:
+    type: Resource
+    description: Parameters supplied to the Create Redis operation.
+  RedisCreateProperties:
+    type: RedisProperties
+    description: Properties supplied to Create redis operation.
+  RedisListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Results of the list operation
+        items:
+          type: RedisResource
+      nextLink?:
+        type: string
+        description: Link for next set of locations.
+    description: The response of list redis operation.
+  RedisPatchSchedule:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location?:
+        type: string
+        description: Resource location
+      properties:
+        type: ScheduleEntries
+        description: List of patch schedules for redis cache.
+    description: Parameters to set patch schedules for redis cache.
+  RedisProperties:
+    type: object
+    properties:
+      redisConfiguration?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: 'All Redis Settings. Few possible keys: rdb-backup-enabled,rdb-storage-connection-string,rdb-backup-frequency,maxmemory-delta,maxmemory-policy,notify-keyspace-events,maxmemory-samples,slowlog-log-slower-than,slowlog-max-len,list-max-ziplist-entries,list-max-ziplist-value,hash-max-ziplist-entries,hash-max-ziplist-value,set-max-intset-entries,zset-max-ziplist-entries,zset-max-ziplist-value
+          etc.'
+      enableNonSslPort?:
+        type: boolean
+        description: If the value is true, then the non-ssl redis server port (6379) will be enabled.
+      tenantSettings?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: tenantSettings
+      shardCount?:
+        type: integer
+        description: The number of shards to be created on a Premium Cluster Cache.
+        format: int32
+      subnetId?:
+        type: string
+        description: 'The full resource ID of a subnet in a virtual network to deploy
+          the redis cache in. Example format: /subscriptions/{subid}/resourceGroups/{resourceGroupName}/Microsoft.{Network|ClassicNetwork}/VirtualNetworks/vnet1/subnets/subnet1'
+        pattern: ^/subscriptions/[^/]*/resourceGroups/[^/]*/providers/Microsoft.(ClassicNetwork|Network)/virtualNetworks/[^/]*/subnets/[^/]*$
+      staticIP?:
+        type: string
+        description: Required when deploying a redis cache inside an existing Azure Virtual Network.
+        pattern: ^\d+\.\d+\.\d+\.\d+$
+    description: Properties supplied to Create Or Update redis operation.
+  RedisRebootParameters:
+    type: object
+    properties:
+      rebootType:
+        type: string
+        description: Which redis node(s) to reboot. Depending on this value data loss is possible.
+        enum:
+        - PrimaryNode
+        - SecondaryNode
+        - AllNodes
+      shardId?:
+        type: integer
+        description: In case of cluster cache, this specifies shard id which should be rebooted.
+        format: int32
+    description: Specifies which redis node(s) to reboot.
+  RedisRegenerateKeyParameters:
+    type: object
+    properties:
+      keyType:
+        type: string
+        description: Which redis access key to reset
+        enum:
+        - Primary
+        - Secondary
+    description: Specifies which key to reset.
+  RedisResource:
+    type: Resource
+    description: A single redis item in List or Get Operation.
+  RedisResourceProperties:
+    type: object
+    properties:
+      redisVersion?:
+        type: string
+        description: Redis Version.
+      provisioningState?:
+        type: string
+        description: Redis instance provisioning status
+      hostName?:
+        type: string
+        description: Redis host name
+      port?:
+        type: integer
+        description: Redis non-ssl port
+        format: int32
+      sslPort?:
+        type: integer
+        description: Redis ssl port
+        format: int32
+      properties?:
+        type: RedisCreateProperties
+    description: Parameters describing a redis instance
+  RedisUpdateParameters:
+    type: object
+    properties:
+      properties?:
+        type: RedisUpdateProperties
+        description: Redis cache properties.
+    description: Parameters supplied to the Update redis operation.
+  RedisUpdateProperties:
+    type: RedisProperties
+    description: Properties supplied to Update redis operation.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+    description: The Resource definition.
+  ScheduleEntries:
+    type: object
+    properties:
+      scheduleEntries:
+        type: array
+        description: List of patch schedules for redis cache.
+        items:
+          type: ScheduleEntry
+    description: List of patch schedules for redis cache.
+  ScheduleEntry:
+    type: object
+    properties:
+      dayOfWeek:
+        type: string
+        description: Day of week when cache can be patched.
+        enum:
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+      startHourUtc:
+        type: integer
+        description: Start hour after which cache patching can start.
+        format: int32
+      maintenanceWindow?:
+        type: string
+        description: 'ISO8601 timespan specifying how much time cache patching can
+          take. '
+    description: Patch schedule entry for Premium Redis Cache.
+  Sku:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'What type of redis cache to deploy. Valid values: (Basic, Standard,
+          Premium)'
+        enum:
+        - Basic
+        - Standard
+        - Premium
+      family:
+        type: string
+        description: 'Which family to use. Valid values: (C, P)'
+        enum:
+        - C
+        - P
+      capacity:
+        type: integer
+        description: 'What size of redis cache to deploy. Valid values: for C family
+          (0, 1, 2, 3, 4, 5, 6), for P family (1, 2, 3, 4)'
+        format: int32
+    description: Sku parameters supplied to the create redis operation.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Cache:
+        /Redis:
+          /:
+            get:
+              description: Gets all redis caches in the specified subscription.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Cache:
+            /Redis:
+              /:
+                get:
+                  description: Gets all redis caches in a resource group.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+              /{name}:
+                uriParameters:
+                  name:
+                    type: string
+                    description: The name of the redis cache.
+                    displayName: name
+                /export:
+                  post:
+                    description: Import data into redis cache.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: ExportRDBParameters
+                      text/json: ExportRDBParameters
+                /forceReboot:
+                  post:
+                    description: Reboot specified redis node(s). This operation requires write permission to the cache resource. There can be potential data loss.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: RedisRebootParameters
+                      text/json: RedisRebootParameters
+                /import:
+                  post:
+                    description: Import data into redis cache.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: ImportRDBParameters
+                      text/json: ImportRDBParameters
+                /listKeys:
+                  post:
+                    description: Retrieve a redis cache's access keys. This operation requires write permission to the cache resource.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                /patchSchedules:
+                  /default:
+                    get:
+                      description: Gets the patching schedule for redis cache.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    delete:
+                      description: Deletes the patching schedule for redis cache.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                    put:
+                      description: Create or replace the patching schedule for redis cache.
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                      body:
+                        application/json: RedisPatchSchedule
+                        text/json: RedisPatchSchedule
+                /regenerateKey:
+                  post:
+                    description: Regenerate redis cache's access keys. This operation requires write permission to the cache resource.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    body:
+                      application/json: RedisRegenerateKeyParameters
+                      text/json: RedisRegenerateKeyParameters
+                get:
+                  description: Gets a redis cache (resource description).
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes a redis cache. This operation takes a while to complete.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                patch:
+                  description: Update an existing Redis cache
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: RedisUpdateParameters
+                    text/json: RedisUpdateParameters
+                put:
+                  description: Create or replace (overwrite/recreate, with potential downtime) an existing redis cache
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: RedisCreateParameters
+                    text/json: RedisCreateParameters

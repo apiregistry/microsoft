@@ -1,0 +1,340 @@
+#%RAML 1.0
+title: InsightsManagementClient
+version: '2016-03-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  ConditionOperator:
+    type: string
+    enum:
+    - GreaterThan
+    - GreaterThanOrEqual
+    - LessThan
+    - LessThanOrEqual
+  TimeAggregationOperator:
+    type: string
+    enum:
+    - Average
+    - Minimum
+    - Maximum
+    - Total
+    - Last
+  AlertRule:
+    type: object
+    properties:
+      name:
+        type: string
+        description: the name of the alert rule.
+      description?:
+        type: string
+        description: the description of the alert rule that will be included in the alert email.
+      isEnabled:
+        type: boolean
+        description: the flag that indicates whether the alert rule is enabled.
+      condition?:
+        type: RuleCondition
+        description: the condition that results in the alert rule being activated.
+      actions?:
+        type: array
+        description: the actions that are performed when the alert rule becomes active, and when an alert condition is resolved.
+        items:
+          type: RuleAction
+      lastUpdatedTime?:
+        type: datetime
+        description: Last time the rule was updated in ISO8601 format.
+    description: An alert rule.
+  AlertRuleResource:
+    type: Resource
+    description: The alert rule resource.
+  AlertRuleResourceCollection:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the values for the alert rule resources.
+        items:
+          type: AlertRuleResource
+    description: Represents a collection of alert rule resources.
+  Incident:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Incident name.
+      ruleName?:
+        type: string
+        description: Rule name that is associated with the incident.
+      isActive?:
+        type: boolean
+        description: A boolean to indicate whether the incident is active or resolved.
+      activatedTime?:
+        type: datetime
+        description: The time at which the incident was activated in ISO8601 format.
+      resolvedTime?:
+        type: datetime
+        description: The time at which the incident was resolved in ISO8601 format. If null, it means the incident is still active.
+    description: An alert incident indicates the activation status of an alert rule.
+  IncidentListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the incident collection.
+        items:
+          type: Incident
+    description: The List incidents operation response.
+  LocationThresholdRuleCondition:
+    type: RuleCondition
+    description: A rule condition based on a certain number of locations failing.
+  LogProfile:
+    type: object
+    properties:
+      storageAccountId?:
+        type: string
+        description: the resource id of the storage account.
+      serviceBusRuleId?:
+        type: string
+        description: the resource id of the service bus rule.
+      locations?:
+        type: array
+        description: the locations.
+        items:
+          type: string
+      categories?:
+        type: array
+        description: ' the categories.'
+        items:
+          type: string
+      retentionPolicy?:
+        type: RetentionPolicy
+        description: the retention policy for this log.
+    description: The log profile.
+  LogProfileCollection:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the values of the log profiles.
+        items:
+          type: LogProfileResource
+    description: Represents a collection of log profiles.
+  LogProfileCreateOrUpdateParameters:
+    type: object
+    properties:
+      properties?:
+        type: LogProfile
+        description: The properties envelope to create a Log Profile.
+    description: Parameters supplied to the operation.
+  LogProfileResource:
+    type: Resource
+    description: The log profile resource.
+  ManagementEventAggregationCondition:
+    type: object
+    properties:
+      operator?:
+        type: ConditionOperator
+        description: the condition operator.
+      threshold?:
+        type: number
+        description: the condition threshold.
+        format: double
+      windowSize?:
+        type: string
+        description: the period of time (in ISO 8601 duration format) that is used to monitor alert activity based on the threshold. If specified then it must be between 5 minutes and 1 day.
+    description: A management event aggregation condition.
+  ManagementEventRuleCondition:
+    type: RuleCondition
+    description: A management event rule condition.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Azure resource Id
+      name?:
+        type: string
+        description: Azure resource name
+      type?:
+        type: string
+        description: Azure resource type
+      location:
+        type: string
+        description: Resource location
+    description: An azure resource object
+  RetentionPolicy:
+    type: object
+    properties:
+      enabled:
+        type: boolean
+        description: a value indicating whether the retention policy is enabled.
+      days:
+        type: integer
+        description: the number of days for the retention.
+        format: int32
+    description: Specifies the retention policy for the log.
+  RuleAction:
+    type: object
+    properties:
+      odata.type:
+        type: string
+    description: The action that is performed when the alert rule becomes active, and when an alert condition is resolved.
+    discriminator: odata.type
+  RuleCondition:
+    type: object
+    properties:
+      odata.type:
+        type: string
+        description: specifies the type of condition.
+    description: The condition that results in the alert rule being activated.
+    discriminator: odata.type
+  RuleDataSource:
+    type: object
+    properties:
+      odata.type:
+        type: string
+        description: specifies the type of data source.
+    description: The resource from which the rule collects its data.
+    discriminator: odata.type
+  RuleEmailAction:
+    type: RuleAction
+    description: Specifies the action to send email when the rule condition is evaluated.
+  RuleManagementEventClaimsDataSource:
+    type: object
+    properties:
+      emailAddress?:
+        type: string
+        description: the email address.
+    description: The claims for a rule management event data source.
+  RuleManagementEventDataSource:
+    type: RuleDataSource
+    description: A rule management event data source.
+  RuleMetricDataSource:
+    type: RuleDataSource
+    description: A rule metric data source.
+  RuleWebhookAction:
+    type: RuleAction
+    description: Specifies the action to post to service when the rule condition is evaluated.
+  ThresholdRuleCondition:
+    type: RuleCondition
+    description: A rule condition based on a metric crossing a threshold.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: The Azure subscription Id.
+        displayName: subscriptionId
+    /providers:
+      /microsoft.insights:
+        /logprofiles:
+          /{logProfileName}:
+            uriParameters:
+              logProfileName:
+                type: string
+                description: The name of the log profile.
+                displayName: logProfileName
+            get:
+              description: Gets the log profile.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            delete:
+              description: Deletes the log profile.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            put:
+              description: Create or update the log profile.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+              body:
+                application/json: LogProfileCreateOrUpdateParameters
+          get:
+            description: List the log profiles.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourcegroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /microsoft.insights:
+            /alertrules:
+              /{ruleName}:
+                uriParameters:
+                  ruleName:
+                    type: string
+                    description: The name of the rule.
+                    displayName: ruleName
+                /incidents:
+                  /{incidentName}:
+                    uriParameters:
+                      incidentName:
+                        type: string
+                        description: The name of the incident to retrieve.
+                        displayName: incidentName
+                    get:
+                      description: Gets an incident associated to an alert rule
+                      queryParameters:
+                        api-version:
+                          type: string
+                          description: Client Api Version.
+                          displayName: api-version
+                  get:
+                    description: Gets a list of incidents associated to an alert rule
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                get:
+                  description: Gets an alert rule
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: Deletes an alert rule
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: Creates or updates an alert rule
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: AlertRuleResource
+              get:
+                description: List the alert rules within a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
+                    displayName: $filter

@@ -1,0 +1,273 @@
+#%RAML 1.0
+title: ContainerServiceClient
+version: '2016-03-30'
+baseUri: management.azure.com
+description: The Container Service Client.
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  ContainerService:
+    type: Resource
+    description: Container service
+  ContainerServiceAgentPoolProfile:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Unique name of the agent pool profile within the context of the subscription and resource group
+      count?:
+        type: integer
+        description: No. of agents (VMs) that will host docker containers
+        format: int32
+        maximum: 100
+        minimum: 1
+      vmSize?:
+        type: string
+        description: Size of agent VMs
+        enum:
+        - Standard_A0
+        - Standard_A1
+        - Standard_A2
+        - Standard_A3
+        - Standard_A4
+        - Standard_A5
+        - Standard_A6
+        - Standard_A7
+        - Standard_A8
+        - Standard_A9
+        - Standard_A10
+        - Standard_A11
+        - Standard_D1
+        - Standard_D2
+        - Standard_D3
+        - Standard_D4
+        - Standard_D11
+        - Standard_D12
+        - Standard_D13
+        - Standard_D14
+        - Standard_D1_v2
+        - Standard_D2_v2
+        - Standard_D3_v2
+        - Standard_D4_v2
+        - Standard_D5_v2
+        - Standard_D11_v2
+        - Standard_D12_v2
+        - Standard_D13_v2
+        - Standard_D14_v2
+        - Standard_G1
+        - Standard_G2
+        - Standard_G3
+        - Standard_G4
+        - Standard_G5
+        - Standard_DS1
+        - Standard_DS2
+        - Standard_DS3
+        - Standard_DS4
+        - Standard_DS11
+        - Standard_DS12
+        - Standard_DS13
+        - Standard_DS14
+        - Standard_GS1
+        - Standard_GS2
+        - Standard_GS3
+        - Standard_GS4
+        - Standard_GS5
+      dnsPrefix:
+        type: string
+        description: DNS prefix to be used to create FQDN for this agent pool
+      fqdn?:
+        type: string
+        description: FDQN for the agent pool
+    description: Profile for container service agent pool
+  ContainerServiceDiagnosticsProfile:
+    type: object
+    properties:
+      vmDiagnostics?:
+        type: ContainerServiceVMDiagnostics
+        description: Profile for container service VM diagnostic agent
+  ContainerServiceLinuxProfile:
+    type: object
+    properties:
+      adminUsername:
+        type: string
+        description: The administrator username to use for all Linux VMs
+      ssh:
+        type: ContainerServiceSshConfiguration
+        description: Specifies the ssh key configuration for Linux VMs
+    description: Profile for Linux VMs
+  ContainerServiceListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: the list of container services.
+        items:
+          type: ContainerService
+    description: The List Container Service operation response
+  ContainerServiceMasterProfile:
+    type: object
+    properties:
+      count?:
+        type: integer
+        description: Number of masters (VMs) in the container cluster
+        format: int32
+      dnsPrefix:
+        type: string
+        description: DNS prefix to be used to create FQDN for master
+      fqdn?:
+        type: string
+        description: FDQN for the master
+    description: Profile for container service master
+  ContainerServiceOrchestratorProfile:
+    type: object
+    properties:
+      orchestratorType?:
+        type: string
+        description: Specifies what orchestrator will be used to manage container cluster resources.
+        enum:
+        - Swarm
+        - DCOS
+    description: Profile for Orchestrator
+  ContainerServiceProperties:
+    type: object
+    properties:
+      provisioningState?:
+        type: string
+        description: the provisioning state, which only appears in the response.
+      orchestratorProfile?:
+        type: ContainerServiceOrchestratorProfile
+        description: Properties of orchestrator
+      masterProfile:
+        type: ContainerServiceMasterProfile
+        description: Properties of master agents
+      agentPoolProfiles:
+        type: array
+        description: Properties of agent pools
+        items:
+          type: ContainerServiceAgentPoolProfile
+      windowsProfile?:
+        type: ContainerServiceWindowsProfile
+        description: Properties of Windows VMs
+      linuxProfile:
+        type: ContainerServiceLinuxProfile
+        description: Properties for Linux VMs
+      diagnosticsProfile?:
+        type: ContainerServiceDiagnosticsProfile
+        description: Properties for Diagnostic Agent
+    description: Properties of container service
+  ContainerServiceSshConfiguration:
+    type: object
+    properties:
+      publicKeys?:
+        type: array
+        description: the list of SSH public keys used to authenticate with Linux based VMs
+        items:
+          type: ContainerServiceSshPublicKey
+    description: SSH configuration for Linux based VMs running on Azure
+  ContainerServiceSshPublicKey:
+    type: object
+    properties:
+      keyData:
+        type: string
+        description: Certificate public key used to authenticate with VM through SSH. The certificate must be in Pem format with or without headers.
+    description: Contains information about SSH certificate public key data.
+  ContainerServiceVMDiagnostics:
+    type: object
+    properties:
+      enabled?:
+        type: boolean
+        description: whether VM Diagnostic Agent should be provisioned on the Virtual Machine.
+      storageUri?:
+        type: string
+        description: whether VM Diagnostic Agent should be provisioned on the Virtual Machine.
+    description: Describes VM Diagnostics.
+  ContainerServiceWindowsProfile:
+    type: object
+    properties:
+      adminUsername:
+        type: string
+        description: The administrator username to use for Windows VMs
+      adminPassword:
+        type: string
+        description: The administrator password to use for Windows VMs
+    description: Profile for Windows VMs
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource name
+      type?:
+        type: string
+        description: Resource type
+      location:
+        type: string
+        description: Resource location
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+    description: The Resource model definition.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.ContainerService:
+            /containerServices:
+              /{containerServiceName}:
+                uriParameters:
+                  containerServiceName:
+                    type: string
+                    description: The name of the container service within the given subscription and resource group.
+                    displayName: containerServiceName
+                get:
+                  description: The operation to get a container service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                delete:
+                  description: The operation to delete a container service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                put:
+                  description: The operation to create or update a container service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: ContainerService
+                    text/json: ContainerService
+              get:
+                description: The operation to list container services.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version

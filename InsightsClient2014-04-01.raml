@@ -1,0 +1,74 @@
+#%RAML 1.0
+title: InsightsClient
+version: '2014-04-01'
+baseUri: management.azure.com
+mediaType:
+- application/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  LocalizableString:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: the invariant value.
+      localizedValue?:
+        type: string
+        description: the locale specific value.
+    description: The localizable string class.
+  UsageMetric:
+    type: object
+    properties:
+      name?:
+        type: LocalizableString
+        description: the usage metric name and display name.
+      currentValue?:
+        type: number
+        description: the current value for the usage metric.
+        format: double
+      id?:
+        type: string
+        description: the id for the usage metric.
+      limit?:
+        type: number
+        description: the quota limit the usage metric.
+        format: double
+      unit?:
+        type: string
+        description: the unit for the usage metric.
+      nextResetTime?:
+        type: datetime
+        description: the next reset time for the current value.
+      quotaPeriod?:
+        type: string
+        description: the amount of time it takes to reset the value.
+    description: Usage Metric data.
+  UsageMetricCollection:
+    type: object
+    properties:
+      value:
+        type: array
+        description: the usage values.
+        items:
+          type: UsageMetric
+    description: Represents collection of usage metrics.
+/{resourceUri}:
+  uriParameters:
+    resourceUri:
+      type: string
+      description: The identifier of the resource.
+      displayName: resourceUri
+  /usages:
+    get:
+      description: The List operation lists the usage metrics for the resource.
+      queryParameters:
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+        $filter?:
+          type: string
+          description: The filter to apply on the operation.
+          displayName: $filter

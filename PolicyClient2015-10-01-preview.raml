@@ -1,0 +1,313 @@
+#%RAML 1.0
+title: PolicyClient
+version: 2015-10-01-preview
+baseUri: management.azure.com
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  PolicyAssignment:
+    type: object
+    properties:
+      properties?:
+        type: PolicyAssignmentProperties
+        description: Gets or sets the policy assignment properties.
+      id?:
+        type: string
+        description: Gets or sets the Id of the policy assignment.
+      type?:
+        type: string
+        description: Gets or sets the type of the policy assignment.
+      name?:
+        type: string
+        description: Gets or sets the name of the policy assignment.
+    description: Policy assignment.
+  PolicyAssignmentListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of policy assignments.
+        items:
+          type: PolicyAssignment
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of policy assignments.
+  PolicyAssignmentProperties:
+    type: object
+    properties:
+      displayName?:
+        type: string
+        description: Gets or sets the policy assignment display name.
+      policyDefinitionId?:
+        type: string
+        description: Gets or sets the policy definition Id.
+      scope?:
+        type: string
+        description: Gets or sets the scope at which the policy assignment exists.
+    description: The policy assignment properties.
+  PolicyDefinition:
+    type: object
+    properties:
+      properties?:
+        type: PolicyDefinitionProperties
+        description: Gets or sets the policy definition properties.
+      id?:
+        type: string
+        description: Gets or sets the Id of the policy definition.
+      name?:
+        type: string
+        description: Gets or sets the name of the policy definition.
+    description: The policy definition properties.
+  PolicyDefinitionListResult:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: Gets or sets the list of policy definitions.
+        items:
+          type: PolicyDefinition
+      nextLink?:
+        type: string
+        description: Gets or sets the URL to get the next set of results.
+    description: List of policy definitions.
+  PolicyDefinitionProperties:
+    type: object
+    properties:
+      policyType?:
+        type: string
+        description: Gets or sets policy definition policy type.
+        enum:
+        - NotSpecified
+        - BuiltIn
+        - Custom
+      displayName?:
+        type: string
+        description: Gets or sets the policy definition display name.
+      description?:
+        type: string
+        description: Gets or sets the policy definition description.
+      policyRule?:
+        type: object
+        description: Gets or sets the policy rule.
+    description: The policy definition properties.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Authorization:
+        /policyassignments:
+          get:
+            description: Gets all the policy assignments of a subscription.
+            queryParameters:
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+        /policydefinitions:
+          /{policyDefinitionName}:
+            uriParameters:
+              policyDefinitionName:
+                type: string
+                description: The policy definition name.
+                displayName: policyDefinitionName
+            get:
+              description: Gets the policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            delete:
+              description: Deletes the policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+            put:
+              description: Create or update a policy definition.
+              queryParameters:
+                api-version:
+                  type: string
+                  description: Client Api Version.
+                  displayName: api-version
+              body:
+                application/json: PolicyDefinition
+                text/json: PolicyDefinition
+          get:
+            description: Gets all the policy definitions of a subscription.
+            queryParameters:
+              $filter?:
+                type: string
+                description: The filter to apply on the operation.
+                displayName: $filter
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Resource group name.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /providers:
+          /Microsoft.Authorization:
+            /policyAssignments:
+              get:
+                description: Gets policy assignments of the resource group.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+    /resourcegroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: The name of the resource group. The name is case insensitive.
+            displayName: resourceGroupName
+            maxLength: 90
+            minLength: 1
+            pattern: ^[-\w\._\(\)]+$
+        /providers:
+          /{resourceProviderNamespace}:
+            uriParameters:
+              resourceProviderNamespace:
+                type: string
+                description: The resource provider namespace.
+                displayName: resourceProviderNamespace
+            /{parentResourcePath}:
+              uriParameters:
+                parentResourcePath:
+                  type: string
+                  description: The parent resource path.
+                  displayName: parentResourcePath
+              /{resourceType}:
+                uriParameters:
+                  resourceType:
+                    type: string
+                    description: The resource type.
+                    displayName: resourceType
+                /{resourceName}:
+                  uriParameters:
+                    resourceName:
+                      type: string
+                      description: The resource name.
+                      displayName: resourceName
+                  /providers:
+                    /Microsoft.Authorization:
+                      /policyassignments:
+                        get:
+                          description: Gets policy assignments of the resource.
+                          queryParameters:
+                            $filter?:
+                              type: string
+                              description: The filter to apply on the operation.
+                              displayName: $filter
+                            api-version:
+                              type: string
+                              description: Client Api Version.
+                              displayName: api-version
+/{policyAssignmentId}:
+  uriParameters:
+    policyAssignmentId:
+      type: string
+      description: Policy assignment Id
+      displayName: policyAssignmentId
+  get:
+    description: Get single policy assignment.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+  delete:
+    description: Delete policy assignment.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+  put:
+    description: Create policy assignment by Id.
+    queryParameters:
+      api-version:
+        type: string
+        description: Client Api Version.
+        displayName: api-version
+    body:
+      application/json: PolicyAssignment
+      text/json: PolicyAssignment
+/{scope}:
+  uriParameters:
+    scope:
+      type: string
+      description: Scope of the policy assignment.
+      displayName: scope
+  /providers:
+    /Microsoft.Authorization:
+      /policyassignments:
+        /{policyAssignmentName}:
+          uriParameters:
+            policyAssignmentName:
+              type: string
+              description: Policy assignment name.
+              displayName: policyAssignmentName
+          get:
+            description: Get single policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+          delete:
+            description: Delete policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+          put:
+            description: Create policy assignment.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            body:
+              application/json: PolicyAssignment
+              text/json: PolicyAssignment
