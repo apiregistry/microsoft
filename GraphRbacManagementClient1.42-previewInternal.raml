@@ -425,6 +425,14 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: Application
+              text/json:
+                type: Application
       delete:
         description: Delete an application.
         queryParameters:
@@ -432,6 +440,9 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: ''
       patch:
         description: Update existing application.
         queryParameters:
@@ -442,6 +453,9 @@ types:
         body:
           application/json: ApplicationCreateParameters
           text/json: ApplicationCreateParameters
+        responses:
+          204:
+            description: ''
     get:
       description: Lists applications by filter parameters.
       queryParameters:
@@ -453,6 +467,14 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: ApplicationListResult
+            text/json:
+              type: ApplicationListResult
     post:
       description: Create a new application.
       queryParameters:
@@ -463,6 +485,14 @@ types:
       body:
         application/json: ApplicationCreateParameters
         text/json: ApplicationCreateParameters
+      responses:
+        201:
+          description: ''
+          body:
+            application/json:
+              type: Application
+            text/json:
+              type: Application
   /getObjectsByObjectIds:
     post:
       description: Gets AD group membership by provided AD object Ids
@@ -474,6 +504,14 @@ types:
       body:
         application/json: GetObjectsParameters
         text/json: GetObjectsParameters
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: GetObjectsResult
+            text/json:
+              type: GetObjectsResult
   /groups:
     /{groupObjectId}:
       uriParameters:
@@ -496,6 +534,9 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                204:
+                  description: ''
           post:
             description: 'Add a memeber to a group. '
             queryParameters:
@@ -506,6 +547,9 @@ types:
             body:
               application/json: GroupAddMemberParameters
               text/json: GroupAddMemberParameters
+            responses:
+              204:
+                description: ''
       delete:
         description: Delete a group in the directory.
         queryParameters:
@@ -513,6 +557,9 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: ''
     /{objectId}:
       uriParameters:
         objectId:
@@ -530,6 +577,14 @@ types:
           body:
             application/json: GroupGetMemberGroupsParameters
             text/json: GroupGetMemberGroupsParameters
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: GroupGetMemberGroupsResult
+                text/json:
+                  type: GroupGetMemberGroupsResult
       /members:
         get:
           description: Gets the members of a group.
@@ -538,6 +593,14 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: GetObjectsResult
+                text/json:
+                  type: GetObjectsResult
       get:
         description: Gets group information from the directory.
         queryParameters:
@@ -545,6 +608,14 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: ADGroup
+              text/json:
+                type: ADGroup
     get:
       description: Gets list of groups for the current tenant.
       queryParameters:
@@ -556,6 +627,14 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: GroupListResult
+            text/json:
+              type: GroupListResult
     post:
       description: Create a group in the directory.
       queryParameters:
@@ -566,6 +645,14 @@ types:
       body:
         application/json: GroupCreateParameters
         text/json: GroupCreateParameters
+      responses:
+        201:
+          description: ''
+          body:
+            application/json:
+              type: ADGroup
+            text/json:
+              type: ADGroup
   /me:
     get:
       description: Gets the details for current logged in user
@@ -574,6 +661,14 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: AADObject
+            text/json:
+              type: AADObject
   /servicePrincipals:
     /{objectId}:
       uriParameters:
@@ -588,6 +683,14 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: ServicePrincipal
+              text/json:
+                type: ServicePrincipal
       delete:
         description: Deletes service principal from the directory.
         queryParameters:
@@ -595,6 +698,9 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: ''
     get:
       description: Gets list of service principals from the current tenant.
       queryParameters:
@@ -606,6 +712,14 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: ServicePrincipalListResult
+            text/json:
+              type: ServicePrincipalListResult
     post:
       description: Creates a service principal in the  directory.
       queryParameters:
@@ -616,6 +730,14 @@ types:
       body:
         application/json: ServicePrincipalCreateParameters
         text/json: ServicePrincipalCreateParameters
+      responses:
+        201:
+          description: ''
+          body:
+            application/json:
+              type: ServicePrincipal
+            text/json:
+              type: ServicePrincipal
   /users:
     /{objectId}:
       uriParameters:
@@ -634,6 +756,14 @@ types:
           body:
             application/json: UserGetMemberGroupsParameters
             text/json: UserGetMemberGroupsParameters
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: UserGetMemberGroupsResult
+                text/json:
+                  type: UserGetMemberGroupsResult
     /{upnOrObjectId}:
       uriParameters:
         upnOrObjectId:
@@ -647,6 +777,14 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: User
+              text/json:
+                type: User
     /{user}:
       uriParameters:
         user:
@@ -660,6 +798,9 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: ''
     get:
       description: Gets list of users for the current tenant.
       queryParameters:
@@ -671,6 +812,14 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: UserListResult
+            text/json:
+              type: UserListResult
     post:
       description: Create a new user.
       queryParameters:
@@ -681,3 +830,11 @@ types:
       body:
         application/json: UserCreateParameters
         text/json: UserCreateParameters
+      responses:
+        201:
+          description: ''
+          body:
+            application/json:
+              type: User
+            text/json:
+              type: User

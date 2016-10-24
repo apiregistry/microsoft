@@ -188,6 +188,14 @@ types:
         body:
           application/json: CheckTrafficManagerRelativeDnsNameAvailabilityParameters
           text/json: CheckTrafficManagerRelativeDnsNameAvailabilityParameters
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: TrafficManagerNameAvailability
+              text/json:
+                type: TrafficManagerNameAvailability
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -205,6 +213,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ProfileListResult
+                  text/json:
+                    type: ProfileListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -240,6 +256,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The Traffic Manager endpoint.
+                          body:
+                            application/json:
+                              type: Endpoint
+                            text/json:
+                              type: Endpoint
                     delete:
                       description: Deletes a Traffic Manager endpoint.
                       queryParameters:
@@ -247,6 +271,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        204:
+                          description: ''
                     patch:
                       description: Update a Traffic Manager endpoint.
                       queryParameters:
@@ -257,6 +286,14 @@ types:
                       body:
                         application/json: Endpoint
                         text/json: Endpoint
+                      responses:
+                        200:
+                          description: The updated Traffic Manager endpoint.
+                          body:
+                            application/json:
+                              type: Endpoint
+                            text/json:
+                              type: Endpoint
                     put:
                       description: Create or update a Traffic Manager endpoint.
                       queryParameters:
@@ -267,6 +304,21 @@ types:
                       body:
                         application/json: Endpoint
                         text/json: Endpoint
+                      responses:
+                        200:
+                          description: The created or updated Endpoint.
+                          body:
+                            application/json:
+                              type: Endpoint
+                            text/json:
+                              type: Endpoint
+                        201:
+                          description: The created or updated Endpoint.
+                          body:
+                            application/json:
+                              type: Endpoint
+                            text/json:
+                              type: Endpoint
                 get:
                   description: Gets a Traffic Manager profile.
                   queryParameters:
@@ -274,6 +326,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: The Traffic Manager profile.
+                      body:
+                        application/json:
+                          type: Profile
+                        text/json:
+                          type: Profile
                 delete:
                   description: Deletes a Traffic Manager profile.
                   queryParameters:
@@ -281,6 +341,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    204:
+                      description: ''
                 patch:
                   description: Update a Traffic Manager profile.
                   queryParameters:
@@ -291,6 +356,14 @@ types:
                   body:
                     application/json: Profile
                     text/json: Profile
+                  responses:
+                    200:
+                      description: The updated Traffic Manager profile.
+                      body:
+                        application/json:
+                          type: Profile
+                        text/json:
+                          type: Profile
                 put:
                   description: Create or update a Traffic Manager profile.
                   queryParameters:
@@ -301,6 +374,21 @@ types:
                   body:
                     application/json: Profile
                     text/json: Profile
+                  responses:
+                    200:
+                      description: The created or updated Traffic Manager profile.
+                      body:
+                        application/json:
+                          type: Profile
+                        text/json:
+                          type: Profile
+                    201:
+                      description: The created or updated Traffic Manager profile.
+                      body:
+                        application/json:
+                          type: Profile
+                        text/json:
+                          type: Profile
               get:
                 description: Lists all Traffic Manager profiles within a resource group.
                 queryParameters:
@@ -308,3 +396,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ProfileListResult
+                      text/json:
+                        type: ProfileListResult

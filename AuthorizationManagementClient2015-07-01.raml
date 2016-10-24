@@ -298,6 +298,14 @@ types:
               type: string
               displayName: $expand
               default: resourceTypes
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: ProviderOperationsMetadata
+                text/json:
+                  type: ProviderOperationsMetadata
       get:
         description: Gets provider operations metadata list
         queryParameters:
@@ -308,6 +316,14 @@ types:
             type: string
             displayName: $expand
             default: resourceTypes
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: ProviderOperationsMetadataListResult
+              text/json:
+                type: ProviderOperationsMetadataListResult
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -324,6 +340,14 @@ types:
               api-version:
                 type: string
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ClassicAdministratorListResult
+                  text/json:
+                    type: ClassicAdministratorListResult
         /roleAssignments:
           get:
             description: Gets role assignments of the subscription.
@@ -336,6 +360,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleAssignmentListResult
+                  text/json:
+                    type: RoleAssignmentListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -357,6 +389,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: RoleAssignmentListResult
+                      text/json:
+                        type: RoleAssignmentListResult
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -374,6 +414,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: PermissionGetResult
+                      text/json:
+                        type: PermissionGetResult
           /{resourceProviderNamespace}:
             uriParameters:
               resourceProviderNamespace:
@@ -408,6 +456,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: PermissionGetResult
+                                text/json:
+                                  type: PermissionGetResult
                 /{resourceName}providers:
                   uriParameters:
                     resourceName:
@@ -427,6 +483,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: RoleAssignmentListResult
+                              text/json:
+                                type: RoleAssignmentListResult
 /{roleAssignmentId}:
   uriParameters:
     roleAssignmentId:
@@ -440,6 +504,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: RoleAssignment
+          text/json:
+            type: RoleAssignment
   delete:
     description: Delete role assignment.
     queryParameters:
@@ -447,6 +519,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: RoleAssignment
+          text/json:
+            type: RoleAssignment
   put:
     description: Create role assignment by Id.
     queryParameters:
@@ -457,6 +537,14 @@ types:
     body:
       application/json: RoleAssignmentCreateParameters
       text/json: RoleAssignmentCreateParameters
+    responses:
+      201:
+        description: ''
+        body:
+          application/json:
+            type: RoleAssignment
+          text/json:
+            type: RoleAssignment
 /{roleDefinitionId}:
   uriParameters:
     roleDefinitionId:
@@ -470,6 +558,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: RoleDefinition
+          text/json:
+            type: RoleDefinition
 /{scope}:
   uriParameters:
     scope:
@@ -492,6 +588,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleAssignment
+                  text/json:
+                    type: RoleAssignment
           delete:
             description: Delete role assignment.
             queryParameters:
@@ -499,6 +603,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleAssignment
+                  text/json:
+                    type: RoleAssignment
           put:
             description: Create role assignment.
             queryParameters:
@@ -509,6 +621,14 @@ types:
             body:
               application/json: RoleAssignmentCreateParameters
               text/json: RoleAssignmentCreateParameters
+            responses:
+              201:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleAssignment
+                  text/json:
+                    type: RoleAssignment
         get:
           description: Gets role assignments of the scope.
           queryParameters:
@@ -520,6 +640,14 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: RoleAssignmentListResult
+                text/json:
+                  type: RoleAssignmentListResult
       /roleDefinitions:
         /{roleDefinitionId}:
           uriParameters:
@@ -534,6 +662,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleDefinition
+                  text/json:
+                    type: RoleDefinition
           delete:
             description: Deletes the role definition.
             queryParameters:
@@ -541,6 +677,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleDefinition
+                  text/json:
+                    type: RoleDefinition
           put:
             description: Creates or updates a role definition.
             queryParameters:
@@ -551,6 +695,14 @@ types:
             body:
               application/json: RoleDefinition
               text/json: RoleDefinition
+            responses:
+              201:
+                description: ''
+                body:
+                  application/json:
+                    type: RoleDefinition
+                  text/json:
+                    type: RoleDefinition
         get:
           description: Get all role definitions that are applicable at scope and above. Use atScopeAndBelow filter to search below the given scope as well
           queryParameters:
@@ -562,3 +714,11 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: RoleDefinitionListResult
+                text/json:
+                  type: RoleDefinitionListResult

@@ -258,6 +258,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ContainerService
+                        text/json:
+                          type: ContainerService
                 delete:
                   description: The operation to delete a container service.
                   queryParameters:
@@ -265,6 +273,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The operation to create or update a container service.
                   queryParameters:
@@ -275,6 +288,28 @@ types:
                   body:
                     application/json: ContainerService
                     text/json: ContainerService
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ContainerService
+                        text/json:
+                          type: ContainerService
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ContainerService
+                        text/json:
+                          type: ContainerService
+                    202:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ContainerService
+                        text/json:
+                          type: ContainerService
               get:
                 description: The operation to list container services.
                 queryParameters:
@@ -282,3 +317,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ContainerServiceListResult
+                      text/json:
+                        type: ContainerServiceListResult

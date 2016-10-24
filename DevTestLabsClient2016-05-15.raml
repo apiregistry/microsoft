@@ -1178,6 +1178,21 @@ types:
                 description: Client API version.
                 displayName: api-version
                 default: '2016-05-15'
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ResponseWithContinuation_Lab_
+                  text/json:
+                    type: ResponseWithContinuation_Lab_
+              500:
+                description: BadRequest
+                body:
+                  application/json:
+                    type: CloudError
+                  text/json:
+                    type: CloudError
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1220,6 +1235,21 @@ types:
                             body:
                               application/json: GenerateArmTemplateRequest
                               text/json: GenerateArmTemplateRequest
+                            responses:
+                              200:
+                                description: OK
+                                body:
+                                  application/json:
+                                    type: ArmTemplateInfo
+                                  text/json:
+                                    type: ArmTemplateInfo
+                              500:
+                                description: BadRequest
+                                body:
+                                  application/json:
+                                    type: CloudError
+                                  text/json:
+                                    type: CloudError
                         get:
                           description: Get artifact.
                           queryParameters:
@@ -1228,6 +1258,21 @@ types:
                               description: Client API version.
                               displayName: api-version
                               default: '2016-05-15'
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Artifact
+                                text/json:
+                                  type: Artifact
+                            500:
+                              description: BadRequest
+                              body:
+                                application/json:
+                                  type: CloudError
+                                text/json:
+                                  type: CloudError
                       get:
                         description: List artifacts in a given artifact source.
                         queryParameters:
@@ -1249,6 +1294,21 @@ types:
                             description: Client API version.
                             displayName: api-version
                             default: '2016-05-15'
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: ResponseWithContinuation_Artifact_
+                              text/json:
+                                type: ResponseWithContinuation_Artifact_
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                   /{name}:
                     uriParameters:
                       name:
@@ -1263,6 +1323,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: ArtifactSource
+                            text/json:
+                              type: ArtifactSource
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete artifact source.
                       queryParameters:
@@ -1271,6 +1346,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     patch:
                       description: Modify properties of artifact sources.
                       queryParameters:
@@ -1282,6 +1369,21 @@ types:
                       body:
                         application/json: ArtifactSource
                         text/json: ArtifactSource
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: ArtifactSource
+                            text/json:
+                              type: ArtifactSource
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing artifact source.
                       queryParameters:
@@ -1293,6 +1395,28 @@ types:
                       body:
                         application/json: ArtifactSource
                         text/json: ArtifactSource
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: ArtifactSource
+                            text/json:
+                              type: ArtifactSource
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: ArtifactSource
+                            text/json:
+                              type: ArtifactSource
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List artifact sources in a given lab.
                     queryParameters:
@@ -1314,6 +1438,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_ArtifactSource_
+                          text/json:
+                            type: ResponseWithContinuation_ArtifactSource_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /costs:
                   /{name}:
                     uriParameters:
@@ -1329,6 +1468,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Cost
+                            text/json:
+                              type: Cost
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                 /customimages:
                   /{name}:
                     uriParameters:
@@ -1344,6 +1498,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: CustomImage
+                            text/json:
+                              type: CustomImage
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete custom image. This operation can take a while to complete.
                       queryParameters:
@@ -1352,6 +1521,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        202:
+                          description: Accepted
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing custom image. This operation can take a while to complete.
                       queryParameters:
@@ -1363,6 +1544,28 @@ types:
                       body:
                         application/json: CustomImage
                         text/json: CustomImage
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: CustomImage
+                            text/json:
+                              type: CustomImage
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: CustomImage
+                            text/json:
+                              type: CustomImage
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List custom images in a given lab.
                     queryParameters:
@@ -1384,6 +1587,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_CustomImage_
+                          text/json:
+                            type: ResponseWithContinuation_CustomImage_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /formulas:
                   /{name}:
                     uriParameters:
@@ -1399,6 +1617,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Formula
+                            text/json:
+                              type: Formula
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete formula.
                       queryParameters:
@@ -1407,6 +1640,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing Formula. This operation can take a while to complete.
                       queryParameters:
@@ -1418,6 +1663,28 @@ types:
                       body:
                         application/json: Formula
                         text/json: Formula
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Formula
+                            text/json:
+                              type: Formula
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: Formula
+                            text/json:
+                              type: Formula
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List formulas in a given lab.
                     queryParameters:
@@ -1439,6 +1706,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_Formula_
+                          text/json:
+                            type: ResponseWithContinuation_Formula_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /galleryimages:
                   get:
                     description: List gallery images in a given lab.
@@ -1461,6 +1743,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_GalleryImage_
+                          text/json:
+                            type: ResponseWithContinuation_GalleryImage_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /policysets:
                   /{name}:
                     uriParameters:
@@ -1480,6 +1777,21 @@ types:
                         body:
                           application/json: EvaluatePoliciesRequest
                           text/json: EvaluatePoliciesRequest
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: EvaluatePoliciesResponse
+                              text/json:
+                                type: EvaluatePoliciesResponse
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                   /{policySetName}:
                     uriParameters:
                       policySetName:
@@ -1501,6 +1813,21 @@ types:
                               description: Client API version.
                               displayName: api-version
                               default: '2016-05-15'
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Policy
+                                text/json:
+                                  type: Policy
+                            500:
+                              description: BadRequest
+                              body:
+                                application/json:
+                                  type: CloudError
+                                text/json:
+                                  type: CloudError
                         delete:
                           description: Delete policy.
                           queryParameters:
@@ -1509,6 +1836,18 @@ types:
                               description: Client API version.
                               displayName: api-version
                               default: '2016-05-15'
+                          responses:
+                            200:
+                              description: OK
+                            204:
+                              description: No Content
+                            500:
+                              description: BadRequest
+                              body:
+                                application/json:
+                                  type: CloudError
+                                text/json:
+                                  type: CloudError
                         patch:
                           description: Modify properties of policies.
                           queryParameters:
@@ -1520,6 +1859,21 @@ types:
                           body:
                             application/json: Policy
                             text/json: Policy
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Policy
+                                text/json:
+                                  type: Policy
+                            500:
+                              description: BadRequest
+                              body:
+                                application/json:
+                                  type: CloudError
+                                text/json:
+                                  type: CloudError
                         put:
                           description: Create or replace an existing policy.
                           queryParameters:
@@ -1531,6 +1885,28 @@ types:
                           body:
                             application/json: Policy
                             text/json: Policy
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Policy
+                                text/json:
+                                  type: Policy
+                            201:
+                              description: Created
+                              body:
+                                application/json:
+                                  type: Policy
+                                text/json:
+                                  type: Policy
+                            500:
+                              description: BadRequest
+                              body:
+                                application/json:
+                                  type: CloudError
+                                text/json:
+                                  type: CloudError
                       get:
                         description: List policies in a given policy set.
                         queryParameters:
@@ -1552,6 +1928,21 @@ types:
                             description: Client API version.
                             displayName: api-version
                             default: '2016-05-15'
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: ResponseWithContinuation_Policy_
+                              text/json:
+                                type: ResponseWithContinuation_Policy_
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                 /schedules:
                   /{name}:
                     uriParameters:
@@ -1568,6 +1959,18 @@ types:
                             description: Client API version.
                             displayName: api-version
                             default: '2016-05-15'
+                        responses:
+                          200:
+                            description: OK
+                          202:
+                            description: Accepted
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                     get:
                       description: Get schedule.
                       queryParameters:
@@ -1576,6 +1979,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Schedule
+                            text/json:
+                              type: Schedule
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete schedule.
                       queryParameters:
@@ -1584,6 +2002,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     patch:
                       description: Modify properties of schedules.
                       queryParameters:
@@ -1595,6 +2025,21 @@ types:
                       body:
                         application/json: Schedule
                         text/json: Schedule
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Schedule
+                            text/json:
+                              type: Schedule
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing schedule.
                       queryParameters:
@@ -1606,6 +2051,28 @@ types:
                       body:
                         application/json: Schedule
                         text/json: Schedule
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Schedule
+                            text/json:
+                              type: Schedule
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: Schedule
+                            text/json:
+                              type: Schedule
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List schedules in a given lab.
                     queryParameters:
@@ -1627,6 +2094,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_Schedule_
+                          text/json:
+                            type: ResponseWithContinuation_Schedule_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /virtualmachines:
                   /{name}:
                     uriParameters:
@@ -1646,6 +2128,18 @@ types:
                         body:
                           application/json: ApplyArtifactsRequest
                           text/json: ApplyArtifactsRequest
+                        responses:
+                          200:
+                            description: OK
+                          202:
+                            description: Accepted
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                     /start:
                       post:
                         description: Start a Lab VM. This operation can take a while to complete.
@@ -1655,6 +2149,18 @@ types:
                             description: Client API version.
                             displayName: api-version
                             default: '2016-05-15'
+                        responses:
+                          200:
+                            description: OK
+                          202:
+                            description: Accepted
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                     /stop:
                       post:
                         description: Stop a Lab VM. This operation can take a while to complete.
@@ -1664,6 +2170,18 @@ types:
                             description: Client API version.
                             displayName: api-version
                             default: '2016-05-15'
+                        responses:
+                          200:
+                            description: OK
+                          202:
+                            description: Accepted
+                          500:
+                            description: BadRequest
+                            body:
+                              application/json:
+                                type: CloudError
+                              text/json:
+                                type: CloudError
                     get:
                       description: Get virtual machine.
                       queryParameters:
@@ -1672,6 +2190,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: LabVirtualMachine
+                            text/json:
+                              type: LabVirtualMachine
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete virtual machine. This operation can take a while to complete.
                       queryParameters:
@@ -1680,6 +2213,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        202:
+                          description: Accepted
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     patch:
                       description: Modify properties of virtual machines.
                       queryParameters:
@@ -1691,6 +2236,21 @@ types:
                       body:
                         application/json: LabVirtualMachine
                         text/json: LabVirtualMachine
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: LabVirtualMachine
+                            text/json:
+                              type: LabVirtualMachine
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing Virtual Machine. This operation can take a while to complete.
                       queryParameters:
@@ -1702,6 +2262,28 @@ types:
                       body:
                         application/json: LabVirtualMachine
                         text/json: LabVirtualMachine
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: LabVirtualMachine
+                            text/json:
+                              type: LabVirtualMachine
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: LabVirtualMachine
+                            text/json:
+                              type: LabVirtualMachine
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List virtual machines in a given lab.
                     queryParameters:
@@ -1723,6 +2305,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_LabVirtualMachine_
+                          text/json:
+                            type: ResponseWithContinuation_LabVirtualMachine_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /virtualnetworks:
                   /{name}:
                     uriParameters:
@@ -1738,6 +2335,21 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: VirtualNetwork
+                            text/json:
+                              type: VirtualNetwork
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Delete virtual network. This operation can take a while to complete.
                       queryParameters:
@@ -1746,6 +2358,18 @@ types:
                           description: Client API version.
                           displayName: api-version
                           default: '2016-05-15'
+                      responses:
+                        202:
+                          description: Accepted
+                        204:
+                          description: No Content
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     patch:
                       description: Modify properties of virtual networks.
                       queryParameters:
@@ -1757,6 +2381,21 @@ types:
                       body:
                         application/json: VirtualNetwork
                         text/json: VirtualNetwork
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: VirtualNetwork
+                            text/json:
+                              type: VirtualNetwork
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Create or replace an existing virtual network. This operation can take a while to complete.
                       queryParameters:
@@ -1768,6 +2407,28 @@ types:
                       body:
                         application/json: VirtualNetwork
                         text/json: VirtualNetwork
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: VirtualNetwork
+                            text/json:
+                              type: VirtualNetwork
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: VirtualNetwork
+                            text/json:
+                              type: VirtualNetwork
+                        500:
+                          description: BadRequest
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: List virtual networks in a given lab.
                     queryParameters:
@@ -1789,6 +2450,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_VirtualNetwork_
+                          text/json:
+                            type: ResponseWithContinuation_VirtualNetwork_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
               /{name}:
                 uriParameters:
                   name:
@@ -1807,6 +2483,18 @@ types:
                     body:
                       application/json: LabVirtualMachine
                       text/json: LabVirtualMachine
+                    responses:
+                      200:
+                        description: OK
+                      202:
+                        description: Accepted
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /generateUploadUri:
                   post:
                     description: Generate a URI for uploading custom disk images to a Lab.
@@ -1819,6 +2507,21 @@ types:
                     body:
                       application/json: GenerateUploadUriParameter
                       text/json: GenerateUploadUriParameter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: GenerateUploadUriResponse
+                          text/json:
+                            type: GenerateUploadUriResponse
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /listVhds:
                   post:
                     description: List disk images available for custom image creation.
@@ -1828,6 +2531,21 @@ types:
                         description: Client API version.
                         displayName: api-version
                         default: '2016-05-15'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ResponseWithContinuation_LabVhd_
+                          text/json:
+                            type: ResponseWithContinuation_LabVhd_
+                      500:
+                        description: BadRequest
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 get:
                   description: Get lab.
                   queryParameters:
@@ -1836,6 +2554,21 @@ types:
                       description: Client API version.
                       displayName: api-version
                       default: '2016-05-15'
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Lab
+                        text/json:
+                          type: Lab
+                    500:
+                      description: BadRequest
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
                 delete:
                   description: Delete lab. This operation can take a while to complete.
                   queryParameters:
@@ -1844,6 +2577,18 @@ types:
                       description: Client API version.
                       displayName: api-version
                       default: '2016-05-15'
+                  responses:
+                    202:
+                      description: Accepted
+                    204:
+                      description: No Content
+                    500:
+                      description: BadRequest
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
                 patch:
                   description: Modify properties of labs.
                   queryParameters:
@@ -1855,6 +2600,21 @@ types:
                   body:
                     application/json: Lab
                     text/json: Lab
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Lab
+                        text/json:
+                          type: Lab
+                    500:
+                      description: BadRequest
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
                 put:
                   description: Create or replace an existing Lab. This operation can take a while to complete.
                   queryParameters:
@@ -1866,6 +2626,28 @@ types:
                   body:
                     application/json: Lab
                     text/json: Lab
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Lab
+                        text/json:
+                          type: Lab
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: Lab
+                        text/json:
+                          type: Lab
+                    500:
+                      description: BadRequest
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
               get:
                 description: List labs in a resource group.
                 queryParameters:
@@ -1887,3 +2669,18 @@ types:
                     description: Client API version.
                     displayName: api-version
                     default: '2016-05-15'
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: ResponseWithContinuation_Lab_
+                      text/json:
+                        type: ResponseWithContinuation_Lab_
+                  500:
+                    description: BadRequest
+                    body:
+                      application/json:
+                        type: CloudError
+                      text/json:
+                        type: CloudError

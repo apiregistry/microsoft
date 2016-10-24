@@ -107,6 +107,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The Server Threat Detection Policy
+                          body:
+                            application/json:
+                              type: ServerSecurityAlertPolicy
+                            text/json:
+                              type: ServerSecurityAlertPolicy
                     put:
                       description: Creates or updates an Azure SQL Server security alert policy.
                       queryParameters:
@@ -117,3 +125,18 @@ types:
                       body:
                         application/json: ServerSecurityAlertPolicyCreateOrUpdateParameters
                         text/json: ServerSecurityAlertPolicyCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: The Server Threat Detection Policy
+                          body:
+                            application/json:
+                              type: ServerSecurityAlertPolicy
+                            text/json:
+                              type: ServerSecurityAlertPolicy
+                        201:
+                          description: The Server Threat Detection Policy
+                          body:
+                            application/json:
+                              type: ServerSecurityAlertPolicy
+                            text/json:
+                              type: ServerSecurityAlertPolicy

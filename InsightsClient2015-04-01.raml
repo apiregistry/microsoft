@@ -178,6 +178,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Successful request to get the list of event categories
+                body:
+                  application/json:
+                    type: EventCategoryCollection
         /values:
           get:
             description: Provides the list of tenant events.
@@ -198,6 +204,12 @@ types:
                   operationName, properties, resourceGroupName, resourceProviderName,
                   resourceId, status, submissionTimestamp, subStatus, subscriptionId'
                 displayName: $select
+            responses:
+              200:
+                description: Successful request to get a page of tenant events
+                body:
+                  application/json:
+                    type: EventDataCollection
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -230,3 +242,9 @@ types:
                       resourceProviderName, resourceId, status, submissionTimestamp,
                       subStatus, subscriptionId'
                     displayName: $select
+                responses:
+                  200:
+                    description: Successful request to get a page of events
+                    body:
+                      application/json:
+                        type: EventDataCollection

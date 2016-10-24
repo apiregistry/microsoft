@@ -547,6 +547,21 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: KeyCredentialListResult
+                text/json:
+                  type: KeyCredentialListResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
         patch:
           description: 'Update keyCredentials associated with an existing application.
             Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
@@ -558,6 +573,16 @@ types:
           body:
             application/json: KeyCredentialsUpdateParameters
             text/json: KeyCredentialsUpdateParameters
+          responses:
+            204:
+              description: No Content
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       /passwordCredentials:
         get:
           description: 'Gets passwordCredentials associated with an existing application.
@@ -567,6 +592,21 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: PasswordCredentialListResult
+                text/json:
+                  type: PasswordCredentialListResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
         patch:
           description: 'Updates passwordCredentials associated with an existing application.
             Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
@@ -578,6 +618,16 @@ types:
           body:
             application/json: PasswordCredentialsUpdateParameters
             text/json: PasswordCredentialsUpdateParameters
+          responses:
+            204:
+              description: No Content
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       get:
         description: 'Get an application by object Id. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
         queryParameters:
@@ -585,6 +635,21 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: Application
+              text/json:
+                type: Application
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
       delete:
         description: 'Delete an application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
         queryParameters:
@@ -592,6 +657,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: No Content
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
       patch:
         description: 'Update existing application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
         queryParameters:
@@ -602,6 +677,16 @@ types:
         body:
           application/json: ApplicationUpdateParameters
           text/json: ApplicationUpdateParameters
+        responses:
+          204:
+            description: No Content
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
     get:
       description: 'Lists applications by filter parameters. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
       queryParameters:
@@ -613,6 +698,21 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: ApplicationListResult
+            text/json:
+              type: ApplicationListResult
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
     post:
       description: 'Create a new application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
       queryParameters:
@@ -623,6 +723,21 @@ types:
       body:
         application/json: ApplicationCreateParameters
         text/json: ApplicationCreateParameters
+      responses:
+        201:
+          description: Created
+          body:
+            application/json:
+              type: Application
+            text/json:
+              type: Application
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
   /groups:
     /{groupObjectId}:
       uriParameters:
@@ -645,6 +760,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                204:
+                  description: No Content. Indicates success. No response body is returned.
+                500:
+                  description: Error response
+                  body:
+                    application/json:
+                      type: GraphError
+                    text/json:
+                      type: GraphError
           post:
             description: 'Add a memeber to a group. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/groups-operations#AddGroupMembers'
             queryParameters:
@@ -655,6 +780,16 @@ types:
             body:
               application/json: GroupAddMemberParameters
               text/json: GroupAddMemberParameters
+            responses:
+              204:
+                description: No Content. Indicates success. No response body is returned.
+              500:
+                description: Error response
+                body:
+                  application/json:
+                    type: GraphError
+                  text/json:
+                    type: GraphError
       delete:
         description: 'Delete a group in the directory. Reference: http://msdn.microsoft.com/en-us/library/azure/dn151676.aspx'
         queryParameters:
@@ -662,6 +797,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: No Content
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
     /{objectId}:
       uriParameters:
         objectId:
@@ -679,6 +824,21 @@ types:
           body:
             application/json: GroupGetMemberGroupsParameters
             text/json: GroupGetMemberGroupsParameters
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: GroupGetMemberGroupsResult
+                text/json:
+                  type: GroupGetMemberGroupsResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       /members:
         get:
           description: Gets the members of a group.
@@ -687,6 +847,21 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: GetObjectsResult
+                text/json:
+                  type: GetObjectsResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       get:
         description: Gets group information from the directory.
         queryParameters:
@@ -694,6 +869,21 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: ADGroup
+              text/json:
+                type: ADGroup
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
     get:
       description: Gets list of groups for the current tenant.
       queryParameters:
@@ -705,6 +895,21 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: GroupListResult
+            text/json:
+              type: GroupListResult
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
     post:
       description: 'Create a group in the directory. Reference: http://msdn.microsoft.com/en-us/library/azure/dn151676.aspx'
       queryParameters:
@@ -715,6 +920,21 @@ types:
       body:
         application/json: GroupCreateParameters
         text/json: GroupCreateParameters
+      responses:
+        201:
+          description: Created
+          body:
+            application/json:
+              type: ADGroup
+            text/json:
+              type: ADGroup
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
   /isMemberOf:
     post:
       description: Checks whether the specified user, group, contact, or service principal is a direct or a transitive member of the specified group.
@@ -726,6 +946,21 @@ types:
       body:
         application/json: CheckGroupMembershipParameters
         text/json: CheckGroupMembershipParameters
+      responses:
+        200:
+          description: OK. Indicates success. Returns true if the user, contact, group, or service principal is a direct or a transitive member of the specified group; otherwsie, false.
+          body:
+            application/json:
+              type: CheckGroupMembershipResult
+            text/json:
+              type: CheckGroupMembershipResult
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
   /me:
     get:
       description: Gets the details for current logged in user
@@ -734,6 +969,21 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: AADObject
+            text/json:
+              type: AADObject
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
   /servicePrincipals:
     /{objectId}:
       uriParameters:
@@ -750,6 +1000,21 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: KeyCredentialListResult
+                text/json:
+                  type: KeyCredentialListResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
         patch:
           description: 'Update keyCredentials associated with an existing service
             principal. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#keycredential-type'
@@ -761,6 +1026,16 @@ types:
           body:
             application/json: KeyCredentialsUpdateParameters
             text/json: KeyCredentialsUpdateParameters
+          responses:
+            204:
+              description: No Content
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       /passwordCredentials:
         get:
           description: 'Gets passwordCredentials associated with an existing service
@@ -770,6 +1045,21 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: PasswordCredentialListResult
+                text/json:
+                  type: PasswordCredentialListResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
         patch:
           description: 'Updates passwordCredentials associated with an existing service
             principal. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/entity-and-complex-type-reference#passwordcredential-type'
@@ -781,6 +1071,16 @@ types:
           body:
             application/json: PasswordCredentialsUpdateParameters
             text/json: PasswordCredentialsUpdateParameters
+          responses:
+            204:
+              description: No Content
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
       get:
         description: Gets service principal information from the directory.
         queryParameters:
@@ -788,6 +1088,21 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: ServicePrincipal
+              text/json:
+                type: ServicePrincipal
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
       delete:
         description: Deletes service principal from the directory.
         queryParameters:
@@ -795,6 +1110,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: No Content
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
     get:
       description: Gets list of service principals from the current tenant.
       queryParameters:
@@ -806,6 +1131,21 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: ServicePrincipalListResult
+            text/json:
+              type: ServicePrincipalListResult
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
     post:
       description: Creates a service principal in the  directory.
       queryParameters:
@@ -816,6 +1156,21 @@ types:
       body:
         application/json: ServicePrincipalCreateParameters
         text/json: ServicePrincipalCreateParameters
+      responses:
+        201:
+          description: Created
+          body:
+            application/json:
+              type: ServicePrincipal
+            text/json:
+              type: ServicePrincipal
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
   /users:
     /{objectId}:
       uriParameters:
@@ -834,6 +1189,21 @@ types:
           body:
             application/json: UserGetMemberGroupsParameters
             text/json: UserGetMemberGroupsParameters
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: UserGetMemberGroupsResult
+                text/json:
+                  type: UserGetMemberGroupsResult
+            500:
+              description: Error response
+              body:
+                application/json:
+                  type: GraphError
+                text/json:
+                  type: GraphError
     /{upnOrObjectId}:
       uriParameters:
         upnOrObjectId:
@@ -847,6 +1217,21 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: User
+              text/json:
+                type: User
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
       delete:
         description: 'Delete a user. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#DeleteUser'
         queryParameters:
@@ -854,6 +1239,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          204:
+            description: No Content
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
       patch:
         description: 'Updates an exisitng user. Reference: https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#UpdateUser'
         queryParameters:
@@ -864,6 +1259,16 @@ types:
         body:
           application/json: UserUpdateParameters
           text/json: UserUpdateParameters
+        responses:
+          204:
+            description: No Content.
+          500:
+            description: Error response
+            body:
+              application/json:
+                type: GraphError
+              text/json:
+                type: GraphError
     get:
       description: Gets list of users for the current tenant. Reference https://msdn.microsoft.com/en-us/library/azure/ad/graph/api/users-operations#GetUsers
       queryParameters:
@@ -875,6 +1280,21 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: UserListResult
+            text/json:
+              type: UserListResult
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError
     post:
       description: 'Create a new user. Reference: https://msdn.microsoft.com/library/azure/ad/graph/api/users-operations#CreateUser'
       queryParameters:
@@ -885,3 +1305,18 @@ types:
       body:
         application/json: UserCreateParameters
         text/json: UserCreateParameters
+      responses:
+        201:
+          description: Created. Indicates success. The new user is returned in the response body.
+          body:
+            application/json:
+              type: User
+            text/json:
+              type: User
+        500:
+          description: Error response
+          body:
+            application/json:
+              type: GraphError
+            text/json:
+              type: GraphError

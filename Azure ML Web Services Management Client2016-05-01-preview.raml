@@ -505,6 +505,14 @@ types:
                 type: string
                 description: Continuation token for pagination.
                 displayName: $skiptoken
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: PaginatedWebServicesList
+                  text/json:
+                    type: PaginatedWebServicesList
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -529,6 +537,14 @@ types:
                         type: string
                         description: The version of the Microsoft.MachineLearning resource provider API to be used.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: WebServiceKeys
+                          text/json:
+                            type: WebServiceKeys
                 get:
                   description: Retrieve an Azure ML web service definition by its subscription, resource group and name.
                   queryParameters:
@@ -536,6 +552,14 @@ types:
                       type: string
                       description: The version of the Microsoft.MachineLearning resource provider API to be used.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
                 delete:
                   description: Remove an existing Azure ML web service.
                   queryParameters:
@@ -543,6 +567,11 @@ types:
                       type: string
                       description: The version of the Microsoft.MachineLearning resource provider API to be used.
                       displayName: api-version
+                  responses:
+                    202:
+                      description: Async delete operation was accepted.
+                    204:
+                      description: No Content
                 patch:
                   description: Patch an existing Azure ML web service resource.
                   queryParameters:
@@ -553,6 +582,14 @@ types:
                   body:
                     application/json: WebService
                     text/json: WebService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
                 put:
                   description: Creates or updates a new Azure ML web service or update an existing one.
                   queryParameters:
@@ -563,6 +600,21 @@ types:
                   body:
                     application/json: WebService
                     text/json: WebService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
               get:
                 description: Retrieve all Azure ML web services in a given resource group.
                 queryParameters:
@@ -574,3 +626,11 @@ types:
                     type: string
                     description: Continuation token for pagination.
                     displayName: $skiptoken
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: PaginatedWebServicesList
+                      text/json:
+                        type: PaginatedWebServicesList

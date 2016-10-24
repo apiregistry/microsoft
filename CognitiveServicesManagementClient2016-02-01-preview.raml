@@ -199,6 +199,30 @@ types:
                 type: string
                 description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                 displayName: api-version
+            responses:
+              200:
+                description: "The resource provider should return 200 (OK) to indicate\
+                  \ that the operation completed successfully. For other errors (e.g.\
+                  \ internal errors) use the appropriate HTTP error code.\nThe nextLink\
+                  \ field is expected to point to the URL the client should use to\
+                  \ fetch the next page (per server side paging). This matches the\
+                  \ OData guidelines for paged responses. If a resource provider does\
+                  \ not support paging, it should return the same body but leave nextLink\
+                  \ empty for future compatibility.\nFor a detailed explanation of\
+                  \ each field in the response body, please refer to the request body\
+                  \ description in the PUT resource section. "
+                body:
+                  application/json:
+                    type: CognitiveServicesAccountListResult
+                  text/json:
+                    type: CognitiveServicesAccountListResult
+              500:
+                description: Error response describing why the operation failed
+                body:
+                  application/json:
+                    type: Error
+                  text/json:
+                    type: Error
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -226,6 +250,26 @@ types:
                         type: string
                         description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                         displayName: api-version
+                    responses:
+                      200:
+                        description: |-
+                          Returns with a response body containing the subscription keys for the resource: key1
+                          The first API key for authentication when client calls the API endpoint.
+
+                          key2
+                          The second API key for authentication when client calls the API endpoint.
+                        body:
+                          application/json:
+                            type: CognitiveServicesAccountKeys
+                          text/json:
+                            type: CognitiveServicesAccountKeys
+                      500:
+                        description: Error response describing why the operation failed
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 /regenerateKey:
                   post:
                     description: Regenerates the specified account key for the specified Cognitive Services account.
@@ -237,6 +281,21 @@ types:
                     body:
                       application/json: RegenerateKeyParameters
                       text/json: RegenerateKeyParameters
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: CognitiveServicesAccountKeys
+                          text/json:
+                            type: CognitiveServicesAccountKeys
+                      500:
+                        description: Error response describing why the operation failed
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 /skus:
                   get:
                     description: List available SKUs for the requested Cognitive Services account
@@ -245,6 +304,33 @@ types:
                         type: string
                         description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                         displayName: api-version
+                    responses:
+                      200:
+                        description: "The resource provider should return 200 (OK)\
+                          \ to indicate that the operation completed successfully.\n\
+                          For a detailed explanation of each field in the response\
+                          \ body, please refer to the request body description in\
+                          \ the PUT resource section. The only GET specific properties\
+                          \ are “name,” “type” and “id.”\nField\tDescription\nsku\t\
+                          Required, object\n\tThe exact set of keys that define this\
+                          \ sku. This matches the fields on the respective resource.\n\
+                          sku.name\tRequired, string\n\tThe name of the SKU. This\
+                          \ is typically a letter + number code, such as A0 or P3\n\
+                          sku.tier\tRequired, string\n\tThe tier of this particular\
+                          \ SKU. Typically one of:\n\t· Free\n\t· Basic\n\t· Standard\n\
+                          \t· Premium\n"
+                        body:
+                          application/json:
+                            type: CognitiveServicesAccountEnumerateSkusResult
+                          text/json:
+                            type: CognitiveServicesAccountEnumerateSkusResult
+                      500:
+                        description: Error response describing why the operation failed. If the resource does not exist, 404 (NotFound) will be returned.
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 get:
                   description: Returns a Cognitive Services account specified by the parameters.
                   queryParameters:
@@ -252,6 +338,32 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                       displayName: api-version
+                  responses:
+                    200:
+                      description: "The resource provider should return 200 (OK) to\
+                        \ indicate that the operation completed successfully.\nFor\
+                        \ a detailed explanation of each field in the response body,\
+                        \ please refer to the request body description in the PUT\
+                        \ resource section. The only GET specific properties are “\
+                        name,” “type” and “id.”\nField\tDescription\nKind\trequired.\
+                        \  String.\n\tThe API set for this API account. It can be\
+                        \ \n\t· a single API, for example: Face API, Vision API, Speech\
+                        \ API. \n\ta bundle of APIs:  Face + Speech, Vision + Emotion,\
+                        \ etc.\nsku.name\tRequired.\n\tThe pricing tier/plan of this\
+                        \ API. Could be: \n\tF0 - Free\n\tB0 - Basic\n\tS0 - Standard\n\
+                        \tP0 - Premium\n"
+                      body:
+                        application/json:
+                          type: CognitiveServicesAccount
+                        text/json:
+                          type: CognitiveServicesAccount
+                    500:
+                      description: Error response describing why the operation failed. If the resource does not exist, 404 (NotFound) should be returned.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 delete:
                   description: 'Deletes a Cognitive Services account from the resource
                     group. '
@@ -260,6 +372,18 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                       displayName: api-version
+                  responses:
+                    200:
+                      description: A 200 (OK) should be returned if the object exists and was deleted successfully;
+                    204:
+                      description: a 204 (NoContent) should be used if the resource does not exist and the request is well formed.
+                    500:
+                      description: Error response describing why the operation failed
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 patch:
                   description: Updates a Cognitive Services account
                   queryParameters:
@@ -270,6 +394,22 @@ types:
                   body:
                     application/json: CognitiveServicesAccountUpdateParameters
                     text/json: CognitiveServicesAccountUpdateParameters
+                  responses:
+                    200:
+                      description: 'The resource provider should return 200 (OK) to
+                        indicate that the operation completed successfully. '
+                      body:
+                        application/json:
+                          type: CognitiveServicesAccount
+                        text/json:
+                          type: CognitiveServicesAccount
+                    500:
+                      description: Error response describing why the operation failed. If the resource group *or* resource does not exist, 404 (NotFound) should be returned.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 put:
                   description: Create Cognitive Services Account. Accounts is a resource group wide resource type. It holds the keys for developer to access intelligent APIs. It's also the resource type for billing.
                   queryParameters:
@@ -280,6 +420,28 @@ types:
                   body:
                     application/json: CognitiveServicesAccountCreateParameters
                     text/json: CognitiveServicesAccountCreateParameters
+                  responses:
+                    200:
+                      description: If resource is created successfully or already existed, the service should return 200 (OK).
+                      body:
+                        application/json:
+                          type: CognitiveServicesAccount
+                        text/json:
+                          type: CognitiveServicesAccount
+                    201:
+                      description: If resource is created successfully, the service should return 201 (OK).
+                      body:
+                        application/json:
+                          type: CognitiveServicesAccount
+                        text/json:
+                          type: CognitiveServicesAccount
+                    500:
+                      description: Error response describing why the operation failed
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
               get:
                 description: Returns all the resources of a particular type belonging to a resource group
                 queryParameters:
@@ -287,3 +449,40 @@ types:
                     type: string
                     description: Version of the API to be used with the client request. Current version is 2016-02-01-preview
                     displayName: api-version
+                responses:
+                  200:
+                    description: "The resource provider should return 200 (OK) to\
+                      \ indicate that the operation completed successfully. For other\
+                      \ errors (e.g. internal errors) use the appropriate HTTP error\
+                      \ code.\nThe nextLink field is expected to point to the URL\
+                      \ the client should use to fetch the next page (per server side\
+                      \ paging). This matches the OData guidelines for paged responses\
+                      \ here. If a resource provider does not support paging, it should\
+                      \ return the same body (JSON object with “value” property) but\
+                      \ omit nextLink entirely (or set to null, *not* empty string)\
+                      \ for future compatibility.\nThe nextLink should be implemented\
+                      \ using following query parameters:\n· skipToken: opaque token\
+                      \ that allows the resource provider to skip resources already\
+                      \ enumerated. This value is defined and returned by the RP after\
+                      \ first request via nextLink.\n· top: the optional client query\
+                      \ parameter which defines the maximum number of records to be\
+                      \ returned by the server.\nImplementation details:\n· NextLink\
+                      \ may include all the query parameters (specifically OData $filter)\
+                      \ used by the client in the first query. \n· Server may return\
+                      \ less records than requested with nextLink. Returning zero\
+                      \ records with NextLink is an acceptable response. \nClients\
+                      \ must fetch records until the nextLink is not returned back\
+                      \ / null. Clients should never rely on number of returned records\
+                      \ to determinate if pagination is completed."
+                    body:
+                      application/json:
+                        type: CognitiveServicesAccountListResult
+                      text/json:
+                        type: CognitiveServicesAccountListResult
+                  500:
+                    description: Error response describing why the operation failed. If the resource group does not exist, 404 (NotFound) will be returned.
+                    body:
+                      application/json:
+                        type: Error
+                      text/json:
+                        type: Error

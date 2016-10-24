@@ -606,6 +606,14 @@ types:
                 type: string
                 description: The filter to apply on the operation.
                 displayName: $filter
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: WorkflowListResult
+                  text/json:
+                    type: WorkflowListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -637,6 +645,14 @@ types:
                             type: string
                             description: The API version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: WorkflowSecretKeys
+                              text/json:
+                                type: WorkflowSecretKeys
                     /regenerate:
                       post:
                         description: Regenerates secret key.
@@ -648,6 +664,14 @@ types:
                         body:
                           application/json: RegenerateSecretKeyParameters
                           text/json: RegenerateSecretKeyParameters
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: WorkflowSecretKeys
+                              text/json:
+                                type: WorkflowSecretKeys
                     get:
                       description: Gets a workflow access key.
                       queryParameters:
@@ -655,6 +679,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowAccessKey
+                            text/json:
+                              type: WorkflowAccessKey
                     delete:
                       description: Deletes a workflow access key.
                       queryParameters:
@@ -662,6 +694,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates a workflow access key.
                       queryParameters:
@@ -672,6 +709,21 @@ types:
                       body:
                         application/json: WorkflowAccessKey
                         text/json: WorkflowAccessKey
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowAccessKey
+                            text/json:
+                              type: WorkflowAccessKey
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: WorkflowAccessKey
+                            text/json:
+                              type: WorkflowAccessKey
                   get:
                     description: Gets a list of workflow access keys.
                     queryParameters:
@@ -684,6 +736,14 @@ types:
                         description: The number of items to be included in the result.
                         displayName: $top
                         format: int32
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: WorkflowAccessKeyListResult
+                          text/json:
+                            type: WorkflowAccessKeyListResult
                 /disable:
                   post:
                     description: Disables a workflow.
@@ -692,6 +752,9 @@ types:
                         type: string
                         description: The API version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
                 /enable:
                   post:
                     description: Enables a workflow.
@@ -700,6 +763,9 @@ types:
                         type: string
                         description: The API version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
                 /run:
                   post:
                     description: Runs a workflow.
@@ -711,6 +777,14 @@ types:
                     body:
                       application/json: RunWorkflowParameters
                       text/json: RunWorkflowParameters
+                    responses:
+                      202:
+                        description: Accepted
+                        body:
+                          application/json:
+                            type: WorkflowRun
+                          text/json:
+                            type: WorkflowRun
                 /runs:
                   /{runName}:
                     uriParameters:
@@ -732,6 +806,14 @@ types:
                               type: string
                               description: The API version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: WorkflowRunAction
+                                text/json:
+                                  type: WorkflowRunAction
                       get:
                         description: Gets a list of workflow run actions.
                         queryParameters:
@@ -748,6 +830,14 @@ types:
                             type: string
                             description: The filter to apply on the operation.
                             displayName: $filter
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: WorkflowRunActionListResult
+                              text/json:
+                                type: WorkflowRunActionListResult
                     /cancel:
                       post:
                         description: Cancels a workflow run.
@@ -756,6 +846,9 @@ types:
                             type: string
                             description: The API version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: OK
                     get:
                       description: Gets a workflow run.
                       queryParameters:
@@ -763,6 +856,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowRun
+                            text/json:
+                              type: WorkflowRun
                   get:
                     description: Gets a list of workflow runs.
                     queryParameters:
@@ -779,6 +880,14 @@ types:
                         type: string
                         description: The filter to apply on the operation.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: WorkflowRunListResult
+                          text/json:
+                            type: WorkflowRunListResult
                 /triggers:
                   /:
                     get:
@@ -797,6 +906,14 @@ types:
                           type: string
                           description: The filter to apply on the operation.
                           displayName: $filter
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowTriggerListResult
+                            text/json:
+                              type: WorkflowTriggerListResult
                   /{triggerName}:
                     uriParameters:
                       triggerName:
@@ -817,6 +934,14 @@ types:
                               type: string
                               description: The API version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: WorkflowTriggerHistory
+                                text/json:
+                                  type: WorkflowTriggerHistory
                       get:
                         description: Gets a list of workflow trigger histories.
                         queryParameters:
@@ -833,6 +958,14 @@ types:
                             type: string
                             description: The filter to apply on the operation.
                             displayName: $filter
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: WorkflowTriggerHistoryListResult
+                              text/json:
+                                type: WorkflowTriggerHistoryListResult
                     /run:
                       post:
                         description: Runs a workflow trigger.
@@ -841,6 +974,9 @@ types:
                             type: string
                             description: The API version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: OK
                     get:
                       description: Gets a workflow trigger.
                       queryParameters:
@@ -848,6 +984,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowTrigger
+                            text/json:
+                              type: WorkflowTrigger
                 /validate:
                   post:
                     description: Validates a workflow.
@@ -859,6 +1003,9 @@ types:
                     body:
                       application/json: Workflow
                       text/json: Workflow
+                    responses:
+                      200:
+                        description: OK
                 /versions:
                   /{versionId}:
                     uriParameters:
@@ -873,6 +1020,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: WorkflowVersion
+                            text/json:
+                              type: WorkflowVersion
                 get:
                   description: Gets a workflow.
                   queryParameters:
@@ -880,6 +1035,14 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Workflow
+                        text/json:
+                          type: Workflow
                 delete:
                   description: Deletes a workflow.
                   queryParameters:
@@ -887,6 +1050,11 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    204:
+                      description: No Content
                 patch:
                   description: Updates a workflow.
                   queryParameters:
@@ -897,6 +1065,14 @@ types:
                   body:
                     application/json: Workflow
                     text/json: Workflow
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Workflow
+                        text/json:
+                          type: Workflow
                 put:
                   description: Creates or updates a workflow.
                   queryParameters:
@@ -907,6 +1083,21 @@ types:
                   body:
                     application/json: Workflow
                     text/json: Workflow
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Workflow
+                        text/json:
+                          type: Workflow
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: Workflow
+                        text/json:
+                          type: Workflow
               get:
                 description: Gets a list of workflows by resource group.
                 queryParameters:
@@ -923,3 +1114,11 @@ types:
                     type: string
                     description: The filter to apply on the operation.
                     displayName: $filter
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: WorkflowListResult
+                      text/json:
+                        type: WorkflowListResult

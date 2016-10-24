@@ -72,3 +72,9 @@ types:
           type: string
           description: The filter to apply on the operation.
           displayName: $filter
+      responses:
+        200:
+          description: Successful request to get the list of usage metric values
+          body:
+            application/json:
+              type: UsageMetricCollection

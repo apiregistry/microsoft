@@ -1569,6 +1569,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The cluster health
+          body:
+            application/json:
+              type: ClusterHealth
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   /GetClusterManifest:
     get:
       description: Get cluster manifests
@@ -1577,6 +1588,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The cluster manifest
+          body:
+            application/json:
+              type: string
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   /GetLoadInformation:
     get:
       description: Get cluster load informations
@@ -1585,6 +1607,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The load information
+          body:
+            application/json:
+              type: ClusterLoadInformation
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   /GetUpgradeProgress:
     get:
       description: Get upgrade progresses
@@ -1593,6 +1626,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The upgrade progress
+          body:
+            application/json:
+              type: ClusterUpgradeProgress
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   /ReportClusterHealth:
     post:
       description: Report cluster healths
@@ -1601,6 +1645,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The cluster health
+          body:
+            application/json:
+              type: string
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
 /ApplicationTypes:
   /$:
     /Provision:
@@ -1611,6 +1666,17 @@ types:
             type: string
             description: The version of the api
             displayName: api-version
+        responses:
+          200:
+            description: The application type
+            body:
+              application/json:
+                type: string
+          500:
+            description: Error
+            body:
+              application/json:
+                type: ErrorModel
   /{applicationTypeName}:
     uriParameters:
       applicationTypeName:
@@ -1630,6 +1696,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application manifest
+              body:
+                application/json:
+                  type: ApplicationManifest
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetServiceManifest:
         get:
           description: Get service manifests
@@ -1646,6 +1723,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service manifest
+              body:
+                application/json:
+                  type: ServiceManifest
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetServiceTypes:
         get:
           description: Get service types
@@ -1658,6 +1746,19 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service type
+              body:
+                application/json:
+                  type: array
+                  items:
+                    type: ServiceType
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /Unprovision:
         post:
           description: Unregister application types
@@ -1666,6 +1767,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application type
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
     get:
       description: Get application types
       queryParameters:
@@ -1673,6 +1785,19 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The application type
+          body:
+            application/json:
+              type: array
+              items:
+                type: ApplicationType
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   get:
     description: List application types
     queryParameters:
@@ -1680,6 +1805,19 @@ types:
         type: string
         description: The version of the api
         displayName: api-version
+    responses:
+      200:
+        description: The application type
+        body:
+          application/json:
+            type: array
+            items:
+              type: ApplicationType
+      500:
+        description: Error
+        body:
+          application/json:
+            type: ErrorModel
 /Applications:
   /$:
     /Create:
@@ -1690,6 +1828,27 @@ types:
             type: string
             description: The version of the api
             displayName: api-version
+        responses:
+          200:
+            description: The application description
+            body:
+              application/json:
+                type: string
+          201:
+            description: The application description
+            body:
+              application/json:
+                type: string
+          202:
+            description: The application description
+            body:
+              application/json:
+                type: string
+          500:
+            description: Error
+            body:
+              application/json:
+                type: ErrorModel
   /{applicationName}:
     uriParameters:
       applicationName:
@@ -1705,6 +1864,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetHealth:
         get:
           description: Get application healths
@@ -1721,6 +1891,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application health
+              body:
+                application/json:
+                  type: ApplicationHealth
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetServiceGroups:
         /$:
           /CreateServiceGroupFromTemplate:
@@ -1731,6 +1912,27 @@ types:
                   type: string
                   description: The version of the api
                   displayName: api-version
+              responses:
+                200:
+                  description: The service group description template
+                  body:
+                    application/json:
+                      type: string
+                201:
+                  description: The service group description template
+                  body:
+                    application/json:
+                      type: string
+                202:
+                  description: The service group description template
+                  body:
+                    application/json:
+                      type: string
+                500:
+                  description: Error
+                  body:
+                    application/json:
+                      type: ErrorModel
         /{serviceName}:
           uriParameters:
             serviceName:
@@ -1746,6 +1948,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The service
+                    body:
+                      application/json:
+                        type: string
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
       /GetServices:
         /$:
           /Create:
@@ -1756,6 +1969,27 @@ types:
                   type: string
                   description: The version of the api
                   displayName: api-version
+              responses:
+                200:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                201:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                202:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                500:
+                  description: Error
+                  body:
+                    application/json:
+                      type: ErrorModel
           /CreateFromTemplate:
             post:
               description: Create service from templates
@@ -1764,6 +1998,27 @@ types:
                   type: string
                   description: The version of the api
                   displayName: api-version
+              responses:
+                200:
+                  description: The service description template
+                  body:
+                    application/json:
+                      type: string
+                201:
+                  description: The service description template
+                  body:
+                    application/json:
+                      type: string
+                202:
+                  description: The service description template
+                  body:
+                    application/json:
+                      type: string
+                500:
+                  description: Error
+                  body:
+                    application/json:
+                      type: ErrorModel
           /CreateServiceGroup:
             post:
               description: Create service groups
@@ -1772,6 +2027,27 @@ types:
                   type: string
                   description: The version of the api
                   displayName: api-version
+              responses:
+                200:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                201:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                202:
+                  description: The service description
+                  body:
+                    application/json:
+                      type: string
+                500:
+                  description: Error
+                  body:
+                    application/json:
+                      type: ErrorModel
         /{serviceName}:
           uriParameters:
             serviceName:
@@ -1787,6 +2063,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The service group description
+                    body:
+                      application/json:
+                        type: ServiceGroupDescription
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetServiceGroupMembers:
               get:
                 description: Get service group members
@@ -1795,6 +2082,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The service group description
+                    body:
+                      application/json:
+                        type: ServiceGroupMember
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /UpdateServiceGroup:
               post:
                 description: Update service groups
@@ -1803,6 +2101,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The service group update description
+                    body:
+                      application/json:
+                        type: string
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
           get:
             description: Get services
             queryParameters:
@@ -1810,6 +2119,17 @@ types:
                 type: string
                 description: The version of the api
                 displayName: api-version
+            responses:
+              200:
+                description: The service
+                body:
+                  application/json:
+                    type: Service
+              500:
+                description: Error
+                body:
+                  application/json:
+                    type: ErrorModel
         get:
           description: List services
           queryParameters:
@@ -1817,6 +2137,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service list
+              body:
+                application/json:
+                  type: ServiceList
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetUpgradeProgress:
         get:
           description: Get application upgrades
@@ -1825,6 +2156,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application upgrade
+              body:
+                application/json:
+                  type: ApplicationUpgrade
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /MoveNextUpgradeDomain:
         post:
           description: Resume application upgrades
@@ -1833,6 +2175,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The resume application upgrade
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ReportHealth:
         post:
           description: Send application health
@@ -1841,6 +2194,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application health
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /RollbackUpgrade:
         post:
           description: Start application upgrade rollbacks
@@ -1849,6 +2213,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The application upgrade rollback
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /UpdateUpgrade:
         post:
           description: Update application upgrades
@@ -1857,6 +2232,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The update application upgrade
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /Upgrade:
         post:
           description: Start application upgrades
@@ -1865,6 +2251,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The start application upgrade
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
     get:
       description: Get applications
       queryParameters:
@@ -1872,6 +2269,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The application
+          body:
+            application/json:
+              type: Application
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   get:
     description: List applications
     queryParameters:
@@ -1883,6 +2291,17 @@ types:
         type: string
         description: The token of the continuation
         displayName: continuation-token
+    responses:
+      200:
+        description: The application list
+        body:
+          application/json:
+            type: ApplicationList
+      500:
+        description: Error
+        body:
+          application/json:
+            type: ErrorModel
 /Nodes:
   /{nodeName}:
     uriParameters:
@@ -1899,6 +2318,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /Deactivate:
         post:
           description: Disable nodes
@@ -1907,6 +2337,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetApplications:
         /{applicationName}:
           uriParameters:
@@ -1923,6 +2364,19 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed code package
+                    body:
+                      application/json:
+                        type: array
+                        items:
+                          type: DeployedCodePackage
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetHealth:
               get:
                 description: Get deployed application healths
@@ -1939,6 +2393,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed application health
+                    body:
+                      application/json:
+                        type: DeployedApplicationHealth
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetReplicas:
               get:
                 description: Get deployed replicas
@@ -1947,6 +2412,19 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed replica
+                    body:
+                      application/json:
+                        type: array
+                        items:
+                          type: DeployedReplica
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetServicePackages:
               /{serviceManifestName}:
                 uriParameters:
@@ -1963,6 +2441,17 @@ types:
                           type: string
                           description: The version of the api
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The deployed service package health
+                          body:
+                            application/json:
+                              type: string
+                        500:
+                          description: Error
+                          body:
+                            application/json:
+                              type: ErrorModel
               /{servicePackageName}:
                 uriParameters:
                   servicePackageName:
@@ -1982,6 +2471,17 @@ types:
                           type: string
                           description: The version of the api
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The deployed service package health
+                          body:
+                            application/json:
+                              type: DeployedServicePackageHealth
+                        500:
+                          description: Error
+                          body:
+                            application/json:
+                              type: ErrorModel
               get:
                 description: Get deployed service packages
                 queryParameters:
@@ -1989,6 +2489,19 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed service package
+                    body:
+                      application/json:
+                        type: array
+                        items:
+                          type: DeployedServicePackage
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetServiceTypes:
               get:
                 description: Get deployed service types
@@ -1997,6 +2510,19 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed service type
+                    body:
+                      application/json:
+                        type: array
+                        items:
+                          type: DeployedServiceType
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /ReportHealth:
               post:
                 description: Send deployed application health
@@ -2005,6 +2531,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The deployed application health
+                    body:
+                      application/json:
+                        type: string
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
           get:
             description: Get deployed applications
             queryParameters:
@@ -2012,6 +2549,17 @@ types:
                 type: string
                 description: The version of the api
                 displayName: api-version
+            responses:
+              200:
+                description: The deployed application
+                body:
+                  application/json:
+                    type: DeployedApplication
+              500:
+                description: Error
+                body:
+                  application/json:
+                    type: ErrorModel
         get:
           description: List deployed applications
           queryParameters:
@@ -2019,6 +2567,19 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The deployed application list
+              body:
+                application/json:
+                  type: array
+                  items:
+                    type: DeployedApplication
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetHealth:
         get:
           description: Get node healths
@@ -2031,6 +2592,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node health
+              body:
+                application/json:
+                  type: NodeHealth
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetLoadInformation:
         get:
           description: Get node load informations
@@ -2039,6 +2611,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node load information
+              body:
+                application/json:
+                  type: NodeLoadInformation
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetPartitions:
         /{partitionName}:
           uriParameters:
@@ -2063,6 +2646,17 @@ types:
                           type: string
                           description: The version of the api
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The deployed replica detail
+                          body:
+                            application/json:
+                              type: DeployedReplicaDetail
+                        500:
+                          description: Error
+                          body:
+                            application/json:
+                              type: ErrorModel
       /RemoveNodeState:
         post:
           description: Remove node states
@@ -2071,6 +2665,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node state
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ReportHealth:
         post:
           description: Send node health
@@ -2079,6 +2684,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The node health
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
     get:
       description: Get nodes
       queryParameters:
@@ -2086,6 +2702,17 @@ types:
           type: string
           description: The version of the api
           displayName: api-version
+      responses:
+        200:
+          description: The node
+          body:
+            application/json:
+              type: Node
+        500:
+          description: Error
+          body:
+            application/json:
+              type: ErrorModel
   get:
     description: List nodes
     queryParameters:
@@ -2097,6 +2724,17 @@ types:
         type: string
         description: The token of the continuation
         displayName: continuation-token
+    responses:
+      200:
+        description: The node list
+        body:
+          application/json:
+            type: NodeList
+      500:
+        description: Error
+        body:
+          application/json:
+            type: ErrorModel
 /Partitions:
   /{partitionId}:
     uriParameters:
@@ -2121,6 +2759,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The partition health
+              body:
+                application/json:
+                  type: PartitionHealth
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetLoadInformation:
         get:
           description: Get partition load informations
@@ -2129,6 +2778,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The partition load information
+              body:
+                application/json:
+                  type: PartitionLoadInformation
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetReplicas:
         /{replicaId}:
           uriParameters:
@@ -2149,6 +2809,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The replica health
+                    body:
+                      application/json:
+                        type: ReplicaHealth
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /GetLoadInformation:
               get:
                 description: Get replica load informations
@@ -2157,6 +2828,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The replica load information
+                    body:
+                      application/json:
+                        type: ReplicaLoadInformation
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
             /ReportHealth:
               post:
                 description: Send replica healths
@@ -2165,6 +2847,17 @@ types:
                     type: string
                     description: The version of the api
                     displayName: api-version
+                responses:
+                  200:
+                    description: The replica health
+                    body:
+                      application/json:
+                        type: string
+                  500:
+                    description: Error
+                    body:
+                      application/json:
+                        type: ErrorModel
           get:
             description: Get replicas
             queryParameters:
@@ -2172,6 +2865,17 @@ types:
                 type: string
                 description: The version of the api
                 displayName: api-version
+            responses:
+              200:
+                description: The replica
+                body:
+                  application/json:
+                    type: Replica
+              500:
+                description: Error
+                body:
+                  application/json:
+                    type: ErrorModel
         get:
           description: List replicas
           queryParameters:
@@ -2179,6 +2883,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The replica list
+              body:
+                application/json:
+                  type: ReplicaList
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /Recover:
         post:
           description: Repair partitions
@@ -2187,6 +2902,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The repair partition
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ReportHealth:
         post:
           description: Send partition health
@@ -2195,6 +2921,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The partition health
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ResetLoad:
         post:
           description: Reset partition loads
@@ -2203,6 +2940,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The reset partition load
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
 /Services:
   /{serviceName}:
     uriParameters:
@@ -2219,6 +2967,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetDescription:
         get:
           description: Get service descriptions
@@ -2227,6 +2986,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service description
+              body:
+                application/json:
+                  type: ServiceDescription
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetHealth:
         get:
           description: Get service healths
@@ -2235,6 +3005,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service health
+              body:
+                application/json:
+                  type: ServiceHealth
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /GetPartitions:
         /$:
           /Recover:
@@ -2245,6 +3026,17 @@ types:
                   type: string
                   description: The version of the api
                   displayName: api-version
+              responses:
+                200:
+                  description: The repair partition
+                  body:
+                    application/json:
+                      type: string
+                500:
+                  description: Error
+                  body:
+                    application/json:
+                      type: ErrorModel
         /{partitionId}:
           uriParameters:
             partitionId:
@@ -2258,6 +3050,17 @@ types:
                 type: string
                 description: The version of the api
                 displayName: api-version
+            responses:
+              200:
+                description: The partitions
+                body:
+                  application/json:
+                    type: Partition
+              500:
+                description: Error
+                body:
+                  application/json:
+                    type: ErrorModel
         get:
           description: List partitions
           queryParameters:
@@ -2265,6 +3068,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The partitions
+              body:
+                application/json:
+                  type: PartitionList
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ReportHealth:
         post:
           description: Send service healths
@@ -2273,6 +3087,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service health
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /ResolvePartition:
         get:
           description: Resolve services
@@ -2293,6 +3118,17 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The partition
+              body:
+                application/json:
+                  type: ResolvedServicePartition
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel
       /Update:
         post:
           description: Update services
@@ -2301,3 +3137,14 @@ types:
               type: string
               description: The version of the api
               displayName: api-version
+          responses:
+            200:
+              description: The service update description
+              body:
+                application/json:
+                  type: string
+            500:
+              description: Error
+              body:
+                application/json:
+                  type: ErrorModel

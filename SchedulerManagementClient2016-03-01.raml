@@ -562,6 +562,14 @@ types:
                 type: string
                 description: The API version.
                 displayName: api-version
+            responses:
+              200:
+                description: The job collections have been successfully returned.
+                body:
+                  application/json:
+                    type: JobCollectionListResult
+                  text/json:
+                    type: JobCollectionListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -586,6 +594,11 @@ types:
                         type: string
                         description: The API version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: All of the jobs in the job collection have been successfully disabled.
+                      202:
+                        description: Accepted and the disable job collection operation will complete asynchronously.
                 /enable:
                   post:
                     description: Enables all of the jobs in the job collection.
@@ -594,6 +607,11 @@ types:
                         type: string
                         description: The API version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: All of the jobs in the job collection have been successfully enabled.
+                      202:
+                        description: Accepted and the enable job collection operation will complete asynchronously.
                 /jobs:
                   /{jobName}:
                     uriParameters:
@@ -623,6 +641,14 @@ types:
                             type: string
                             description: The filter to apply on the job state.
                             displayName: $filter
+                        responses:
+                          200:
+                            description: The job histories have been successfully returned.
+                            body:
+                              application/json:
+                                type: JobHistoryListResult
+                              text/json:
+                                type: JobHistoryListResult
                     /run:
                       post:
                         description: Runs a job.
@@ -631,6 +657,9 @@ types:
                             type: string
                             description: The API version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: The job has been successfully run.
                     get:
                       description: Gets a job.
                       queryParameters:
@@ -638,6 +667,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The job has been successfully returned.
+                          body:
+                            application/json:
+                              type: JobDefinition
+                            text/json:
+                              type: JobDefinition
                     delete:
                       description: Deletes a job.
                       queryParameters:
@@ -645,6 +682,9 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The job has been successfully deleted.
                     patch:
                       description: Patches an existing job.
                       queryParameters:
@@ -655,6 +695,14 @@ types:
                       body:
                         application/json: JobDefinition
                         text/json: JobDefinition
+                      responses:
+                        200:
+                          description: The job has been successfully patched.
+                          body:
+                            application/json:
+                              type: JobDefinition
+                            text/json:
+                              type: JobDefinition
                     put:
                       description: Provisions a new job or updates an existing job.
                       queryParameters:
@@ -665,6 +713,21 @@ types:
                       body:
                         application/json: JobDefinition
                         text/json: JobDefinition
+                      responses:
+                        200:
+                          description: The job has been successfully updated.
+                          body:
+                            application/json:
+                              type: JobDefinition
+                            text/json:
+                              type: JobDefinition
+                        201:
+                          description: The job has been successfully created.
+                          body:
+                            application/json:
+                              type: JobDefinition
+                            text/json:
+                              type: JobDefinition
                   get:
                     description: Lists all jobs under the specified job collection.
                     queryParameters:
@@ -686,6 +749,14 @@ types:
                         type: string
                         description: The filter to apply on the job state.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: The job has been successfully returned.
+                        body:
+                          application/json:
+                            type: JobListResult
+                          text/json:
+                            type: JobListResult
                 get:
                   description: Gets a job collection.
                   queryParameters:
@@ -693,6 +764,14 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: The job collection has been successfully returned.
+                      body:
+                        application/json:
+                          type: JobCollectionDefinition
+                        text/json:
+                          type: JobCollectionDefinition
                 delete:
                   description: Deletes a job collection.
                   queryParameters:
@@ -700,6 +779,11 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: The job collection has been successfully deleted.
+                    202:
+                      description: Accepted and the delete job collection operation will complete asynchronously.
                 patch:
                   description: Patches an existing job collection.
                   queryParameters:
@@ -710,6 +794,14 @@ types:
                   body:
                     application/json: JobCollectionDefinition
                     text/json: JobCollectionDefinition
+                  responses:
+                    200:
+                      description: The job collection has been successfully patched.
+                      body:
+                        application/json:
+                          type: JobCollectionDefinition
+                        text/json:
+                          type: JobCollectionDefinition
                 put:
                   description: Provisions a new job collection or updates an existing job collection.
                   queryParameters:
@@ -720,6 +812,21 @@ types:
                   body:
                     application/json: JobCollectionDefinition
                     text/json: JobCollectionDefinition
+                  responses:
+                    200:
+                      description: The job collection has been successfully updated.
+                      body:
+                        application/json:
+                          type: JobCollectionDefinition
+                        text/json:
+                          type: JobCollectionDefinition
+                    201:
+                      description: The job collection has been successfully created.
+                      body:
+                        application/json:
+                          type: JobCollectionDefinition
+                        text/json:
+                          type: JobCollectionDefinition
               get:
                 description: Gets all job collections under specified resource group.
                 queryParameters:
@@ -727,3 +834,11 @@ types:
                     type: string
                     description: The API version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: The job collections have been successfully returned.
+                    body:
+                      application/json:
+                        type: JobCollectionListResult
+                      text/json:
+                        type: JobCollectionListResult

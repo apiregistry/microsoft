@@ -895,6 +895,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: The contacts for the vault certificates.
+          body:
+            application/json:
+              type: Contacts
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
     delete:
       description: Deletes the certificate contacts for the specified vault.
       queryParameters:
@@ -902,6 +913,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: The contacts for the vault certificates.
+          body:
+            application/json:
+              type: Contacts
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
     put:
       description: Sets the certificate contacts for the specified vault.
       queryParameters:
@@ -911,6 +933,17 @@ types:
           displayName: api-version
       body:
         application/json: Contacts
+      responses:
+        200:
+          description: The contacts for the vault certificates.
+          body:
+            application/json:
+              type: Contacts
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   /issuers:
     /{issuer-name}:
       uriParameters:
@@ -925,6 +958,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The issuer for the vault certificates.
+            body:
+              application/json:
+                type: IssuerBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       delete:
         description: Deletes the specified certificate issuer.
         queryParameters:
@@ -932,6 +976,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The issuer for the vault certificates.
+            body:
+              application/json:
+                type: IssuerBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates the specified certificate issuer.
         queryParameters:
@@ -941,6 +996,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateIssuerUpdateParameters
+        responses:
+          200:
+            description: The issuer for the vault certificates.
+            body:
+              application/json:
+                type: IssuerBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       put:
         description: Sets the specified certificate issuer.
         queryParameters:
@@ -950,6 +1016,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateIssuerSetParameters
+        responses:
+          200:
+            description: The issuer for the vault certificates.
+            body:
+              application/json:
+                type: IssuerBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     get:
       description: List certificate issuers for the specified vault.
       queryParameters:
@@ -964,6 +1041,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: A response message containing a list of certificates issuers in the vault along with a link to the next page of certificate issuers
+          body:
+            application/json:
+              type: CertificateIssuerListResult
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   /{certificate-name}:
     uriParameters:
       certificate-name:
@@ -980,6 +1068,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateCreateParameters
+        responses:
+          202:
+            description: Created certificate bundle to the vault
+            body:
+              application/json:
+                type: CertificateOperation
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /import:
       post:
         description: Imports a certificate into the specified vault
@@ -990,6 +1089,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateImportParameters
+        responses:
+          200:
+            description: Imported certificate bundle to the vault
+            body:
+              application/json:
+                type: CertificateBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /pending:
       /merge:
         post:
@@ -1001,6 +1111,17 @@ types:
               displayName: api-version
           body:
             application/json: CertificateMergeParameters
+          responses:
+            201:
+              description: Merged certificate bundle to the vault
+              body:
+                application/json:
+                  type: CertificateBundle
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       get:
         description: Gets the certificate operation response.
         queryParameters:
@@ -1008,6 +1129,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The certificate operation response.
+            body:
+              application/json:
+                type: CertificateOperation
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       delete:
         description: Deletes the certificate operation.
         queryParameters:
@@ -1015,6 +1147,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: A message containing the certificate operation response.
+            body:
+              application/json:
+                type: CertificateOperation
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates a certificate operation.
         queryParameters:
@@ -1024,6 +1167,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateOperationUpdateParameter
+        responses:
+          200:
+            description: A message containing the certificate operation response.
+            body:
+              application/json:
+                type: CertificateOperation
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /policy:
       get:
         description: Gets the policy for a certificate.
@@ -1032,6 +1186,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The certificate policy
+            body:
+              application/json:
+                type: CertificatePolicy
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates the policy for a certificate. Set appropriate members in the certificatePolicy that must be updated. Leave others as null.
         queryParameters:
@@ -1041,6 +1206,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificatePolicy
+        responses:
+          200:
+            description: The certificate policy
+            body:
+              application/json:
+                type: CertificatePolicy
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /versions:
       get:
         description: List the versions of a certificate.
@@ -1056,6 +1232,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: A response message containing a list of certificates in the vault along with a link to the next page of keys
+            body:
+              application/json:
+                type: CertificateListResult
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /{certificate-version}:
       uriParameters:
         certificate-version:
@@ -1069,6 +1256,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The retrieved certificate
+            body:
+              application/json:
+                type: CertificateBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates the attributes associated with the specified certificate
         queryParameters:
@@ -1078,6 +1276,17 @@ types:
             displayName: api-version
         body:
           application/json: CertificateUpdateParameters
+        responses:
+          200:
+            description: The updated certificate
+            body:
+              application/json:
+                type: CertificateBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     delete:
       description: Deletes a certificate from the specified vault.
       queryParameters:
@@ -1085,6 +1294,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: The deleted certificate
+          body:
+            application/json:
+              type: CertificateBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   get:
     description: List certificates in the specified vault
     queryParameters:
@@ -1099,6 +1319,17 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: A response message containing a list of certificates in the vault along with a link to the next page of certificates
+        body:
+          application/json:
+            type: CertificateListResult
+      500:
+        description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+        body:
+          application/json:
+            type: KeyVaultError
 /keys:
   /restore:
     post:
@@ -1110,6 +1341,17 @@ types:
           displayName: api-version
       body:
         application/json: KeyRestoreParameters
+      responses:
+        200:
+          description: Restored key bundle in the vault
+          body:
+            application/json:
+              type: KeyBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   /{key-name}:
     uriParameters:
       key-name:
@@ -1124,6 +1366,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The backup blob containing the backed up key
+            body:
+              application/json:
+                type: BackupKeyResult
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /create:
       post:
         description: Creates a new, named, key in the specified vault.
@@ -1134,6 +1387,17 @@ types:
             displayName: api-version
         body:
           application/json: KeyCreateParameters
+        responses:
+          200:
+            description: A key bundle containing the result of the create request
+            body:
+              application/json:
+                type: KeyBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /versions:
       get:
         description: List the versions of the specified key
@@ -1149,6 +1413,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: A response message containing a list of keys along with a link to the next page of keys
+            body:
+              application/json:
+                type: KeyListResult
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /{key-version}:
       uriParameters:
         key-version:
@@ -1165,6 +1440,17 @@ types:
               displayName: api-version
           body:
             application/json: KeyOperationsParameters
+          responses:
+            200:
+              description: The decryption result
+              body:
+                application/json:
+                  type: KeyOperationResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       /encrypt:
         post:
           description: Encrypts an arbitrary sequence of bytes using an encryption key that is stored in Azure Key Vault.
@@ -1175,6 +1461,17 @@ types:
               displayName: api-version
           body:
             application/json: KeyOperationsParameters
+          responses:
+            200:
+              description: The encryption result
+              body:
+                application/json:
+                  type: KeyOperationResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       /sign:
         post:
           description: Creates a signature from a digest using the specified key in the vault
@@ -1185,6 +1482,17 @@ types:
               displayName: api-version
           body:
             application/json: KeySignParameters
+          responses:
+            200:
+              description: The signature value
+              body:
+                application/json:
+                  type: KeyOperationResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       /unwrapkey:
         post:
           description: Unwraps a symmetric key using the specified key in the vault that has initially been used for wrapping the key.
@@ -1195,6 +1503,17 @@ types:
               displayName: api-version
           body:
             application/json: KeyOperationsParameters
+          responses:
+            200:
+              description: The unwrapped symmetric key
+              body:
+                application/json:
+                  type: KeyOperationResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       /verify:
         post:
           description: Verifies a signature using the specified key
@@ -1205,6 +1524,17 @@ types:
               displayName: api-version
           body:
             application/json: KeyVerifyParameters
+          responses:
+            200:
+              description: The verification result
+              body:
+                application/json:
+                  type: KeyVerifyResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       /wrapkey:
         post:
           description: Wraps a symmetric key using the specified key
@@ -1215,6 +1545,17 @@ types:
               displayName: api-version
           body:
             application/json: KeyOperationsParameters
+          responses:
+            200:
+              description: The wrapped symmetric key
+              body:
+                application/json:
+                  type: KeyOperationResult
+            500:
+              description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+              body:
+                application/json:
+                  type: KeyVaultError
       get:
         description: Retrieves the public portion of a key plus its attributes
         queryParameters:
@@ -1222,6 +1563,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: A Key bundle of the key and its attributes
+            body:
+              application/json:
+                type: KeyBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates the Key Attributes associated with the specified key
         queryParameters:
@@ -1231,6 +1583,17 @@ types:
             displayName: api-version
         body:
           application/json: KeyUpdateParameters
+        responses:
+          200:
+            description: The updated key
+            body:
+              application/json:
+                type: KeyBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     delete:
       description: Deletes the specified key
       queryParameters:
@@ -1238,6 +1601,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: The public part of the deleted key
+          body:
+            application/json:
+              type: KeyBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
     put:
       description: Imports a key into the specified vault
       queryParameters:
@@ -1247,6 +1621,17 @@ types:
           displayName: api-version
       body:
         application/json: KeyImportParameters
+      responses:
+        200:
+          description: Imported key bundle to the vault
+          body:
+            application/json:
+              type: KeyBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   get:
     description: List keys in the specified vault
     queryParameters:
@@ -1261,6 +1646,17 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: A response message containing a list of keys in the vault along with a link to the next page of keys
+        body:
+          application/json:
+            type: KeyListResult
+      500:
+        description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+        body:
+          application/json:
+            type: KeyVaultError
 /secrets:
   /{secret-name}:
     uriParameters:
@@ -1283,6 +1679,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: A response message containing a list of secrets along with a link to the next page of secrets
+            body:
+              application/json:
+                type: SecretListResult
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     /{secret-version}:
       uriParameters:
         secret-version:
@@ -1296,6 +1703,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: The retrieved secret
+            body:
+              application/json:
+                type: SecretBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
       patch:
         description: Updates the attributes associated with the specified secret
         queryParameters:
@@ -1305,6 +1723,17 @@ types:
             displayName: api-version
         body:
           application/json: SecretUpdateParameters
+        responses:
+          200:
+            description: The updated secret
+            body:
+              application/json:
+                type: SecretBundle
+          500:
+            description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: KeyVaultError
     delete:
       description: Deletes a secret from the specified vault.
       queryParameters:
@@ -1312,6 +1741,17 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: The deleted secret
+          body:
+            application/json:
+              type: SecretBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
     put:
       description: Sets a secret in the specified vault.
       queryParameters:
@@ -1321,6 +1761,17 @@ types:
           displayName: api-version
       body:
         application/json: SecretSetParameters
+      responses:
+        200:
+          description: A secret bundle containing the result of the secret set request
+          body:
+            application/json:
+              type: SecretBundle
+        500:
+          description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+          body:
+            application/json:
+              type: KeyVaultError
   get:
     description: List secrets in the specified vault
     queryParameters:
@@ -1335,3 +1786,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: A response message containing a list of secrets in the vault along with a link to the next page of secrets
+        body:
+          application/json:
+            type: SecretListResult
+      500:
+        description: Default Response. It will be deserialized as per the Error definition specified in the schema. Exception will be thrown.
+        body:
+          application/json:
+            type: KeyVaultError

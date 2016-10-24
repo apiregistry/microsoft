@@ -127,6 +127,12 @@ types:
                 type: string
                 description: Client API Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: AnalysisServicesServers
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -157,6 +163,11 @@ types:
                         type: string
                         description: Client API Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                      202:
+                        description: Accepted
                 /suspend:
                   post:
                     description: Supends the specified Analysis Services server instance
@@ -165,6 +176,11 @@ types:
                         type: string
                         description: Client API Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                      202:
+                        description: Accepted
                 get:
                   description: Gets details about the specified Analysis Services server
                   queryParameters:
@@ -172,6 +188,12 @@ types:
                       type: string
                       description: Client API Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: AnalysisServicesServer
                 delete:
                   description: Deletes the specified Analysis Services server.
                   queryParameters:
@@ -179,6 +201,13 @@ types:
                       type: string
                       description: Client API Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    202:
+                      description: Accepted
+                    204:
+                      description: No Content
                 patch:
                   description: Updates the current state of the specified Analysis Services server
                   queryParameters:
@@ -188,6 +217,12 @@ types:
                       displayName: api-version
                   body:
                     application/json: AnalysisServicesServerUpdateParameters
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: AnalysisServicesServer
                 put:
                   description: Provisions the specified Analysis Services server based on the configuration specified in the request
                   queryParameters:
@@ -197,6 +232,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: AnalysisServicesServer
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: AnalysisServicesServer
+                    201:
+                      description: InProgress
+                      body:
+                        application/json:
+                          type: AnalysisServicesServer
               get:
                 description: Gets all the Analysis Services servers for the given resource group
                 queryParameters:
@@ -204,3 +250,9 @@ types:
                     type: string
                     description: Client API Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: AnalysisServicesServers

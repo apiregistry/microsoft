@@ -221,6 +221,17 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: Request completed successfully
+            body:
+              application/json:
+                type: OperationList
+          500:
+            description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+            body:
+              application/json:
+                type: Error
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -247,6 +258,17 @@ types:
                     displayName: api-version
                 body:
                   application/json: CheckNameRequest
+                responses:
+                  200:
+                    description: Request completed successfully
+                    body:
+                      application/json:
+                        type: CheckNameResponse
+                  500:
+                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                    body:
+                      application/json:
+                        type: Error
         /workspaceCollections:
           get:
             description: Retrieves all existing Power BI Workspace Collections in the specified subscription.
@@ -255,6 +277,17 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Get workspaces response
+                body:
+                  application/json:
+                    type: WorkspaceCollectionList
+              500:
+                description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                body:
+                  application/json:
+                    type: Error
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -272,6 +305,14 @@ types:
                 displayName: api-version
             body:
               application/json: MigrateWorkspaceCollectionRequest
+            responses:
+              200:
+                description: Migration completed successfully
+              500:
+                description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                body:
+                  application/json:
+                    type: Error
         /providers:
           /Microsoft.PowerBI:
             /workspaceCollections:
@@ -289,6 +330,17 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Get access keys completed successfully
+                        body:
+                          application/json:
+                            type: WorkspaceCollectionAccessKeys
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
                 /regenerateKey:
                   post:
                     description: Regenerates the primary or secondary access key for the specified Power BI Workspace Collection.
@@ -299,6 +351,17 @@ types:
                         displayName: api-version
                     body:
                       application/json: WorkspaceCollectionAccessKey
+                    responses:
+                      200:
+                        description: Get access keys completed successfully
+                        body:
+                          application/json:
+                            type: WorkspaceCollectionAccessKeys
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
                 /workspaces:
                   get:
                     description: Retrieves all existing Power BI Workspaces in the specified Workspace Collection.
@@ -307,6 +370,17 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Get workspaces completed successfully
+                        body:
+                          application/json:
+                            type: WorkspaceList
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
                 get:
                   description: Retrieves an existing Power BI Workspace Collection.
                   queryParameters:
@@ -314,6 +388,17 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Workspace collection created successfully
+                      body:
+                        application/json:
+                          type: WorkspaceCollection
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
                 delete:
                   description: Delete a Power BI Workspace Collection.
                   queryParameters:
@@ -321,6 +406,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    202:
+                      description: Workspace collection deleted successfully
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
                 patch:
                   description: Update an existing Power BI Workspace Collection with the specified properties.
                   queryParameters:
@@ -330,6 +423,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: UpdateWorkspaceCollectionRequest
+                  responses:
+                    200:
+                      description: Workspace collection updated successfully
+                      body:
+                        application/json:
+                          type: WorkspaceCollection
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
                 put:
                   description: Creates a new Power BI Workspace Collection with the specified properties. A Power BI Workspace Collection contains one or more Power BI Workspaces and can be used to provision keys that provide API access to those Power BI Workspaces.
                   queryParameters:
@@ -339,6 +443,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: CreateWorkspaceCollectionRequest
+                  responses:
+                    200:
+                      description: Workspace collection created successfully
+                      body:
+                        application/json:
+                          type: WorkspaceCollection
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
               get:
                 description: Retrieves all existing Power BI Workspace Collections in the specified resource group.
                 queryParameters:
@@ -346,3 +461,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Get workspaces response
+                    body:
+                      application/json:
+                        type: WorkspaceCollectionList
+                  500:
+                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                    body:
+                      application/json:
+                        type: Error

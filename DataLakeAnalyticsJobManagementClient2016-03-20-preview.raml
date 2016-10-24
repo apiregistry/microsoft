@@ -408,6 +408,16 @@ types:
       application/json: JobInformation
       text/json: JobInformation
       application/octet-stream: JobInformation
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: JobInformation
+          text/json:
+            type: JobInformation
+          application/octet-stream:
+            type: JobInformation
 /Jobs:
   /{jobIdentity}:
     uriParameters:
@@ -423,6 +433,9 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
     /GetDebugDataPath:
       post:
         description: Gets the job debug data information specified by the job ID.
@@ -431,6 +444,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: JobDataPath
+              text/json:
+                type: JobDataPath
+              application/octet-stream:
+                type: JobDataPath
     /GetStatistics:
       get:
         description: Gets statistics of the specified job.
@@ -439,6 +462,16 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: JobStatistics
+              text/json:
+                type: JobStatistics
+              application/octet-stream:
+                type: JobStatistics
     get:
       description: Gets the job information for the specified job ID.
       queryParameters:
@@ -446,6 +479,16 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: JobInformation
+            text/json:
+              type: JobInformation
+            application/octet-stream:
+              type: JobInformation
     put:
       description: Submits a job to the specified Data Lake Analytics account.
       queryParameters:
@@ -457,6 +500,16 @@ types:
         application/json: JobInformation
         text/json: JobInformation
         application/octet-stream: JobInformation
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: JobInformation
+            text/json:
+              type: JobInformation
+            application/octet-stream:
+              type: JobInformation
   get:
     description: Lists the jobs, if any, associated with the specified Data Lake Analytics account. The response includes a link to the next page of results, if any.
     queryParameters:
@@ -502,3 +555,13 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: JobInfoListResult
+          text/json:
+            type: JobInfoListResult
+          application/octet-stream:
+            type: JobInfoListResult

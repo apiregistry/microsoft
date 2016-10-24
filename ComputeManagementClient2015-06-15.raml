@@ -1393,6 +1393,14 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: ''
+                                  body:
+                                    application/json:
+                                      type: VirtualMachineExtensionImage
+                                    text/json:
+                                      type: VirtualMachineExtensionImage
                           get:
                             description: Gets a list of virtual machine extension image versions.
                             queryParameters:
@@ -1411,6 +1419,18 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: ''
+                                body:
+                                  application/json:
+                                    type: array
+                                    items:
+                                      type: VirtualMachineExtensionImage
+                                  text/json:
+                                    type: array
+                                    items:
+                                      type: VirtualMachineExtensionImage
                       get:
                         description: Gets a list of virtual machine extension image types.
                         queryParameters:
@@ -1418,6 +1438,18 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: array
+                                items:
+                                  type: VirtualMachineExtensionImage
+                              text/json:
+                                type: array
+                                items:
+                                  type: VirtualMachineExtensionImage
                   /vmimage:
                     /offers:
                       /{offer}:
@@ -1444,6 +1476,14 @@ types:
                                       type: string
                                       description: Client Api Version.
                                       displayName: api-version
+                                  responses:
+                                    200:
+                                      description: ''
+                                      body:
+                                        application/json:
+                                          type: VirtualMachineImage
+                                        text/json:
+                                          type: VirtualMachineImage
                               get:
                                 description: Gets a list of virtual machine images.
                                 queryParameters:
@@ -1462,6 +1502,18 @@ types:
                                     type: string
                                     description: Client Api Version.
                                     displayName: api-version
+                                responses:
+                                  200:
+                                    description: ''
+                                    body:
+                                      application/json:
+                                        type: array
+                                        items:
+                                          type: VirtualMachineImageResource
+                                      text/json:
+                                        type: array
+                                        items:
+                                          type: VirtualMachineImageResource
                           get:
                             description: Gets a list of virtual machine image skus.
                             queryParameters:
@@ -1469,6 +1521,18 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: ''
+                                body:
+                                  application/json:
+                                    type: array
+                                    items:
+                                      type: VirtualMachineImageResource
+                                  text/json:
+                                    type: array
+                                    items:
+                                      type: VirtualMachineImageResource
                       get:
                         description: Gets a list of virtual machine image offers.
                         queryParameters:
@@ -1476,6 +1540,18 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: array
+                                items:
+                                  type: VirtualMachineImageResource
+                              text/json:
+                                type: array
+                                items:
+                                  type: VirtualMachineImageResource
               get:
                 description: Gets a list of virtual machine image publishers.
                 queryParameters:
@@ -1483,6 +1559,18 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: array
+                        items:
+                          type: VirtualMachineImageResource
+                      text/json:
+                        type: array
+                        items:
+                          type: VirtualMachineImageResource
             /usages:
               get:
                 description: Lists compute usages for a subscription.
@@ -1491,6 +1579,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ListUsagesResult
+                      text/json:
+                        type: ListUsagesResult
             /vmSizes:
               get:
                 description: Lists all available virtual machine sizes for a subscription in a location.
@@ -1499,6 +1595,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualMachineSizeListResult
+                      text/json:
+                        type: VirtualMachineSizeListResult
         /virtualMachineScaleSets:
           get:
             description: Gets the list of Virtual Machine Scale Sets in the subscription. Use nextLink property in the response to get the next page of Virtual Machine Scale Sets. Do this till nextLink is not null to fetch all the Virtual Machine Scale Sets.
@@ -1507,6 +1611,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: VirtualMachineScaleSetListWithLinkResult
+                  text/json:
+                    type: VirtualMachineScaleSetListWithLinkResult
         /virtualMachines:
           get:
             description: Gets the list of Virtual Machines in the subscription. Use nextLink property in the response to get the next page of Virtual Machines. Do this till nextLink is not null to fetch all the Virtual Machines.
@@ -1515,6 +1627,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: VirtualMachineListResult
+                  text/json:
+                    type: VirtualMachineListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1539,6 +1659,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineSizeListResult
+                          text/json:
+                            type: VirtualMachineSizeListResult
                 get:
                   description: The operation to get the availability set.
                   queryParameters:
@@ -1546,6 +1674,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: AvailabilitySet
+                        text/json:
+                          type: AvailabilitySet
                 delete:
                   description: The operation to delete the availability set.
                   queryParameters:
@@ -1553,6 +1689,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    204:
+                      description: ''
               /{name}:
                 uriParameters:
                   name:
@@ -1569,6 +1710,14 @@ types:
                   body:
                     application/json: AvailabilitySet
                     text/json: AvailabilitySet
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: AvailabilitySet
+                        text/json:
+                          type: AvailabilitySet
               get:
                 description: The operation to list the availability sets.
                 queryParameters:
@@ -1576,6 +1725,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: AvailabilitySetListResult
+                      text/json:
+                        type: AvailabilitySetListResult
             /virtualMachineScaleSets:
               /{name}:
                 uriParameters:
@@ -1593,6 +1750,21 @@ types:
                   body:
                     application/json: VirtualMachineScaleSet
                     text/json: VirtualMachineScaleSet
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachineScaleSet
+                        text/json:
+                          type: VirtualMachineScaleSet
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachineScaleSet
+                        text/json:
+                          type: VirtualMachineScaleSet
               /{virtualMachineScaleSetName}:
                 uriParameters:
                   virtualMachineScaleSetName:
@@ -1619,6 +1791,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineScaleSetVMListResult
+                          text/json:
+                            type: VirtualMachineScaleSetVMListResult
               /{vmScaleSetName}:
                 uriParameters:
                   vmScaleSetName:
@@ -1636,6 +1816,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceIDs
                       text/json: VirtualMachineScaleSetVMInstanceIDs
+                    responses:
+                      202:
+                        description: ''
                 /delete:
                   post:
                     description: The operation to delete virtual machines in a virtual machine scale set.
@@ -1647,6 +1830,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceRequiredIDs
                       text/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                    responses:
+                      202:
+                        description: ''
                 /instanceView:
                   get:
                     description: The operation to get a virtual machine scale set instance view.
@@ -1655,6 +1841,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineScaleSetInstanceView
+                          text/json:
+                            type: VirtualMachineScaleSetInstanceView
                 /manualupgrade:
                   post:
                     description: The operation to manually upgrade virtual machines in a virtual machine scale set.
@@ -1666,6 +1860,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceRequiredIDs
                       text/json: VirtualMachineScaleSetVMInstanceRequiredIDs
+                    responses:
+                      202:
+                        description: ''
                 /poweroff:
                   post:
                     description: The operation to power off (stop) virtual machines in a virtual machine scale set.
@@ -1677,6 +1874,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceIDs
                       text/json: VirtualMachineScaleSetVMInstanceIDs
+                    responses:
+                      202:
+                        description: ''
                 /reimage:
                   post:
                     description: The operation to re-image virtual machines in a virtual machine scale set.
@@ -1685,6 +1885,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /restart:
                   post:
                     description: The operation to restart virtual machines in a virtual machine scale set.
@@ -1696,6 +1899,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceIDs
                       text/json: VirtualMachineScaleSetVMInstanceIDs
+                    responses:
+                      202:
+                        description: ''
                 /skus:
                   get:
                     description: The operation to list available skus for a virtual machine scale set.
@@ -1704,6 +1910,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineScaleSetListSkusResult
+                          text/json:
+                            type: VirtualMachineScaleSetListSkusResult
                 /start:
                   post:
                     description: The operation to start virtual machines in a virtual machine scale set.
@@ -1715,6 +1929,9 @@ types:
                     body:
                       application/json: VirtualMachineScaleSetVMInstanceIDs
                       text/json: VirtualMachineScaleSetVMInstanceIDs
+                    responses:
+                      202:
+                        description: ''
                 /virtualmachines:
                   /{instanceId}:
                     uriParameters:
@@ -1730,6 +1947,9 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          202:
+                            description: ''
                     /instanceView:
                       get:
                         description: The operation to get a virtual machine scale set virtual machine.
@@ -1738,6 +1958,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: VirtualMachineScaleSetVMInstanceView
+                              text/json:
+                                type: VirtualMachineScaleSetVMInstanceView
                     /poweroff:
                       post:
                         description: The operation to power off (stop) a virtual machine scale set.
@@ -1746,6 +1974,9 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          202:
+                            description: ''
                     /reimage:
                       post:
                         description: The operation to re-image a virtual machine scale set instance.
@@ -1754,6 +1985,9 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          202:
+                            description: ''
                     /restart:
                       post:
                         description: The operation to restart a virtual machine scale set.
@@ -1762,6 +1996,9 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          202:
+                            description: ''
                     /start:
                       post:
                         description: The operation to start a virtual machine scale set.
@@ -1770,6 +2007,9 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          202:
+                            description: ''
                     get:
                       description: The operation to get a virtual machine scale set virtual machine.
                       queryParameters:
@@ -1777,6 +2017,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: VirtualMachineScaleSetVM
+                            text/json:
+                              type: VirtualMachineScaleSetVM
                     delete:
                       description: The operation to delete a virtual machine scale set.
                       queryParameters:
@@ -1784,6 +2032,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                 get:
                   description: The operation to get a virtual machine scale set.
                   queryParameters:
@@ -1791,6 +2046,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachineScaleSet
+                        text/json:
+                          type: VirtualMachineScaleSet
                 delete:
                   description: The operation to delete a virtual machine scale set.
                   queryParameters:
@@ -1798,6 +2061,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
               get:
                 description: The operation to list virtual machine scale sets under a resource group.
                 queryParameters:
@@ -1805,6 +2075,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualMachineScaleSetListResult
+                      text/json:
+                        type: VirtualMachineScaleSetListResult
             /virtualMachines:
               /{vmName}:
                 uriParameters:
@@ -1823,6 +2101,16 @@ types:
                     body:
                       application/json: VirtualMachineCaptureParameters
                       text/json: VirtualMachineCaptureParameters
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineCaptureResult
+                          text/json:
+                            type: VirtualMachineCaptureResult
+                      202:
+                        description: ''
                 /deallocate:
                   post:
                     description: Shuts down the Virtual Machine and releases the compute resources. You are not billed for the compute resources that this Virtual Machine uses.
@@ -1831,6 +2119,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /extensions:
                   /{vmExtensionName}:
                     uriParameters:
@@ -1849,6 +2140,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: VirtualMachineExtension
+                            text/json:
+                              type: VirtualMachineExtension
                     delete:
                       description: The operation to delete the extension.
                       queryParameters:
@@ -1856,6 +2155,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The operation to create or update the extension.
                       queryParameters:
@@ -1866,6 +2170,21 @@ types:
                       body:
                         application/json: VirtualMachineExtension
                         text/json: VirtualMachineExtension
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: VirtualMachineExtension
+                            text/json:
+                              type: VirtualMachineExtension
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: VirtualMachineExtension
+                            text/json:
+                              type: VirtualMachineExtension
                 /generalize:
                   post:
                     description: Sets the state of the VM as Generalized.
@@ -1874,6 +2193,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
                 /powerOff:
                   post:
                     description: The operation to power off (stop) a virtual machine.
@@ -1882,6 +2204,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /redeploy:
                   post:
                     description: The operation to redeploy a virtual machine.
@@ -1890,6 +2215,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /restart:
                   post:
                     description: The operation to restart a virtual machine.
@@ -1898,6 +2226,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /start:
                   post:
                     description: The operation to start a virtual machine.
@@ -1906,6 +2237,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      202:
+                        description: ''
                 /vmSizes:
                   get:
                     description: Lists all available virtual machine sizes it can be resized to for a virtual machine.
@@ -1914,6 +2248,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualMachineSizeListResult
+                          text/json:
+                            type: VirtualMachineSizeListResult
                 get:
                   description: The operation to get a virtual machine.
                   queryParameters:
@@ -1927,6 +2269,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachine
+                        text/json:
+                          type: VirtualMachine
                 delete:
                   description: The operation to delete a virtual machine.
                   queryParameters:
@@ -1934,6 +2284,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The operation to create or update a virtual machine.
                   queryParameters:
@@ -1944,6 +2299,21 @@ types:
                   body:
                     application/json: VirtualMachine
                     text/json: VirtualMachine
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachine
+                        text/json:
+                          type: VirtualMachine
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualMachine
+                        text/json:
+                          type: VirtualMachine
               get:
                 description: The operation to list virtual machines under a resource group.
                 queryParameters:
@@ -1951,3 +2321,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualMachineListResult
+                      text/json:
+                        type: VirtualMachineListResult

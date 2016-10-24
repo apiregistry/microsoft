@@ -495,6 +495,17 @@ types:
             displayName: api-version
         body:
           application/json: CheckNameAvailabilityInput
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: CheckNameAvailabilityOutput
+          500:
+            description: CDN error response describing why the operation failed.
+            body:
+              application/json:
+                type: ErrorResponse
     /operations:
       get:
         displayName: Lists all of the available CDN REST API operations.
@@ -503,6 +514,17 @@ types:
             type: string
             description: Version of the API to be used with the client request. Current version is 2015-06-01
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: OperationListResult
+          500:
+            description: CDN error response describing why the operation failed.
+            body:
+              application/json:
+                type: ErrorResponse
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -520,6 +542,17 @@ types:
                 type: string
                 description: Version of the API to be used with the client request. Current version is 2015-06-01
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ProfileListResult
+              500:
+                description: CDN error response describing why the operation failed.
+                body:
+                  application/json:
+                    type: ErrorResponse
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -557,6 +590,17 @@ types:
                               type: string
                               description: Version of the API to be used with the client request. Current version is 2015-06-01
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: CustomDomain
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         delete:
                           displayName: Deletes an existing CDN custom domain within an endpoint.
                           queryParameters:
@@ -564,6 +608,21 @@ types:
                               type: string
                               description: Version of the API to be used with the client request. Current version is 2015-06-01
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                            202:
+                              description: Accepted and the operation will complete asynchronously.
+                              body:
+                                application/json:
+                                  type: CustomDomain
+                            204:
+                              description: No Content
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         patch:
                           displayName: Updates an existing CDN custom domain within an endpoint.
                           queryParameters:
@@ -573,6 +632,12 @@ types:
                               displayName: api-version
                           body:
                             application/json: CustomDomainParameters
+                          responses:
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         put:
                           displayName: Creates a new CDN custom domain within an endpoint.
                           queryParameters:
@@ -582,6 +647,27 @@ types:
                               displayName: api-version
                           body:
                             application/json: CustomDomainParameters
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: CustomDomain
+                            201:
+                              description: Created
+                              body:
+                                application/json:
+                                  type: CustomDomain
+                            202:
+                              description: Accepted and the operation will complete asynchronously.
+                              body:
+                                application/json:
+                                  type: CustomDomain
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                       get:
                         displayName: Lists the existing CDN custom domains within an endpoint.
                         queryParameters:
@@ -589,6 +675,17 @@ types:
                             type: string
                             description: Version of the API to be used with the client request. Current version is 2015-06-01
                             displayName: api-version
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: CustomDomainListResult
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /load:
                       post:
                         displayName: Forcibly pre-loads CDN endpoint content.
@@ -599,6 +696,14 @@ types:
                             displayName: api-version
                         body:
                           application/json: LoadParameters
+                        responses:
+                          202:
+                            description: Accepted and the operation will complete asynchronously.
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /origins:
                       /{originName}:
                         uriParameters:
@@ -613,6 +718,17 @@ types:
                               type: string
                               description: Version of the API to be used with the client request. Current version is 2015-06-01
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Origin
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         delete:
                           displayName: Deletes an existing CDN origin within an endpoint.
                           queryParameters:
@@ -620,6 +736,19 @@ types:
                               type: string
                               description: Version of the API to be used with the client request. Current version is 2015-06-01
                               displayName: api-version
+                          responses:
+                            202:
+                              description: Accepted and the operation will complete asynchronously.
+                              body:
+                                application/json:
+                                  type: Origin
+                            204:
+                              description: No Content
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         patch:
                           displayName: Updates an existing CDN origin within an endpoint.
                           queryParameters:
@@ -629,6 +758,22 @@ types:
                               displayName: api-version
                           body:
                             application/json: OriginParameters
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Origin
+                            202:
+                              description: Accepted and the operation will complete asynchronously.
+                              body:
+                                application/json:
+                                  type: Origin
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                         put:
                           displayName: Creates a new CDN origin within an endpoint.
                           queryParameters:
@@ -638,6 +783,27 @@ types:
                               displayName: api-version
                           body:
                             application/json: OriginParameters
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: Origin
+                            201:
+                              description: Created
+                              body:
+                                application/json:
+                                  type: Origin
+                            202:
+                              description: Accepted and the operation will complete asynchronously.
+                              body:
+                                application/json:
+                                  type: Origin
+                            500:
+                              description: CDN error response describing why the operation failed.
+                              body:
+                                application/json:
+                                  type: ErrorResponse
                       get:
                         displayName: Lists the existing CDN origins within an endpoint.
                         queryParameters:
@@ -645,6 +811,17 @@ types:
                             type: string
                             description: Version of the API to be used with the client request. Current version is 2015-06-01
                             displayName: api-version
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: OriginListResult
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /purge:
                       post:
                         displayName: Forcibly purges CDN endpoint content.
@@ -655,6 +832,14 @@ types:
                             displayName: api-version
                         body:
                           application/json: PurgeParameters
+                        responses:
+                          202:
+                            description: Accepted and the operation will complete asynchronously.
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /start:
                       post:
                         displayName: Starts an existing stopped CDN endpoint.
@@ -663,6 +848,17 @@ types:
                             type: string
                             description: Version of the API to be used with the client request. Current version is 2015-06-01
                             displayName: api-version
+                        responses:
+                          202:
+                            description: Accepted and the operation will complete asynchronously.
+                            body:
+                              application/json:
+                                type: Endpoint
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /stop:
                       post:
                         displayName: Stops an existing running CDN endpoint.
@@ -671,6 +867,17 @@ types:
                             type: string
                             description: Version of the API to be used with the client request. Current version is 2015-06-01
                             displayName: api-version
+                        responses:
+                          202:
+                            description: Accepted and the operation will complete asynchronously.
+                            body:
+                              application/json:
+                                type: Endpoint
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     /validateCustomDomain:
                       post:
                         displayName: Validates a custom domain mapping to ensure it maps to the correct CNAME in DNS.
@@ -681,6 +888,17 @@ types:
                             displayName: api-version
                         body:
                           application/json: ValidateCustomDomainInput
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: ValidateCustomDomainOutput
+                          500:
+                            description: CDN error response describing why the operation failed.
+                            body:
+                              application/json:
+                                type: ErrorResponse
                     get:
                       displayName: Gets an existing CDN endpoint with the specified parameters.
                       queryParameters:
@@ -688,6 +906,17 @@ types:
                           type: string
                           description: Version of the API to be used with the client request. Current version is 2015-06-01
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Endpoint
+                        500:
+                          description: CDN error response describing why the operation failed.
+                          body:
+                            application/json:
+                              type: ErrorResponse
                     delete:
                       displayName: Deletes an existing CDN endpoint with the specified parameters.
                       queryParameters:
@@ -695,6 +924,16 @@ types:
                           type: string
                           description: Version of the API to be used with the client request. Current version is 2015-06-01
                           displayName: api-version
+                      responses:
+                        202:
+                          description: Accepted
+                        204:
+                          description: No Content
+                        500:
+                          description: CDN error response describing why the operation failed.
+                          body:
+                            application/json:
+                              type: ErrorResponse
                     patch:
                       displayName: Updates an existing CDN endpoint with the specified parameters. Only tags and OriginHostHeader can be updated after creating an endpoint. To update origins, use the Update Origin operation. To update custom domains, use the Update Custom Domain operation.
                       queryParameters:
@@ -704,6 +943,22 @@ types:
                           displayName: api-version
                       body:
                         application/json: EndpointUpdateParameters
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Endpoint
+                        202:
+                          description: Accepted and  the operation will complete asynchronously
+                          body:
+                            application/json:
+                              type: Endpoint
+                        500:
+                          description: CDN error response describing why the operation failed
+                          body:
+                            application/json:
+                              type: ErrorResponse
                     put:
                       displayName: Creates a new CDN endpoint with the specified parameters.
                       queryParameters:
@@ -713,6 +968,27 @@ types:
                           displayName: api-version
                       body:
                         application/json: EndpointCreateParameters
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: Endpoint
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: Endpoint
+                        202:
+                          description: Accepted and the operation will complete asynchronously.
+                          body:
+                            application/json:
+                              type: Endpoint
+                        500:
+                          description: CDN error response describing why the operation failed.
+                          body:
+                            application/json:
+                              type: ErrorResponse
                   get:
                     displayName: Lists existing CDN endpoints within a profile.
                     queryParameters:
@@ -720,6 +996,17 @@ types:
                         type: string
                         description: Version of the API to be used with the client request. Current version is 2015-06-01
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: EndpointListResult
+                      500:
+                        description: CDN error response describing why the operation failed.
+                        body:
+                          application/json:
+                            type: ErrorResponse
                 /generateSsoUri:
                   post:
                     displayName: Generates a dynamic SSO URI used to sign in to the CDN Supplemental Portal used for advanced management tasks, such as Country Filtering, Advanced HTTP Reports, and Real-time Stats and Alerts. The SSO URI changes approximately every 10 minutes.
@@ -728,6 +1015,17 @@ types:
                         type: string
                         description: Version of the API to be used with the client request. Current version is 2015-06-01
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: SsoUri
+                      500:
+                        description: CDN error response describing why the operation failed.
+                        body:
+                          application/json:
+                            type: ErrorResponse
                 get:
                   displayName: Gets a CDN profile with the specified parameters.
                   queryParameters:
@@ -735,6 +1033,17 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2015-06-01
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Profile
+                    500:
+                      description: CDN error response describing why the operation failed.
+                      body:
+                        application/json:
+                          type: ErrorResponse
                 delete:
                   displayName: Deletes an existing CDN profile with the specified parameters. Deleting a profile will result in the deletion of all subresources including endpoints, origins and custom domains.
                   queryParameters:
@@ -742,6 +1051,16 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2015-06-01
                       displayName: api-version
+                  responses:
+                    202:
+                      description: Accepted and the operation will complete asynchronously.
+                    204:
+                      description: No Content.
+                    500:
+                      description: CDN error response describing why the operation failed.
+                      body:
+                        application/json:
+                          type: ErrorResponse
                 patch:
                   displayName: Updates an existing CDN profile with the specified parameters.
                   queryParameters:
@@ -751,6 +1070,22 @@ types:
                       displayName: api-version
                   body:
                     application/json: ProfileUpdateParameters
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Profile
+                    202:
+                      description: Accepted and the operation will complete asynchronously.
+                      body:
+                        application/json:
+                          type: Profile
+                    500:
+                      description: CDN error response describing why the operation failed.
+                      body:
+                        application/json:
+                          type: ErrorResponse
                 put:
                   displayName: Creates a new CDN profile with the specified parameters.
                   queryParameters:
@@ -760,6 +1095,27 @@ types:
                       displayName: api-version
                   body:
                     application/json: ProfileCreateParameters
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Profile
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: Profile
+                    202:
+                      description: Accepted and  the operation will complete asynchronously.
+                      body:
+                        application/json:
+                          type: Profile
+                    500:
+                      description: CDN error response describing why the operation failed.
+                      body:
+                        application/json:
+                          type: ErrorResponse
               get:
                 displayName: Lists the CDN profiles within a resource group.
                 queryParameters:
@@ -767,3 +1123,14 @@ types:
                     type: string
                     description: Version of the API to be used with the client request. Current version is 2015-06-01
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: ProfileListResult
+                  500:
+                    description: CDN error response describing why the operation failed.
+                    body:
+                      application/json:
+                        type: ErrorResponse

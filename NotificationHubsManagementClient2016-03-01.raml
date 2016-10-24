@@ -453,6 +453,14 @@ types:
             body:
               application/json: CheckAvailabilityParameters
               text/json: CheckAvailabilityParameters
+            responses:
+              200:
+                description: Checks if the Namespace name is a valid availabile name
+                body:
+                  application/json:
+                    type: CheckAvailabilityResult
+                  text/json:
+                    type: CheckAvailabilityResult
         /namespaces:
           get:
             description: Lists all the available namespaces within the subscription irrespective of the resourceGroups.
@@ -461,6 +469,15 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ' Gets all the Namespaces within the subscription irrespective
+                  of the ResourceGroup'
+                body:
+                  application/json:
+                    type: NamespaceListResult
+                  text/json:
+                    type: NamespaceListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -493,6 +510,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Gets the Namespace AuthorizationRule's Primary keys and Secondary keys along with the ConnectionStrings
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     /regenerateKeys:
                       post:
                         description: Regenerates the Primary/Secondary Keys to the Namespace Authorization Rule
@@ -504,6 +529,14 @@ types:
                         body:
                           application/json: PolicykeyResource
                           text/json: PolicykeyResource
+                        responses:
+                          200:
+                            description: Regenerate the Primary/Secondary Key and returns the Keys and the connection string
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     get:
                       description: Gets an authorization rule for a namespace by name.
                       queryParameters:
@@ -511,6 +544,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Get the Namespace AuthorizationRule
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                     delete:
                       description: Deletes a namespace authorization rule
                       queryParameters:
@@ -518,6 +559,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace AuthorizationRule is deleted
+                        204:
+                          description: Namespace AuthorizationRule is already deleted
                     put:
                       description: Creates an authorization rule for a namespace
                       queryParameters:
@@ -528,6 +574,14 @@ types:
                       body:
                         application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                         text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Namespace Authorization Rule is Created/Updated
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                   get:
                     description: Gets the authorization rules for a namespace.
                     queryParameters:
@@ -535,6 +589,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Get the Namespace AuthorizationRule
+                        body:
+                          application/json:
+                            type: SharedAccessAuthorizationRuleListResult
+                          text/json:
+                            type: SharedAccessAuthorizationRuleListResult
                 /checkNotificationHubAvailability:
                   post:
                     description: Checks the availability of the given notificationHub in a namespace.
@@ -546,6 +608,14 @@ types:
                     body:
                       application/json: CheckAvailabilityParameters
                       text/json: CheckAvailabilityParameters
+                    responses:
+                      200:
+                        description: Checks if the NotificationHub name is a valid availabile name
+                        body:
+                          application/json:
+                            type: CheckAvailabilityResult
+                          text/json:
+                            type: CheckAvailabilityResult
                 /notificationHubs:
                   /{notificationHubName}:
                     uriParameters:
@@ -569,6 +639,14 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Gets the Namespace AuthorizationRule's Primary keys and Secondary keys along with the ConnectionStrings
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         /regenerateKeys:
                           post:
                             description: Regenerates the Primary/Secondary Keys to the NotificationHub Authorization Rule
@@ -580,6 +658,14 @@ types:
                             body:
                               application/json: PolicykeyResource
                               text/json: PolicykeyResource
+                            responses:
+                              200:
+                                description: Regenerate the Primary/Secondary Key and returns the Keys and the connection string
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         get:
                           description: Gets an authorization rule for a NotificationHub by name.
                           queryParameters:
@@ -587,6 +673,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Get NotificationHub AuthorizationRule
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                         delete:
                           description: Deletes a notificationHub authorization rule
                           queryParameters:
@@ -594,6 +688,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: NotificationHub AuthorizationRule is deleted
+                            204:
+                              description: NotificationHub AuthorizationRule is already deleted
                         put:
                           description: Creates/Updates an authorization rule for a NotificationHub
                           queryParameters:
@@ -604,6 +703,14 @@ types:
                           body:
                             application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                             text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: NotificationHub AuthorizationRule is Created/Updated
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                       get:
                         description: Gets the authorization rules for a NotificationHub.
                         queryParameters:
@@ -611,6 +718,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Get all NotificationHub AuthorizationRules
+                            body:
+                              application/json:
+                                type: SharedAccessAuthorizationRuleListResult
+                              text/json:
+                                type: SharedAccessAuthorizationRuleListResult
                     /pnsCredentials:
                       post:
                         description: Lists the PNS Credentials associated with a notification hub .
@@ -619,6 +734,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Gets all the NotificationHub PNS credentials
+                            body:
+                              application/json:
+                                type: PnsCredentialsResource
+                              text/json:
+                                type: PnsCredentialsResource
                     get:
                       description: Lists the notification hubs associated with a namespace.
                       queryParameters:
@@ -626,6 +749,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Get the NotificationHub
+                          body:
+                            application/json:
+                              type: NotificationHubResource
+                            text/json:
+                              type: NotificationHubResource
                     delete:
                       description: Deletes a notification hub associated with a namespace.
                       queryParameters:
@@ -633,6 +764,9 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace is deleted
                     put:
                       description: Creates/Update a NotificationHub in a namespace.
                       queryParameters:
@@ -643,6 +777,21 @@ types:
                       body:
                         application/json: NotificationHubCreateOrUpdateParameters
                         text/json: NotificationHubCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: NotificationHub is Created/Updated
+                          body:
+                            application/json:
+                              type: NotificationHubResource
+                            text/json:
+                              type: NotificationHubResource
+                        201:
+                          description: NotificationHub is Created/Updated
+                          body:
+                            application/json:
+                              type: NotificationHubResource
+                            text/json:
+                              type: NotificationHubResource
                   get:
                     description: Lists the notification hubs associated with a namespace.
                     queryParameters:
@@ -650,6 +799,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Get all NotificationHubs within a Namespace
+                        body:
+                          application/json:
+                            type: NotificationHubListResult
+                          text/json:
+                            type: NotificationHubListResult
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -657,6 +814,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Get Namespace
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
                 delete:
                   description: Deletes an existing namespace. This operation also removes all associated notificationHubs under the namespace.
                   queryParameters:
@@ -664,6 +829,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Namespace is deleted
+                    202:
+                      description: Namespace delete request has been accepted
+                    204:
+                      description: Namespace is already Deleted
                 patch:
                   description: Patches the existing namespace
                   queryParameters:
@@ -674,6 +846,14 @@ types:
                   body:
                     application/json: NamespacePatchParameters
                     text/json: NamespacePatchParameters
+                  responses:
+                    200:
+                      description: Namespace is Updated
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
                 put:
                   description: Creates/Updates a service namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.
                   queryParameters:
@@ -684,6 +864,21 @@ types:
                   body:
                     application/json: NamespaceCreateOrUpdateParameters
                     text/json: NamespaceCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: Namespace is Create/Update
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
+                    201:
+                      description: Namespace is Create/Update
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
               get:
                 description: Lists the available namespaces within a resourceGroup.
                 queryParameters:
@@ -691,3 +886,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Lists all Namespaces with the ResourceGroup
+                    body:
+                      application/json:
+                        type: NamespaceListResult
+                      text/json:
+                        type: NamespaceListResult

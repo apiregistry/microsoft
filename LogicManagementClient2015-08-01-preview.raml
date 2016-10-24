@@ -1594,6 +1594,14 @@ types:
                 description: The number of items to be included in the result.
                 displayName: $top
                 format: int32
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: IntegrationAccountListResult
+                  text/json:
+                    type: IntegrationAccountListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1624,6 +1632,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountAgreement
+                            text/json:
+                              type: IntegrationAccountAgreement
                     delete:
                       description: Deletes an integration account agreement.
                       queryParameters:
@@ -1631,6 +1647,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates an integration account agreement.
                       queryParameters:
@@ -1641,6 +1662,21 @@ types:
                       body:
                         application/json: IntegrationAccountAgreement
                         text/json: IntegrationAccountAgreement
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountAgreement
+                            text/json:
+                              type: IntegrationAccountAgreement
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: IntegrationAccountAgreement
+                            text/json:
+                              type: IntegrationAccountAgreement
                   get:
                     description: Gets a list of integration account agreements.
                     queryParameters:
@@ -1657,6 +1693,14 @@ types:
                         type: string
                         description: The filter to apply on the operation.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IntegrationAccountAgreementListResult
+                          text/json:
+                            type: IntegrationAccountAgreementListResult
                 /certificates:
                   /{certificateName}:
                     uriParameters:
@@ -1671,6 +1715,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountCertificate
+                            text/json:
+                              type: IntegrationAccountCertificate
                     delete:
                       description: Deletes an integration account certificate.
                       queryParameters:
@@ -1678,6 +1730,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates an integration account certificate.
                       queryParameters:
@@ -1688,6 +1745,21 @@ types:
                       body:
                         application/json: IntegrationAccountCertificate
                         text/json: IntegrationAccountCertificate
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountCertificate
+                            text/json:
+                              type: IntegrationAccountCertificate
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: IntegrationAccountCertificate
+                            text/json:
+                              type: IntegrationAccountCertificate
                   get:
                     description: Gets a list of integration account certificates.
                     queryParameters:
@@ -1700,6 +1772,14 @@ types:
                         description: The number of items to be included in the result.
                         displayName: $top
                         format: int32
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IntegrationAccountCertificateListResult
+                          text/json:
+                            type: IntegrationAccountCertificateListResult
                 /listCallbackUrl:
                   post:
                     description: Lists the integration account callback URL.
@@ -1711,6 +1791,14 @@ types:
                     body:
                       application/json: ListCallbackUrlParameters
                       text/json: ListCallbackUrlParameters
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: CallbackUrl
+                          text/json:
+                            type: CallbackUrl
                 /maps:
                   /{mapName}:
                     uriParameters:
@@ -1725,6 +1813,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountMap
+                            text/json:
+                              type: IntegrationAccountMap
                     delete:
                       description: Deletes an integration account map.
                       queryParameters:
@@ -1732,6 +1828,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates an integration account map.
                       queryParameters:
@@ -1742,6 +1843,21 @@ types:
                       body:
                         application/json: IntegrationAccountMap
                         text/json: IntegrationAccountMap
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountMap
+                            text/json:
+                              type: IntegrationAccountMap
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: IntegrationAccountMap
+                            text/json:
+                              type: IntegrationAccountMap
                   get:
                     description: Gets a list of integration account maps.
                     queryParameters:
@@ -1758,6 +1874,14 @@ types:
                         type: string
                         description: The filter to apply on the operation.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IntegrationAccountMapListResult
+                          text/json:
+                            type: IntegrationAccountMapListResult
                 /partners:
                   /{partnerName}:
                     uriParameters:
@@ -1772,6 +1896,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountPartner
+                            text/json:
+                              type: IntegrationAccountPartner
                     delete:
                       description: Deletes an integration account partner.
                       queryParameters:
@@ -1779,6 +1911,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates an integration account partner.
                       queryParameters:
@@ -1789,6 +1926,21 @@ types:
                       body:
                         application/json: IntegrationAccountPartner
                         text/json: IntegrationAccountPartner
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountPartner
+                            text/json:
+                              type: IntegrationAccountPartner
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: IntegrationAccountPartner
+                            text/json:
+                              type: IntegrationAccountPartner
                   get:
                     description: Gets a list of integration account partners.
                     queryParameters:
@@ -1805,6 +1957,14 @@ types:
                         type: string
                         description: The filter to apply on the operation.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IntegrationAccountPartnerListResult
+                          text/json:
+                            type: IntegrationAccountPartnerListResult
                 /schemas:
                   /{schemaName}:
                     uriParameters:
@@ -1819,6 +1979,14 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountSchema
+                            text/json:
+                              type: IntegrationAccountSchema
                     delete:
                       description: Deletes an integration account schema.
                       queryParameters:
@@ -1826,6 +1994,11 @@ types:
                           type: string
                           description: The API version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                        204:
+                          description: No Content
                     put:
                       description: Creates or updates an integration account schema.
                       queryParameters:
@@ -1836,6 +2009,21 @@ types:
                       body:
                         application/json: IntegrationAccountSchema
                         text/json: IntegrationAccountSchema
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: IntegrationAccountSchema
+                            text/json:
+                              type: IntegrationAccountSchema
+                        201:
+                          description: Created
+                          body:
+                            application/json:
+                              type: IntegrationAccountSchema
+                            text/json:
+                              type: IntegrationAccountSchema
                   get:
                     description: Gets a list of integration account schemas.
                     queryParameters:
@@ -1852,6 +2040,14 @@ types:
                         type: string
                         description: The filter to apply on the operation.
                         displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IntegrationAccountSchemaListResult
+                          text/json:
+                            type: IntegrationAccountSchemaListResult
                 get:
                   description: Gets an integration account.
                   queryParameters:
@@ -1859,6 +2055,14 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: IntegrationAccount
+                        text/json:
+                          type: IntegrationAccount
                 delete:
                   description: Deletes an integration account.
                   queryParameters:
@@ -1866,6 +2070,11 @@ types:
                       type: string
                       description: The API version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    204:
+                      description: No Content
                 patch:
                   description: Updates an integration account.
                   queryParameters:
@@ -1876,6 +2085,14 @@ types:
                   body:
                     application/json: IntegrationAccount
                     text/json: IntegrationAccount
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: IntegrationAccount
+                        text/json:
+                          type: IntegrationAccount
                 put:
                   description: Creates or updates an integration account.
                   queryParameters:
@@ -1886,6 +2103,21 @@ types:
                   body:
                     application/json: IntegrationAccount
                     text/json: IntegrationAccount
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: IntegrationAccount
+                        text/json:
+                          type: IntegrationAccount
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: IntegrationAccount
+                        text/json:
+                          type: IntegrationAccount
               get:
                 description: Gets a list of integration accounts by resource group.
                 queryParameters:
@@ -1898,3 +2130,11 @@ types:
                     description: The number of items to be included in the result.
                     displayName: $top
                     format: int32
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: IntegrationAccountListResult
+                      text/json:
+                        type: IntegrationAccountListResult

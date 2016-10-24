@@ -249,6 +249,12 @@ types:
                 type: string
                 description: The version of the Microsoft.MachineLearning resource provider API to use.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: CommitmentPlanListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -282,6 +288,12 @@ types:
                             displayName: api-version
                         body:
                           application/json: MoveCommitmentAssociationRequest
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: CommitmentAssociation
                     get:
                       description: Gets a commitment association.
                       queryParameters:
@@ -289,6 +301,12 @@ types:
                           type: string
                           description: The version of the Microsoft.MachineLearning resource provider API to use.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: CommitmentAssociation
                   get:
                     description: Get all commitment associations for a parent commitment plan.
                     queryParameters:
@@ -300,6 +318,12 @@ types:
                         type: string
                         description: The version of the Microsoft.MachineLearning resource provider API to use.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: CommitmentAssociationListResult
                 /usageHistory:
                   get:
                     description: Retrieves the usage history for an Azure ML commitment plan.
@@ -312,6 +336,12 @@ types:
                         type: string
                         description: The version of the Microsoft.MachineLearning resource provider API to use.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: PlanUsageHistoryListResult
                 get:
                   description: Retrieve an Azure ML commitment plan by its subscription, resource group and name.
                   queryParameters:
@@ -319,6 +349,12 @@ types:
                       type: string
                       description: The version of the Microsoft.MachineLearning resource provider API to use.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: CommitmentPlan
                 delete:
                   description: Remove an existing Azure ML commitment plan.
                   queryParameters:
@@ -326,6 +362,9 @@ types:
                       type: string
                       description: The version of the Microsoft.MachineLearning resource provider API to use.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
                 patch:
                   description: Patch an existing Azure ML commitment plan resource.
                   queryParameters:
@@ -335,6 +374,12 @@ types:
                       displayName: api-version
                   body:
                     application/json: CommitmentPlanPatchPayload
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: CommitmentPlan
                 put:
                   description: Creates a new Azure ML commitment plan resource or updates an existing one.
                   queryParameters:
@@ -344,6 +389,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: CommitmentPlan
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: CommitmentPlan
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: CommitmentPlan
               get:
                 description: Retrieve all Azure ML commitment plans in a resource group.
                 queryParameters:
@@ -355,3 +411,9 @@ types:
                     type: string
                     description: The version of the Microsoft.MachineLearning resource provider API to use.
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: CommitmentPlanListResult

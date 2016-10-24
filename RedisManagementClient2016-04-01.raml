@@ -282,6 +282,14 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: RedisListResult
+                    text/json:
+                      type: RedisListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -300,6 +308,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisListResult
+                        text/json:
+                          type: RedisListResult
               /{name}:
                 uriParameters:
                   name:
@@ -317,6 +333,9 @@ types:
                     body:
                       application/json: ExportRDBParameters
                       text/json: ExportRDBParameters
+                    responses:
+                      202:
+                        description: ''
                 /forceReboot:
                   post:
                     description: Reboot specified redis node(s). This operation requires write permission to the cache resource. There can be potential data loss.
@@ -328,6 +347,11 @@ types:
                     body:
                       application/json: RedisRebootParameters
                       text/json: RedisRebootParameters
+                    responses:
+                      200:
+                        description: ''
+                      204:
+                        description: ''
                 /import:
                   post:
                     description: Import data into redis cache.
@@ -339,6 +363,9 @@ types:
                     body:
                       application/json: ImportRDBParameters
                       text/json: ImportRDBParameters
+                    responses:
+                      202:
+                        description: ''
                 /listKeys:
                   post:
                     description: Retrieve a redis cache's access keys. This operation requires write permission to the cache resource.
@@ -347,6 +374,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Lists the keys for Redis Cache
+                        body:
+                          application/json:
+                            type: RedisAccessKeys
+                          text/json:
+                            type: RedisAccessKeys
                 /patchSchedules:
                   /default:
                     get:
@@ -356,6 +391,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Response of Get patch schedules.
+                          body:
+                            application/json:
+                              type: RedisPatchSchedule
+                            text/json:
+                              type: RedisPatchSchedule
+                        404:
+                          description: Response if patch schedules does not exist.
                     delete:
                       description: Deletes the patching schedule for redis cache.
                       queryParameters:
@@ -363,6 +408,9 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
                     put:
                       description: Create or replace the patching schedule for redis cache.
                       queryParameters:
@@ -373,6 +421,14 @@ types:
                       body:
                         application/json: RedisPatchSchedule
                         text/json: RedisPatchSchedule
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: RedisPatchSchedule
+                            text/json:
+                              type: RedisPatchSchedule
                 /regenerateKey:
                   post:
                     description: Regenerate redis cache's access keys. This operation requires write permission to the cache resource.
@@ -384,6 +440,14 @@ types:
                     body:
                       application/json: RedisRegenerateKeyParameters
                       text/json: RedisRegenerateKeyParameters
+                    responses:
+                      200:
+                        description: Lists the regenerated keys for Redis Cache
+                        body:
+                          application/json:
+                            type: RedisAccessKeys
+                          text/json:
+                            type: RedisAccessKeys
                 get:
                   description: Gets a redis cache (resource description).
                   queryParameters:
@@ -391,6 +455,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResource
+                        text/json:
+                          type: RedisResource
                 delete:
                   description: Deletes a redis cache. This operation takes a while to complete.
                   queryParameters:
@@ -398,6 +470,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    204:
+                      description: ''
                 patch:
                   description: Update an existing Redis cache
                   queryParameters:
@@ -408,6 +485,14 @@ types:
                   body:
                     application/json: RedisUpdateParameters
                     text/json: RedisUpdateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResource
+                        text/json:
+                          type: RedisResource
                 put:
                   description: Create or replace (overwrite/recreate, with potential downtime) an existing redis cache
                   queryParameters:
@@ -418,3 +503,13 @@ types:
                   body:
                     application/json: RedisCreateParameters
                     text/json: RedisCreateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResource
+                        text/json:
+                          type: RedisResource
+                    201:
+                      description: ''

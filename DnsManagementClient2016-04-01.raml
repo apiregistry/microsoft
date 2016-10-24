@@ -369,6 +369,21 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ZoneListResult
+                  text/json:
+                    type: ZoneListResult
+              500:
+                description: Default Response. It will be deserialized as per the Error defintion
+                body:
+                  application/json:
+                    type: CloudError
+                  text/json:
+                    type: CloudError
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -397,6 +412,21 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: RecordSetListResult
+                          text/json:
+                            type: RecordSetListResult
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 /{recordType}:
                   uriParameters:
                     recordType:
@@ -426,6 +456,21 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     delete:
                       description: Removes a RecordSet from a DNS zone.
                       queryParameters:
@@ -442,6 +487,18 @@ types:
                           type: string
                           description: Defines the If-None-Match condition. The delete operation will be performed only if the ETag of the zone on the server does not match this value.
                           displayName: If-None-Match
+                      responses:
+                        200:
+                          description: ''
+                        204:
+                          description: ''
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     patch:
                       description: Updates a RecordSet within a DNS zone.
                       queryParameters:
@@ -461,6 +518,21 @@ types:
                       body:
                         application/json: RecordSet
                         text/json: RecordSet
+                      responses:
+                        200:
+                          description: Recordse has been updated successfully
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                     put:
                       description: Creates or Updates a RecordSet within a DNS zone.
                       queryParameters:
@@ -480,6 +552,28 @@ types:
                       body:
                         application/json: RecordSet
                         text/json: RecordSet
+                      responses:
+                        200:
+                          description: Record set has been updated
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
+                        201:
+                          description: Record set has been created
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion
+                          body:
+                            application/json:
+                              type: CloudError
+                            text/json:
+                              type: CloudError
                   get:
                     description: Lists the RecordSets of a specified type in a DNS zone.
                     queryParameters:
@@ -491,6 +585,21 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: RecordSetListResult
+                          text/json:
+                            type: RecordSetListResult
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion
+                        body:
+                          application/json:
+                            type: CloudError
+                          text/json:
+                            type: CloudError
                 get:
                   description: Gets a DNS zone.
                   queryParameters:
@@ -498,6 +607,21 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: Zone
+                        text/json:
+                          type: Zone
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
                 delete:
                   description: Removes a DNS zone from a resource group.
                   queryParameters:
@@ -514,6 +638,25 @@ types:
                       type: string
                       description: Defines the If-None-Match condition. The delete operation will be performed only if the ETag of the zone on the server does not match this value.
                       displayName: If-None-Match
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ZoneDeleteResult
+                        text/json:
+                          type: ZoneDeleteResult
+                    202:
+                      description: ''
+                    204:
+                      description: Zone does not exist
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
                 put:
                   description: Creates or Updates a DNS zone within a resource group.
                   queryParameters:
@@ -533,6 +676,28 @@ types:
                   body:
                     application/json: Zone
                     text/json: Zone
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: Zone
+                        text/json:
+                          type: Zone
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: Zone
+                        text/json:
+                          type: Zone
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion
+                      body:
+                        application/json:
+                          type: CloudError
+                        text/json:
+                          type: CloudError
               get:
                 description: Lists the DNS zones within a resource group.
                 queryParameters:
@@ -544,3 +709,18 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ZoneListResult
+                      text/json:
+                        type: ZoneListResult
+                  500:
+                    description: Default Response. It will be deserialized as per the Error defintion
+                    body:
+                      application/json:
+                        type: CloudError
+                      text/json:
+                        type: CloudError

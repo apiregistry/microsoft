@@ -368,6 +368,14 @@ types:
                       type: string
                       description: API Version
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: ApiEntity
+                        text/json:
+                          type: ApiEntity
               get:
                 description: Gets a list of managed APIs.
                 displayName: List managed Apis
@@ -376,6 +384,14 @@ types:
                     type: string
                     description: API Version
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: ApisCollection
+                      text/json:
+                        type: ApisCollection
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -403,6 +419,14 @@ types:
                     body:
                       application/json: ConfirmConsentCodeInput
                       text/json: ConfirmConsentCodeInput
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: Connection
+                          text/json:
+                            type: Connection
                 /listConnectionKeys:
                   post:
                     description: Lists connection keys.
@@ -414,6 +438,14 @@ types:
                     body:
                       application/json: ListConnectionKeysInput
                       text/json: ListConnectionKeysInput
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ConnectionSecrets
+                          text/json:
+                            type: ConnectionSecrets
                 /listConsentLinks:
                   post:
                     description: Lists consent links of a connection.
@@ -425,6 +457,14 @@ types:
                     body:
                       application/json: ConsentLinkInput
                       text/json: ConsentLinkInput
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ConsentLinkPayload
+                          text/json:
+                            type: ConsentLinkPayload
                 get:
                   description: Gets a connection.
                   queryParameters:
@@ -432,6 +472,14 @@ types:
                       type: string
                       description: API Version
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Connection
+                        text/json:
+                          type: Connection
                 delete:
                   description: Deletes a connection.
                   queryParameters:
@@ -439,6 +487,11 @@ types:
                       type: string
                       description: API Version
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    204:
+                      description: No Content
                 put:
                   description: Creates or updates a connection.
                   queryParameters:
@@ -449,6 +502,21 @@ types:
                   body:
                     application/json: Connection
                     text/json: Connection
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Connection
+                        text/json:
+                          type: Connection
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: Connection
+                        text/json:
+                          type: Connection
               get:
                 description: Gets a list of connections.
                 displayName: Get Connections
@@ -466,3 +534,11 @@ types:
                     type: string
                     description: The filter to apply on the operation.
                     displayName: $filter
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: ConnectionCollection
+                      text/json:
+                        type: ConnectionCollection

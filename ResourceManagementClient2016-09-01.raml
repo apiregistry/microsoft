@@ -666,6 +666,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: Provider
         /unregister:
           post:
             description: Unregisters provider from a subscription.
@@ -674,6 +680,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: Provider
         get:
           description: Gets a resource provider.
           queryParameters:
@@ -685,6 +697,12 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: Provider
       get:
         description: Gets a list of resource providers.
         queryParameters:
@@ -701,6 +719,12 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: ProviderListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -732,6 +756,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ResourceListResult
       /{sourceResourceGroupName}:
         uriParameters:
           sourceResourceGroupName:
@@ -751,6 +781,11 @@ types:
                 displayName: api-version
             body:
               application/json: ResourcesMoveInfo
+            responses:
+              202:
+                description: Accepted
+              204:
+                description: No Content
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -785,6 +820,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: DeploymentOperation
               get:
                 description: Gets a list of deployments operations.
                 queryParameters:
@@ -797,6 +838,12 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: DeploymentOperationsListResult
         /exportTemplate:
           post:
             description: Captures the specified resource group as a template.
@@ -807,6 +854,12 @@ types:
                 displayName: api-version
             body:
               application/json: ExportTemplateRequest
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ResourceGroupExportResult
         /providers:
           /Microsoft.Resources:
             /deployments:
@@ -827,6 +880,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: DeploymentListResult
               /{deploymentName}:
                 uriParameters:
                   deploymentName:
@@ -844,6 +903,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      204:
+                        description: No Content
                 /exportTemplate:
                   post:
                     description: Exports a deployment template.
@@ -852,6 +914,12 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: DeploymentExportResult
                 /validate:
                   post:
                     description: Validate a deployment template.
@@ -862,6 +930,17 @@ types:
                         displayName: api-version
                     body:
                       application/json: Deployment
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: DeploymentValidateResult
+                      400:
+                        description: Bad Request
+                        body:
+                          application/json:
+                            type: DeploymentValidateResult
                 get:
                   description: Get a deployment.
                   queryParameters:
@@ -869,6 +948,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: DeploymentExtended
                 head:
                   description: Checks whether deployment exists.
                   queryParameters:
@@ -876,6 +961,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    204:
+                      description: No Content
+                    404:
+                      description: Not Found
                 delete:
                   description: Delete deployment.
                   queryParameters:
@@ -883,6 +973,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    202:
+                      description: Accepted
+                    204:
+                      description: No Content
                 put:
                   description: Create a named template deployment using a template.
                   queryParameters:
@@ -892,6 +987,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: Deployment
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: DeploymentExtended
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: DeploymentExtended
           /{resourceProviderNamespace}:
             uriParameters:
               resourceProviderNamespace:
@@ -923,6 +1029,12 @@ types:
                         type: string
                         description: Api version to use.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: GenericResource
                   head:
                     description: Checks whether resource exists.
                     queryParameters:
@@ -930,6 +1042,11 @@ types:
                         type: string
                         description: Api version to use.
                         displayName: api-version
+                    responses:
+                      204:
+                        description: No Content
+                      404:
+                        description: Not Found
                   delete:
                     description: Deletes a resource.
                     queryParameters:
@@ -937,6 +1054,13 @@ types:
                         type: string
                         description: Api version to use.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                      202:
+                        description: Accepted
+                      204:
+                        description: No Content
                   put:
                     description: Create a resource.
                     queryParameters:
@@ -946,6 +1070,19 @@ types:
                         displayName: api-version
                     body:
                       application/json: GenericResource
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: GenericResource
+                      201:
+                        description: Created
+                        body:
+                          application/json:
+                            type: GenericResource
+                      202:
+                        description: Accepted
         get:
           description: Get a resource group.
           queryParameters:
@@ -953,6 +1090,12 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: ResourceGroup
         head:
           description: Checks whether resource group exists.
           queryParameters:
@@ -960,6 +1103,11 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            204:
+              description: No Content
+            404:
+              description: Not Found
         delete:
           description: Delete resource group.
           queryParameters:
@@ -967,6 +1115,11 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+            202:
+              description: Accepted
         patch:
           description: 'Resource groups can be updated through a simple PATCH operation
             to a group address. The format of the request is the same as that for
@@ -979,6 +1132,12 @@ types:
               displayName: api-version
           body:
             application/json: ResourceGroup
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: ResourceGroup
         put:
           description: Create a resource group.
           queryParameters:
@@ -988,6 +1147,17 @@ types:
               displayName: api-version
           body:
             application/json: ResourceGroup
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: ResourceGroup
+            201:
+              description: Created
+              body:
+                application/json:
+                  type: ResourceGroup
       get:
         description: Gets a collection of resource groups.
         queryParameters:
@@ -1004,6 +1174,12 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: ResourceGroupListResult
     /resources:
       get:
         description: Get all of the resources under a subscription.
@@ -1025,6 +1201,12 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: ResourceListResult
     /tagNames:
       /{tagName}:
         uriParameters:
@@ -1046,6 +1228,11 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: OK
+                204:
+                  description: No Content
             put:
               description: Create a subscription resource tag value.
               queryParameters:
@@ -1053,6 +1240,17 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: OK
+                  body:
+                    application/json:
+                      type: TagValue
+                201:
+                  description: Created
+                  body:
+                    application/json:
+                      type: TagValue
         delete:
           description: Delete a subscription resource tag.
           queryParameters:
@@ -1060,6 +1258,11 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+            204:
+              description: No Content
         put:
           description: Create a subscription resource tag.
           queryParameters:
@@ -1067,6 +1270,17 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: TagDetails
+            201:
+              description: Created
+              body:
+                application/json:
+                  type: TagDetails
       get:
         description: Get a list of subscription resource tags.
         queryParameters:
@@ -1074,6 +1288,12 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: TagsListResult
 /{resourceId}:
   uriParameters:
     resourceId:
@@ -1087,6 +1307,12 @@ types:
         type: string
         description: Api version to use.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: GenericResource
   head:
     description: Checks whether resource exists.
     queryParameters:
@@ -1094,6 +1320,11 @@ types:
         type: string
         description: Api version to use.
         displayName: api-version
+    responses:
+      204:
+        description: No Content
+      404:
+        description: Not Found
   delete:
     description: Deletes a resource.
     queryParameters:
@@ -1101,6 +1332,13 @@ types:
         type: string
         description: Api version to use.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+      202:
+        description: Accepted
+      204:
+        description: No Content
   put:
     description: Create a resource.
     queryParameters:
@@ -1110,3 +1348,16 @@ types:
         displayName: api-version
     body:
       application/json: GenericResource
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: GenericResource
+      201:
+        description: Created
+        body:
+          application/json:
+            type: GenericResource
+      202:
+        description: Accepted

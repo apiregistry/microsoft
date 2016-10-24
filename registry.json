@@ -7,7 +7,7 @@
     "org" : "Microsoft",
     "version" : "2016-05-16",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AzureAnalysisServices2016-05-16.raml",
     "kind" : null
   }, {
@@ -15,7 +15,7 @@
     "org" : "Microsoft",
     "version" : "2015-07-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AuthorizationManagementClient2015-07-01.raml",
     "kind" : null
   }, {
@@ -23,7 +23,7 @@
     "org" : "Microsoft",
     "version" : "2015-12-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/BatchManagement2015-12-01.raml",
     "kind" : null
   }, {
@@ -31,7 +31,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/CdnManagementClient2015-06-01.raml",
     "kind" : null
   }, {
@@ -39,7 +39,7 @@
     "org" : "Microsoft",
     "version" : "2016-04-02",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/CdnManagementClient2016-04-02.raml",
     "kind" : null
   }, {
@@ -47,7 +47,7 @@
     "org" : "Microsoft",
     "version" : "2016-10-02",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/CdnManagementClient2016-10-02.raml",
     "kind" : null
   }, {
@@ -55,7 +55,7 @@
     "org" : "Microsoft",
     "version" : "2016-02-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/CognitiveServicesManagementClient2016-02-01-preview.raml",
     "kind" : null
   }, {
@@ -63,7 +63,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/UsageManagementClient2015-06-01-preview.raml",
     "kind" : null
   }, {
@@ -71,7 +71,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-15",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ComputeManagementClient2015-06-15.raml",
     "kind" : null
   }, {
@@ -79,7 +79,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ContainerServiceClient2015-11-01-preview.raml",
     "kind" : null
   }, {
@@ -87,7 +87,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-30",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ComputeManagementClient2016-03-30.raml",
     "kind" : null
   }, {
@@ -95,7 +95,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-30",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ContainerServiceClient2016-03-30.raml",
     "kind" : null
   }, {
@@ -103,7 +103,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ComputeManagementConvenienceClient2015-11-01.raml",
     "kind" : null
   }, {
@@ -111,7 +111,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeAnalyticsAccountManagementClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -119,7 +119,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeAnalyticsCatalogManagementClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -127,7 +127,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeAnalyticsCatalogManagementClient2016-06-01-preview.raml",
     "kind" : null
   }, {
@@ -135,7 +135,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeAnalyticsJobManagementClient2015-11-01-preview.raml",
     "kind" : null
   }, {
@@ -143,7 +143,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-20-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeAnalyticsJobManagementClient2016-03-20-preview.raml",
     "kind" : null
   }, {
@@ -151,7 +151,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeStoreAccountManagementClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -159,7 +159,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeStoreFileSystemManagementClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -167,7 +167,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DataLakeStoreFileSystemManagementClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -175,7 +175,7 @@
     "org" : "Microsoft",
     "version" : "2015-05-21-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DevTestLabsClient2015-05-21-preview.raml",
     "kind" : null
   }, {
@@ -183,7 +183,7 @@
     "org" : "Microsoft",
     "version" : "2016-05-15",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DevTestLabsClient2016-05-15.raml",
     "kind" : null
   }, {
@@ -191,7 +191,7 @@
     "org" : "Microsoft",
     "version" : "2015-05-04-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DnsManagementClient2015-05-04-preview.raml",
     "kind" : null
   }, {
@@ -199,7 +199,7 @@
     "org" : "Microsoft",
     "version" : "2016-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/DnsManagementClient2016-04-01.raml",
     "kind" : null
   }, {
@@ -207,7 +207,7 @@
     "org" : "Microsoft",
     "version" : "2015-08-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/EventHubManagementClient2015-08-01.raml",
     "kind" : null
   }, {
@@ -215,7 +215,7 @@
     "org" : "Microsoft",
     "version" : "1.42-previewInternal",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/GraphRbacManagementClient1.42-previewInternal.raml",
     "kind" : null
   }, {
@@ -223,7 +223,7 @@
     "org" : "Microsoft",
     "version" : "1.6",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/GraphRbacManagementClient1.6.raml",
     "kind" : null
   }, {
@@ -231,7 +231,7 @@
     "org" : "Microsoft",
     "version" : "1.6-internal",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/GraphRbacManagementClient1.6-internal.raml",
     "kind" : null
   }, {
@@ -239,7 +239,7 @@
     "org" : "Microsoft",
     "version" : "2015-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsManagementClient2015-04-01.raml",
     "kind" : null
   }, {
@@ -247,7 +247,7 @@
     "org" : "Microsoft",
     "version" : "2015-07-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsManagementClient2015-07-01.raml",
     "kind" : null
   }, {
@@ -255,7 +255,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsManagementClient2016-03-01.raml",
     "kind" : null
   }, {
@@ -263,7 +263,7 @@
     "org" : "Microsoft",
     "version" : "2015-01-14-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/IntuneResourceManagementClient2015-01-14-preview.raml",
     "kind" : null
   }, {
@@ -271,7 +271,7 @@
     "org" : "Microsoft",
     "version" : "2015-01-14-privatepreview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/IntuneResourceManagementClient2015-01-14-privatepreview.raml",
     "kind" : null
   }, {
@@ -279,7 +279,7 @@
     "org" : "Microsoft",
     "version" : "2016-02-03",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/iotHubClient2016-02-03.raml",
     "kind" : null
   }, {
@@ -287,7 +287,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/KeyVaultManagementClient2015-06-01.raml",
     "kind" : null
   }, {
@@ -295,7 +295,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/LogicManagementClient2015-02-01-preview.raml",
     "kind" : null
   }, {
@@ -303,7 +303,7 @@
     "org" : "Microsoft",
     "version" : "2015-08-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/LogicManagementClient2015-08-01-preview.raml",
     "kind" : null
   }, {
@@ -311,7 +311,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/LogicManagementClient2016-06-01.raml",
     "kind" : null
   }, {
@@ -319,7 +319,7 @@
     "org" : "Microsoft",
     "version" : "2016-05-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure ML Commitment Plans Management Client2016-05-01-preview.raml",
     "kind" : null
   }, {
@@ -327,7 +327,7 @@
     "org" : "Microsoft",
     "version" : "2016-05-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure ML Web Services Management Client2016-05-01-preview.raml",
     "kind" : null
   }, {
@@ -335,7 +335,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/MediaServicesManagementClient2015-10-01.raml",
     "kind" : null
   }, {
@@ -343,7 +343,7 @@
     "org" : "Microsoft",
     "version" : "2014-12-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Engagement.ManagementClient2014-12-01.raml",
     "kind" : null
   }, {
@@ -351,7 +351,7 @@
     "org" : "Microsoft",
     "version" : "2015-05-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/NetworkResourceProviderClient2015-05-01-preview.raml",
     "kind" : null
   }, {
@@ -359,7 +359,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-15",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/NetworkManagementClient2015-06-15.raml",
     "kind" : null
   }, {
@@ -367,7 +367,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-30",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/NetworkManagementClient2016-03-30.raml",
     "kind" : null
   }, {
@@ -375,7 +375,7 @@
     "org" : "Microsoft",
     "version" : "2014-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/NotificationHubsManagementClient2014-09-01.raml",
     "kind" : null
   }, {
@@ -383,7 +383,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/NotificationHubsManagementClient2016-03-01.raml",
     "kind" : null
   }, {
@@ -391,7 +391,7 @@
     "org" : "Microsoft",
     "version" : "2016-01-29",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Power BI Embedded Management Client2016-01-29.raml",
     "kind" : null
   }, {
@@ -399,7 +399,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/RecoveryServicesClient2016-06-01.raml",
     "kind" : null
   }, {
@@ -407,7 +407,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/RecoveryServicesBackupClient2016-06-01.raml",
     "kind" : null
   }, {
@@ -415,7 +415,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/RecoveryServicesBackupClient2016-06-01.raml",
     "kind" : null
   }, {
@@ -423,7 +423,7 @@
     "org" : "Microsoft",
     "version" : "2015-08-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/RedisManagementClient2015-08-01.raml",
     "kind" : null
   }, {
@@ -431,7 +431,7 @@
     "org" : "Microsoft",
     "version" : "2016-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/RedisManagementClient2016-04-01.raml",
     "kind" : null
   }, {
@@ -439,7 +439,7 @@
     "org" : "Microsoft",
     "version" : "2015-12-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/FeatureClient2015-12-01.raml",
     "kind" : null
   }, {
@@ -447,7 +447,7 @@
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ManagementLinkClient2016-09-01.raml",
     "kind" : null
   }, {
@@ -455,7 +455,7 @@
     "org" : "Microsoft",
     "version" : "2015-01-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ManagementLockClient2015-01-01.raml",
     "kind" : null
   }, {
@@ -463,7 +463,7 @@
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ManagementLockClient2016-09-01.raml",
     "kind" : null
   }, {
@@ -471,7 +471,7 @@
     "org" : "Microsoft",
     "version" : "2015-10-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/PolicyClient2015-10-01-preview.raml",
     "kind" : null
   }, {
@@ -479,7 +479,7 @@
     "org" : "Microsoft",
     "version" : "2016-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/PolicyClient2016-04-01.raml",
     "kind" : null
   }, {
@@ -487,7 +487,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ResourceManagementClient2015-11-01.raml",
     "kind" : null
   }, {
@@ -495,7 +495,7 @@
     "org" : "Microsoft",
     "version" : "2016-02-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ResourceManagementClient2016-02-01.raml",
     "kind" : null
   }, {
@@ -503,7 +503,7 @@
     "org" : "Microsoft",
     "version" : "2016-07-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ResourceManagementClient2016-07-01.raml",
     "kind" : null
   }, {
@@ -511,7 +511,7 @@
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ResourceManagementClient2016-09-01.raml",
     "kind" : null
   }, {
@@ -519,7 +519,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SubscriptionClient2015-11-01.raml",
     "kind" : null
   }, {
@@ -527,7 +527,7 @@
     "org" : "Microsoft",
     "version" : "2016-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SubscriptionClient2016-06-01.raml",
     "kind" : null
   }, {
@@ -535,7 +535,7 @@
     "org" : "Microsoft",
     "version" : "2014-08-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SchedulerManagementClient2014-08-01-preview.raml",
     "kind" : null
   }, {
@@ -543,7 +543,7 @@
     "org" : "Microsoft",
     "version" : "2016-01-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SchedulerManagementClient2016-01-01.raml",
     "kind" : null
   }, {
@@ -551,7 +551,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SchedulerManagementClient2016-03-01.raml",
     "kind" : null
   }, {
@@ -559,7 +559,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-28",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SearchManagementClient2015-02-28.raml",
     "kind" : null
   }, {
@@ -567,7 +567,7 @@
     "org" : "Microsoft",
     "version" : "2015-07-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ServerManagement2015-07-01-preview.raml",
     "kind" : null
   }, {
@@ -575,7 +575,7 @@
     "org" : "Microsoft",
     "version" : "2016-07-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ServerManagement2016-07-01-preview.raml",
     "kind" : null
   }, {
@@ -583,7 +583,7 @@
     "org" : "Microsoft",
     "version" : "2015-08-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ServiceBusManagementClient2015-08-01.raml",
     "kind" : null
   }, {
@@ -591,7 +591,7 @@
     "org" : "Microsoft",
     "version" : "2015-05-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SqlManagementClient2015-05-01-preview.raml",
     "kind" : null
   }, {
@@ -599,7 +599,7 @@
     "org" : "Microsoft",
     "version" : "2015-05-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/StorageManagementClient2015-05-01-preview.raml",
     "kind" : null
   }, {
@@ -607,7 +607,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-15",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/StorageManagementClient2015-06-15.raml",
     "kind" : null
   }, {
@@ -615,7 +615,7 @@
     "org" : "Microsoft",
     "version" : "2016-01-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/StorageManagementClient2016-01-01.raml",
     "kind" : null
   }, {
@@ -623,7 +623,7 @@
     "org" : "Microsoft",
     "version" : "2015-11-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/TrafficManagerManagementClient2015-11-01.raml",
     "kind" : null
   }, {
@@ -631,7 +631,7 @@
     "org" : "Microsoft",
     "version" : "2015-08-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebSite Management Client2015-08-01.raml",
     "kind" : null
   }, {
@@ -639,87 +639,87 @@
     "org" : "Microsoft",
     "version" : "2015-08-01-preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/LogicAppsManagementClient2015-08-01-preview.raml",
     "kind" : null
   }, {
-    "name" : "AppServiceCertificateOrders API Swagger",
+    "name" : "AppServiceCertificateOrders API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceCertificateOrders API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceCertificateOrders API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Certificates API Swagger",
+    "name" : "Certificates API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Certificates API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Certificates API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Domains API Swagger",
+    "name" : "Domains API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Domains API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Domains API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Recommendations API Swagger",
+    "name" : "Recommendations API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Recommendations API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Recommendations API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : " API Swagger",
+    "name" : " API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "TopLevelDomains API Swagger",
+    "name" : "TopLevelDomains API ",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/TopLevelDomains API Swagger2016-03-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/TopLevelDomains API 2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "WebApps API Swagger",
+    "name" : "WebApps API ",
     "org" : "Microsoft",
     "version" : "2016-08-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebApps API Swagger2016-08-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebApps API 2016-08-01.raml",
     "kind" : null
   }, {
-    "name" : "AppServiceEnvironments API Swagger",
+    "name" : "AppServiceEnvironments API ",
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceEnvironments API Swagger2016-09-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceEnvironments API 2016-09-01.raml",
     "kind" : null
   }, {
-    "name" : "AppServicePlans API Swagger",
+    "name" : "AppServicePlans API ",
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServicePlans API Swagger2016-09-01.raml",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServicePlans API 2016-09-01.raml",
     "kind" : null
   }, {
     "name" : "BatchService",
     "org" : "Microsoft",
     "version" : "2015-12-01.2.2",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/BatchService2015-12-01.2.2.raml",
     "kind" : null
   }, {
@@ -727,7 +727,7 @@
     "org" : "Microsoft",
     "version" : "2016-02-01.3.0",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/BatchService2016-02-01.3.0.raml",
     "kind" : null
   }, {
@@ -735,7 +735,7 @@
     "org" : "Microsoft",
     "version" : "2016-07-01.3.1",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/BatchService2016-07-01.3.1.raml",
     "kind" : null
   }, {
@@ -743,7 +743,7 @@
     "org" : "Microsoft",
     "version" : "2014-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsClient2014-04-01.raml",
     "kind" : null
   }, {
@@ -751,7 +751,7 @@
     "org" : "Microsoft",
     "version" : "2015-04-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsClient2015-04-01.raml",
     "kind" : null
   }, {
@@ -759,7 +759,7 @@
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsClient2016-03-01.raml",
     "kind" : null
   }, {
@@ -767,7 +767,7 @@
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/InsightsClient2016-09-01.raml",
     "kind" : null
   }, {
@@ -775,7 +775,7 @@
     "org" : "Microsoft",
     "version" : "2015-06-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/KeyVaultClient2015-06-01.raml",
     "kind" : null
   }, {
@@ -783,7 +783,7 @@
     "org" : "Microsoft",
     "version" : "2016-10-01",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/KeyVaultClient2016-10-01.raml",
     "kind" : null
   }, {
@@ -791,7 +791,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-28",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SearchIndexClient2015-02-28.raml",
     "kind" : null
   }, {
@@ -799,7 +799,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-28",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SearchServiceClient2015-02-28.raml",
     "kind" : null
   }, {
@@ -807,7 +807,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-28-Preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SearchIndexClient2015-02-28-Preview.raml",
     "kind" : null
   }, {
@@ -815,7 +815,7 @@
     "org" : "Microsoft",
     "version" : "2015-02-28-Preview",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/SearchServiceClient2015-02-28-Preview.raml",
     "kind" : null
   }, {
@@ -823,7 +823,7 @@
     "org" : "Microsoft",
     "version" : "1.0.0",
     "description" : null,
-    "icon" : "favicon.yandex.net/favicon/azure.microsoft.com",
+    "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ServiceFabricClient1.0.0.raml",
     "kind" : null
   } ],

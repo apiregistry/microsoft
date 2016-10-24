@@ -103,6 +103,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Vault
                 delete:
                   description: Deletes a vault.
                   queryParameters:
@@ -110,6 +116,9 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
                 put:
                   description: Creates or updates a Recovery Services vault.
                   queryParameters:
@@ -119,6 +128,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: Vault
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: Vault
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: Vault
               get:
                 displayName: Retrieve a list of Vaults.
                 queryParameters:
@@ -126,3 +146,9 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: VaultList

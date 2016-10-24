@@ -268,6 +268,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ZoneListResult
+                  text/json:
+                    type: ZoneListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -300,6 +308,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: RecordSetListResult
+                          text/json:
+                            type: RecordSetListResult
                 /{recordType}:
                   uriParameters:
                     recordType:
@@ -329,6 +345,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
                     delete:
                       description: Removes a RecordSet from a DNS zone.
                       queryParameters:
@@ -341,6 +365,9 @@ types:
                           type: string
                           description: Defines the If-Match condition. The delete operation will be performed only if the ETag of the zone on the server matches this value.
                           displayName: If-Match
+                      responses:
+                        200:
+                          description: ''
                     put:
                       description: Creates a RecordSet within a DNS zone.
                       queryParameters:
@@ -360,6 +387,16 @@ types:
                       body:
                         application/json: RecordSet
                         text/json: RecordSet
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: RecordSet
+                            text/json:
+                              type: RecordSet
+                        202:
+                          description: ''
                   get:
                     description: Lists the RecordSets of a specified type in a DNS zone.
                     queryParameters:
@@ -375,6 +412,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: RecordSetListResult
+                          text/json:
+                            type: RecordSetListResult
                 get:
                   description: Gets a DNS zone.
                   queryParameters:
@@ -382,6 +427,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: Zone
+                        text/json:
+                          type: Zone
                 delete:
                   description: Removes a DNS zone from a resource group.
                   queryParameters:
@@ -394,6 +447,9 @@ types:
                       type: string
                       description: Defines the If-Match condition. The delete operation will be performed only if the ETag of the zone on the server matches this value.
                       displayName: If-Match
+                  responses:
+                    200:
+                      description: ''
                 put:
                   description: Creates a DNS zone within a resource group.
                   queryParameters:
@@ -413,6 +469,16 @@ types:
                   body:
                     application/json: Zone
                     text/json: Zone
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: Zone
+                        text/json:
+                          type: Zone
+                    202:
+                      description: ''
               get:
                 description: Lists the DNS zones within a resource group.
                 queryParameters:
@@ -428,3 +494,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ZoneListResult
+                      text/json:
+                        type: ZoneListResult

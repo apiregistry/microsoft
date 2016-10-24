@@ -99,3 +99,9 @@ types:
               type: string
               description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
               displayName: $filter
+          responses:
+            200:
+              description: Successful request to get the list of metric definitions
+              body:
+                application/json:
+                  type: MetricDefinitionCollection

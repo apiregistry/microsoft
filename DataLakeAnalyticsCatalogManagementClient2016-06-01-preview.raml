@@ -334,6 +334,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlAssembly
+                    text/json:
+                      type: USqlAssembly
+                    application/octet-stream:
+                      type: USqlAssembly
           get:
             description: Retrieves the list of assemblies from the Data Lake Analytics catalog.
             queryParameters:
@@ -371,6 +381,16 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: USqlAssemblyList
+                  text/json:
+                    type: USqlAssemblyList
+                  application/octet-stream:
+                    type: USqlAssemblyList
         /credentials:
           /{credentialName}:
             uriParameters:
@@ -385,6 +405,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: Successfully retrieved and returned the specified credential (name only) from the specified database.
+                  body:
+                    application/json:
+                      type: USqlCredential
+                    text/json:
+                      type: USqlCredential
+                    application/octet-stream:
+                      type: USqlCredential
             patch:
               description: Modifies the specified credential for use with external data sources in the specified database
               queryParameters:
@@ -396,6 +426,9 @@ types:
                 application/json: DataLakeAnalyticsCatalogCredentialUpdateParameters
                 text/json: DataLakeAnalyticsCatalogCredentialUpdateParameters
                 application/octet-stream: DataLakeAnalyticsCatalogCredentialUpdateParameters
+              responses:
+                200:
+                  description: Successfully updated the specified credential's password in the specified database
             post:
               description: Deletes the specified credential in the specified database
               queryParameters:
@@ -407,6 +440,9 @@ types:
                 application/json: DataLakeAnalyticsCatalogCredentialDeleteParameters
                 text/json: DataLakeAnalyticsCatalogCredentialDeleteParameters
                 application/octet-stream: DataLakeAnalyticsCatalogCredentialDeleteParameters
+              responses:
+                200:
+                  description: Successfully deleted the specified credential from the specified database.
             put:
               description: Creates the specified credential for use with external data sources in the specified database.
               queryParameters:
@@ -418,6 +454,9 @@ types:
                 application/json: DataLakeAnalyticsCatalogCredentialCreateParameters
                 text/json: DataLakeAnalyticsCatalogCredentialCreateParameters
                 application/octet-stream: DataLakeAnalyticsCatalogCredentialCreateParameters
+              responses:
+                200:
+                  description: Successfully created the credential within the specified database.
         /externaldatasources:
           /{externalDataSourceName}:
             uriParameters:
@@ -432,6 +471,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlExternalDataSource
+                    text/json:
+                      type: USqlExternalDataSource
+                    application/octet-stream:
+                      type: USqlExternalDataSource
           get:
             description: Retrieves the list of external data sources from the Data Lake Analytics catalog.
             queryParameters:
@@ -469,6 +518,16 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: USqlExternalDataSourceList
+                  text/json:
+                    type: USqlExternalDataSourceList
+                  application/octet-stream:
+                    type: USqlExternalDataSourceList
         /schemas:
           /{schemaName}:
             uriParameters:
@@ -490,6 +549,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: USqlProcedure
+                        text/json:
+                          type: USqlProcedure
+                        application/octet-stream:
+                          type: USqlProcedure
               get:
                 description: Retrieves the list of procedures from the Data Lake Analytics catalog.
                 queryParameters:
@@ -527,6 +596,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlProcedureList
+                      text/json:
+                        type: USqlProcedureList
+                      application/octet-stream:
+                        type: USqlProcedureList
             /tables:
               /{tableName}:
                 uriParameters:
@@ -548,6 +627,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: USqlTablePartition
+                            text/json:
+                              type: USqlTablePartition
+                            application/octet-stream:
+                              type: USqlTablePartition
                   get:
                     description: Retrieves the list of table partitions from the Data Lake Analytics catalog.
                     queryParameters:
@@ -585,6 +674,16 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: USqlTablePartitionList
+                          text/json:
+                            type: USqlTablePartitionList
+                          application/octet-stream:
+                            type: USqlTablePartitionList
                 /statistics:
                   /{statisticsName}:
                     uriParameters:
@@ -599,6 +698,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: USqlTableStatistics
+                            text/json:
+                              type: USqlTableStatistics
+                            application/octet-stream:
+                              type: USqlTableStatistics
                   get:
                     description: Retrieves the list of table statistics from the Data Lake Analytics catalog.
                     queryParameters:
@@ -636,6 +745,16 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: USqlTableStatisticsList
+                          text/json:
+                            type: USqlTableStatisticsList
+                          application/octet-stream:
+                            type: USqlTableStatisticsList
                 get:
                   description: Retrieves the specified table from the Data Lake Analytics catalog.
                   queryParameters:
@@ -643,6 +762,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: USqlTable
+                        text/json:
+                          type: USqlTable
+                        application/octet-stream:
+                          type: USqlTable
               get:
                 description: Retrieves the list of tables from the Data Lake Analytics catalog.
                 queryParameters:
@@ -680,6 +809,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlTableList
+                      text/json:
+                        type: USqlTableList
+                      application/octet-stream:
+                        type: USqlTableList
             /tabletypes:
               /{tableTypeName}:
                 uriParameters:
@@ -694,6 +833,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: USqlTableType
+                        text/json:
+                          type: USqlTableType
+                        application/octet-stream:
+                          type: USqlTableType
               get:
                 description: Retrieves the list of table types from the Data Lake Analytics catalog.
                 queryParameters:
@@ -731,6 +880,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlTableTypeList
+                      text/json:
+                        type: USqlTableTypeList
+                      application/octet-stream:
+                        type: USqlTableTypeList
             /tablevaluedfunctions:
               /{tableValuedFunctionName}:
                 uriParameters:
@@ -745,6 +904,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: USqlTableValuedFunction
+                        text/json:
+                          type: USqlTableValuedFunction
+                        application/octet-stream:
+                          type: USqlTableValuedFunction
               get:
                 description: Retrieves the list of table valued functions from the Data Lake Analytics catalog.
                 queryParameters:
@@ -782,6 +951,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlTableValuedFunctionList
+                      text/json:
+                        type: USqlTableValuedFunctionList
+                      application/octet-stream:
+                        type: USqlTableValuedFunctionList
             /types:
               get:
                 description: Retrieves the list of types within the specified database and schema from the Data Lake Analytics catalog.
@@ -820,6 +999,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlTypeList
+                      text/json:
+                        type: USqlTypeList
+                      application/octet-stream:
+                        type: USqlTypeList
             /views:
               /{viewName}:
                 uriParameters:
@@ -834,6 +1023,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: USqlView
+                        text/json:
+                          type: USqlView
+                        application/octet-stream:
+                          type: USqlView
               get:
                 description: Retrieves the list of views from the Data Lake Analytics catalog.
                 queryParameters:
@@ -871,6 +1070,16 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: USqlViewList
+                      text/json:
+                        type: USqlViewList
+                      application/octet-stream:
+                        type: USqlViewList
             get:
               description: Retrieves the specified schema from the Data Lake Analytics catalog.
               queryParameters:
@@ -878,6 +1087,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlSchema
+                    text/json:
+                      type: USqlSchema
+                    application/octet-stream:
+                      type: USqlSchema
           get:
             description: Retrieves the list of schemas from the Data Lake Analytics catalog.
             queryParameters:
@@ -915,6 +1134,16 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: USqlSchemaList
+                  text/json:
+                    type: USqlSchemaList
+                  application/octet-stream:
+                    type: USqlSchemaList
         /secrets:
           /{secretName}:
             uriParameters:
@@ -929,6 +1158,16 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlSecret
+                    text/json:
+                      type: USqlSecret
+                    application/octet-stream:
+                      type: USqlSecret
             delete:
               description: Deletes the specified secret in the specified database. This is deprecated and will be removed in the next release. Please use DeleteCredential instead.
               queryParameters:
@@ -936,6 +1175,9 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
             patch:
               description: Modifies the specified secret for use with external data sources in the specified database. This is deprecated and will be removed in the next release. Please use UpdateCredential instead.
               queryParameters:
@@ -947,6 +1189,16 @@ types:
                 application/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
                 text/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
                 application/octet-stream: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlSecret
+                    text/json:
+                      type: USqlSecret
+                    application/octet-stream:
+                      type: USqlSecret
             put:
               description: Creates the specified secret for use with external data sources in the specified database. This is deprecated and will be removed in the next release. Please use CreateCredential instead.
               queryParameters:
@@ -958,6 +1210,16 @@ types:
                 application/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
                 text/json: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
                 application/octet-stream: DataLakeAnalyticsCatalogSecretCreateOrUpdateParameters
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: USqlSecret
+                    text/json:
+                      type: USqlSecret
+                    application/octet-stream:
+                      type: USqlSecret
           delete:
             description: Deletes all secrets in the specified database. This is deprecated and will be removed in the next release. In the future, please only drop individual credentials using DeleteCredential
             queryParameters:
@@ -965,6 +1227,9 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
         get:
           description: Retrieves the specified database from the Data Lake Analytics catalog.
           queryParameters:
@@ -972,6 +1237,16 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: ''
+              body:
+                application/json:
+                  type: USqlDatabase
+                text/json:
+                  type: USqlDatabase
+                application/octet-stream:
+                  type: USqlDatabase
       get:
         description: Retrieves the list of databases from the Data Lake Analytics catalog.
         queryParameters:
@@ -1009,3 +1284,13 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: USqlDatabaseList
+              text/json:
+                type: USqlDatabaseList
+              application/octet-stream:
+                type: USqlDatabaseList

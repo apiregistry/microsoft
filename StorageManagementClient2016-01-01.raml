@@ -359,6 +359,14 @@ types:
             body:
               application/json: StorageAccountCheckNameAvailabilityParameters
               text/json: StorageAccountCheckNameAvailabilityParameters
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: CheckNameAvailabilityResult
+                  text/json:
+                    type: CheckNameAvailabilityResult
         /storageAccounts:
           get:
             description: Lists all the storage accounts available under the subscription. Note that storage keys are not returned; use the ListKeys operation for this.
@@ -367,6 +375,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: StorageAccountListResult
+                  text/json:
+                    type: StorageAccountListResult
         /usages:
           get:
             description: Gets the current usage count and the limit for the resources under the subscription.
@@ -375,6 +391,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: UsageListResult
+                  text/json:
+                    type: UsageListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -404,6 +428,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: StorageAccountListKeysResult
+                          text/json:
+                            type: StorageAccountListKeysResult
                 /regenerateKey:
                   post:
                     description: Regenerates the access keys for the specified storage account.
@@ -415,6 +447,14 @@ types:
                     body:
                       application/json: StorageAccountRegenerateKeyParameters
                       text/json: StorageAccountRegenerateKeyParameters
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: StorageAccountListKeysResult
+                          text/json:
+                            type: StorageAccountListKeysResult
                 get:
                   description: Returns the properties for the specified storage account including but not limited to name, account type, location, and account status. The ListKeys operation should be used to retrieve storage keys.
                   queryParameters:
@@ -422,6 +462,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: StorageAccount
+                        text/json:
+                          type: StorageAccount
                 delete:
                   description: Deletes a storage account in Microsoft Azure.
                   queryParameters:
@@ -429,6 +477,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    204:
+                      description: ''
                 patch:
                   description: The update operation can be used to update the account type, encryption, or tags for a storage account. It can also be used to map the account to a custom domain. Only one custom domain is supported per storage account and. replacement/change of custom domain is not supported. In order to replace an old custom domain, the old value must be cleared/unregistered before a new value may be set. Update of multiple properties is supported. This call does not change the storage keys for the account. If you want to change storage account keys, use the regenerate keys operation.  The location and name of the storage account cannot be changed after creation.
                   queryParameters:
@@ -439,6 +492,14 @@ types:
                   body:
                     application/json: StorageAccountUpdateParameters
                     text/json: StorageAccountUpdateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: StorageAccount
+                        text/json:
+                          type: StorageAccount
                 put:
                   description: Asynchronously creates a new storage account with the specified parameters. If an account is already created and subsequent create request is issued with different properties, the account properties will be updated. If an account is already created and subsequent create or update request is issued with exact same set of properties, the request will succeed.
                   queryParameters:
@@ -449,6 +510,16 @@ types:
                   body:
                     application/json: StorageAccountCreateParameters
                     text/json: StorageAccountCreateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: StorageAccount
+                        text/json:
+                          type: StorageAccount
+                    202:
+                      description: ''
               get:
                 description: Lists all the storage accounts available under the given resource group. Note that storage keys are not returned; use the ListKeys operation for this.
                 queryParameters:
@@ -456,3 +527,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: StorageAccountListResult
+                      text/json:
+                        type: StorageAccountListResult

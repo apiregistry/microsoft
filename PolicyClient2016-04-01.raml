@@ -127,6 +127,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: PolicyAssignmentListResult
+                  text/json:
+                    type: PolicyAssignmentListResult
         /policydefinitions:
           /{policyDefinitionName}:
             uriParameters:
@@ -141,6 +149,14 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: PolicyDefinition
+                    text/json:
+                      type: PolicyDefinition
             delete:
               description: Deletes the policy definition.
               queryParameters:
@@ -148,6 +164,11 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                204:
+                  description: ''
             put:
               description: Create or update a policy definition.
               queryParameters:
@@ -158,6 +179,14 @@ types:
               body:
                 application/json: PolicyDefinition
                 text/json: PolicyDefinition
+              responses:
+                201:
+                  description: ''
+                  body:
+                    application/json:
+                      type: PolicyDefinition
+                    text/json:
+                      type: PolicyDefinition
           get:
             description: Gets all the policy definitions of a subscription.
             queryParameters:
@@ -169,6 +198,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: PolicyDefinitionListResult
+                  text/json:
+                    type: PolicyDefinitionListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -193,6 +230,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: PolicyAssignmentListResult
+                      text/json:
+                        type: PolicyAssignmentListResult
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -242,6 +287,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: PolicyAssignmentListResult
+                                text/json:
+                                  type: PolicyAssignmentListResult
 /{policyAssignmentId}:
   uriParameters:
     policyAssignmentId:
@@ -255,6 +308,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: PolicyAssignment
+          text/json:
+            type: PolicyAssignment
   delete:
     description: Delete policy assignment.
     queryParameters:
@@ -262,6 +323,14 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: PolicyAssignment
+          text/json:
+            type: PolicyAssignment
   put:
     description: Create policy assignment by Id.
     queryParameters:
@@ -272,6 +341,14 @@ types:
     body:
       application/json: PolicyAssignment
       text/json: PolicyAssignment
+    responses:
+      201:
+        description: ''
+        body:
+          application/json:
+            type: PolicyAssignment
+          text/json:
+            type: PolicyAssignment
 /{scope}:
   uriParameters:
     scope:
@@ -294,6 +371,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: PolicyAssignment
+                  text/json:
+                    type: PolicyAssignment
           delete:
             description: Delete policy assignment.
             queryParameters:
@@ -301,6 +386,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: PolicyAssignment
+                  text/json:
+                    type: PolicyAssignment
           put:
             description: Create policy assignment.
             queryParameters:
@@ -311,3 +404,11 @@ types:
             body:
               application/json: PolicyAssignment
               text/json: PolicyAssignment
+            responses:
+              201:
+                description: ''
+                body:
+                  application/json:
+                    type: PolicyAssignment
+                  text/json:
+                    type: PolicyAssignment

@@ -540,6 +540,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Namespaces returned successfully
+                body:
+                  application/json:
+                    type: NamespaceListResult
+                  text/json:
+                    type: NamespaceListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -572,6 +580,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Successful
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     /regenerateKeys:
                       post:
                         description: 'Regenerats the Primary or Secondary ConnectionStrings
@@ -584,6 +600,14 @@ types:
                         body:
                           application/json: RegenerateKeysParameters
                           text/json: RegenerateKeysParameters
+                        responses:
+                          200:
+                            description: Successful
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     get:
                       description: Authorization rule for a namespace by name.
                       queryParameters:
@@ -591,6 +615,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace Authorization rule returned successfully
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                     delete:
                       description: Deletes a namespace authorization rule
                       queryParameters:
@@ -598,6 +630,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace Authorization rule deleted
+                        204:
+                          description: No Content
                     put:
                       description: Creates an authorization rule for a namespace
                       queryParameters:
@@ -608,6 +645,14 @@ types:
                       body:
                         application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                         text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Namespace Authorization rule created
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                   get:
                     description: Authorization rules for a namespace.
                     queryParameters:
@@ -615,6 +660,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Namespace Authorization rule returned successfully
+                        body:
+                          application/json:
+                            type: SharedAccessAuthorizationRuleListResult
+                          text/json:
+                            type: SharedAccessAuthorizationRuleListResult
                 /queues:
                   /{queueName}:
                     uriParameters:
@@ -637,6 +690,14 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         /regenerateKeys:
                           post:
                             description: Regenerates the Primary or Secondary ConnectionStrings to the Queue
@@ -648,6 +709,14 @@ types:
                             body:
                               application/json: RegenerateKeysParameters
                               text/json: RegenerateKeysParameters
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         get:
                           description: Queue authorizationRule for a queue by name.
                           queryParameters:
@@ -655,6 +724,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Queues AuthorizationRule returned successfully
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                         delete:
                           description: Deletes a queue authorization rule
                           queryParameters:
@@ -662,6 +739,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Queue authorizationRule deleted
+                            204:
+                              description: No Content
                         put:
                           description: Creates an authorization rule for a queue
                           queryParameters:
@@ -672,6 +754,14 @@ types:
                           body:
                             application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                             text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: Queues Authorization rule created
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                       get:
                         description: Returns all Queue authorizationRules.
                         queryParameters:
@@ -679,6 +769,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Queues Authorization rule returned successfully
+                            body:
+                              application/json:
+                                type: SharedAccessAuthorizationRuleListResult
+                              text/json:
+                                type: SharedAccessAuthorizationRuleListResult
                     get:
                       description: Returns the description for the specified queue.
                       queryParameters:
@@ -686,6 +784,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Successfully retrieved queue description.
+                          body:
+                            application/json:
+                              type: QueueResource
+                            text/json:
+                              type: QueueResource
                     delete:
                       description: Deletes a queue from the specified namespace in resource group.
                       queryParameters:
@@ -693,6 +799,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Queue deleted.
+                        204:
+                          description: No Content
                     put:
                       description: Creates/Updates a service Queue. This operation is idempotent.
                       queryParameters:
@@ -703,6 +814,14 @@ types:
                       body:
                         application/json: QueueCreateOrUpdateParameters
                         text/json: QueueCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Queue created
+                          body:
+                            application/json:
+                              type: QueueResource
+                            text/json:
+                              type: QueueResource
                   get:
                     description: Lists the queues within the namespace.
                     queryParameters:
@@ -710,6 +829,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Queues returned successfully
+                        body:
+                          application/json:
+                            type: QueueListResult
+                          text/json:
+                            type: QueueListResult
                 /topics:
                   /{topicName}:
                     uriParameters:
@@ -732,6 +859,14 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         /regenerateKeys:
                           post:
                             description: Regenerates Primary or Secondary ConnectionStrings to the topic
@@ -743,6 +878,14 @@ types:
                             body:
                               application/json: RegenerateKeysParameters
                               text/json: RegenerateKeysParameters
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         get:
                           description: Returns the specified authorizationRule.
                           queryParameters:
@@ -750,6 +893,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Topic AuthorizationRule returned successfully
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                         delete:
                           description: Deletes a topic authorizationRule
                           queryParameters:
@@ -757,6 +908,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Topics AuthorizationRule deleted
+                            204:
+                              description: No Content
                         put:
                           description: Creates an authorizatioRule for the specified topic.
                           queryParameters:
@@ -767,6 +923,14 @@ types:
                           body:
                             application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                             text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: Topic Authorization rule created
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                       get:
                         description: Authorization rules for a topic.
                         queryParameters:
@@ -774,6 +938,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Topic AuthorizationRule returned successfully
+                            body:
+                              application/json:
+                                type: SharedAccessAuthorizationRuleListResult
+                              text/json:
+                                type: SharedAccessAuthorizationRuleListResult
                     /subscriptions:
                       /{subscriptionName}:
                         uriParameters:
@@ -788,6 +960,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Successfully retrieved queue description.
+                              body:
+                                application/json:
+                                  type: SubscriptionResource
+                                text/json:
+                                  type: SubscriptionResource
                         delete:
                           description: Deletes a subscription from the specified topic.
                           queryParameters:
@@ -795,6 +975,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Subscription deleted.
+                            204:
+                              description: No Content
                         put:
                           description: Creates a topic subscription
                           queryParameters:
@@ -805,6 +990,14 @@ types:
                           body:
                             application/json: SubscriptionCreateOrUpdateParameters
                             text/json: SubscriptionCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: Subscription create request accepted
+                              body:
+                                application/json:
+                                  type: SubscriptionResource
+                                text/json:
+                                  type: SubscriptionResource
                       get:
                         description: Lsit all the subscriptions under a specified topic
                         queryParameters:
@@ -812,6 +1005,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Successfully retrieved list of Subscriptions.
+                            body:
+                              application/json:
+                                type: SubscriptionListResult
+                              text/json:
+                                type: SubscriptionListResult
                     get:
                       description: Returns the description for the specified topic
                       queryParameters:
@@ -819,6 +1020,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Successfully retrieved topic description.
+                          body:
+                            application/json:
+                              type: TopicResource
+                            text/json:
+                              type: TopicResource
                     delete:
                       description: Deletes a topic from the specified namespace and resource group.
                       queryParameters:
@@ -826,6 +1035,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Topic delete successful
+                        204:
+                          description: No Content
                     put:
                       description: Creates a topic in the specified namespace
                       queryParameters:
@@ -836,6 +1050,14 @@ types:
                       body:
                         application/json: TopicCreateOrUpdateParameters
                         text/json: TopicCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Topic created
+                          body:
+                            application/json:
+                              type: TopicResource
+                            text/json:
+                              type: TopicResource
                   get:
                     description: Lists all the topics in a namespace.
                     queryParameters:
@@ -843,6 +1065,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Successfully retrieved list of topics.
+                        body:
+                          application/json:
+                            type: TopicListResult
+                          text/json:
+                            type: TopicListResult
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -850,6 +1080,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Namespace returned successfully
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
                 delete:
                   description: Deletes an existing namespace. This operation also removes all associated resources under the namespace.
                   queryParameters:
@@ -857,6 +1095,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Namespace delete successful
+                    202:
+                      description: Namespace delete request has been accepted
+                    204:
+                      description: No Content
                 put:
                   description: Creates/Updates a service namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.
                   queryParameters:
@@ -867,6 +1112,21 @@ types:
                   body:
                     application/json: NamespaceCreateOrUpdateParameters
                     text/json: NamespaceCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: Namespace create request successful
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
+                    201:
+                      description: Namespace create request accepted
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
               get:
                 description: Lists the available namespaces within a resourceGroup.
                 queryParameters:
@@ -874,3 +1134,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Namespaces returned successfully
+                    body:
+                      application/json:
+                        type: NamespaceListResult
+                      text/json:
+                        type: NamespaceListResult

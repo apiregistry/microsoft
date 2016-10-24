@@ -1907,6 +1907,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ApplicationGatewayListResult
+                  text/json:
+                    type: ApplicationGatewayListResult
         /expressRouteCircuits:
           get:
             description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a subscription.
@@ -1915,6 +1923,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ExpressRouteCircuitListResult
+                  text/json:
+                    type: ExpressRouteCircuitListResult
         /expressRouteServiceProviders:
           get:
             description: The List ExpressRouteServiceProvider opertion retrieves all the available ExpressRouteServiceProviders.
@@ -1923,6 +1939,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: ExpressRouteServiceProviderListResult
+                  text/json:
+                    type: ExpressRouteServiceProviderListResult
         /loadBalancers:
           get:
             description: The List loadBalancer opertion retrieves all the loadbalancers in a subscription.
@@ -1931,6 +1955,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: LoadBalancerListResult
+                  text/json:
+                    type: LoadBalancerListResult
         /locations:
           /{location}:
             uriParameters:
@@ -1951,6 +1983,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: DnsNameAvailabilityResult
+                      text/json:
+                        type: DnsNameAvailabilityResult
             /usages:
               get:
                 description: Lists compute usages for a subscription.
@@ -1959,6 +1999,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: UsagesListResult
+                      text/json:
+                        type: UsagesListResult
         /networkInterfaces:
           get:
             description: The List networkInterfaces opertion retrieves all the networkInterfaces in a subscription.
@@ -1967,6 +2015,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: NetworkInterfaceListResult
+                  text/json:
+                    type: NetworkInterfaceListResult
         /networkSecurityGroups:
           get:
             description: The list NetworkSecurityGroups returns all network security groups in a subscription
@@ -1975,6 +2031,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: NetworkSecurityGroupListResult
+                  text/json:
+                    type: NetworkSecurityGroupListResult
         /publicIPAddresses:
           get:
             description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a subscription.
@@ -1983,6 +2047,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: PublicIPAddressListResult
+                  text/json:
+                    type: PublicIPAddressListResult
         /routeTables:
           get:
             description: The list RouteTables returns all route tables in a subscription
@@ -1991,6 +2063,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RouteTableListResult
+                  text/json:
+                    type: RouteTableListResult
         /virtualnetworks:
           get:
             description: The list VirtualNetwork returns all Virtual Networks in a subscription
@@ -1999,6 +2079,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: VirtualNetworkListResult
+                  text/json:
+                    type: VirtualNetworkListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -2023,6 +2111,11 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                      202:
+                        description: ''
                 /stop:
                   post:
                     description: The STOP ApplicationGateway operation stops application gatewayin the specified resource group through Network resource provider.
@@ -2031,6 +2124,11 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                      202:
+                        description: ''
                 get:
                   description: The Get applicationgateway operation retreives information about the specified applicationgateway.
                   queryParameters:
@@ -2038,6 +2136,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ApplicationGateway
+                        text/json:
+                          type: ApplicationGateway
                 delete:
                   description: The delete applicationgateway operation deletes the specified applicationgateway.
                   queryParameters:
@@ -2045,6 +2151,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put ApplicationGateway operation creates/updates a ApplicationGateway
                   queryParameters:
@@ -2055,6 +2168,21 @@ types:
                   body:
                     application/json: ApplicationGateway
                     text/json: ApplicationGateway
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ApplicationGateway
+                        text/json:
+                          type: ApplicationGateway
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ApplicationGateway
+                        text/json:
+                          type: ApplicationGateway
               get:
                 description: The List ApplicationGateway opertion retrieves all the applicationgateways in a resource group.
                 queryParameters:
@@ -2062,6 +2190,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ApplicationGatewayListResult
+                      text/json:
+                        type: ApplicationGatewayListResult
             /connections:
               /{connectionSharedKeyName}:
                 uriParameters:
@@ -2077,6 +2213,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ConnectionSharedKeyResult
+                          text/json:
+                            type: ConnectionSharedKeyResult
               /{virtualNetworkGatewayConnectionName}:
                 uriParameters:
                   virtualNetworkGatewayConnectionName:
@@ -2095,6 +2239,16 @@ types:
                       body:
                         application/json: ConnectionResetSharedKey
                         text/json: ConnectionResetSharedKey
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ConnectionResetSharedKey
+                            text/json:
+                              type: ConnectionResetSharedKey
+                        202:
+                          description: ''
                   put:
                     description: The Put VirtualNetworkGatewayConnectionSharedKey operation sets the virtual network gateway connection shared key for passed virtual network gateway connection in the specified resource group through Network resource provider.
                     queryParameters:
@@ -2105,6 +2259,21 @@ types:
                     body:
                       application/json: ConnectionSharedKey
                       text/json: ConnectionSharedKey
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ConnectionSharedKey
+                          text/json:
+                            type: ConnectionSharedKey
+                      201:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ConnectionSharedKey
+                          text/json:
+                            type: ConnectionSharedKey
                 get:
                   description: The Get VirtualNetworkGatewayConnection operation retrieves information about the specified virtual network gateway connection through Network resource provider.
                   queryParameters:
@@ -2112,6 +2281,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGatewayConnection
+                        text/json:
+                          type: VirtualNetworkGatewayConnection
                 delete:
                   description: The Delete VirtualNetworkGatewayConnection operation deletes the specifed virtual network Gateway connection through Network resource provider.
                   queryParameters:
@@ -2119,6 +2296,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put VirtualNetworkGatewayConnection operation creates/updates a virtual network gateway connection in the specified resource group through Network resource provider.
                   queryParameters:
@@ -2129,6 +2313,21 @@ types:
                   body:
                     application/json: VirtualNetworkGatewayConnection
                     text/json: VirtualNetworkGatewayConnection
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGatewayConnection
+                        text/json:
+                          type: VirtualNetworkGatewayConnection
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGatewayConnection
+                        text/json:
+                          type: VirtualNetworkGatewayConnection
               get:
                 description: The List VirtualNetworkGatewayConnections operation retrieves all the virtual network gateways connections created.
                 queryParameters:
@@ -2136,6 +2335,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualNetworkGatewayConnectionListResult
+                      text/json:
+                        type: VirtualNetworkGatewayConnectionListResult
             /expressRouteCircuits:
               /{circuitName}:
                 uriParameters:
@@ -2151,6 +2358,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuit
+                          text/json:
+                            type: ExpressRouteCircuit
                   delete:
                     description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
                     queryParameters:
@@ -2158,6 +2373,13 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                      202:
+                        description: ''
+                      204:
+                        description: ''
                   put:
                     description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
                     queryParameters:
@@ -2168,6 +2390,21 @@ types:
                     body:
                       application/json: ExpressRouteCircuit
                       text/json: ExpressRouteCircuit
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuit
+                          text/json:
+                            type: ExpressRouteCircuit
+                      201:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuit
+                          text/json:
+                            type: ExpressRouteCircuit
                 /arpTable:
                   get:
                     description: The ListArpTable from ExpressRouteCircuit opertion retrieves the currently advertised arp table associated with the ExpressRouteCircuits in a resource group.
@@ -2176,6 +2413,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuitsArpTableListResult
+                          text/json:
+                            type: ExpressRouteCircuitsArpTableListResult
                 /authorizations:
                   /{authorizationName}:
                     uriParameters:
@@ -2190,6 +2435,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitAuthorization
+                            text/json:
+                              type: ExpressRouteCircuitAuthorization
                     delete:
                       description: The delete authorization operation deletes the specified authorization from the specified ExpressRouteCircuit.
                       queryParameters:
@@ -2197,6 +2450,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The Put Authorization operation creates/updates an authorization in thespecified ExpressRouteCircuits
                       queryParameters:
@@ -2207,6 +2467,21 @@ types:
                       body:
                         application/json: ExpressRouteCircuitAuthorization
                         text/json: ExpressRouteCircuitAuthorization
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitAuthorization
+                            text/json:
+                              type: ExpressRouteCircuitAuthorization
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitAuthorization
+                            text/json:
+                              type: ExpressRouteCircuitAuthorization
                   get:
                     description: The List authorization operation retrieves all the authorizations in an ExpressRouteCircuit.
                     queryParameters:
@@ -2214,6 +2489,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: AuthorizationListResult
+                          text/json:
+                            type: AuthorizationListResult
                 /peerings:
                   /{peeringName}:
                     uriParameters:
@@ -2228,6 +2511,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitPeering
+                            text/json:
+                              type: ExpressRouteCircuitPeering
                     delete:
                       description: The delete peering operation deletes the specified peering from the ExpressRouteCircuit.
                       queryParameters:
@@ -2235,6 +2526,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The Put Pering operation creates/updates an peering in the specified ExpressRouteCircuits
                       queryParameters:
@@ -2245,6 +2543,21 @@ types:
                       body:
                         application/json: ExpressRouteCircuitPeering
                         text/json: ExpressRouteCircuitPeering
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitPeering
+                            text/json:
+                              type: ExpressRouteCircuitPeering
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: ExpressRouteCircuitPeering
+                            text/json:
+                              type: ExpressRouteCircuitPeering
                   get:
                     description: The List peering operation retrieves all the peerings in an ExpressRouteCircuit.
                     queryParameters:
@@ -2252,6 +2565,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuitPeeringListResult
+                          text/json:
+                            type: ExpressRouteCircuitPeeringListResult
                 /routesTable:
                   get:
                     description: The ListRoutesTable from ExpressRouteCircuit opertion retrieves the currently advertised routes table associated with the ExpressRouteCircuits in a resource group.
@@ -2260,6 +2581,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuitsRoutesTableListResult
+                          text/json:
+                            type: ExpressRouteCircuitsRoutesTableListResult
                 /stats:
                   get:
                     description: The Liststats ExpressRouteCircuit opertion retrieves all the stats from a ExpressRouteCircuits in a resource group.
@@ -2268,6 +2597,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ExpressRouteCircuitsStatsListResult
+                          text/json:
+                            type: ExpressRouteCircuitsStatsListResult
               get:
                 description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a resource group.
                 queryParameters:
@@ -2275,6 +2612,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: ExpressRouteCircuitListResult
+                      text/json:
+                        type: ExpressRouteCircuitListResult
             /loadBalancers:
               /{loadBalancerName}:
                 uriParameters:
@@ -2293,6 +2638,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LoadBalancer
+                        text/json:
+                          type: LoadBalancer
                 delete:
                   description: The delete loadbalancer operation deletes the specified loadbalancer.
                   queryParameters:
@@ -2300,6 +2653,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put LoadBalancer operation creates/updates a LoadBalancer
                   queryParameters:
@@ -2310,6 +2670,21 @@ types:
                   body:
                     application/json: LoadBalancer
                     text/json: LoadBalancer
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LoadBalancer
+                        text/json:
+                          type: LoadBalancer
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LoadBalancer
+                        text/json:
+                          type: LoadBalancer
               get:
                 description: The List loadBalancer opertion retrieves all the loadbalancers in a resource group.
                 queryParameters:
@@ -2317,6 +2692,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: LoadBalancerListResult
+                      text/json:
+                        type: LoadBalancerListResult
             /localNetworkGateways:
               /{localNetworkGatewayName}:
                 uriParameters:
@@ -2331,6 +2714,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LocalNetworkGateway
+                        text/json:
+                          type: LocalNetworkGateway
                 delete:
                   description: The Delete LocalNetworkGateway operation deletes the specifed local network Gateway through Network resource provider.
                   queryParameters:
@@ -2338,6 +2729,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put LocalNetworkGateway operation creates/updates a local network gateway in the specified resource group through Network resource provider.
                   queryParameters:
@@ -2348,6 +2746,21 @@ types:
                   body:
                     application/json: LocalNetworkGateway
                     text/json: LocalNetworkGateway
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LocalNetworkGateway
+                        text/json:
+                          type: LocalNetworkGateway
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: LocalNetworkGateway
+                        text/json:
+                          type: LocalNetworkGateway
               get:
                 description: The List LocalNetworkGateways opertion retrieves all the local network gateways stored.
                 queryParameters:
@@ -2355,6 +2768,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: LocalNetworkGatewayListResult
+                      text/json:
+                        type: LocalNetworkGatewayListResult
             /networkInterfaces:
               /{networkInterfaceName}:
                 uriParameters:
@@ -2373,6 +2794,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkInterface
+                        text/json:
+                          type: NetworkInterface
                 delete:
                   description: The delete netwokInterface operation deletes the specified netwokInterface.
                   queryParameters:
@@ -2380,6 +2809,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put NetworkInterface operation creates/updates a networkInterface
                   queryParameters:
@@ -2390,6 +2826,21 @@ types:
                   body:
                     application/json: NetworkInterface
                     text/json: NetworkInterface
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkInterface
+                        text/json:
+                          type: NetworkInterface
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkInterface
+                        text/json:
+                          type: NetworkInterface
               get:
                 description: The List networkInterfaces opertion retrieves all the networkInterfaces in a resource group.
                 queryParameters:
@@ -2397,6 +2848,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: NetworkInterfaceListResult
+                      text/json:
+                        type: NetworkInterfaceListResult
             /networkSecurityGroups:
               /{networkSecurityGroupName}:
                 uriParameters:
@@ -2418,6 +2877,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: SecurityRule
+                            text/json:
+                              type: SecurityRule
                     delete:
                       description: The delete network security rule operation deletes the specified network security rule.
                       queryParameters:
@@ -2425,6 +2892,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The Put network security rule operation creates/updates a security rule in the specified network security group
                       queryParameters:
@@ -2435,6 +2909,21 @@ types:
                       body:
                         application/json: SecurityRule
                         text/json: SecurityRule
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: SecurityRule
+                            text/json:
+                              type: SecurityRule
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: SecurityRule
+                            text/json:
+                              type: SecurityRule
                   get:
                     description: The List network security rule opertion retrieves all the security rules in a network security group.
                     queryParameters:
@@ -2442,6 +2931,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: SecurityRuleListResult
+                          text/json:
+                            type: SecurityRuleListResult
                 get:
                   description: The Get NetworkSecurityGroups operation retrieves information about the specified network security group.
                   queryParameters:
@@ -2453,6 +2950,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkSecurityGroup
+                        text/json:
+                          type: NetworkSecurityGroup
                 delete:
                   description: The Delete NetworkSecurityGroup operation deletes the specifed network security group
                   queryParameters:
@@ -2460,6 +2965,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put NetworkSecurityGroup operation creates/updates a network security groupin the specified resource group.
                   queryParameters:
@@ -2470,6 +2982,21 @@ types:
                   body:
                     application/json: NetworkSecurityGroup
                     text/json: NetworkSecurityGroup
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkSecurityGroup
+                        text/json:
+                          type: NetworkSecurityGroup
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: NetworkSecurityGroup
+                        text/json:
+                          type: NetworkSecurityGroup
               get:
                 description: The list NetworkSecurityGroups returns all network security groups in a resource group
                 queryParameters:
@@ -2477,6 +3004,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: NetworkSecurityGroupListResult
+                      text/json:
+                        type: NetworkSecurityGroupListResult
             /publicIPAddresses:
               /{publicIpAddressName}:
                 uriParameters:
@@ -2495,6 +3030,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIPAddress
+                        text/json:
+                          type: PublicIPAddress
                 delete:
                   description: The delete publicIpAddress operation deletes the specified publicIpAddress.
                   queryParameters:
@@ -2502,6 +3045,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put PublicIPAddress operation creates/updates a stable/dynamic PublicIP address
                   queryParameters:
@@ -2512,6 +3062,21 @@ types:
                   body:
                     application/json: PublicIPAddress
                     text/json: PublicIPAddress
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIPAddress
+                        text/json:
+                          type: PublicIPAddress
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIPAddress
+                        text/json:
+                          type: PublicIPAddress
               get:
                 description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a resource group.
                 queryParameters:
@@ -2519,6 +3084,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: PublicIPAddressListResult
+                      text/json:
+                        type: PublicIPAddressListResult
             /routeTables:
               /{routeTableName}:
                 uriParameters:
@@ -2540,6 +3113,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Route
+                            text/json:
+                              type: Route
                     delete:
                       description: The delete route operation deletes the specified route from a route table.
                       queryParameters:
@@ -2547,6 +3128,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The Put route operation creates/updates a route in the specified route table
                       queryParameters:
@@ -2557,6 +3145,21 @@ types:
                       body:
                         application/json: Route
                         text/json: Route
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Route
+                            text/json:
+                              type: Route
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Route
+                            text/json:
+                              type: Route
                   get:
                     description: The List network security rule opertion retrieves all the routes in a route table.
                     queryParameters:
@@ -2564,6 +3167,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: RouteListResult
+                          text/json:
+                            type: RouteListResult
                 get:
                   description: The Get RouteTables operation retrieves information about the specified route table.
                   queryParameters:
@@ -2575,6 +3186,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RouteTable
+                        text/json:
+                          type: RouteTable
                 delete:
                   description: The Delete RouteTable operation deletes the specifed Route Table
                   queryParameters:
@@ -2582,6 +3201,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put RouteTable operation creates/updates a route tablein the specified resource group.
                   queryParameters:
@@ -2592,6 +3218,21 @@ types:
                   body:
                     application/json: RouteTable
                     text/json: RouteTable
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RouteTable
+                        text/json:
+                          type: RouteTable
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RouteTable
+                        text/json:
+                          type: RouteTable
               get:
                 description: The list RouteTables returns all route tables in a resource group
                 queryParameters:
@@ -2599,6 +3240,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: RouteTableListResult
+                      text/json:
+                        type: RouteTableListResult
             /virtualNetworkGateways:
               get:
                 description: The List VirtualNetworkGateways opertion retrieves all the virtual network gateways stored.
@@ -2607,6 +3256,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualNetworkGatewayListResult
+                      text/json:
+                        type: VirtualNetworkGatewayListResult
             /virtualnetworkgateways:
               /{virtualNetworkGatewayName}:
                 uriParameters:
@@ -2625,6 +3282,14 @@ types:
                     body:
                       application/json: VpnClientParameters
                       text/json: VpnClientParameters
+                    responses:
+                      202:
+                        description: Vpn client package url
+                        body:
+                          application/json:
+                            type: string
+                          text/json:
+                            type: string
                 /reset:
                   post:
                     description: The Reset VirtualNetworkGateway operation resets the primary of the virtual network gateway in the specified resource group through Network resource provider.
@@ -2636,6 +3301,16 @@ types:
                     body:
                       application/json: VirtualNetworkGateway
                       text/json: VirtualNetworkGateway
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: VirtualNetworkGateway
+                          text/json:
+                            type: VirtualNetworkGateway
+                      202:
+                        description: ''
                 get:
                   description: The Get VirtualNetworkGateway operation retrieves information about the specified virtual network gateway through Network resource provider.
                   queryParameters:
@@ -2643,6 +3318,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGateway
+                        text/json:
+                          type: VirtualNetworkGateway
                 delete:
                   description: The Delete VirtualNetworkGateway operation deletes the specifed virtual network Gateway through Network resource provider.
                   queryParameters:
@@ -2650,6 +3333,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put VirtualNetworkGateway operation creates/updates a virtual network gateway in the specified resource group through Network resource provider.
                   queryParameters:
@@ -2660,6 +3350,21 @@ types:
                   body:
                     application/json: VirtualNetworkGateway
                     text/json: VirtualNetworkGateway
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGateway
+                        text/json:
+                          type: VirtualNetworkGateway
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetworkGateway
+                        text/json:
+                          type: VirtualNetworkGateway
             /virtualnetworks:
               /{virtualNetworkName}:
                 uriParameters:
@@ -2685,6 +3390,14 @@ types:
                           type: string
                           description: expand references resources.
                           displayName: $expand
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Subnet
+                            text/json:
+                              type: Subnet
                     delete:
                       description: The delete subnet operation deletes the specified subnet.
                       queryParameters:
@@ -2692,6 +3405,13 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        202:
+                          description: ''
+                        204:
+                          description: ''
                     put:
                       description: The Put Subnet operation creates/updates a subnet in thespecified virtual network
                       queryParameters:
@@ -2702,6 +3422,21 @@ types:
                       body:
                         application/json: Subnet
                         text/json: Subnet
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Subnet
+                            text/json:
+                              type: Subnet
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Subnet
+                            text/json:
+                              type: Subnet
                   get:
                     description: The List subnets opertion retrieves all the subnets in a virtual network.
                     queryParameters:
@@ -2709,6 +3444,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: SubnetListResult
+                          text/json:
+                            type: SubnetListResult
                 get:
                   description: The Get VirtualNetwork operation retrieves information about the specified virtual network.
                   queryParameters:
@@ -2720,6 +3463,14 @@ types:
                       type: string
                       description: expand references resources.
                       displayName: $expand
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetwork
+                        text/json:
+                          type: VirtualNetwork
                 delete:
                   description: The Delete VirtualNetwork operation deletes the specifed virtual network
                   queryParameters:
@@ -2727,6 +3478,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 put:
                   description: The Put VirtualNetwork operation creates/updates a virtual network in the specified resource group.
                   queryParameters:
@@ -2737,6 +3495,21 @@ types:
                   body:
                     application/json: VirtualNetwork
                     text/json: VirtualNetwork
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetwork
+                        text/json:
+                          type: VirtualNetwork
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: VirtualNetwork
+                        text/json:
+                          type: VirtualNetwork
               get:
                 description: The list VirtualNetwork returns all Virtual Networks in a resource group
                 queryParameters:
@@ -2744,6 +3517,14 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: VirtualNetworkListResult
+                      text/json:
+                        type: VirtualNetworkListResult
           /microsoft.Compute:
             /virtualMachineScaleSets:
               /{virtualMachineScaleSetName}:
@@ -2760,6 +3541,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: NetworkInterfaceListResult
+                          text/json:
+                            type: NetworkInterfaceListResult
                 /virtualMachines:
                   /{virtualmachineIndex}:
                     uriParameters:
@@ -2785,6 +3574,14 @@ types:
                               type: string
                               description: expand references resources.
                               displayName: $expand
+                          responses:
+                            200:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: NetworkInterface
+                                text/json:
+                                  type: NetworkInterface
                       get:
                         description: The list network interface operation retrieves information about all network interfaces in a virtual machine from a virtual machine scale set.
                         queryParameters:
@@ -2792,3 +3589,11 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: NetworkInterfaceListResult
+                              text/json:
+                                type: NetworkInterfaceListResult

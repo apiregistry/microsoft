@@ -360,6 +360,16 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: DataLakeAnalyticsAccountListResult
+                  text/json:
+                    type: DataLakeAnalyticsAccountListResult
+                  application/octet-stream:
+                    type: DataLakeAnalyticsAccountListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -423,6 +433,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
+                            text/json:
+                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
+                            application/octet-stream:
+                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
                   /{dataLakeStoreAccountName}:
                     uriParameters:
                       dataLakeStoreAccountName:
@@ -436,6 +456,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: DataLakeStoreAccountInfo
+                            text/json:
+                              type: DataLakeStoreAccountInfo
+                            application/octet-stream:
+                              type: DataLakeStoreAccountInfo
                     delete:
                       description: Updates the Data Lake Analytics account specified to remove the specified Data Lake Store account.
                       queryParameters:
@@ -443,6 +473,9 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
                     put:
                       description: Updates the specified Data Lake Analytics account to include the additional Data Lake Store account.
                       queryParameters:
@@ -454,6 +487,9 @@ types:
                         application/json: AddDataLakeStoreParameters
                         text/json: AddDataLakeStoreParameters
                         application/octet-stream: AddDataLakeStoreParameters
+                      responses:
+                        200:
+                          description: ''
                 /StorageAccounts:
                   /:
                     get:
@@ -501,6 +537,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: DataLakeAnalyticsAccountListStorageAccountsResult
+                            text/json:
+                              type: DataLakeAnalyticsAccountListStorageAccountsResult
+                            application/octet-stream:
+                              type: DataLakeAnalyticsAccountListStorageAccountsResult
                   /{storageAccountName}:
                     uriParameters:
                       storageAccountName:
@@ -522,6 +568,16 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: ''
+                                body:
+                                  application/json:
+                                    type: ListSasTokensResult
+                                  text/json:
+                                    type: ListSasTokensResult
+                                  application/octet-stream:
+                                    type: ListSasTokensResult
                         get:
                           description: Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.
                           queryParameters:
@@ -529,6 +585,16 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: BlobContainer
+                                text/json:
+                                  type: BlobContainer
+                                application/octet-stream:
+                                  type: BlobContainer
                       get:
                         description: Lists the Azure Storage containers, if any, associated with the specified Data Lake Analytics and Azure Storage account combination. The response includes a link to the next page of results, if any.
                         queryParameters:
@@ -536,6 +602,16 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: ''
+                            body:
+                              application/json:
+                                type: ListBlobContainersResult
+                              text/json:
+                                type: ListBlobContainersResult
+                              application/octet-stream:
+                                type: ListBlobContainersResult
                     get:
                       description: Gets the specified Azure Storage account linked to the given Data Lake Analytics account.
                       queryParameters:
@@ -543,6 +619,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: StorageAccountInfo
+                            text/json:
+                              type: StorageAccountInfo
+                            application/octet-stream:
+                              type: StorageAccountInfo
                     delete:
                       description: Updates the specified Data Lake Analytics account to remove an Azure Storage account.
                       queryParameters:
@@ -550,6 +636,9 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
                     patch:
                       description: Updates the Data Lake Analytics account to replace Azure Storage blob account details, such as the access key and/or suffix.
                       queryParameters:
@@ -561,6 +650,9 @@ types:
                         application/json: AddStorageAccountParameters
                         text/json: AddStorageAccountParameters
                         application/octet-stream: AddStorageAccountParameters
+                      responses:
+                        200:
+                          description: ''
                     put:
                       description: Updates the specified Data Lake Analytics account to add an Azure Storage account.
                       queryParameters:
@@ -572,6 +664,9 @@ types:
                         application/json: AddStorageAccountParameters
                         text/json: AddStorageAccountParameters
                         application/octet-stream: AddStorageAccountParameters
+                      responses:
+                        200:
+                          description: ''
                 get:
                   description: Gets details of the specified Data Lake Analytics account.
                   queryParameters:
@@ -579,6 +674,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeAnalyticsAccount
+                        text/json:
+                          type: DataLakeAnalyticsAccount
+                        application/octet-stream:
+                          type: DataLakeAnalyticsAccount
                 delete:
                   description: Begins the delete delete process for the Data Lake Analytics account object specified by the account name.
                   queryParameters:
@@ -586,6 +691,15 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
+                    404:
+                      description: ''
               /{name}:
                 uriParameters:
                   name:
@@ -603,6 +717,25 @@ types:
                     application/json: DataLakeAnalyticsAccount
                     text/json: DataLakeAnalyticsAccount
                     application/octet-stream: DataLakeAnalyticsAccount
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeAnalyticsAccount
+                        text/json:
+                          type: DataLakeAnalyticsAccount
+                        application/octet-stream:
+                          type: DataLakeAnalyticsAccount
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeAnalyticsAccount
+                        text/json:
+                          type: DataLakeAnalyticsAccount
+                        application/octet-stream:
+                          type: DataLakeAnalyticsAccount
                 put:
                   description: Creates the specified Data Lake Analytics account. This supplies the user with computation services for Data Lake Analytics workloads
                   queryParameters:
@@ -614,6 +747,25 @@ types:
                     application/json: DataLakeAnalyticsAccount
                     text/json: DataLakeAnalyticsAccount
                     application/octet-stream: DataLakeAnalyticsAccount
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeAnalyticsAccount
+                        text/json:
+                          type: DataLakeAnalyticsAccount
+                        application/octet-stream:
+                          type: DataLakeAnalyticsAccount
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeAnalyticsAccount
+                        text/json:
+                          type: DataLakeAnalyticsAccount
+                        application/octet-stream:
+                          type: DataLakeAnalyticsAccount
               get:
                 description: Gets the first page of Data Lake Analytics accounts, if any, within a specific resource group. This includes a link to the next page, if any.
                 queryParameters:
@@ -659,3 +811,13 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: DataLakeAnalyticsAccountListResult
+                      text/json:
+                        type: DataLakeAnalyticsAccountListResult
+                      application/octet-stream:
+                        type: DataLakeAnalyticsAccountListResult

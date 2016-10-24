@@ -84,6 +84,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ResourceLinkResult
 /{linkId}:
   uriParameters:
     linkId:
@@ -97,6 +103,12 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: ResourceLink
   delete:
     description: Deletes a resource link.
     queryParameters:
@@ -104,6 +116,11 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+      204:
+        description: No Content
   put:
     description: Create a resource link.
     queryParameters:
@@ -113,6 +130,17 @@ types:
         displayName: api-version
     body:
       application/json: ResourceLink
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: ResourceLink
+      201:
+        description: Created
+        body:
+          application/json:
+            type: ResourceLink
 /{scope}:
   uriParameters:
     scope:
@@ -135,3 +163,9 @@ types:
               type: string
               description: Client Api Version.
               displayName: api-version
+          responses:
+            200:
+              description: OK
+              body:
+                application/json:
+                  type: ResourceLinkResult

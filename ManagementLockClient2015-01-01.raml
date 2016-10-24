@@ -84,6 +84,12 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: OK
+                  body:
+                    application/json:
+                      type: ManagementLockObject
             delete:
               description: Deletes the management lock of a subscription.
               queryParameters:
@@ -91,6 +97,11 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: OK
+                204:
+                  description: NoContent
             put:
               description: Create or update a management lock at the subscription level.
               queryParameters:
@@ -100,6 +111,17 @@ types:
                   displayName: api-version
               body:
                 application/json: ManagementLockObject
+              responses:
+                200:
+                  description: OK
+                  body:
+                    application/json:
+                      type: ManagementLockObject
+                201:
+                  description: Created
+                  body:
+                    application/json:
+                      type: ManagementLockObject
           get:
             description: Gets all the management locks of a subscription.
             queryParameters:
@@ -111,6 +133,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: ManagementLockListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -137,6 +165,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: ManagementLockObject
                 delete:
                   description: Deletes the management lock of a resource group.
                   queryParameters:
@@ -144,6 +178,11 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    204:
+                      description: NoContent
                 put:
                   description: Create or update a management lock at the resource group level.
                   queryParameters:
@@ -153,6 +192,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: ManagementLockObject
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: ManagementLockObject
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: ManagementLockObject
               get:
                 description: Gets all the management locks of a resource group.
                 queryParameters:
@@ -164,6 +214,12 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: ManagementLockListResult
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -215,6 +271,11 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: OK
+                              204:
+                                description: NoContent
                           put:
                             description: Create or update a management lock at the resource level or any level below resource.
                             queryParameters:
@@ -224,6 +285,17 @@ types:
                                 displayName: api-version
                             body:
                               application/json: ManagementLockObject
+                            responses:
+                              200:
+                                description: OK
+                                body:
+                                  application/json:
+                                    type: ManagementLockObject
+                              201:
+                                description: Created
+                                body:
+                                  application/json:
+                                    type: ManagementLockObject
                         get:
                           description: Gets all the management locks of a resource or any level below resource.
                           queryParameters:
@@ -235,3 +307,9 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: ManagementLockListResult

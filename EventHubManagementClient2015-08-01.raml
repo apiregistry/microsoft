@@ -331,6 +331,14 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Namespaces returned successfully
+                body:
+                  application/json:
+                    type: NamespaceListResult
+                  text/json:
+                    type: NamespaceListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -363,6 +371,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Successful
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     /regenerateKeys:
                       post:
                         description: 'Regenerats the Primary or Secondary ConnectionStrings
@@ -375,6 +391,14 @@ types:
                         body:
                           application/json: RegenerateKeysParameters
                           text/json: RegenerateKeysParameters
+                        responses:
+                          200:
+                            description: Successful
+                            body:
+                              application/json:
+                                type: ResourceListKeys
+                              text/json:
+                                type: ResourceListKeys
                     get:
                       description: Authorization rule for a namespace by name.
                       queryParameters:
@@ -382,6 +406,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace Authorization rule returned successfully
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                     delete:
                       description: Deletes a namespace authorization rule
                       queryParameters:
@@ -389,6 +421,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Namespace Authorization rule deleted
+                        204:
+                          description: No Content
                     put:
                       description: Creates an authorization rule for a namespace
                       queryParameters:
@@ -399,6 +436,14 @@ types:
                       body:
                         application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                         text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Namespace Authorization rule created
+                          body:
+                            application/json:
+                              type: SharedAccessAuthorizationRuleResource
+                            text/json:
+                              type: SharedAccessAuthorizationRuleResource
                   get:
                     description: Authorization rules for a namespace.
                     queryParameters:
@@ -406,6 +451,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Namespace Authorization rule returned successfully
+                        body:
+                          application/json:
+                            type: SharedAccessAuthorizationRuleListResult
+                          text/json:
+                            type: SharedAccessAuthorizationRuleListResult
                 /eventhubs:
                   /{eventHubName}:
                     uriParameters:
@@ -428,6 +481,14 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         /regenerateKeys:
                           post:
                             description: Regenerates the ACS and SAS connection strings for the Event Hub.
@@ -439,6 +500,14 @@ types:
                             body:
                               application/json: RegenerateKeysParameters
                               text/json: RegenerateKeysParameters
+                            responses:
+                              200:
+                                description: Successful
+                                body:
+                                  application/json:
+                                    type: ResourceListKeys
+                                  text/json:
+                                    type: ResourceListKeys
                         get:
                           description: Authorization rule for a EventHub by name.
                           queryParameters:
@@ -446,6 +515,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: EventHub Authorization rule returned successfully
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                         delete:
                           description: Deletes a EventHub authorization rule
                           queryParameters:
@@ -453,6 +530,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: EventHub Authorization rule deleted
+                            204:
+                              description: No Content
                         put:
                           description: Creates an authorization rule for the specified Event Hub.
                           queryParameters:
@@ -463,6 +545,14 @@ types:
                           body:
                             application/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
                             text/json: SharedAccessAuthorizationRuleCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: EventHub Authorization rule created
+                              body:
+                                application/json:
+                                  type: SharedAccessAuthorizationRuleResource
+                                text/json:
+                                  type: SharedAccessAuthorizationRuleResource
                       get:
                         description: Authorization rules for a EventHub.
                         queryParameters:
@@ -470,6 +560,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: EventHub AuthorizationRule returned successfully
+                            body:
+                              application/json:
+                                type: SharedAccessAuthorizationRuleListResult
+                              text/json:
+                                type: SharedAccessAuthorizationRuleListResult
                     /consumergroups:
                       /{consumerGroupName}:
                         uriParameters:
@@ -484,6 +582,14 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Successfully retrieved the consumer group description.
+                              body:
+                                application/json:
+                                  type: ConsumerGroupResource
+                                text/json:
+                                  type: ConsumerGroupResource
                         delete:
                           description: Deletes an ConsumerGroup from the specified EventHub and resource group.
                           queryParameters:
@@ -491,6 +597,11 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Consumer Group deleted.
+                            204:
+                              description: No Content
                         put:
                           description: Creates/Updates a consumer group as a nested resource within a namespace.
                           queryParameters:
@@ -501,6 +612,14 @@ types:
                           body:
                             application/json: ConsumerGroupCreateOrUpdateParameters
                             text/json: ConsumerGroupCreateOrUpdateParameters
+                          responses:
+                            200:
+                              description: Consumer Group created.
+                              body:
+                                application/json:
+                                  type: ConsumerGroupResource
+                                text/json:
+                                  type: ConsumerGroupResource
                       get:
                         description: Enumerates the consumer groups in a namespace. An empty feed is returned if no consumer group exists in the namespace.
                         queryParameters:
@@ -508,6 +627,14 @@ types:
                             type: string
                             description: Client Api Version.
                             displayName: api-version
+                        responses:
+                          200:
+                            description: Successfully retrieved list of Consumer Group.
+                            body:
+                              application/json:
+                                type: ConsumerGroupListResult
+                              text/json:
+                                type: ConsumerGroupListResult
                     get:
                       description: Returns an Event Hub description for the specified Event Hub.
                       queryParameters:
@@ -515,6 +642,14 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Successfully retrieved the Event Hub description.
+                          body:
+                            application/json:
+                              type: EventHubResource
+                            text/json:
+                              type: EventHubResource
                     delete:
                       description: Deletes an Event hub from the specified namespace and resource group.
                       queryParameters:
@@ -522,6 +657,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: EventHub deleted.
+                        204:
+                          description: No Content
                     put:
                       description: Creates/Updates a new Event Hub as a nested resource within a namespace.
                       queryParameters:
@@ -532,6 +672,14 @@ types:
                       body:
                         application/json: EventHubCreateOrUpdateParameters
                         text/json: EventHubCreateOrUpdateParameters
+                      responses:
+                        200:
+                          description: Event Hub created.
+                          body:
+                            application/json:
+                              type: EventHubResource
+                            text/json:
+                              type: EventHubResource
                   get:
                     description: Enumerates the Event Hubs in a namespace.
                     queryParameters:
@@ -539,6 +687,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Successfully retrieved list of EventHubs.
+                        body:
+                          application/json:
+                            type: EventHubListResult
+                          text/json:
+                            type: EventHubListResult
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -546,6 +702,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Namespace returned successfully
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
                 delete:
                   description: Deletes an existing namespace. This operation also removes all associated resources under the namespace.
                   queryParameters:
@@ -553,6 +717,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Namespace delete successful
+                    202:
+                      description: Namespace delete accepted
+                    204:
+                      description: No Content
                 put:
                   description: Creates Updates namespace. Once created, this namespace's resource manifest is immutable. This operation is idempotent.
                   queryParameters:
@@ -563,6 +734,21 @@ types:
                   body:
                     application/json: NamespaceCreateOrUpdateParameters
                     text/json: NamespaceCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: Namespace create request successful
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
+                    201:
+                      description: Namespace create request accepted
+                      body:
+                        application/json:
+                          type: NamespaceResource
+                        text/json:
+                          type: NamespaceResource
               get:
                 description: Lists the available namespaces within a resourceGroup.
                 queryParameters:
@@ -570,3 +756,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Namespaces returned successfully
+                    body:
+                      application/json:
+                        type: NamespaceListResult
+                      text/json:
+                        type: NamespaceListResult

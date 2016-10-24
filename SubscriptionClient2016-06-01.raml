@@ -147,6 +147,12 @@ types:
             type: string
             description: Client Api Version.
             displayName: api-version
+        responses:
+          200:
+            description: OK
+            body:
+              application/json:
+                type: LocationListResult
     get:
       description: Gets details about particular subscription.
       queryParameters:
@@ -154,6 +160,12 @@ types:
           type: string
           description: Client Api Version.
           displayName: api-version
+      responses:
+        200:
+          description: OK
+          body:
+            application/json:
+              type: Subscription
   get:
     description: Gets a list of subscriptions.
     queryParameters:
@@ -161,6 +173,12 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: SubscriptionListResult
 /tenants:
   get:
     description: Gets a list of tenants.
@@ -169,3 +187,9 @@ types:
         type: string
         description: Client Api Version.
         displayName: api-version
+    responses:
+      200:
+        description: OK
+        body:
+          application/json:
+            type: TenantListResult

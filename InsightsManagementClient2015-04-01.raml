@@ -308,6 +308,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Successful request to get one autoscale setting
+                      body:
+                        application/json:
+                          type: AutoscaleSettingResource
                 delete:
                   description: Deletes and autoscale setting
                   queryParameters:
@@ -315,6 +321,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Successful request to delete an autoscale setting
+                    204:
+                      description: 'No content: Successful request to delete an autoscale
+                        setting, but the response is intentionally empty'
                 put:
                   description: Creates or updates an autoscale setting.
                   queryParameters:
@@ -324,6 +336,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: AutoscaleSettingResource
+                  responses:
+                    200:
+                      description: Successful request to create or update an autoscale setting
+                      body:
+                        application/json:
+                          type: AutoscaleSettingResource
+                    201:
+                      description: Created autoscale setting
+                      body:
+                        application/json:
+                          type: AutoscaleSettingResource
               get:
                 description: Lists the autoscale settings for a resource group
                 queryParameters:
@@ -335,3 +358,9 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Successful request for a list of autoscale settings
+                    body:
+                      application/json:
+                        type: AutoscaleSettingResourceCollection

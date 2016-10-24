@@ -311,6 +311,16 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: DataLakeStoreAccountListResult
+                  text/json:
+                    type: DataLakeStoreAccountListResult
+                  application/octet-stream:
+                    type: DataLakeStoreAccountListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -335,6 +345,9 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Successfully enabled the user managed Key Vault for use encrypting this Data Lake Store account.
                 /firewallRules:
                   /{firewallRuleName}:
                     uriParameters:
@@ -349,6 +362,16 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: FirewallRule
+                            text/json:
+                              type: FirewallRule
+                            application/octet-stream:
+                              type: FirewallRule
                     delete:
                       description: Deletes the specified firewall rule from the specified Data Lake Store account
                       queryParameters:
@@ -356,6 +379,11 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                        204:
+                          description: ''
                   /{name}:
                     uriParameters:
                       name:
@@ -373,6 +401,16 @@ types:
                         application/json: FirewallRule
                         text/json: FirewallRule
                         application/octet-stream: FirewallRule
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: FirewallRule
+                            text/json:
+                              type: FirewallRule
+                            application/octet-stream:
+                              type: FirewallRule
                   get:
                     description: Lists the Data Lake Store firewall rules within the specified Data Lake Store account.
                     queryParameters:
@@ -380,6 +418,16 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: DataLakeStoreFirewallRuleListResult
+                          text/json:
+                            type: DataLakeStoreFirewallRuleListResult
+                          application/octet-stream:
+                            type: DataLakeStoreFirewallRuleListResult
                 get:
                   description: Gets the specified Data Lake Store account.
                   queryParameters:
@@ -387,6 +435,16 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeStoreAccount
+                        text/json:
+                          type: DataLakeStoreAccount
+                        application/octet-stream:
+                          type: DataLakeStoreAccount
                 delete:
                   description: Deletes the specified Data Lake Store account.
                   queryParameters:
@@ -394,6 +452,15 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
+                    404:
+                      description: ''
               /{name}:
                 uriParameters:
                   name:
@@ -411,6 +478,25 @@ types:
                     application/json: DataLakeStoreAccount
                     text/json: DataLakeStoreAccount
                     application/octet-stream: DataLakeStoreAccount
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeStoreAccount
+                        text/json:
+                          type: DataLakeStoreAccount
+                        application/octet-stream:
+                          type: DataLakeStoreAccount
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeStoreAccount
+                        text/json:
+                          type: DataLakeStoreAccount
+                        application/octet-stream:
+                          type: DataLakeStoreAccount
                 put:
                   description: Creates the specified Data Lake Store account.
                   queryParameters:
@@ -422,6 +508,25 @@ types:
                     application/json: DataLakeStoreAccount
                     text/json: DataLakeStoreAccount
                     application/octet-stream: DataLakeStoreAccount
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeStoreAccount
+                        text/json:
+                          type: DataLakeStoreAccount
+                        application/octet-stream:
+                          type: DataLakeStoreAccount
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: DataLakeStoreAccount
+                        text/json:
+                          type: DataLakeStoreAccount
+                        application/octet-stream:
+                          type: DataLakeStoreAccount
               get:
                 description: Lists the Data Lake Store accounts within a specific resource group. The response includes a link to the next page of results, if any.
                 queryParameters:
@@ -467,3 +572,13 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: DataLakeStoreAccountListResult
+                      text/json:
+                        type: DataLakeStoreAccountListResult
+                      application/octet-stream:
+                        type: DataLakeStoreAccountListResult

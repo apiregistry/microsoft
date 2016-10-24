@@ -111,6 +111,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Successful request to get more information about service diagnostic setting
+                body:
+                  application/json:
+                    type: ServiceDiagnosticSettingsResource
           put:
             description: Create or update new diagnostic settings for the specified resource.
             queryParameters:
@@ -120,3 +126,9 @@ types:
                 displayName: api-version
             body:
               application/json: ServiceDiagnosticSettingsCreateOrUpdateParameters
+            responses:
+              200:
+                description: Successful request to create a service diagnostic setting
+                body:
+                  application/json:
+                    type: ServiceDiagnosticSettingsResource

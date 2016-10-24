@@ -589,6 +589,21 @@ types:
                 description: Version of the Api.
                 displayName: api-version
                 default: '2016-02-03'
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: IotHubDescriptionListResult
+                  text/json:
+                    type: IotHubDescriptionListResult
+              500:
+                description: DefaultErrorResponse
+                body:
+                  application/json:
+                    type: ErrorDetails
+                  text/json:
+                    type: ErrorDetails
         /checkNameAvailability:
           post:
             description: Check if an IotHub name is available.
@@ -602,6 +617,21 @@ types:
             body:
               application/json: OperationInputs
               text/json: OperationInputs
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: IotHubNameAvailabilityInfo
+                  text/json:
+                    type: IotHubNameAvailabilityInfo
+              500:
+                description: DefaultErrorResponse
+                body:
+                  application/json:
+                    type: ErrorDetails
+                  text/json:
+                    type: ErrorDetails
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -635,6 +665,21 @@ types:
                             description: Version of the Api.
                             displayName: api-version
                             default: '2016-02-03'
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: SharedAccessSignatureAuthorizationRule
+                              text/json:
+                                type: SharedAccessSignatureAuthorizationRule
+                          500:
+                            description: DefaultErrorResponse
+                            body:
+                              application/json:
+                                type: ErrorDetails
+                              text/json:
+                                type: ErrorDetails
                 /IotHubStats:
                   get:
                     description: Get IotHub Stats.
@@ -645,6 +690,21 @@ types:
                         description: Version of the Api.
                         displayName: api-version
                         default: '2016-02-03'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: RegistryStatistics
+                          text/json:
+                            type: RegistryStatistics
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /eventHubEndpoints:
                   /{eventHubEndpointName}:
                     uriParameters:
@@ -668,6 +728,21 @@ types:
                               description: Version of the Api.
                               displayName: api-version
                               default: '2016-02-03'
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: EventHubConsumerGroupInfo
+                                text/json:
+                                  type: EventHubConsumerGroupInfo
+                            500:
+                              description: DefaultErrorResponse
+                              body:
+                                application/json:
+                                  type: ErrorDetails
+                                text/json:
+                                  type: ErrorDetails
                         delete:
                           description: Delete EventHub Consumer Group for an IotHub.
                           displayName: Delete EventHub Consumer Group for an IotHub.
@@ -677,6 +752,16 @@ types:
                               description: Version of the Api.
                               displayName: api-version
                               default: '2016-02-03'
+                          responses:
+                            200:
+                              description: OK
+                            500:
+                              description: DefaultErrorResponse
+                              body:
+                                application/json:
+                                  type: ErrorDetails
+                                text/json:
+                                  type: ErrorDetails
                         put:
                           description: Add an EventHub Consumer Group to an IotHub.
                           displayName: Add an EventHub Consumer Group to an IotHub.
@@ -686,6 +771,21 @@ types:
                               description: Version of the Api.
                               displayName: api-version
                               default: '2016-02-03'
+                          responses:
+                            200:
+                              description: OK
+                              body:
+                                application/json:
+                                  type: EventHubConsumerGroupInfo
+                                text/json:
+                                  type: EventHubConsumerGroupInfo
+                            500:
+                              description: DefaultErrorResponse
+                              body:
+                                application/json:
+                                  type: ErrorDetails
+                                text/json:
+                                  type: ErrorDetails
                       get:
                         description: Get EventHub Consumer Groups for an IotHub.
                         displayName: Get EventHub Consumer Groups for an IotHub.
@@ -695,6 +795,21 @@ types:
                             description: Version of the Api.
                             displayName: api-version
                             default: '2016-02-03'
+                        responses:
+                          200:
+                            description: OK
+                            body:
+                              application/json:
+                                type: EventHubConsumerGroupsListResult
+                              text/json:
+                                type: EventHubConsumerGroupsListResult
+                          500:
+                            description: DefaultErrorResponse
+                            body:
+                              application/json:
+                                type: ErrorDetails
+                              text/json:
+                                type: ErrorDetails
                 /exportDevices:
                   post:
                     description: Export all the devices in an IotHub.
@@ -708,6 +823,21 @@ types:
                     body:
                       application/json: ExportDevicesRequest
                       text/json: ExportDevicesRequest
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: JobResponse
+                          text/json:
+                            type: JobResponse
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /importDevices:
                   post:
                     description: Import all the devices in an IotHub.
@@ -721,6 +851,21 @@ types:
                     body:
                       application/json: ImportDevicesRequest
                       text/json: ImportDevicesRequest
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: JobResponse
+                          text/json:
+                            type: JobResponse
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /jobs:
                   /{jobId}:
                     uriParameters:
@@ -737,6 +882,21 @@ types:
                           description: Version of the Api.
                           displayName: api-version
                           default: '2016-02-03'
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: JobResponse
+                            text/json:
+                              type: JobResponse
+                        500:
+                          description: DefaultErrorResponse
+                          body:
+                            application/json:
+                              type: ErrorDetails
+                            text/json:
+                              type: ErrorDetails
                   get:
                     description: Get all the jobs in an IotHub.
                     displayName: Get all the jobs in an IotHub.
@@ -746,6 +906,21 @@ types:
                         description: Version of the Api.
                         displayName: api-version
                         default: '2016-02-03'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: JobResponseListResult
+                          text/json:
+                            type: JobResponseListResult
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /listkeys:
                   post:
                     description: Get all keys for an IotHub.
@@ -756,6 +931,21 @@ types:
                         description: Version of the Api.
                         displayName: api-version
                         default: '2016-02-03'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: SharedAccessSignatureAuthorizationRuleListResult
+                          text/json:
+                            type: SharedAccessSignatureAuthorizationRuleListResult
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /quotaMetrics:
                   get:
                     description: Get quota metrics for an IotHub.
@@ -766,6 +956,21 @@ types:
                         description: Version of the Api.
                         displayName: api-version
                         default: '2016-02-03'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IotHubQuotaMetricInfoListResult
+                          text/json:
+                            type: IotHubQuotaMetricInfoListResult
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 /skus:
                   get:
                     description: Get Valid Skus.
@@ -776,6 +981,21 @@ types:
                         description: Version of the Api.
                         displayName: api-version
                         default: '2016-02-03'
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: IotHubSkuDescriptionListResult
+                          text/json:
+                            type: IotHubSkuDescriptionListResult
+                      500:
+                        description: DefaultErrorResponse
+                        body:
+                          application/json:
+                            type: ErrorDetails
+                          text/json:
+                            type: ErrorDetails
                 get:
                   description: Get an IotHub.
                   displayName: Get an IotHub.
@@ -785,6 +1005,21 @@ types:
                       description: Version of the Api.
                       displayName: api-version
                       default: '2016-02-03'
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: IotHubDescription
+                        text/json:
+                          type: IotHubDescription
+                    500:
+                      description: DefaultErrorResponse
+                      body:
+                        application/json:
+                          type: ErrorDetails
+                        text/json:
+                          type: ErrorDetails
                 delete:
                   description: Delete an IotHub.
                   displayName: Delete an IotHub.
@@ -794,6 +1029,21 @@ types:
                       description: Version of the Api.
                       displayName: api-version
                       default: '2016-02-03'
+                  responses:
+                    202:
+                      description: Accepted
+                      body:
+                        application/json:
+                          type: IotHubDescription
+                        text/json:
+                          type: IotHubDescription
+                    500:
+                      description: DefaultErrorResponse
+                      body:
+                        application/json:
+                          type: ErrorDetails
+                        text/json:
+                          type: ErrorDetails
                 put:
                   description: Create or update an IotHub.
                   displayName: Create or update an IotHub.
@@ -806,6 +1056,21 @@ types:
                   body:
                     application/json: IotHubDescription
                     text/json: IotHubDescription
+                  responses:
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: IotHubDescription
+                        text/json:
+                          type: IotHubDescription
+                    500:
+                      description: DefaultErrorResponse
+                      body:
+                        application/json:
+                          type: ErrorDetails
+                        text/json:
+                          type: ErrorDetails
               get:
                 description: Get all IotHubs in a Resource group.
                 displayName: Get all IotHubs in a Resourcegroup.
@@ -815,3 +1080,18 @@ types:
                     description: Version of the Api.
                     displayName: api-version
                     default: '2016-02-03'
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: IotHubDescriptionListResult
+                      text/json:
+                        type: IotHubDescriptionListResult
+                  500:
+                    description: DefaultErrorResponse
+                    body:
+                      application/json:
+                        type: ErrorDetails
+                      text/json:
+                        type: ErrorDetails

@@ -216,6 +216,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: AdminKeyResult
+                          text/json:
+                            type: AdminKeyResult
                 /listQueryKeys:
                   get:
                     description: Returns the list of query API keys for the given Azure Search service.
@@ -224,6 +232,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ListQueryKeysResult
+                          text/json:
+                            type: ListQueryKeysResult
                 delete:
                   description: Deletes a Search service in the given resource group, along with its associated resources.
                   queryParameters:
@@ -231,6 +247,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    204:
+                      description: ''
+                    404:
+                      description: ''
                 put:
                   description: Creates or updates a Search service in the given resource group. If the Search service already exists, all properties will be updated with the given values.
                   queryParameters:
@@ -241,6 +264,21 @@ types:
                   body:
                     application/json: SearchServiceCreateOrUpdateParameters
                     text/json: SearchServiceCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: SearchServiceResource
+                        text/json:
+                          type: SearchServiceResource
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: SearchServiceResource
+                        text/json:
+                          type: SearchServiceResource
               get:
                 description: Returns a list of all Search services in the given resource group.
                 queryParameters:
@@ -248,3 +286,11 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: SearchServiceListResult
+                      text/json:
+                        type: SearchServiceListResult

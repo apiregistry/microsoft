@@ -199,6 +199,16 @@ types:
           type: string
           description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
           displayName: subscriptionId
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: FileInfoResult
+            text/json:
+              type: FileInfoResult
+            application/octet-stream:
+              type: FileInfoResult
     post:
       description: 'Appends to the specified file. This method supports multiple concurrent
         appends to the file. NOTE: Concurrent append and normal (serial) append CANNOT
@@ -231,6 +241,9 @@ types:
           type: object
           description: 'A list of Data Lake Store paths (starting with ''/'') of the
             source files. Must be in the format: sources=<comma separated list>'
+      responses:
+        200:
+          description: ''
     put:
       description: Sets or removes the expiration time on the specified file. This operation can only be executed against files. Folders are not supported.
       queryParameters:
@@ -269,6 +282,9 @@ types:
           type: string
           description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
           displayName: subscriptionId
+      responses:
+        200:
+          description: ''
 /webhdfs:
   /v1:
     /:
@@ -290,6 +306,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: HomeDirectoryResult
+              text/json:
+                type: HomeDirectoryResult
+              application/octet-stream:
+                type: HomeDirectoryResult
     /{aclFilePath}:
       uriParameters:
         aclFilePath:
@@ -314,6 +340,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: AclStatusResult
+              text/json:
+                type: AclStatusResult
+              application/octet-stream:
+                type: AclStatusResult
       put:
         description: Removes the existing Access Control List (ACL) of the specified file or directory.
         queryParameters:
@@ -332,6 +368,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{destinationPath}:
       uriParameters:
         destinationPath:
@@ -362,6 +401,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{directFilePath}:
       uriParameters:
         directFilePath:
@@ -400,6 +442,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: file
+              text/json:
+                type: file
+              application/octet-stream:
+                type: file
       post:
         description: 'Appends to the specified file. This method does not support
           multiple concurrent appends to the file. NOTE: Concurrent append and normal
@@ -434,6 +486,9 @@ types:
             type: object
             description: 'A list of Data Lake Store paths (starting with ''/'') of
               the source files. Must be in the format: sources=<comma separated list>'
+        responses:
+          200:
+            description: ''
       put:
         description: Creates a file with optionally specified content.
         queryParameters:
@@ -467,6 +522,9 @@ types:
             type: object
             description: 'A list of Data Lake Store paths (starting with ''/'') of
               the source files. Must be in the format: sources=<comma separated list>'
+        responses:
+          201:
+            description: ''
     /{filePath}:
       uriParameters:
         filePath:
@@ -495,6 +553,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: FileOperationResult
+              text/json:
+                type: FileOperationResult
+              application/octet-stream:
+                type: FileOperationResult
     /{getFilePath}:
       uriParameters:
         getFilePath:
@@ -519,6 +587,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: FileStatusResult
+              text/json:
+                type: FileStatusResult
+              application/octet-stream:
+                type: FileStatusResult
     /{listFilePath}:
       uriParameters:
         listFilePath:
@@ -556,6 +634,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: FileStatusesResult
+              text/json:
+                type: FileStatusesResult
+              application/octet-stream:
+                type: FileStatusesResult
     /{modifyAclFilePath}:
       uriParameters:
         modifyAclFilePath:
@@ -584,6 +672,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{msConcatDestinationPath}:
       uriParameters:
         msConcatDestinationPath:
@@ -618,6 +709,9 @@ types:
             type: object
             description: 'A list of Data Lake Store paths (starting with ''/'') of
               the source files. Must be in the format: sources=<comma separated list>'
+        responses:
+          200:
+            description: ''
     /{path}:
       uriParameters:
         path:
@@ -646,6 +740,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
       put:
         description: Creates a directory.
         queryParameters:
@@ -664,6 +761,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: FileOperationResult
+              text/json:
+                type: FileOperationResult
+              application/octet-stream:
+                type: FileOperationResult
     /{removeAclFilePath}:
       uriParameters:
         removeAclFilePath:
@@ -692,6 +799,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{renameFilePath}:
       uriParameters:
         renameFilePath:
@@ -720,6 +830,16 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: FileOperationResult
+              text/json:
+                type: FileOperationResult
+              application/octet-stream:
+                type: FileOperationResult
     /{setAclFilePath}:
       uriParameters:
         setAclFilePath:
@@ -748,6 +868,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{setOwnerFilePath}:
       uriParameters:
         setOwnerFilePath:
@@ -780,6 +903,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
     /{setPermissionFilePath}:
       uriParameters:
         setPermissionFilePath:
@@ -808,6 +934,9 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
   /va:
     /{getContentSummaryFilePath}:
       uriParameters:
@@ -833,3 +962,13 @@ types:
             type: string
             description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
             displayName: subscriptionId
+        responses:
+          200:
+            description: ''
+            body:
+              application/json:
+                type: ContentSummaryResult
+              text/json:
+                type: ContentSummaryResult
+              application/octet-stream:
+                type: ContentSummaryResult

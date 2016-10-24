@@ -1032,6 +1032,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: DataSourceListResult
   post:
     description: Creates a new Azure Search datasource.
     queryParameters:
@@ -1046,6 +1052,12 @@ types:
         displayName: client-request-id
     body:
       application/json: DataSource
+    responses:
+      201:
+        description: ''
+        body:
+          application/json:
+            type: DataSource
 /datasources('{dataSourceName}'):
   uriParameters:
     dataSourceName:
@@ -1064,6 +1076,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: DataSource
   delete:
     description: Deletes an Azure Search datasource.
     queryParameters:
@@ -1084,6 +1102,11 @@ types:
         type: string
         description: Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value.
         displayName: If-None-Match
+    responses:
+      204:
+        description: ''
+      404:
+        description: ''
   put:
     description: Creates a new Azure Search datasource or updates a datasource if it already exists.
     queryParameters:
@@ -1106,6 +1129,17 @@ types:
         displayName: If-None-Match
     body:
       application/json: DataSource
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: DataSource
+      201:
+        description: ''
+        body:
+          application/json:
+            type: DataSource
 /indexers:
   get:
     description: Lists all indexers available for an Azure Search service.
@@ -1119,6 +1153,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: IndexerListResult
   post:
     description: Creates a new Azure Search indexer.
     queryParameters:
@@ -1133,6 +1173,12 @@ types:
         displayName: client-request-id
     body:
       application/json: Indexer
+    responses:
+      201:
+        description: ''
+        body:
+          application/json:
+            type: Indexer
 /indexers('{indexerName}'):
   uriParameters:
     indexerName:
@@ -1152,6 +1198,9 @@ types:
           type: string
           description: The tracking ID sent with the request to help with debugging.
           displayName: client-request-id
+      responses:
+        204:
+          description: ''
   /search.run:
     post:
       description: Runs an Azure Search indexer on-demand.
@@ -1165,6 +1214,9 @@ types:
           type: string
           description: The tracking ID sent with the request to help with debugging.
           displayName: client-request-id
+      responses:
+        202:
+          description: ''
   /search.status:
     get:
       description: Returns the current status and execution history of an indexer.
@@ -1178,6 +1230,12 @@ types:
           type: string
           description: The tracking ID sent with the request to help with debugging.
           displayName: client-request-id
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: IndexerExecutionInfo
   get:
     description: Retrieves an indexer definition from Azure Search.
     queryParameters:
@@ -1190,6 +1248,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: Indexer
   delete:
     description: Deletes an Azure Search indexer.
     queryParameters:
@@ -1210,6 +1274,11 @@ types:
         type: string
         description: Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value.
         displayName: If-None-Match
+    responses:
+      204:
+        description: ''
+      404:
+        description: ''
   put:
     description: Creates a new Azure Search indexer or updates an indexer if it already exists.
     queryParameters:
@@ -1232,6 +1301,17 @@ types:
         displayName: If-None-Match
     body:
       application/json: Indexer
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: Indexer
+      201:
+        description: ''
+        body:
+          application/json:
+            type: Indexer
 /indexes:
   get:
     description: Lists all indexes available for an Azure Search service.
@@ -1249,6 +1329,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: IndexListResult
   post:
     description: Creates a new Azure Search index.
     queryParameters:
@@ -1263,6 +1349,12 @@ types:
         displayName: client-request-id
     body:
       application/json: Index
+    responses:
+      201:
+        description: ''
+        body:
+          application/json:
+            type: Index
 /indexes('{indexName}'):
   uriParameters:
     indexName:
@@ -1284,6 +1376,12 @@ types:
           displayName: client-request-id
       body:
         application/json: AnalyzeRequest
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: AnalyzeResult
   /search.stats:
     get:
       description: Returns statistics for the given index, including a document count and storage usage.
@@ -1297,6 +1395,12 @@ types:
           type: string
           description: The tracking ID sent with the request to help with debugging.
           displayName: client-request-id
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: IndexGetStatisticsResult
   get:
     description: Retrieves an index definition from Azure Search.
     queryParameters:
@@ -1309,6 +1413,12 @@ types:
         type: string
         description: The tracking ID sent with the request to help with debugging.
         displayName: client-request-id
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: Index
   delete:
     description: Deletes an Azure Search index and all the documents it contains.
     queryParameters:
@@ -1329,6 +1439,11 @@ types:
         type: string
         description: Defines the If-None-Match condition. The operation will be performed only if the ETag on the server does not match this value.
         displayName: If-None-Match
+    responses:
+      204:
+        description: ''
+      404:
+        description: ''
   put:
     description: Creates a new Azure Search index or updates an index if it already exists.
     queryParameters:
@@ -1355,3 +1470,14 @@ types:
         displayName: If-None-Match
     body:
       application/json: Index
+    responses:
+      200:
+        description: ''
+        body:
+          application/json:
+            type: Index
+      201:
+        description: ''
+        body:
+          application/json:
+            type: Index

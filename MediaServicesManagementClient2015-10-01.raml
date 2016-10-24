@@ -187,6 +187,17 @@ types:
                 displayName: api-version
             body:
               application/json: CheckNameAvailabilityInput
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: CheckNameAvailabilityOutput
+              500:
+                description: Detailed error information.
+                body:
+                  application/json:
+                    type: ApiError
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -214,6 +225,19 @@ types:
                         type: string
                         description: Version of the API to be used with the client request. Current version is 2015-10-01
                         displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: ServiceKeys
+                      202:
+                        description: Accepted
+                      500:
+                        description: Detailed error information.
+                        body:
+                          application/json:
+                            type: ApiError
                 /regenerateKey:
                   post:
                     displayName: Regenerate the key for a Media Service.
@@ -224,6 +248,19 @@ types:
                         displayName: api-version
                     body:
                       application/json: RegenerateKeyInput
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: RegenerateKeyOutput
+                      202:
+                        description: Accepted
+                      500:
+                        description: Detailed error information.
+                        body:
+                          application/json:
+                            type: ApiError
                 /syncStorageKeys:
                   post:
                     displayName: Synchronize the keys for a storage account to the Media Service.
@@ -234,6 +271,19 @@ types:
                         displayName: api-version
                     body:
                       application/json: SyncStorageKeysInput
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: MediaService
+                      202:
+                        description: Accepted
+                      500:
+                        description: Detailed error information.
+                        body:
+                          application/json:
+                            type: ApiError
                 get:
                   displayName: Get a Media Service.
                   queryParameters:
@@ -241,6 +291,17 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2015-10-01
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: MediaService
+                    500:
+                      description: Detailed error information.
+                      body:
+                        application/json:
+                          type: ApiError
                 delete:
                   displayName: Delete a Media Service.
                   queryParameters:
@@ -248,6 +309,14 @@ types:
                       type: string
                       description: Version of the API to be used with the client request. Current version is 2015-10-01
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                    500:
+                      description: Detailed error information.
+                      body:
+                        application/json:
+                          type: ApiError
                 patch:
                   displayName: Update a Media Service.
                   queryParameters:
@@ -257,6 +326,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: MediaService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: MediaService
+                    500:
+                      description: Detailed error information.
+                      body:
+                        application/json:
+                          type: ApiError
                 put:
                   displayName: Create a Media Service.
                   queryParameters:
@@ -266,6 +346,22 @@ types:
                       displayName: api-version
                   body:
                     application/json: MediaService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: MediaService
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: MediaService
+                    500:
+                      description: Detailed error information.
+                      body:
+                        application/json:
+                          type: ApiError
               get:
                 displayName: List all of the Media Services in a resource group.
                 queryParameters:
@@ -273,3 +369,14 @@ types:
                     type: string
                     description: Version of the API to be used with the client request. Current version is 2015-10-01
                     displayName: api-version
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: MediaServiceCollection
+                  500:
+                    description: Detailed error information.
+                    body:
+                      application/json:
+                        type: ApiError

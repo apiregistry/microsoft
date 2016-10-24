@@ -195,6 +195,14 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: ''
+                  body:
+                    application/json:
+                      type: RedisListResult
+                    text/json:
+                      type: RedisListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -213,6 +221,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisListResult
+                        text/json:
+                          type: RedisListResult
               /{name}:
                 uriParameters:
                   name:
@@ -230,6 +246,13 @@ types:
                     body:
                       application/json: RedisRebootParameters
                       text/json: RedisRebootParameters
+                    responses:
+                      200:
+                        description: ''
+                      202:
+                        description: ''
+                      404:
+                        description: ''
                 /listKeys:
                   post:
                     description: Retrieve a redis cache's access keys. This operation requires write permission to the cache resource.
@@ -238,6 +261,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Lists the keys for Redis Cache
+                        body:
+                          application/json:
+                            type: RedisListKeysResult
+                          text/json:
+                            type: RedisListKeysResult
                 /regenerateKey:
                   post:
                     description: Regenerate redis cache's access keys. This operation requires write permission to the cache resource.
@@ -249,6 +280,14 @@ types:
                     body:
                       application/json: RedisRegenerateKeyParameters
                       text/json: RedisRegenerateKeyParameters
+                    responses:
+                      200:
+                        description: Lists the regenerated keys for Redis Cache
+                        body:
+                          application/json:
+                            type: RedisListKeysResult
+                          text/json:
+                            type: RedisListKeysResult
                 get:
                   description: Gets a redis cache (resource description).
                   queryParameters:
@@ -256,6 +295,14 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResource
+                        text/json:
+                          type: RedisResource
                 delete:
                   description: Deletes a redis cache. This operation takes a while to complete.
                   queryParameters:
@@ -263,6 +310,13 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    404:
+                      description: ''
                 put:
                   description: Create a redis cache, or replace (overwrite/recreate, with potential downtime) an existing cache
                   queryParameters:
@@ -273,3 +327,18 @@ types:
                   body:
                     application/json: RedisCreateOrUpdateParameters
                     text/json: RedisCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResourceWithAccessKey
+                        text/json:
+                          type: RedisResourceWithAccessKey
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: RedisResourceWithAccessKey
+                        text/json:
+                          type: RedisResourceWithAccessKey

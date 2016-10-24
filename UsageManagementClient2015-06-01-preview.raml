@@ -224,6 +224,21 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.
+                body:
+                  application/json:
+                    type: ResourceRateCardInfo
+                  text/json:
+                    type: ResourceRateCardInfo
+              500:
+                description: CDN error response describing why the operation failed.
+                body:
+                  application/json:
+                    type: ErrorResponse
+                  text/json:
+                    type: ErrorResponse
         /UsageAggregates:
           get:
             description: Query aggregated Azure subscription consumption data for a date range.
@@ -256,3 +271,18 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Normal response for a successful query. The response body will contain the data that matches the filters specified in the query parameters.
+                body:
+                  application/json:
+                    type: UsageAggregationListResult
+                  text/json:
+                    type: UsageAggregationListResult
+              500:
+                description: CDN error response describing why the operation failed.
+                body:
+                  application/json:
+                    type: ErrorResponse
+                  text/json:
+                    type: ErrorResponse

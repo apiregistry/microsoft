@@ -206,6 +206,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Retrieved vault
+                      body:
+                        application/json:
+                          type: Vault
                 delete:
                   description: Deletes the specified Azure key vault.
                   queryParameters:
@@ -213,6 +219,9 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: OK Response.
                 put:
                   description: Create or update a key vault in the specified subscription.
                   queryParameters:
@@ -222,6 +231,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: VaultCreateOrUpdateParameters
+                  responses:
+                    200:
+                      description: Created or updated vault
+                      body:
+                        application/json:
+                          type: Vault
+                    201:
+                      description: Created or updated vault
+                      body:
+                        application/json:
+                          type: Vault
               get:
                 description: The List operation gets information about the vaults associated with the subscription and within the specified resource group.
                 queryParameters:
@@ -234,6 +254,12 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: Get information about all key vaults in the specified resource group.
+                    body:
+                      application/json:
+                        type: VaultListResult
     /resources:
       get:
         description: The List operation gets information about the vaults associated with the subscription.
@@ -255,3 +281,9 @@ types:
             displayName: api-version
             enum:
             - '2015-11-01'
+        responses:
+          200:
+            description: Get information about all key vaults in the subscription.
+            body:
+              application/json:
+                type: VaultListResult

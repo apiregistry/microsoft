@@ -244,6 +244,12 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: Successful request to get more information about a log profile.
+                  body:
+                    application/json:
+                      type: LogProfileResource
             delete:
               description: Deletes the log profile.
               queryParameters:
@@ -251,6 +257,9 @@ types:
                   type: string
                   description: Client Api Version.
                   displayName: api-version
+              responses:
+                200:
+                  description: Successful request to delete a log profile
             put:
               description: Create or update the log profile.
               queryParameters:
@@ -260,6 +269,12 @@ types:
                   displayName: api-version
               body:
                 application/json: LogProfileCreateOrUpdateParameters
+              responses:
+                200:
+                  description: Successful request to create or update a log profile
+                  body:
+                    application/json:
+                      type: LogProfileResource
           get:
             description: List the log profiles.
             queryParameters:
@@ -267,6 +282,12 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: Successful request to list log profiles
+                body:
+                  application/json:
+                    type: LogProfileCollection
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -297,6 +318,12 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: Successful request for one alert rule related incident
+                          body:
+                            application/json:
+                              type: Incident
                   get:
                     description: Gets a list of incidents associated to an alert rule
                     queryParameters:
@@ -304,6 +331,12 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: Successful request for a list of alert rule related incidents
+                        body:
+                          application/json:
+                            type: IncidentListResult
                 get:
                   description: Gets an alert rule
                   queryParameters:
@@ -311,6 +344,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Successful request to get an alert rule
+                      body:
+                        application/json:
+                          type: AlertRuleResource
                 delete:
                   description: Deletes an alert rule
                   queryParameters:
@@ -318,6 +357,12 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: Successful request to delete an alert rule
+                    204:
+                      description: 'No content: the request was successful, but the
+                        response is empty'
                 put:
                   description: Creates or updates an alert rule
                   queryParameters:
@@ -327,6 +372,17 @@ types:
                       displayName: api-version
                   body:
                     application/json: AlertRuleResource
+                  responses:
+                    200:
+                      description: Successful request to create or update an alert rule
+                      body:
+                        application/json:
+                          type: AlertRuleResource
+                    201:
+                      description: Created alert rule
+                      body:
+                        application/json:
+                          type: AlertRuleResource
               get:
                 description: List the alert rules within a resource group.
                 queryParameters:
@@ -338,3 +394,9 @@ types:
                     type: string
                     description: The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx
                     displayName: $filter
+                responses:
+                  200:
+                    description: Successful request for a list of alert rules
+                    body:
+                      application/json:
+                        type: AlertRuleResourceCollection

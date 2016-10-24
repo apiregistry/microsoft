@@ -980,6 +980,17 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: AppCollectionListResult
+              500:
+                description: ''
+                body:
+                  application/json:
+                    type: ApiError
         /checkAppCollectionNameAvailability:
           post:
             description: Checks availability of an app collection name in the Engagement domain.
@@ -996,6 +1007,17 @@ types:
                     type: string
                     description: Carrier name value.
                 description: Parameters supplied to the Test Campaign operation.
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: AppCollectionNameAvailability
+              500:
+                description: ''
+                body:
+                  application/json:
+                    type: ApiError
         /supportedPlatforms:
           get:
             description: Lists supported platforms for Engagement applications.
@@ -1004,6 +1026,17 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: SupportedPlatformsListResult
+              500:
+                description: ''
+                body:
+                  application/json:
+                    type: ApiError
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1055,6 +1088,19 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              200:
+                                description: Test campaign queued successfully.
+                                body:
+                                  application/json:
+                                    type: CampaignState
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                  * `401`: Authentication error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /{id}:
                           uriParameters:
                             id:
@@ -1069,6 +1115,20 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: Activated successfully.
+                                  body:
+                                    application/json:
+                                      type: CampaignStateResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled or campaign not in `draft` state.
+                                    * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           /finish:
                             post:
                               description: Finish a push campaign previously activated by a call to Activate campaign.
@@ -1077,6 +1137,20 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: Finished successfully.
+                                  body:
+                                    application/json:
+                                      type: CampaignStateResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled or campaign not in `in progress` state.
+                                    * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           /push:
                             post:
                               description: Push a previously saved campaign (created with Create campaign) to a set of devices.
@@ -1093,6 +1167,20 @@ types:
                                       type: string
                                       description: Carrier name value.
                                   description: Parameters supplied to the Test Campaign operation.
+                              responses:
+                                200:
+                                  description: OK, response body includes rejected devices.
+                                  body:
+                                    application/json:
+                                      type: CampaignPushResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled or campaign not in `in progress` state or `pushMode` is not `manual`. * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                    * `413`: Too many device identifiers (current limit is 1000), or request body too large.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           /statistics:
                             get:
                               description: Get all the campaign statistics.
@@ -1101,6 +1189,20 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: Success, statistics are returned as JSON.
+                                  body:
+                                    application/json:
+                                      type: CampaignStatisticsResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                    * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           /suspend:
                             post:
                               description: Suspend a push campaign previously activated by a call to Activate campaign.
@@ -1109,6 +1211,20 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: Suspended successfully.
+                                  body:
+                                    application/json:
+                                      type: CampaignStateResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled or campaign not in `scheduled` state.
+                                    * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           /test:
                             post:
                               description: Test an existing campaign (created with Create campaign) on a set of devices.
@@ -1125,6 +1241,20 @@ types:
                                       type: string
                                       description: Carrier name value.
                                   description: Parameters supplied to the Test Campaign operation.
+                              responses:
+                                200:
+                                  description: Test campaign queued successfully.
+                                  body:
+                                    application/json:
+                                      type: CampaignStateResult
+                                500:
+                                  description: |
+                                    * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                    * `401`: Authentication error.
+                                    * `404`: Campaign not found.
+                                  body:
+                                    application/json:
+                                      type: ApiError
                           get:
                             description: The Get campaign operation retrieves information about a previously created campaign.
                             queryParameters:
@@ -1132,6 +1262,20 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Success, campaign is returned.
+                                body:
+                                  application/json:
+                                    type: CampaignResult
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                  * `401`: Authentication error.
+                                  * `404`: Campaign not found.
+                                body:
+                                  application/json:
+                                    type: ApiError
                           delete:
                             description: Delete a campaign previously created by a call to Create campaign.
                             queryParameters:
@@ -1139,6 +1283,17 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Deleted successfully.
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled or campaign is not in `finished` state.
+                                  * `401`: Authentication error.
+                                  * `404`: Campaign not found.
+                                body:
+                                  application/json:
+                                    type: ApiError
                           put:
                             description: Update an existing push campaign (announcement, poll, data push or native push).
                             queryParameters:
@@ -1154,6 +1309,21 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              200:
+                                description: Updated successfully.
+                                body:
+                                  application/json:
+                                    type: CampaignStateResult
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled or campaign is not in `draft` state.
+                                  * `401`: Authentication error.
+                                  * `404`: Campaign not found.
+                                  * `409`: Another campaign with the same name already exists.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         get:
                           description: Get the list of campaigns.
                           queryParameters:
@@ -1185,6 +1355,19 @@ types:
                               type: string
                               description: Restrict results to campaigns matching the optional `search` expression. This currently performs the search based on the name on the campaign only, case insensitive. If the campaign contains the value of the `search` parameter anywhere in the name, it matches.
                               displayName: $search
+                          responses:
+                            200:
+                              description: Success, campaigns are returned as JSON.
+                              body:
+                                application/json:
+                                  type: CampaignsListResult
+                            500:
+                              description: |-
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                              body:
+                                application/json:
+                                  type: ApiError
                         post:
                           description: Create a push campaign (announcement, poll, data push or native push).
                           queryParameters:
@@ -1200,6 +1383,24 @@ types:
                                   type: string
                                   description: Carrier name value.
                               description: Parameters supplied to the Test Campaign operation.
+                          responses:
+                            201:
+                              description: Success, campaign is returned.
+                              headers:
+                                Location?:
+                                  type: string
+                                  description: URL path to get the created campaign.
+                              body:
+                                application/json:
+                                  type: CampaignStateResult
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                                * `409`: Another campaign with the same name already exists.
+                              body:
+                                application/json:
+                                  type: ApiError
                     /campaignsByName:
                       /{kind}:
                         uriParameters:
@@ -1225,6 +1426,20 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Success, campaign is returned.
+                                body:
+                                  application/json:
+                                    type: CampaignResult
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                  * `401`: Authentication error.
+                                  * `404`: Campaign not found.
+                                body:
+                                  application/json:
+                                    type: ApiError
                     /devices:
                       /exportTasks:
                         /activities:
@@ -1243,6 +1458,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /crashes:
                           post:
                             description: Creates a task to export crashes.
@@ -1259,6 +1491,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /errors:
                           post:
                             description: Creates a task to export errors.
@@ -1275,6 +1524,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /events:
                           post:
                             description: Creates a task to export events.
@@ -1291,6 +1557,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /feedbackByCampaign:
                           post:
                             description: Creates a task to export push campaign data for a set of campaigns.
@@ -1307,6 +1590,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /feedbackByDate:
                           post:
                             description: Creates a task to export push campaign data for a date range.
@@ -1323,6 +1623,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /jobs:
                           post:
                             description: Creates a task to export jobs.
@@ -1339,6 +1656,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /sessions:
                           post:
                             description: Creates a task to export sessions.
@@ -1355,6 +1689,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /tags:
                           post:
                             description: Creates a task to export tags.
@@ -1371,6 +1722,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /tokens:
                           post:
                             description: Creates a task to export tags.
@@ -1387,6 +1755,23 @@ types:
                                     type: string
                                     description: Carrier name value.
                                 description: Parameters supplied to the Test Campaign operation.
+                            responses:
+                              202:
+                                description: Success. Returns the state of export task.
+                                headers:
+                                  Location?:
+                                    type: string
+                                    description: Location of the export task state.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         /{id}:
                           uriParameters:
                             id:
@@ -1400,6 +1785,19 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Success. The status of the export task is returned.
+                                body:
+                                  application/json:
+                                    type: exportTaskResult
+                              500:
+                                description: |-
+                                  * `4xx`: Bad request.
+                                  * `5xx`: Server error.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         get:
                           description: Get the list of export tasks.
                           queryParameters:
@@ -1433,6 +1831,19 @@ types:
                                 When not specified the asc direction is used.
                                 Only one orderby property can be specified.
                               displayName: $orderby
+                          responses:
+                            200:
+                              description: Success. Returns a list of export task statuses.
+                              body:
+                                application/json:
+                                  type: exportTaskListResult
+                            500:
+                              description: |-
+                                * `4xx`: Bad request.
+                                * `5xx`: Server error.
+                              body:
+                                application/json:
+                                  type: ApiError
                       /importTasks:
                         /{id}:
                           uriParameters:
@@ -1447,6 +1858,20 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: Success, import job is returned.
+                                body:
+                                  application/json:
+                                    type: importTaskResult
+                              500:
+                                description: |
+                                  * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                  * `401`: Authentication error.
+                                  * `404`: Import job not found.
+                                body:
+                                  application/json:
+                                    type: ApiError
                         get:
                           description: Get the list of import jobs.
                           queryParameters:
@@ -1480,6 +1905,19 @@ types:
                                 When not specified the asc direction is used.
                                 Only one orderby property can be specified.
                               displayName: $orderby
+                          responses:
+                            200:
+                              description: Success, import jobs are returned as JSON.
+                              body:
+                                application/json:
+                                  type: importTaskListResult
+                            500:
+                              description: |-
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                              body:
+                                application/json:
+                                  type: ApiError
                         post:
                           description: Creates a job to import the specified data to a storageUrl.
                           queryParameters:
@@ -1495,6 +1933,32 @@ types:
                                   type: string
                                   description: Carrier name value.
                               description: Parameters supplied to the Test Campaign operation.
+                          responses:
+                            201:
+                              description: Success, import job is returned.
+                              headers:
+                                Location?:
+                                  type: string
+                                  description: URL path to get the created import job.
+                              body:
+                                application/json:
+                                  type: importTaskResult
+                            202:
+                              description: Success, import job is returned.
+                              headers:
+                                Location?:
+                                  type: string
+                                  description: URL path to get the created import job.
+                              body:
+                                application/json:
+                                  type: importTaskResult
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                              body:
+                                application/json:
+                                  type: ApiError
                       /tag:
                         post:
                           description: |
@@ -1512,6 +1976,20 @@ types:
                                   type: string
                                   description: Carrier name value.
                               description: Parameters supplied to the Test Campaign operation.
+                          responses:
+                            200:
+                              description: Success, invalid device identifiers are returned.
+                              body:
+                                application/json:
+                                  type: DeviceTagsResult
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                                * `413`: Can be caused by having too many device identifiers (current limit is 1000).
+                              body:
+                                application/json:
+                                  type: ApiError
                       /{deviceId}:
                         uriParameters:
                           deviceId:
@@ -1525,6 +2003,20 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Success, device is returned.
+                              body:
+                                application/json:
+                                  type: Device
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                                * `404`: Device not found.
+                              body:
+                                application/json:
+                                  type: ApiError
                       get:
                         description: Query the information associated to the devices running an application.
                         queryParameters:
@@ -1588,6 +2080,19 @@ types:
                               note that the internal value of `lastModified` timestamp
                               for a given property is never part of the results.'
                             displayName: $filter
+                        responses:
+                          200:
+                            description: If successful, the response has a 200 status code and a JSON object describing a collection of devices in the body.
+                            body:
+                              application/json:
+                                type: DevicesQueryResult
+                          500:
+                            description: |
+                              * `400`: Invalid parameters or application is disabled. Check response body for details.
+                              * `401`: Authentication error.
+                            body:
+                              application/json:
+                                type: ApiError
                     /users:
                       /tag:
                         post:
@@ -1606,6 +2111,20 @@ types:
                                   type: string
                                   description: Carrier name value.
                               description: Parameters supplied to the Test Campaign operation.
+                          responses:
+                            200:
+                              description: Success, invalid user identifiers are returned.
+                              body:
+                                application/json:
+                                  type: DeviceTagsResult
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                                * `413`: Can be caused by having too many user identifiers (current limit is 1000).
+                              body:
+                                application/json:
+                                  type: ApiError
                       /{userId}:
                         uriParameters:
                           userId:
@@ -1619,6 +2138,20 @@ types:
                               type: string
                               description: Client Api Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: Success, device is returned.
+                              body:
+                                application/json:
+                                  type: Device
+                            500:
+                              description: |
+                                * `400`: Invalid parameters or application is disabled. Check response body for details.
+                                * `401`: Authentication error.
+                                * `404`: User not found.
+                              body:
+                                application/json:
+                                  type: ApiError
                   get:
                     description: Lists apps in an appCollection.
                     queryParameters:
@@ -1626,3 +2159,14 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: AppListResult
+                      500:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ApiError

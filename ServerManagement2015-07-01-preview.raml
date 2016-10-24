@@ -380,6 +380,21 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: the operation completed successfully.
+                body:
+                  application/json:
+                    type: GatewayResources
+                  text/json:
+                    type: GatewayResources
+              500:
+                description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                body:
+                  application/json:
+                    type: Error
+                  text/json:
+                    type: Error
         /nodes:
           get:
             description: Returns nodes in a subscription
@@ -388,6 +403,21 @@ types:
                 type: string
                 description: Client Api Version.
                 displayName: api-version
+            responses:
+              200:
+                description: the operation completed successfully.
+                body:
+                  application/json:
+                    type: NodeResources
+                  text/json:
+                    type: NodeResources
+              500:
+                description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                body:
+                  application/json:
+                    type: Error
+                  text/json:
+                    type: Error
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -417,6 +447,24 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: the operation completed successfully.
+                        body:
+                          application/json:
+                            type: GatewayProfile
+                          text/json:
+                            type: GatewayProfile
+                      202:
+                        description: 'Accepted: Location header contains the URL where
+                          the status of the long running operation can be checked.'
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 /regenerateprofile:
                   post:
                     description: Regenerate a gateway's profile
@@ -425,6 +473,19 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: the operation completed successfully.
+                      202:
+                        description: 'Accepted: Location header contains the URL where
+                          the status of the long running operation can be checked.'
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 /upgradetolatest:
                   post:
                     description: Upgrade a gateway
@@ -433,6 +494,19 @@ types:
                         type: string
                         description: Client Api Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: the operation completed successfully.
+                      202:
+                        description: 'Accepted: Location header contains the URL where
+                          the status of the long running operation can be checked.'
+                      500:
+                        description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                        body:
+                          application/json:
+                            type: Error
+                          text/json:
+                            type: Error
                 get:
                   description: Returns a gateway
                   queryParameters:
@@ -446,6 +520,21 @@ types:
                       displayName: $expand
                       enum:
                       - status
+                  responses:
+                    200:
+                      description: the operation completed successfully.
+                      body:
+                        application/json:
+                          type: GatewayResource
+                        text/json:
+                          type: GatewayResource
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 delete:
                   description: Deletes a gateway from a resource group.
                   queryParameters:
@@ -453,6 +542,18 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: the object exists and was deleted successfully.
+                    204:
+                      description: the resource does not exist and the request is well formed
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 patch:
                   description: Updates a gateway belonging to a resource group.
                   queryParameters:
@@ -463,6 +564,24 @@ types:
                   body:
                     application/json: GatewayParameters
                     text/json: GatewayParameters
+                  responses:
+                    200:
+                      description: Update completed successfully.
+                      body:
+                        application/json:
+                          type: GatewayResource
+                        text/json:
+                          type: GatewayResource
+                    202:
+                      description: 'Accepted: Location header contains the URL where
+                        the status of the long running operation can be checked.'
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 put:
                   description: Creates or updates a ManagementService gateway.
                   queryParameters:
@@ -473,6 +592,28 @@ types:
                   body:
                     application/json: GatewayParameters
                     text/json: GatewayParameters
+                  responses:
+                    200:
+                      description: the operation completed successfully
+                      body:
+                        application/json:
+                          type: GatewayResource
+                        text/json:
+                          type: GatewayResource
+                    201:
+                      description: the operation completed successfully
+                      body:
+                        application/json:
+                          type: GatewayResource
+                        text/json:
+                          type: GatewayResource
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
               get:
                 description: Returns gateways in a resource group
                 queryParameters:
@@ -480,6 +621,21 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: the operation completed successfully.
+                    body:
+                      application/json:
+                        type: GatewayResources
+                      text/json:
+                        type: GatewayResources
+                  500:
+                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                    body:
+                      application/json:
+                        type: Error
+                      text/json:
+                        type: Error
             /nodes:
               /{nodeName}:
                 uriParameters:
@@ -514,6 +670,25 @@ types:
                                     type: string
                                     description: Client Api Version.
                                     displayName: api-version
+                                responses:
+                                  200:
+                                    description: The cancellation was completed successfully.
+                                    body:
+                                      application/json:
+                                        type: PowerShellCommandResults
+                                      text/json:
+                                        type: PowerShellCommandResults
+                                  202:
+                                    description: 'Accepted: Location header contains
+                                      the URL where the status of the long running
+                                      operation can be checked.'
+                                  500:
+                                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                    body:
+                                      application/json:
+                                        type: Error
+                                      text/json:
+                                        type: Error
                             /invokeCommand:
                               post:
                                 description: Creates a PowerShell script and invokes it.
@@ -525,6 +700,25 @@ types:
                                 body:
                                   application/json: PowerShellCommandParameters
                                   text/json: PowerShellCommandParameters
+                                responses:
+                                  200:
+                                    description: The operation completed successfully.
+                                    body:
+                                      application/json:
+                                        type: PowerShellCommandResults
+                                      text/json:
+                                        type: PowerShellCommandResults
+                                  202:
+                                    description: 'Accepted: Location header contains
+                                      the URL where the status of the long running
+                                      operation can be checked.'
+                                  500:
+                                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                    body:
+                                      application/json:
+                                        type: Error
+                                      text/json:
+                                        type: Error
                             /tab:
                               post:
                                 description: gets tab completion values for a command.
@@ -536,6 +730,21 @@ types:
                                 body:
                                   application/json: PowerShellTabCompletionParameters
                                   text/json: PowerShellTabCompletionParameters
+                                responses:
+                                  200:
+                                    description: The request was succesfully completed.
+                                    body:
+                                      application/json:
+                                        type: PowerShellTabCompletionResults
+                                      text/json:
+                                        type: PowerShellTabCompletionResults
+                                  500:
+                                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                    body:
+                                      application/json:
+                                        type: Error
+                                      text/json:
+                                        type: Error
                             get:
                               description: Gets the status of a command.
                               queryParameters:
@@ -549,6 +758,21 @@ types:
                                   displayName: $expand
                                   enum:
                                   - output
+                              responses:
+                                200:
+                                  description: The operation completed successfully.
+                                  body:
+                                    application/json:
+                                      type: PowerShellCommandStatus
+                                    text/json:
+                                      type: PowerShellCommandStatus
+                                500:
+                                  description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                  body:
+                                    application/json:
+                                      type: Error
+                                    text/json:
+                                      type: Error
                             patch:
                               description: updates a running PowerShell command with more data.
                               queryParameters:
@@ -556,6 +780,25 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: The operation completed successfully.
+                                  body:
+                                    application/json:
+                                      type: PowerShellCommandResults
+                                    text/json:
+                                      type: PowerShellCommandResults
+                                202:
+                                  description: 'Accepted: Location header contains
+                                    the URL where the status of the long running operation
+                                    can be checked.'
+                                500:
+                                  description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                  body:
+                                    application/json:
+                                      type: Error
+                                    text/json:
+                                      type: Error
                             put:
                               description: Creates a PowerShell session
                               queryParameters:
@@ -563,6 +806,25 @@ types:
                                   type: string
                                   description: Client Api Version.
                                   displayName: api-version
+                              responses:
+                                200:
+                                  description: The operation completed succesfully.
+                                  body:
+                                    application/json:
+                                      type: PowerShellSessionResource
+                                    text/json:
+                                      type: PowerShellSessionResource
+                                202:
+                                  description: 'Accepted: Location header contains
+                                    the URL where the status of the long running operation
+                                    can be checked.'
+                                500:
+                                  description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                  body:
+                                    application/json:
+                                      type: Error
+                                    text/json:
+                                      type: Error
                           get:
                             description: Gets a list of the active sessions.
                             queryParameters:
@@ -570,6 +832,21 @@ types:
                                 type: string
                                 description: Client Api Version.
                                 displayName: api-version
+                            responses:
+                              200:
+                                description: The operation completed successfully.
+                                body:
+                                  application/json:
+                                    type: PowerShellSessionResources
+                                  text/json:
+                                    type: PowerShellSessionResources
+                              500:
+                                description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                                body:
+                                  application/json:
+                                    type: Error
+                                  text/json:
+                                    type: Error
                     get:
                       description: Gets a session for a node
                       queryParameters:
@@ -577,6 +854,21 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The operation completed successfully.
+                          body:
+                            application/json:
+                              type: SessionResource
+                            text/json:
+                              type: SessionResource
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                          body:
+                            application/json:
+                              type: Error
+                            text/json:
+                              type: Error
                     delete:
                       description: Deletes a session for a node
                       queryParameters:
@@ -584,6 +876,18 @@ types:
                           type: string
                           description: Client Api Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: The operation completed successfully.
+                        204:
+                          description: the resource does not exist and the request is well formed
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                          body:
+                            application/json:
+                              type: Error
+                            text/json:
+                              type: Error
                     put:
                       description: Creates a session for a node
                       queryParameters:
@@ -594,6 +898,32 @@ types:
                       body:
                         application/json: SessionParameters
                         text/json: SessionParameters
+                      responses:
+                        200:
+                          description: The operation completed successfully
+                          body:
+                            application/json:
+                              type: SessionResource
+                            text/json:
+                              type: SessionResource
+                        201:
+                          description: 'Created: the session has been created'
+                          body:
+                            application/json:
+                              type: SessionResource
+                            text/json:
+                              type: SessionResource
+                        202:
+                          description: 'Accepted: Location header contains the URL
+                            where the status of the long running operation can be
+                            checked.'
+                        500:
+                          description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                          body:
+                            application/json:
+                              type: Error
+                            text/json:
+                              type: Error
                 get:
                   description: gets a management node
                   queryParameters:
@@ -601,6 +931,21 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: the object exists and was deleted successfully.
+                      body:
+                        application/json:
+                          type: NodeResource
+                        text/json:
+                          type: NodeResource
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 delete:
                   description: deletes a management node
                   queryParameters:
@@ -608,6 +953,18 @@ types:
                       type: string
                       description: Client Api Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: the object exists and was deleted successfully.
+                    204:
+                      description: the resource does not exist and the request is well formed
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 patch:
                   description: Updates a management node
                   queryParameters:
@@ -618,6 +975,24 @@ types:
                   body:
                     application/json: NodeParameters
                     text/json: NodeParameters
+                  responses:
+                    200:
+                      description: The operation completed successfully.
+                      body:
+                        application/json:
+                          type: NodeResource
+                        text/json:
+                          type: NodeResource
+                    202:
+                      description: 'Accepted: Location header contains the URL where
+                        the status of the long running operation can be checked.'
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
                 put:
                   description: Creates or updates a management node
                   queryParameters:
@@ -628,6 +1003,31 @@ types:
                   body:
                     application/json: NodeParameters
                     text/json: NodeParameters
+                  responses:
+                    200:
+                      description: The operation completed successfully
+                      body:
+                        application/json:
+                          type: NodeResource
+                        text/json:
+                          type: NodeResource
+                    201:
+                      description: The operation completed successfully
+                      body:
+                        application/json:
+                          type: NodeResource
+                        text/json:
+                          type: NodeResource
+                    202:
+                      description: 'Accepted: Location header contains the URL where
+                        the status of the long running operation can be checked.'
+                    500:
+                      description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                      body:
+                        application/json:
+                          type: Error
+                        text/json:
+                          type: Error
               get:
                 description: Returns nodes in a resource group
                 queryParameters:
@@ -635,3 +1035,18 @@ types:
                     type: string
                     description: Client Api Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: the operation completed successfully.
+                    body:
+                      application/json:
+                        type: NodeResources
+                      text/json:
+                        type: NodeResources
+                  500:
+                    description: Default Response. It will be deserialized as per the Error defintion specified in the schema. Exception will be thrown.
+                    body:
+                      application/json:
+                        type: Error
+                      text/json:
+                        type: Error

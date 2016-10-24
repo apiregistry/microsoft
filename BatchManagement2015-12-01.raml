@@ -278,6 +278,12 @@ types:
                 type: string
                 description: Client API Version.
                 displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: BatchAccountListResult
         /locations:
           /{locationName}:
             uriParameters:
@@ -293,6 +299,12 @@ types:
                     type: string
                     description: Client API Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: BatchLocationQuota
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -337,6 +349,9 @@ types:
                                 displayName: api-version
                             body:
                               application/json: ActivateApplicationPackageParameters
+                            responses:
+                              204:
+                                description: ''
                         get:
                           description: Gets information about the specified application package.
                           queryParameters:
@@ -344,6 +359,12 @@ types:
                               type: string
                               description: Client API Version.
                               displayName: api-version
+                          responses:
+                            200:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: ApplicationPackage
                         delete:
                           description: Deletes an application package record and its associated binary file.
                           queryParameters:
@@ -351,6 +372,9 @@ types:
                               type: string
                               description: Client API Version.
                               displayName: api-version
+                          responses:
+                            204:
+                              description: ''
                         put:
                           description: Creates an application package record.
                           queryParameters:
@@ -358,6 +382,12 @@ types:
                               type: string
                               description: Client API Version.
                               displayName: api-version
+                          responses:
+                            201:
+                              description: ''
+                              body:
+                                application/json:
+                                  type: ApplicationPackage
                     get:
                       description: Gets information about the specified application.
                       queryParameters:
@@ -365,6 +395,12 @@ types:
                           type: string
                           description: Client API Version.
                           displayName: api-version
+                      responses:
+                        200:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Application
                     delete:
                       description: Deletes an application.
                       queryParameters:
@@ -372,6 +408,9 @@ types:
                           type: string
                           description: Client API Version.
                           displayName: api-version
+                      responses:
+                        204:
+                          description: ''
                     patch:
                       description: Updates settings for the specified application.
                       queryParameters:
@@ -381,6 +420,9 @@ types:
                           displayName: api-version
                       body:
                         application/json: UpdateApplicationParameters
+                      responses:
+                        204:
+                          description: ''
                     put:
                       description: Adds an application to the specified Batch account.
                       queryParameters:
@@ -390,6 +432,12 @@ types:
                           displayName: api-version
                       body:
                         application/json: AddApplicationParameters
+                      responses:
+                        201:
+                          description: ''
+                          body:
+                            application/json:
+                              type: Application
                   get:
                     description: Lists all of the applications in the specified account.
                     queryParameters:
@@ -402,6 +450,12 @@ types:
                         type: string
                         description: Client API Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: ListApplicationsResult
                 /listKeys:
                   post:
                     description: Gets the account keys for the specified Batch account.
@@ -410,6 +464,12 @@ types:
                         type: string
                         description: Client API Version.
                         displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: BatchAccountKeys
                 /regenerateKeys:
                   post:
                     description: Regenerates the specified account key for the specified Batch account.
@@ -420,6 +480,12 @@ types:
                         displayName: api-version
                     body:
                       application/json: BatchAccountRegenerateKeyParameters
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: BatchAccountKeys
                 /syncAutoStorageKeys:
                   post:
                     description: Synchronizes access keys for the auto storage account configured for the specified Batch account.
@@ -428,6 +494,9 @@ types:
                         type: string
                         description: Client API Version.
                         displayName: api-version
+                    responses:
+                      204:
+                        description: ''
                 get:
                   description: Gets information about the specified Batch account.
                   queryParameters:
@@ -435,6 +504,12 @@ types:
                       type: string
                       description: Client API Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: BatchAccount
                 delete:
                   description: Deletes the specified Batch account.
                   queryParameters:
@@ -442,6 +517,13 @@ types:
                       type: string
                       description: Client API Version.
                       displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
                 patch:
                   description: Updates the properties of an existing Batch account.
                   queryParameters:
@@ -451,6 +533,12 @@ types:
                       displayName: api-version
                   body:
                     application/json: BatchAccountUpdateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: BatchAccount
                 put:
                   description: Creates a new Batch account with the specified parameters. Existing accounts cannot be updated with this API and should instead be updated with the Update Batch Account API.
                   queryParameters:
@@ -460,6 +548,14 @@ types:
                       displayName: api-version
                   body:
                     application/json: BatchAccountCreateParameters
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: BatchAccount
+                    202:
+                      description: ''
               get:
                 description: Gets information about the Batch accounts associated within the specified resource group.
                 queryParameters:
@@ -467,3 +563,9 @@ types:
                     type: string
                     description: Client API Version.
                     displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: BatchAccountListResult

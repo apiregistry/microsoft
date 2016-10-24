@@ -2246,6 +2246,30 @@ types:
           type: string
           description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
           displayName: ocp-date
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+          body:
+            application/json:
+              type: ApplicationSummary
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
   get:
     description: Lists all of the applications available in the specified account.
     queryParameters:
@@ -2277,6 +2301,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: ApplicationListResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /certificates:
   get:
     description: Lists all of the certificates that have been added to the specified account.
@@ -2317,6 +2365,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: Gets the list of certificates.
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: CertificateListResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
   post:
     description: Adds a certificate to the specified account.
     queryParameters:
@@ -2345,6 +2417,30 @@ types:
         displayName: ocp-date
     body:
       application/json: CertificateAddParameter
+    responses:
+      201:
+        description: Initial response
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+          DataServiceId?:
+            type: string
+            description: Gets the OData id of the resource to which the request applied.
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /certificates(thumbprintAlgorithm={thumbprintAlgorithm},thumbprint={thumbprint}):
   uriParameters:
     thumbprintAlgorithm:
@@ -2382,6 +2478,30 @@ types:
           type: string
           description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
           displayName: ocp-date
+      responses:
+        204:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
   get:
     description: Gets information about the specified certificate.
     queryParameters:
@@ -2412,6 +2532,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: Certificate
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
   delete:
     description: Deletes a certificate from the specified account.
     queryParameters:
@@ -2438,6 +2582,27 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      202:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /jobs:
   /{jobId}:
     uriParameters:
@@ -2490,6 +2655,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: JobDisableParameter
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /enable:
       post:
         description: Enables the specified job, allowing new tasks to run.
@@ -2533,6 +2722,30 @@ types:
             type: string
             description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
             displayName: If-Unmodified-Since
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /jobpreparationandreleasetaskstatus:
       get:
         description: Lists the execution status of the Job Preparation and Job Release task for the specified job across the compute nodes where the job has run.
@@ -2573,6 +2786,30 @@ types:
             type: string
             description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
             displayName: ocp-date
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+            body:
+              application/json:
+                type: CloudJobListPreparationAndReleaseTaskStatusResult
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /tasks:
       /{taskId}:
         uriParameters:
@@ -2625,6 +2862,46 @@ types:
                   type: string
                   description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
                   displayName: If-Unmodified-Since
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                    ETag?:
+                      type: string
+                      description: Gets the content of the ETag HTTP response header.
+                    Last-Modified?:
+                      type: string
+                      description: Gets the content of the Last-Modified HTTP response header.
+                    ocp-creation-time?:
+                      type: string
+                      description: Gets the file creation time.
+                    ocp-batch-file-isdirectory?:
+                      type: boolean
+                      description: Gets whether the object represents a directory.
+                    ocp-batch-file-url?:
+                      type: string
+                      description: Gets the URL of the file.
+                    Content-Type?:
+                      type: string
+                      description: Gets the content type of the file.
+                    Content-Length?:
+                      type: integer
+                      description: Gets the length of the file.
+                      format: int64
+                  body:
+                    application/json:
+                      type: file
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
             head:
               description: Gets the properties of the specified task file.
               queryParameters:
@@ -2659,6 +2936,43 @@ types:
                   type: string
                   description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
                   displayName: If-Unmodified-Since
+              responses:
+                200:
+                  description: Found the file
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                    ETag?:
+                      type: string
+                      description: Gets the content of the ETag HTTP response header.
+                    Last-Modified?:
+                      type: string
+                      description: Gets the content of the Last-Modified HTTP response header.
+                    ocp-creation-time?:
+                      type: string
+                      description: Gets the file creation time.
+                    ocp-batch-file-isdirectory?:
+                      type: boolean
+                      description: Gets whether the object represents a directory.
+                    ocp-batch-file-url?:
+                      type: string
+                      description: Gets the URL of the file.
+                    Content-Type?:
+                      type: string
+                      description: Gets the content type of the file.
+                    Content-Length?:
+                      type: integer
+                      description: Gets the length of the file.
+                      format: int64
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
             delete:
               description: Deletes the specified task file from the compute node where the task ran.
               queryParameters:
@@ -2689,6 +3003,21 @@ types:
                   type: string
                   description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                   displayName: ocp-date
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
           get:
             description: Lists the files in a task's directory on its compute node.
             queryParameters:
@@ -2728,6 +3057,30 @@ types:
                 type: string
                 description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                 displayName: ocp-date
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                body:
+                  application/json:
+                    type: NodeFileListResult
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /subtasksinfo:
           get:
             description: Lists all of the subtasks that are associated with the specified multi-instance task.
@@ -2759,6 +3112,30 @@ types:
                 type: string
                 description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                 displayName: ocp-date
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                body:
+                  application/json:
+                    type: CloudTaskListSubtasksResult
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /terminate:
           post:
             description: Terminates the specified task.
@@ -2802,6 +3179,30 @@ types:
                 type: string
                 description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
                 displayName: If-Unmodified-Since
+            responses:
+              204:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         get:
           description: Gets information about the specified task.
           queryParameters:
@@ -2852,6 +3253,33 @@ types:
               type: string
               description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
               displayName: If-Unmodified-Since
+          responses:
+            200:
+              description: ''
+              headers:
+                client-request-id?:
+                  type: string
+                  description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                request-id?:
+                  type: string
+                  description: Gets the value that uniquely identifies a request.
+                ETag?:
+                  type: string
+                  description: Gets the content of the ETag HTTP response header.
+                Last-Modified?:
+                  type: string
+                  description: Gets the content of the Last-Modified HTTP response header.
+                DataServiceId?:
+                  type: string
+                  description: Gets the OData id of the resource to which the request applied.
+              body:
+                application/json:
+                  type: CloudTask
+            500:
+              description: Error from the Batch service
+              body:
+                application/json:
+                  type: BatchError
         delete:
           description: Deletes a task from the specified job.
           queryParameters:
@@ -2894,6 +3322,21 @@ types:
               type: string
               description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
               displayName: If-Unmodified-Since
+          responses:
+            200:
+              description: ''
+              headers:
+                client-request-id?:
+                  type: string
+                  description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                request-id?:
+                  type: string
+                  description: Gets the value that uniquely identifies a request.
+            500:
+              description: Error from the Batch service
+              body:
+                application/json:
+                  type: BatchError
         put:
           description: Updates the properties of the specified task.
           queryParameters:
@@ -2938,6 +3381,30 @@ types:
               displayName: If-Unmodified-Since
           body:
             application/json: TaskUpdateParameter
+          responses:
+            200:
+              description: ''
+              headers:
+                client-request-id?:
+                  type: string
+                  description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                request-id?:
+                  type: string
+                  description: Gets the value that uniquely identifies a request.
+                ETag?:
+                  type: string
+                  description: Gets the content of the ETag HTTP response header.
+                Last-Modified?:
+                  type: string
+                  description: Gets the content of the Last-Modified HTTP response header.
+                DataServiceId?:
+                  type: string
+                  description: Gets the OData id of the resource to which the request applied.
+            500:
+              description: Error from the Batch service
+              body:
+                application/json:
+                  type: BatchError
       get:
         description: Lists all of the tasks that are associated with the specified job.
         queryParameters:
@@ -2981,6 +3448,30 @@ types:
             type: string
             description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
             displayName: ocp-date
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+            body:
+              application/json:
+                type: CloudTaskListResult
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
       post:
         description: Adds a task to the specified job.
         queryParameters:
@@ -3009,6 +3500,30 @@ types:
             displayName: ocp-date
         body:
           application/json: TaskAddParameter
+        responses:
+          201:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /terminate:
       post:
         description: Terminates the specified job, marking it as completed.
@@ -3054,6 +3569,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: JobTerminateParameter
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     get:
       description: Gets information about the specified job.
       queryParameters:
@@ -3088,6 +3627,30 @@ types:
           type: string
           description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
           displayName: ocp-date
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+          body:
+            application/json:
+              type: CloudJob
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     delete:
       description: Deletes a job.
       queryParameters:
@@ -3130,6 +3693,21 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        202:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     patch:
       description: Updates the properties of a job.
       queryParameters:
@@ -3174,6 +3752,30 @@ types:
           displayName: If-Unmodified-Since
       body:
         application/json: JobPatchParameter
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     put:
       description: Updates the properties of a job.
       queryParameters:
@@ -3218,6 +3820,30 @@ types:
           displayName: If-Unmodified-Since
       body:
         application/json: JobUpdateParameter
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
   get:
     description: Lists all of the jobs in the specified account.
     queryParameters:
@@ -3261,6 +3887,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: CloudJobListResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
   post:
     description: Adds a job to the specified account.
     queryParameters:
@@ -3289,6 +3939,30 @@ types:
         displayName: ocp-date
     body:
       application/json: JobAddParameter
+    responses:
+      201:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+          DataServiceId?:
+            type: string
+            description: Gets the OData id of the resource to which the request applied.
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /jobschedules:
   /{jobScheduleId}:
     uriParameters:
@@ -3339,6 +4013,30 @@ types:
             type: string
             description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
             displayName: If-Unmodified-Since
+        responses:
+          204:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /enable:
       post:
         description: Enables a job schedule.
@@ -3382,6 +4080,30 @@ types:
             type: string
             description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
             displayName: If-Unmodified-Since
+        responses:
+          204:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /jobs:
       get:
         description: Lists the jobs that have been created under the specified job schedule.
@@ -3426,6 +4148,30 @@ types:
             type: string
             description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
             displayName: ocp-date
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+            body:
+              application/json:
+                type: CloudJobListResult
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /terminate:
       post:
         description: Terminates a job schedule.
@@ -3469,6 +4215,30 @@ types:
             type: string
             description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
             displayName: If-Unmodified-Since
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     get:
       description: Gets information about the specified job schedule.
       queryParameters:
@@ -3519,6 +4289,30 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+          body:
+            application/json:
+              type: CloudJobSchedule
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     head:
       description: Checks the specified job schedule exists.
       queryParameters:
@@ -3565,6 +4359,29 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        200:
+          description: Found the jobschedule.
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+        404:
+          description: JobSchedules not found
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     delete:
       description: Deletes a job schedule from the specified account.
       queryParameters:
@@ -3607,6 +4424,21 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        202:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     patch:
       description: Updates the properties of the specified job schedule.
       queryParameters:
@@ -3651,6 +4483,30 @@ types:
           displayName: If-Unmodified-Since
       body:
         application/json: JobSchedulePatchParameter
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     put:
       description: Updates the properties of the specified job schedule.
       queryParameters:
@@ -3695,6 +4551,30 @@ types:
           displayName: If-Unmodified-Since
       body:
         application/json: JobScheduleUpdateParameter
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
   get:
     description: Lists all of the job schedules in the specified account.
     queryParameters:
@@ -3738,6 +4618,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: CloudJobScheduleListResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
   post:
     description: Adds a job schedule to the specified account.
     queryParameters:
@@ -3766,6 +4670,30 @@ types:
         displayName: ocp-date
     body:
       application/json: JobScheduleAddParameter
+    responses:
+      201:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+          DataServiceId?:
+            type: string
+            description: Gets the OData id of the resource to which the request applied.
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /lifetimejobstats:
   get:
     description: Gets lifetime summary statistics for all of the jobs in the specified account. Statistics are aggregated across all jobs that have ever existed in the account, from account creation to the last update time of the statistics.
@@ -3793,6 +4721,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: JobStatistics
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /lifetimepoolstats:
   get:
     description: Gets lifetime summary statistics for all of the pools in the specified account. Statistics are aggregated across all pools that have ever existed in the account, from account creation to the last update time of the statistics.
@@ -3820,6 +4772,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: PoolStatistics
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /pools:
   /{poolId}:
     uriParameters:
@@ -3854,6 +4830,30 @@ types:
             type: string
             description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
             displayName: ocp-date
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /enableautoscale:
       post:
         description: Enables automatic scaling for a pool.
@@ -3899,6 +4899,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: PoolEnableAutoScaleParameter
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /evaluateautoscale:
       post:
         description: Gets the result of evaluating an automatic scaling formula on the pool.
@@ -3928,6 +4952,33 @@ types:
             displayName: ocp-date
         body:
           application/json: PoolEvaluateAutoScaleParameter
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+            body:
+              application/json:
+                type: AutoScaleRun
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /nodes:
       /{nodeId}:
         uriParameters:
@@ -3964,6 +5015,30 @@ types:
                 displayName: ocp-date
             body:
               application/json: NodeDisableSchedulingParameter
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /enablescheduling:
           post:
             description: Enable task scheduling of the specified compute node.
@@ -3991,6 +5066,30 @@ types:
                 type: string
                 description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                 displayName: ocp-date
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /files:
           /{fileName}:
             uriParameters:
@@ -4036,6 +5135,46 @@ types:
                   type: string
                   description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
                   displayName: If-Unmodified-Since
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                    ETag?:
+                      type: string
+                      description: Gets the content of the ETag HTTP response header.
+                    Last-Modified?:
+                      type: string
+                      description: Gets the content of the Last-Modified HTTP response header.
+                    ocp-creation-time?:
+                      type: string
+                      description: Gets the file creation time.
+                    ocp-batch-file-isdirectory?:
+                      type: boolean
+                      description: Gets whether the object represents a directory.
+                    ocp-batch-file-url?:
+                      type: string
+                      description: Gets the URL of the file.
+                    Content-Type?:
+                      type: string
+                      description: Gets the content type of the file.
+                    Content-Length?:
+                      type: integer
+                      description: Gets the length of the file.
+                      format: int64
+                  body:
+                    application/json:
+                      type: file
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
             head:
               description: Gets the properties of the specified compute node file.
               queryParameters:
@@ -4070,6 +5209,43 @@ types:
                   type: string
                   description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
                   displayName: If-Unmodified-Since
+              responses:
+                200:
+                  description: Found the file
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                    ETag?:
+                      type: string
+                      description: Gets the content of the ETag HTTP response header.
+                    Last-Modified?:
+                      type: string
+                      description: Gets the content of the Last-Modified HTTP response header.
+                    ocp-creation-time?:
+                      type: string
+                      description: Gets the file creation time.
+                    ocp-batch-file-isdirectory?:
+                      type: boolean
+                      description: Gets whether the object represents a directory.
+                    ocp-batch-file-url?:
+                      type: string
+                      description: Gets the URL of the file.
+                    Content-Type?:
+                      type: string
+                      description: Gets the content type of the file.
+                    Content-Length?:
+                      type: integer
+                      description: Gets the length of the file.
+                      format: int64
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
             delete:
               description: Deletes the specified task file from the compute node.
               queryParameters:
@@ -4100,6 +5276,21 @@ types:
                   type: string
                   description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                   displayName: ocp-date
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
           get:
             description: Lists all of the files in task directories on the specified compute node.
             queryParameters:
@@ -4139,6 +5330,30 @@ types:
                 type: string
                 description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                 displayName: ocp-date
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                body:
+                  application/json:
+                    type: NodeFileListResult
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /rdp:
           get:
             description: Gets the Remote Desktop Protocol file for the specified compute node.
@@ -4166,6 +5381,30 @@ types:
                 type: string
                 description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                 displayName: ocp-date
+            responses:
+              200:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                body:
+                  application/json:
+                    type: file
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /reboot:
           post:
             description: Restarts the specified compute node.
@@ -4195,6 +5434,30 @@ types:
                 displayName: ocp-date
             body:
               application/json: NodeRebootParameter
+            responses:
+              202:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /reimage:
           post:
             description: Reinstalls the operating system on the specified compute node.
@@ -4224,6 +5487,30 @@ types:
                 displayName: ocp-date
             body:
               application/json: NodeReimageParameter
+            responses:
+              202:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         /users:
           /{userName}:
             uriParameters:
@@ -4257,6 +5544,21 @@ types:
                   type: string
                   description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
                   displayName: ocp-date
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
             put:
               description: Updates the password or expiration time of a user account on the specified compute node.
               queryParameters:
@@ -4285,6 +5587,30 @@ types:
                   displayName: ocp-date
               body:
                 application/json: NodeUpdateUserParameter
+              responses:
+                200:
+                  description: ''
+                  headers:
+                    client-request-id?:
+                      type: string
+                      description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                    request-id?:
+                      type: string
+                      description: Gets the value that uniquely identifies a request.
+                    ETag?:
+                      type: string
+                      description: Gets the content of the ETag HTTP response header.
+                    Last-Modified?:
+                      type: string
+                      description: Gets the content of the Last-Modified HTTP response header.
+                    DataServiceId?:
+                      type: string
+                      description: Gets the OData id of the resource to which the request applied.
+                500:
+                  description: Error from the Batch service
+                  body:
+                    application/json:
+                      type: BatchError
           post:
             description: Adds a user account to the specified compute node.
             queryParameters:
@@ -4313,6 +5639,30 @@ types:
                 displayName: ocp-date
             body:
               application/json: ComputeNodeUser
+            responses:
+              201:
+                description: ''
+                headers:
+                  client-request-id?:
+                    type: string
+                    description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                  request-id?:
+                    type: string
+                    description: Gets the value that uniquely identifies a request.
+                  ETag?:
+                    type: string
+                    description: Gets the content of the ETag HTTP response header.
+                  Last-Modified?:
+                    type: string
+                    description: Gets the content of the Last-Modified HTTP response header.
+                  DataServiceId?:
+                    type: string
+                    description: Gets the OData id of the resource to which the request applied.
+              500:
+                description: Error from the Batch service
+                body:
+                  application/json:
+                    type: BatchError
         get:
           description: Gets information about the specified compute node.
           queryParameters:
@@ -4343,6 +5693,30 @@ types:
               type: string
               description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
               displayName: ocp-date
+          responses:
+            200:
+              description: ''
+              headers:
+                client-request-id?:
+                  type: string
+                  description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+                request-id?:
+                  type: string
+                  description: Gets the value that uniquely identifies a request.
+                ETag?:
+                  type: string
+                  description: Gets the content of the ETag HTTP response header.
+                Last-Modified?:
+                  type: string
+                  description: Gets the content of the Last-Modified HTTP response header.
+              body:
+                application/json:
+                  type: ComputeNode
+            500:
+              description: Error from the Batch service
+              body:
+                application/json:
+                  type: BatchError
       get:
         description: Lists the compute nodes in the specified pool.
         queryParameters:
@@ -4382,6 +5756,30 @@ types:
             type: string
             description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
             displayName: ocp-date
+        responses:
+          200:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+            body:
+              application/json:
+                type: ComputeNodeListResult
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /removenodes:
       post:
         description: Removes compute nodes from the specified pool.
@@ -4427,6 +5825,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: NodeRemoveParameter
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /resize:
       post:
         description: Changes the number of compute nodes that are assigned to a pool.
@@ -4472,6 +5894,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: PoolResizeParameter
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /stopresize:
       post:
         description: 'Stops an ongoing resize operation on the pool. This does not
@@ -4518,6 +5964,30 @@ types:
             type: string
             description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
             displayName: If-Unmodified-Since
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /updateproperties:
       post:
         description: Updates the properties of a pool.
@@ -4547,6 +6017,30 @@ types:
             displayName: ocp-date
         body:
           application/json: PoolUpdatePropertiesParameter
+        responses:
+          204:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     /upgradeos:
       post:
         description: Upgrades the operating system of the specified pool.
@@ -4592,6 +6086,30 @@ types:
             displayName: If-Unmodified-Since
         body:
           application/json: PoolUpgradeOSParameter
+        responses:
+          202:
+            description: ''
+            headers:
+              client-request-id?:
+                type: string
+                description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+              request-id?:
+                type: string
+                description: Gets the value that uniquely identifies a request.
+              ETag?:
+                type: string
+                description: Gets the content of the ETag HTTP response header.
+              Last-Modified?:
+                type: string
+                description: Gets the content of the Last-Modified HTTP response header.
+              DataServiceId?:
+                type: string
+                description: Gets the OData id of the resource to which the request applied.
+          500:
+            description: Error from the Batch service
+            body:
+              application/json:
+                type: BatchError
     get:
       description: Gets information about the specified pool.
       queryParameters:
@@ -4642,6 +6160,30 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+          body:
+            application/json:
+              type: CloudPool
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     head:
       description: Gets basic properties of a pool.
       queryParameters:
@@ -4688,6 +6230,29 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+        404:
+          description: Pool not found
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     delete:
       description: Deletes a pool from the specified account.
       queryParameters:
@@ -4730,6 +6295,21 @@ types:
           type: string
           description: Specify this header to perform the operation only if the resource has not been modified since the specified date/time.
           displayName: If-Unmodified-Since
+      responses:
+        202:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
     patch:
       description: Updates the properties of a pool.
       queryParameters:
@@ -4774,6 +6354,30 @@ types:
           displayName: If-Unmodified-Since
       body:
         application/json: PoolPatchParameter
+      responses:
+        200:
+          description: ''
+          headers:
+            client-request-id?:
+              type: string
+              description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+            request-id?:
+              type: string
+              description: Gets the value that uniquely identifies a request.
+            ETag?:
+              type: string
+              description: Gets the content of the ETag HTTP response header.
+            Last-Modified?:
+              type: string
+              description: Gets the content of the Last-Modified HTTP response header.
+            DataServiceId?:
+              type: string
+              description: Gets the OData id of the resource to which the request applied.
+        500:
+          description: Error from the Batch service
+          body:
+            application/json:
+              type: BatchError
   get:
     description: Lists all of the pools in the specified account.
     queryParameters:
@@ -4817,6 +6421,30 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: CloudPoolListResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
   post:
     description: Adds a pool to the specified account.
     queryParameters:
@@ -4845,6 +6473,30 @@ types:
         displayName: ocp-date
     body:
       application/json: PoolAddParameter
+    responses:
+      201:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+          DataServiceId?:
+            type: string
+            description: Gets the OData id of the resource to which the request applied.
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
 /poolusagemetrics:
   get:
     description: Lists the usage metrics, aggregated by pool across individual time intervals, for the specified account.
@@ -4889,3 +6541,27 @@ types:
         type: string
         description: The time the request was issued. If not specified, this header will be automatically populated with the current system clock time.
         displayName: ocp-date
+    responses:
+      200:
+        description: ''
+        headers:
+          client-request-id?:
+            type: string
+            description: Gets the ClientRequestId provided by the client during the request, if present and requested to be returned.
+          request-id?:
+            type: string
+            description: Gets the value that uniquely identifies a request.
+          ETag?:
+            type: string
+            description: Gets the content of the ETag HTTP response header.
+          Last-Modified?:
+            type: string
+            description: Gets the content of the Last-Modified HTTP response header.
+        body:
+          application/json:
+            type: PoolListPoolUsageMetricsResult
+      500:
+        description: Error from the Batch service
+        body:
+          application/json:
+            type: BatchError
