@@ -320,7 +320,7 @@
     "version" : "2016-05-01-preview",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure ML Commitment Plans Management Client2016-05-01-preview.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure_ML_Commitment_Plans_Management_Client2016-05-01-preview.raml",
     "kind" : null
   }, {
     "name" : "Azure ML Web Services Management Client",
@@ -328,7 +328,7 @@
     "version" : "2016-05-01-preview",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure ML Web Services Management Client2016-05-01-preview.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Azure_ML_Web_Services_Management_Client2016-05-01-preview.raml",
     "kind" : null
   }, {
     "name" : "MediaServicesManagementClient",
@@ -392,7 +392,7 @@
     "version" : "2016-01-29",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Power BI Embedded Management Client2016-01-29.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Power_BI_Embedded_Management_Client2016-01-29.raml",
     "kind" : null
   }, {
     "name" : "RecoveryServicesClient",
@@ -632,7 +632,7 @@
     "version" : "2015-08-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebSite Management Client2015-08-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebSite_Management_Client2015-08-01.raml",
     "kind" : null
   }, {
     "name" : "LogicAppsManagementClient",
@@ -643,76 +643,76 @@
     "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/LogicAppsManagementClient2015-08-01-preview.raml",
     "kind" : null
   }, {
-    "name" : "AppServiceCertificateOrders API ",
+    "name" : "AppServiceCertificateOrders API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceCertificateOrders API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceCertificateOrders_API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Certificates API ",
+    "name" : "Certificates API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Certificates API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Certificates_API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Domains API ",
+    "name" : "Domains API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Domains API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Domains_API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "Recommendations API ",
+    "name" : "Recommendations API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Recommendations API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/Recommendations_API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : " API ",
+    "name" : "API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/ API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "TopLevelDomains API ",
+    "name" : "TopLevelDomains API",
     "org" : "Microsoft",
     "version" : "2016-03-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/TopLevelDomains API 2016-03-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/TopLevelDomains_API2016-03-01.raml",
     "kind" : null
   }, {
-    "name" : "WebApps API ",
+    "name" : "WebApps API",
     "org" : "Microsoft",
     "version" : "2016-08-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebApps API 2016-08-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/WebApps_API2016-08-01.raml",
     "kind" : null
   }, {
-    "name" : "AppServiceEnvironments API ",
+    "name" : "AppServiceEnvironments API",
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceEnvironments API 2016-09-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServiceEnvironments_API2016-09-01.raml",
     "kind" : null
   }, {
-    "name" : "AppServicePlans API ",
+    "name" : "AppServicePlans API",
     "org" : "Microsoft",
     "version" : "2016-09-01",
     "description" : null,
     "icon" : "https://favicon.yandex.net/favicon/azure.microsoft.com",
-    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServicePlans API 2016-09-01.raml",
+    "location" : "https://raw.githubusercontent.com/apiregistry/microsoft/master/AppServicePlans_API2016-09-01.raml",
     "kind" : null
   }, {
     "name" : "BatchService",

@@ -1,0 +1,636 @@
+#%RAML 1.0
+title: Azure ML Web Services Management Client
+version: 2016-05-01-preview
+baseUri: management.azure.com
+description: These APIs allow end users to operate on Azure Machine Learning Web Services resources. They support the following operations:<ul><li>Create or update a web service</li><li>Get a web service</li><li>Patch a web service</li><li>Delete a web service</li><li>Get All Web Services in a Resource Group </li><li>Get All Web Services in a Subscription</li><li>Get Web Services Keys</li></ul>
+mediaType:
+- application/json
+- text/json
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+types:
+  AssetItem:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Asset's friendly name.
+      id?:
+        type: string
+        description: Asset's Id.
+      type:
+        type: string
+        description: Asset's type.
+        enum:
+        - Module
+        - Resource
+      locationInfo:
+        type: AssetLocation
+        description: Access information for the asset.
+      inputPorts?:
+        type: object
+        properties:
+          //:
+            type: InputPort
+        description: Information about the asset's input ports.
+      outputPorts?:
+        type: object
+        properties:
+          //:
+            type: OutputPort
+        description: Information about the asset's output ports.
+      metadata?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: If the asset is a custom module, this holds the module's metadata.
+      parameters?:
+        type: array
+        description: If the asset is a custom module, this holds the module's parameters.
+        items:
+          type: ModuleAssetParameter
+    description: Information about an asset associated with the web service.
+  AssetLocation:
+    type: object
+    properties:
+      uri:
+        type: string
+        description: The URI where the asset is accessible from, (e.g. aml://abc for system assets or https://xyz for user asets
+      credentials?:
+        type: string
+        description: Access credentials for the asset, if applicable (e.g. asset specified by storage account connection string + blob URI)
+    description: Describes the access location for a web service asset.
+  ColumnSpecification:
+    type: object
+    properties:
+      type:
+        type: string
+        description: Data type of the column.
+        enum:
+        - Boolean
+        - Integer
+        - Number
+        - String
+      format?:
+        type: string
+        description: Additional format information for the data type.
+        enum:
+        - Byte
+        - Char
+        - Datetime
+        - Double
+        - Duration
+        - Float
+        - Int8
+        - Int16
+        - Int32
+        - Int64
+        - Uint8
+        - Uint16
+        - Uint32
+        - Uint64
+      enum?:
+        type: array
+        description: If the data type is categorical, this provides the list of accepted categories.
+        items:
+          type: object
+      x-ms-isnullable?:
+        type: boolean
+        description: Flag indicating if the type supports null values or not.
+      x-ms-isordered?:
+        type: boolean
+        description: Flag indicating whether the categories are treated as an ordered set or not, if this is a categorical column.
+    description: 'Swagger 2.0 schema for a column within the data table representing
+      a web service input or output. See Swagger specification: http://swagger.io/specification/'
+  CommitmentPlan:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The commitment plan ARM resource  id.
+    description: Information about the machine learning commitment plan associated with the web service.
+  DiagnosticsConfiguration:
+    type: object
+    properties:
+      level:
+        type: string
+        description: 'Level of tracing to be used: None - disables tracing; Error
+          - collects only error (stderr) traces; All - collects all traces (stdout
+          and stderr).'
+        enum:
+        - None
+        - Error
+        - All
+      expiry?:
+        type: datetime
+        description: Moment of time after which diagnostics are no longer collected. If null, diagnostic collection is not time limited.
+    description: Diagnostics settings for an Azure ML web service.
+  ExampleRequest:
+    type: object
+    properties:
+      inputs?:
+        type: object
+        properties:
+          //:
+            type: array
+            items:
+              type: array
+              items:
+                type: object
+        description: Sample input data for the web service's input(s) given as an input name to sample input values matrix map.
+      globalParameters?:
+        type: object
+        properties:
+          //:
+            type: object
+        description: Sample input data for the web service's global parameters
+    description: Sample input data for the service's input(s).
+  GraphEdge:
+    type: object
+    properties:
+      sourceNodeId?:
+        type: string
+        description: The source graph node's identifier.
+      sourcePortId?:
+        type: string
+        description: The identifier of the source node's port that the edge connects from.
+      targetNodeId?:
+        type: string
+        description: The destination graph node's identifier.
+      targetPortId?:
+        type: string
+        description: The identifier of the destination node's port that the edge connects into.
+    description: Defines an edge within the web service's graph.
+  GraphNode:
+    type: object
+    properties:
+      assetId?:
+        type: string
+        description: The id of the asset represented by this node.
+      inputId?:
+        type: string
+        description: The id of the input element represented by this node.
+      outputId?:
+        type: string
+        description: The id of the output element represented by this node.
+      parameters?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: If applicable, parameters of the node. Global graph parameters map into these, with values set at runtime.
+    description: Specifies a node in the web service graph. The node can either be an input, output or asset node, so only one of the corresponding id properties is populated at any given time.
+  GraphPackage:
+    type: object
+    properties:
+      nodes?:
+        type: object
+        properties:
+          //:
+            type: GraphNode
+        description: The set of nodes making up the graph, provided as a nodeId to GraphNode map
+      edges?:
+        type: array
+        description: The list of edges making up the graph.
+        items:
+          type: GraphEdge
+      graphParameters?:
+        type: object
+        properties:
+          //:
+            type: GraphParameter
+        description: The collection of global parameters for the graph, given as a global parameter name to GraphParameter map. Each parameter here has a 1:1 match with the global parameters values map declared at the WebServiceProperties level.
+    description: Defines the graph of modules making up the machine learning solution.
+  GraphParameter:
+    type: object
+    properties:
+      description?:
+        type: string
+        description: Description of this graph parameter.
+      type:
+        type: string
+        description: Graph parameter's type.
+        enum:
+        - String
+        - Int
+        - Float
+        - Enumerated
+        - Script
+        - Mode
+        - Credential
+        - Boolean
+        - Double
+        - ColumnPicker
+        - ParameterRange
+        - DataGatewayName
+      links:
+        type: array
+        description: Association links for this parameter to nodes in the graph.
+        items:
+          type: GraphParameterLink
+    description: Defines a global parameter in the graph.
+  GraphParameterLink:
+    type: object
+    properties:
+      nodeId:
+        type: string
+        description: The graph node's identifier
+      parameterKey:
+        type: string
+        description: The identifier of the node parameter that the global parameter maps to.
+    description: Association link for a graph global parameter to a node in the graph.
+  InputPort:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: Port data type.
+        enum:
+        - Dataset
+    description: Asset input port
+  MachineLearningWorkspace:
+    type: object
+    properties:
+      id:
+        type: string
+        description: The workspace ARM resource id.
+    description: Information about the machine learning workspace containing the experiment that is source for the web service.
+  ModeValueInfo:
+    type: object
+    properties:
+      interfaceString?:
+        type: string
+        description: The interface string name for the nested parameter.
+      parameters?:
+        type: array
+        description: The definition of the parameter.
+        items:
+          type: ModuleAssetParameter
+    description: Nested parameter definition.
+  ModuleAssetParameter:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Parameter name.
+      parameterType?:
+        type: string
+        description: Parameter type.
+      modeValuesInfo?:
+        type: object
+        properties:
+          //:
+            type: ModeValueInfo
+        description: Definitions for nested interface parameters if this is a complex module parameter.
+    description: Parameter definition for a module asset.
+  OutputPort:
+    type: object
+    properties:
+      type?:
+        type: string
+        description: Port data type.
+        enum:
+        - Dataset
+    description: Asset output port
+  PaginatedWebServicesList:
+    type: object
+    properties:
+      value?:
+        type: array
+        description: List of web services objects.
+        items:
+          type: WebService
+      nextLink?:
+        type: string
+        description: Continuation link to be used to potentially retrieve the next page of results in the list.
+    description: Paginated list of web services.
+  RealtimeConfiguration:
+    type: object
+    properties:
+      maxConcurrentCalls?:
+        type: integer
+        description: Maximum number of concurrent calls allowed on the realtime endpoint.
+        maximum: 200
+        minimum: 4
+    description: Holds the available configuration options for an Azure ML web service endpoint.
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name?:
+        type: string
+        description: Resource Name
+      location:
+        type: string
+        description: Resource Location
+      type?:
+        type: string
+        description: Resource type
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+  ServiceInputOutputSpecification:
+    type: object
+    properties:
+      title?:
+        type: string
+        description: Swagger schema title.
+      description?:
+        type: string
+        description: Swagger schema description.
+      type:
+        type: string
+        description: The type of the entity described in swagger. Always 'object'.
+      properties:
+        type: object
+        properties:
+          //:
+            type: TableSpecification
+        description: Map of name to swagger schema for each input or output of the web service.
+    description: 'The swagger 2.0 schema describing the service''s inputs or outputs.
+      See Swagger specification: http://swagger.io/specification/'
+  StorageAccount:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The storage account's name.
+      key?:
+        type: string
+        description: The storage account's active key.
+    description: Access information for a storage account.
+  TableSpecification:
+    type: object
+    properties:
+      title?:
+        type: string
+        description: Swagger schema title.
+      description?:
+        type: string
+        description: Swagger schema description.
+      type:
+        type: string
+        description: The type of the entity described in swagger.
+      format?:
+        type: string
+        description: The format, if 'type' is not 'object'
+      properties?:
+        type: object
+        properties:
+          //:
+            type: ColumnSpecification
+        description: The set of columns within the data table.
+    description: 'The swagger 2.0 schema describing a single service input or output.
+      See Swagger specification: http://swagger.io/specification/'
+  WebService:
+    type: Resource
+    description: Instance of an Azure ML web service resource.
+  WebServiceKeys:
+    type: object
+    properties:
+      primary?:
+        type: string
+        description: The primary access key.
+      secondary?:
+        type: string
+        description: The secondary access key.
+    description: Access keys for the web service calls.
+  WebServiceProperties:
+    type: object
+    properties:
+      title?:
+        type: string
+        description: The title of the Azure ML web service.
+      description?:
+        type: string
+        description: The description of the Azure ML web service.
+      createdOn?:
+        type: datetime
+        description: The moment of time the Azure ML web service was created.
+      modifiedOn?:
+        type: datetime
+        description: The moment of time the web service was last modified.
+      provisioningState?:
+        type: string
+        description: The web service resource's provisioning state.
+        enum:
+        - Unknown
+        - Provisioning
+        - Succeeded
+        - Failed
+        - Canceled
+      keys?:
+        type: WebServiceKeys
+        description: The set of access keys for the web service. If not specified at creation time (PUT), they will be generated automatically by the resource provider.
+      readOnly?:
+        type: boolean
+        description: If true, the web service can no longer be updated / patched, only removed. Otherwise, the service resource supports changes.
+      swaggerLocation?:
+        type: string
+        description: The uri for the swagger spec associated with this web service.
+      exposeSampleData?:
+        type: boolean
+        description: Flag that controls whether to expose sample data or not in the web service's swagger definition.
+      realtimeConfiguration?:
+        type: RealtimeConfiguration
+        description: Configuration for the service's realtime endpoint.
+      diagnostics?:
+        type: DiagnosticsConfiguration
+        description: Settings controlling the diagnostics traces collection for the web service.
+      storageAccount?:
+        type: StorageAccount
+        description: The storage account associated with the service. This is used to store both datasets and diagnostic traces. This information is required at creation time (PUT) and only the key is updateable after that. The account credentials are hidden on a GET web service call.
+      machineLearningWorkspace?:
+        type: MachineLearningWorkspace
+        description: This is only populated at creation time (PUT) for web services originating from an AzureML Studio experiment.
+      commitmentPlan?:
+        type: CommitmentPlan
+        description: The commitment plan associated with this web service. This is required to be specified at creation time (PUT) and is not updateable afterwards.
+      input?:
+        type: ServiceInputOutputSpecification
+        description: Swagger schema for the service's input(s), as applicable.
+      output?:
+        type: ServiceInputOutputSpecification
+        description: Swagger schema for the service's output(s), as applicable.
+      exampleRequest?:
+        type: ExampleRequest
+        description: Sample request data for each of the service's inputs, as applicable.
+      assets?:
+        type: object
+        properties:
+          //:
+            type: AssetItem
+        description: Set of assets associated with the web service.
+      parameters?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: The set of global parameters values defined for the web service, given as a global parameter name to default value map. If no default value is specified, the parameter is considered to be required.
+      packageType:
+        type: string
+        description: The type of package deployed with this web service. Only Graph based services are supported at this time.
+        enum:
+        - Graph
+    description: The set of properties specific to the Azure ML web service resource.
+    discriminator: packageType
+  WebServicePropertiesForGraph:
+    type: WebServiceProperties
+    description: Properties specific to a Graph based web service.
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Azure subscription id.
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.MachineLearning:
+        /webServices:
+          get:
+            description: Retrieve all Azure ML web services in the current Azure subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                displayName: api-version
+              $skiptoken?:
+                type: string
+                description: Continuation token for pagination.
+                displayName: $skiptoken
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: PaginatedWebServicesList
+                  text/json:
+                    type: PaginatedWebServicesList
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Name of the resource group.
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.MachineLearning:
+            /webServices:
+              /{webServiceName}:
+                uriParameters:
+                  webServiceName:
+                    type: string
+                    description: The Azure ML web service name which you want to reach.
+                    displayName: webServiceName
+                /listKeys:
+                  get:
+                    description: Get the access keys of a particular Azure ML web service
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                        displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: WebServiceKeys
+                          text/json:
+                            type: WebServiceKeys
+                get:
+                  description: Retrieve an Azure ML web service definition by its subscription, resource group and name.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
+                delete:
+                  description: Remove an existing Azure ML web service.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                      displayName: api-version
+                  responses:
+                    202:
+                      description: Async delete operation was accepted.
+                    204:
+                      description: No Content
+                patch:
+                  description: Patch an existing Azure ML web service resource.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                      displayName: api-version
+                  body:
+                    application/json: WebService
+                    text/json: WebService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
+                put:
+                  description: Creates or updates a new Azure ML web service or update an existing one.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                      displayName: api-version
+                  body:
+                    application/json: WebService
+                    text/json: WebService
+                  responses:
+                    200:
+                      description: OK
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
+                    201:
+                      description: Created
+                      body:
+                        application/json:
+                          type: WebService
+                        text/json:
+                          type: WebService
+              get:
+                description: Retrieve all Azure ML web services in a given resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: The version of the Microsoft.MachineLearning resource provider API to be used.
+                    displayName: api-version
+                  $skiptoken?:
+                    type: string
+                    description: Continuation token for pagination.
+                    displayName: $skiptoken
+                responses:
+                  200:
+                    description: OK
+                    body:
+                      application/json:
+                        type: PaginatedWebServicesList
+                      text/json:
+                        type: PaginatedWebServicesList

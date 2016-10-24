@@ -1,0 +1,1533 @@
+#%RAML 1.0
+title: Recommendations API
+version: '2016-03-01'
+baseUri: management.azure.com
+uses:
+  commons: https://raw.githubusercontent.com/apiregistry/commons/master/commons.raml
+  extras: https://raw.githubusercontent.com/apiregistry/typesExtras/master/typeExtras.raml
+securitySchemes:
+  azure_auth:
+    type: OAuth 2.0
+    description: Azure Active Directory OAuth2 Flow
+    settings:
+      authorizationGrants:
+      - implicit
+      authorizationUri: https://login.microsoftonline.com/common/oauth2/authorize
+      accessTokenUri: https://login.microsoftonline.com/common/oauth2/authorize
+      scopes:
+      - user_impersonation
+types:
+  Address:
+    type: object
+    properties:
+      address1?:
+        type: string
+        description: Address 1
+      address2?:
+        type: string
+        description: Address 2
+      city?:
+        type: string
+        description: City
+      country?:
+        type: string
+        description: Country
+      postalCode?:
+        type: string
+        description: Postal code
+      state?:
+        type: string
+        description: State
+    description: Address information for domain registration
+  ApiDefinitionInfo:
+    type: object
+    properties:
+      url?:
+        type: string
+        description: The URL of the API definition.
+    description: Information about the formal API definition for the web app.
+  AppServiceCertificate:
+    type: Resource
+    description: Class representing the Key Vault container for certificate purchased through Azure
+  AppServiceCertificateOrder:
+    type: Resource
+    description: Certificate purchase order
+  AppServiceEnvironment:
+    type: Resource
+    description: Description of an hostingEnvironment (App Service Environment)
+  AppServicePlan:
+    type: Resource
+    description: App Service Plan Model
+  ApplicationLogsConfig:
+    type: object
+    properties:
+      fileSystem?:
+        type: FileSystemApplicationLogsConfig
+        description: Application logs to file system configuration
+      azureTableStorage?:
+        type: AzureTableStorageApplicationLogsConfig
+        description: Application logs to azure table storage configuration
+      azureBlobStorage?:
+        type: AzureBlobStorageApplicationLogsConfig
+        description: Application logs to blob storage configuration
+    description: Application logs configuration
+  ArmPlan:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: The name
+      publisher?:
+        type: string
+        description: The publisher
+      product?:
+        type: string
+        description: The product
+      promotionCode?:
+        type: string
+        description: The promotion code
+      version?:
+        type: string
+        description: Version of product
+    description: The plan object in an ARM, represents a marketplace plan
+  AutoHealActions:
+    type: object
+    properties:
+      actionType:
+        type: string
+        description: ActionType - predefined action to be taken
+        enum:
+        - Recycle
+        - LogEvent
+        - CustomAction
+      customAction?:
+        type: AutoHealCustomAction
+        description: CustomAction - custom action to be taken
+      minProcessExecutionTime?:
+        type: string
+        description: "MinProcessExecutionTime - minimum time the process must execute\r\
+          \n            before taking the action"
+    description: "AutoHealActions - Describes the actions which can be\r\n       \
+      \     taken by the auto-heal module when a rule is triggered."
+  AutoHealCustomAction:
+    type: object
+    properties:
+      exe?:
+        type: string
+        description: Executable to be run
+      parameters?:
+        type: string
+        description: Parameters for the executable
+    description: "AutoHealCustomAction - Describes the custom action to be executed\r\
+      \n            when an auto heal rule is triggered."
+  AutoHealRules:
+    type: object
+    properties:
+      triggers?:
+        type: AutoHealTriggers
+        description: Triggers - Conditions that describe when to execute the auto-heal actions
+      actions?:
+        type: AutoHealActions
+        description: Actions - Actions to be executed when a rule is triggered
+    description: AutoHealRules - describes the rules which can be defined for auto-heal
+  AutoHealTriggers:
+    type: object
+    properties:
+      requests?:
+        type: RequestsBasedTrigger
+        description: Requests - Defines a rule based on total requests
+      privateBytesInKB?:
+        type: integer
+        description: PrivateBytesInKB - Defines a rule based on private bytes
+        format: int32
+      statusCodes?:
+        type: array
+        description: StatusCodes - Defines a rule based on status codes
+        items:
+          type: StatusCodesBasedTrigger
+      slowRequests?:
+        type: SlowRequestsBasedTrigger
+        description: SlowRequests - Defines a rule based on request execution time
+    description: AutoHealTriggers - describes the triggers for auto-heal.
+  AzureBlobStorageApplicationLogsConfig:
+    type: object
+    properties:
+      level?:
+        type: string
+        description: Log level
+        enum:
+        - 'Off'
+        - Verbose
+        - Information
+        - Warning
+        - Error
+      sasUrl?:
+        type: string
+        description: SAS url to a azure blob container with read/write/list/delete permissions
+      retentionInDays?:
+        type: integer
+        description: "Retention in days.\r\n            Remove blobs older than X\
+          \ days.\r\n            0 or lower means no retention."
+        format: int32
+    description: Application logs azure blob storage configuration
+  AzureBlobStorageHttpLogsConfig:
+    type: object
+    properties:
+      sasUrl?:
+        type: string
+        description: SAS url to a azure blob container with read/write/list/delete permissions
+      retentionInDays?:
+        type: integer
+        description: "Retention in days.\r\n            Remove blobs older than X\
+          \ days.\r\n            0 or lower means no retention."
+        format: int32
+      enabled?:
+        type: boolean
+        description: Enabled
+    description: Http logs to azure blob storage configuration
+  AzureTableStorageApplicationLogsConfig:
+    type: object
+    properties:
+      level?:
+        type: string
+        description: Log level
+        enum:
+        - 'Off'
+        - Verbose
+        - Information
+        - Warning
+        - Error
+      sasUrl?:
+        type: string
+        description: SAS url to an azure table with add/query/delete permissions
+    description: Application logs to azure table storage configuration
+  BackupItem:
+    type: Resource
+    description: Backup description
+  BackupSchedule:
+    type: object
+    properties:
+      frequencyInterval?:
+        type: integer
+        description: How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)
+        format: int32
+      frequencyUnit:
+        type: string
+        description: How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)
+        enum:
+        - Day
+        - Hour
+      keepAtLeastOneBackup?:
+        type: boolean
+        description: True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.
+      retentionPeriodInDays?:
+        type: integer
+        description: After how many days backups should be deleted
+        format: int32
+      startTime?:
+        type: datetime
+        description: When the schedule should start working
+      lastExecutionTime?:
+        type: datetime
+        description: The last time when this schedule was triggered
+    description: Description of a backup schedule. Describes how often should be the backup performed and what should be the retention policy.
+  Capability:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the sku capability
+      value?:
+        type: string
+        description: Value of the sku capability
+      reason?:
+        type: string
+        description: Reason of the sku capability
+    description: Description of a Sku Capability
+  Certificate:
+    type: Resource
+    description: App certificate
+  CertificateDetails:
+    type: Resource
+    description: Certificate Details
+  ClassicMobileService:
+    type: Resource
+    description: A mobile service
+  CloningInfo:
+    type: object
+    properties:
+      correlationId?:
+        type: string
+        description: "Correlation Id of cloning operation. This id ties multiple cloning\
+          \ operations\r\n            together to use the same snapshot"
+      overwrite?:
+        type: boolean
+        description: Overwrite destination web app
+      cloneCustomHostNames?:
+        type: boolean
+        description: If true, clone custom hostnames from source web app
+      cloneSourceControl?:
+        type: boolean
+        description: Clone source control from source web app
+      sourceWebAppId:
+        type: string
+        description: "ARM resource id of the source web app. Web app resource id is\
+          \ of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}\
+          \ for production slots and \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slotName}\
+          \ for other slots"
+      hostingEnvironment?:
+        type: string
+        description: Hosting environment
+      appSettingsOverrides?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: "Application settings overrides for cloned web app. If specified\
+          \ these settings will override the settings cloned \r\n            from\
+          \ source web app. If not specified, application settings from source web\
+          \ app are retained."
+      configureLoadBalancing?:
+        type: boolean
+        description: If specified configure load balancing for source and clone site
+      trafficManagerProfileId?:
+        type: string
+        description: "ARM resource id of the traffic manager profile to use if it\
+          \ exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}"
+      trafficManagerProfileName?:
+        type: string
+        description: Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist
+    description: Represents information needed for cloning operation
+  ConnStringValueTypePair:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Value of pair
+      type:
+        type: string
+        description: Type of database
+        enum:
+        - MySql
+        - SQLServer
+        - SQLAzure
+        - Custom
+        - NotificationHub
+        - ServiceBus
+        - EventHub
+        - ApiHub
+        - DocDb
+        - RedisCache
+    description: Database connection string value to type pair
+  Contact:
+    type: object
+    properties:
+      addressMailing?:
+        type: Address
+        description: Mailing address
+      email?:
+        type: string
+        description: Email address
+      fax?:
+        type: string
+        description: Fax number
+      jobTitle?:
+        type: string
+        description: Job title
+      nameFirst?:
+        type: string
+        description: First name
+      nameLast?:
+        type: string
+        description: Last name
+      nameMiddle?:
+        type: string
+        description: Middle name
+      organization?:
+        type: string
+        description: Organization
+      phone?:
+        type: string
+        description: Phone number
+    description: Contact information for domain registration. If 'Domain Privacy' option is not selected then the contact information will be  be made publicly available through the Whois directories as per ICANN requirements.
+  CorsSettings:
+    type: object
+    properties:
+      allowedOrigins?:
+        type: array
+        description: "Gets or sets the list of origins that should be allowed to make\
+          \ cross-origin\r\n            calls (for example: http://example.com:12345).\
+          \ Use \"*\" to allow all."
+        items:
+          type: string
+    description: Cross-Origin Resource Sharing (CORS) settings for the web app.
+  CsmUsageQuota:
+    type: object
+    properties:
+      unit?:
+        type: string
+        description: Units of measurement for the quota resourse
+      nextResetTime?:
+        type: datetime
+        description: Next reset time for the resource counter
+      currentValue?:
+        type: integer
+        description: The current value of the resource counter
+        format: int64
+      limit?:
+        type: integer
+        description: The resource limit
+        format: int64
+      name?:
+        type: LocalizableString
+        description: Quota name
+    description: Usage of the quota resource
+  DatabaseBackupSetting:
+    type: object
+    properties:
+      databaseType?:
+        type: string
+        description: SqlAzure / MySql
+      name?:
+        type: string
+      connectionStringName?:
+        type: string
+        description: "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\
+          \n            This is used during restore with overwrite connection strings\
+          \ options."
+      connectionString?:
+        type: string
+        description: Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one.
+    description: "Note: properties are serialized in JSON format and stored in DB.\
+      \ \r\n            if new properties are added they might not be in the previous\
+      \ data rows \r\n            so please handle nulls"
+  DeletedSite:
+    type: Resource
+    description: Reports deleted site including the timestamp of operation
+  Deployment:
+    type: Resource
+    description: Represents user crendentials used for publishing activity
+  Domain:
+    type: Resource
+    description: Represents a domain
+  DomainPurchaseConsent:
+    type: object
+    properties:
+      agreementKeys?:
+        type: array
+        description: List of applicable legal agreement keys. This list can be retrieved using ListLegalAgreements Api under TopLevelDomain resource
+        items:
+          type: string
+      agreedBy?:
+        type: string
+        description: Client IP address
+      agreedAt?:
+        type: datetime
+        description: Timestamp when the agreements were accepted
+    description: Domain purchase consent object representing acceptance of applicable legal agreements
+  EnabledConfig:
+    type: object
+    properties:
+      enabled?:
+        type: boolean
+        description: Enabled
+    description: Enabled configuration
+  ErrorEntity:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Basic error code
+      message?:
+        type: string
+        description: Any details of the error
+      extendedCode?:
+        type: string
+        description: Type of error
+      messageTemplate?:
+        type: string
+        description: Message template
+      parameters?:
+        type: array
+        description: Parameters for the template
+        items:
+          type: string
+      innerErrors?:
+        type: array
+        description: Inner errors
+        items:
+          type: ErrorEntity
+    description: Body of the error response returned from the API.
+  Experiments:
+    type: object
+    properties:
+      rampUpRules?:
+        type: array
+        description: List of {Microsoft.Web.Hosting.Administration.RampUpRule} objects.
+        items:
+          type: RampUpRule
+    description: Class containing Routing in production experiments
+  FileSystemApplicationLogsConfig:
+    type: object
+    properties:
+      level?:
+        type: string
+        description: Log level
+        enum:
+        - 'Off'
+        - Verbose
+        - Information
+        - Warning
+        - Error
+    description: Application logs to file system configuration
+  FileSystemHttpLogsConfig:
+    type: object
+    properties:
+      retentionInMb?:
+        type: integer
+        description: "Maximum size in megabytes that http log files can use.\r\n \
+          \           When reached old log files will be removed to make space for\
+          \ new ones.\r\n            Value can range between 25 and 100."
+        format: int32
+      retentionInDays?:
+        type: integer
+        description: "Retention in days.\r\n            Remove files older than X\
+          \ days.\r\n            0 or lower means no retention."
+        format: int32
+      enabled?:
+        type: boolean
+        description: Enabled
+    description: Http logs to file system configuration
+  GeoRegion:
+    type: Resource
+    description: Geographical region
+  HandlerMapping:
+    type: object
+    properties:
+      extension?:
+        type: string
+        description: Requests with this extension will be handled using the specified FastCGI application.
+      scriptProcessor?:
+        type: string
+        description: The absolute path to the FastCGI application.
+      arguments?:
+        type: string
+        description: Command-line arguments to be passed to the script processor.
+    description: "The IIS handler mappings used to define which handler processes\
+      \ HTTP requests with certain extension. \r\n            For example it is used\
+      \ to configure php-cgi.exe process to handle all HTTP requests with *.php extension."
+  HostName:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the hostname
+      siteNames?:
+        type: array
+        description: List of sites the hostname is assigned to. This list will have more than one site only if the hostname is pointing to a Traffic Manager
+        items:
+          type: string
+      azureResourceName?:
+        type: string
+        description: Name of the Azure resource the hostname is assigned to. If it is assigned to a traffic manager then it will be the traffic manager name otherwise it will be the website name
+      azureResourceType?:
+        type: string
+        description: Type of the Azure resource the hostname is assigned to
+        enum:
+        - Website
+        - TrafficManager
+      customHostNameDnsRecordType?:
+        type: string
+        description: Type of the Dns record
+        enum:
+        - CName
+        - A
+      hostNameType?:
+        type: string
+        description: Type of the hostname
+        enum:
+        - Verified
+        - Managed
+    description: Details of a hostname derived from a domain
+  HostNameBinding:
+    type: Resource
+    description: A host name binding object
+  HostNameSslState:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Host name
+      sslState:
+        type: string
+        description: SSL type
+        enum:
+        - Disabled
+        - SniEnabled
+        - IpBasedEnabled
+      virtualIP?:
+        type: string
+        description: Virtual IP address assigned to the host name if IP based SSL is enabled
+      thumbprint?:
+        type: string
+        description: SSL cert thumbprint
+      toUpdate?:
+        type: boolean
+        description: Set this flag to update existing host name
+    description: Object that represents a SSL-enabled host name.
+  HostingEnvironmentProfile:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource id of the hostingEnvironment (App Service Environment)
+      name?:
+        type: string
+        description: Name of the hostingEnvironment (App Service Environment) (read only)
+      type?:
+        type: string
+        description: Resource type of the hostingEnvironment (App Service Environment) (read only)
+    description: Specification for a hostingEnvironment (App Service Environment) to use for this resource
+  HttpLogsConfig:
+    type: object
+    properties:
+      fileSystem?:
+        type: FileSystemHttpLogsConfig
+        description: Http logs to file system configuration
+      azureBlobStorage?:
+        type: AzureBlobStorageHttpLogsConfig
+        description: Http logs to azure blob storage configuration
+    description: Http logs configuration
+  HybridConnection:
+    type: Resource
+    description: Hybrid Connection contract. This is used to configure a Hybrid Connection.
+  IpSecurityRestriction:
+    type: object
+    properties:
+      ipAddress:
+        type: string
+        description: IP address the security restriction is valid for
+      subnetMask?:
+        type: string
+        description: Subnet mask for the range of IP addresses the restriction is valid for
+    description: Represents an ip security restriction on a web app.
+  LocalizableString:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: Non localized name
+      localizedValue?:
+        type: string
+        description: Localized name
+    description: LocalizableString object containing the name and a localized value.
+  MetricAvailabilily:
+    type: object
+    properties:
+      timeGrain?:
+        type: string
+        description: Time grain
+      retention?:
+        type: string
+        description: Retention period for the current {Microsoft.Web.Hosting.Administration.MetricAvailabilily.TimeGrain}
+    description: Class repesenting metrics availability and retention
+  MetricDefinition:
+    type: Resource
+    description: Class repesenting metadata for the metrics
+  NameIdentifier:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the object
+    description: Identifies an object
+  NameValuePair:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Pair name
+      value?:
+        type: string
+        description: Pair value
+    description: Name value pair
+  NetworkAccessControlEntry:
+    type: object
+    properties:
+      action?:
+        type: string
+        enum:
+        - Permit
+        - Deny
+      description?:
+        type: string
+      order?:
+        type: integer
+        format: int32
+      remoteSubnet?:
+        type: string
+    description: Network Access control entry
+  Object:
+    type: object
+  PerfMonResponse:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Gets or sets the response code.
+      message?:
+        type: string
+        description: Gets or sets the message.
+      data?:
+        type: PerfMonSet
+        description: Gets or sets the perf mon counters.
+    description: Represents the perf monitor api reponse
+  PerfMonSample:
+    type: object
+    properties:
+      time?:
+        type: datetime
+        description: Point in time for which counter was measured
+      instanceName?:
+        type: string
+        description: Name of the server on which the measurement is made
+      value?:
+        type: number
+        description: Value of Counter at certain time
+        format: double
+    description: Class representing a Perf Mon Sample
+  PerfMonSet:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Unique key name of the counter
+      startTime?:
+        type: datetime
+        description: Start time of the period
+      endTime?:
+        type: datetime
+        description: End time of the period
+      timeGrain?:
+        type: string
+        description: Presented time grain
+      values?:
+        type: array
+        description: Collection of workers that are active during this time
+        items:
+          type: PerfMonSample
+    description: Class containing metric information
+  PushSettings:
+    type: object
+    properties:
+      isPushEnabled?:
+        type: boolean
+        description: Gets or sets a flag indicating whether the Push endpoint is enabled.
+      tagWhitelistJson?:
+        type: string
+        description: Gets or sets a JSON string containing a list of tags that are whitelisted for use by the push registration endpoint.
+      tagsRequiringAuth?:
+        type: string
+        description: Gets or sets a JSON string containing a list of tags that require user authentication to be used in the push registration endpoint.
+      dynamicTagsJson?:
+        type: string
+        description: Gets or sets a JSON string containing a list of dynamic tags that will be evaluated from user claims in the push registration endpoint.
+    description: Push settings for the Web App.
+  RampUpRule:
+    type: object
+    properties:
+      actionHostName?:
+        type: string
+        description: Hostname of a slot to which the traffic will be redirected if decided to. E.g. mysite-stage.azurewebsites.net
+      reroutePercentage?:
+        type: number
+        description: Percentage of the traffic which will be redirected to {Microsoft.Web.Hosting.Administration.RampUpRule.ActionHostName}
+        format: double
+      changeStep?:
+        type: number
+        description: "[Optional] In auto ramp up scenario this is the step to to add/remove\
+          \ from {Microsoft.Web.Hosting.Administration.RampUpRule.ReroutePercentage}\
+          \ until it reaches \r\n            {Microsoft.Web.Hosting.Administration.RampUpRule.MinReroutePercentage}\
+          \ or {Microsoft.Web.Hosting.Administration.RampUpRule.MaxReroutePercentage}.\
+          \ Site metrics are checked every N minutes specificed in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeIntervalInMinutes}.\r\
+          \n            Custom decision algorithm can be provided in TiPCallback site\
+          \ extension which Url can be specified in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeDecisionCallbackUrl}"
+        format: double
+      changeIntervalInMinutes?:
+        type: integer
+        description: '[Optional] Specifies interval in mimuntes to reevaluate ReroutePercentage'
+        format: int32
+      minReroutePercentage?:
+        type: number
+        description: '[Optional] Specifies lower boundary above which ReroutePercentage
+          will stay.'
+        format: double
+      maxReroutePercentage?:
+        type: number
+        description: '[Optional] Specifies upper boundary below which ReroutePercentage
+          will stay.'
+        format: double
+      changeDecisionCallbackUrl?:
+        type: string
+        description: "Custom decision algorithm can be provided in TiPCallback site\
+          \ extension which Url can be specified. See TiPCallback site extension for\
+          \ the scaffold and contracts.\r\n            https://www.siteextensions.net/packages/TiPCallback/"
+      name?:
+        type: string
+        description: Name of the routing rule. The recommended name would be to point to the slot which will receive the traffic in the experiment.
+    description: Routing rules for ramp up testing. This rule allows to redirect static traffic % to a slot or to gradually change routing % based on performance
+  Recommendation:
+    type: object
+    properties:
+      creationTime?:
+        type: datetime
+        description: Timestamp when this instance was created.
+      recommendationId?:
+        type: string
+        description: A GUID value that each recommendation object is associated with.
+      resourceId?:
+        type: string
+        description: Full ARM resource ID string that this recommendation object is associated with.
+      resourceScope?:
+        type: string
+        description: Name of a resource type this recommendation applies, e.g. Subscription, ServerFarm, Site.
+      ruleName?:
+        type: string
+        description: Unique name of the rule
+      displayName?:
+        type: string
+        description: UI friendly name of the rule (may not be unique)
+      message?:
+        type: string
+        description: Localized text of recommendation, good for UI.
+      level:
+        type: string
+        description: Level indicating how critical this recommendation can impact.
+        enum:
+        - Critical
+        - Warning
+        - Information
+        - NonUrgentSuggestion
+      channels:
+        type: string
+        description: List of channels that this recommendation can apply.
+        enum:
+        - Notification
+        - Api
+        - Email
+        - All
+      tags?:
+        type: array
+        description: The list of category tags that this recommendation belongs to.
+        items:
+          type: string
+      actionName?:
+        type: string
+        description: Name of action recommended by this object.
+      enabled?:
+        type: integer
+        description: On/off flag indicating the rule is currently enabled or disabled.
+        format: int32
+      startTime?:
+        type: datetime
+        description: The beginning time of a range that the recommendation refers to.
+      endTime?:
+        type: datetime
+        description: The end time of a range that the recommendation refers to.
+      nextNotificationTime?:
+        type: datetime
+        description: When to notify this recommendation next. Null means that this will never be notified anymore.
+      notificationExpirationTime?:
+        type: datetime
+        description: Date and time when this notification expires.
+      notifiedTime?:
+        type: datetime
+        description: Last timestamp this instance was actually notified. Null means that this recommendation hasn't been notified yet.
+      score?:
+        type: number
+        description: A metric value measured by the rule.
+        format: double
+    description: Represents a recommendation result generated by the recommendation engine
+  RecommendationRule:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Unique name of the rule
+      displayName?:
+        type: string
+        description: UI friendly name of the rule
+      message?:
+        type: string
+        description: Localized name of the rule (Good for UI)
+      recommendationId?:
+        type: string
+        description: "Recommendation ID of an associated recommendation object tied\
+          \ to the rule, if exists.\r\n            If such an object doesn't exist,\
+          \ it is set to null."
+      description?:
+        type: string
+        description: Localized detailed description of the rule
+      actionName?:
+        type: string
+        description: Name of action that is recommended by this rule in string
+      enabled?:
+        type: integer
+        description: On/off flag indicating the rule is currently enabled or disabled.
+        format: int32
+      level:
+        type: string
+        description: Level of impact indicating how critical this rule is.
+        enum:
+        - Critical
+        - Warning
+        - Information
+        - NonUrgentSuggestion
+      channels:
+        type: string
+        description: List of available channels that this rule applies.
+        enum:
+        - Notification
+        - Api
+        - Email
+        - All
+      tags?:
+        type: array
+        description: An array of category tags that the rule contains.
+        items:
+          type: string
+    description: Represents a recommendation rule that the recommendation engine can perform
+  RelayServiceConnectionEntity:
+    type: Resource
+    description: Class that represents a Biztalk Hybrid Connection
+  RequestsBasedTrigger:
+    type: object
+    properties:
+      count?:
+        type: integer
+        description: Count
+        format: int32
+      timeInterval?:
+        type: string
+        description: TimeInterval
+    description: RequestsBasedTrigger
+  Resource:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource Id
+      name:
+        type: string
+        description: Resource Name
+      kind?:
+        type: string
+        description: Kind of resource
+      location:
+        type: string
+        description: Resource Location
+      type?:
+        type: string
+        description: Resource type
+      tags?:
+        type: object
+        properties:
+          //:
+            type: string
+        description: Resource tags
+    description: Azure resource
+  ResourceMetric:
+    type: object
+    properties:
+      name?:
+        type: ResourceMetricName
+        description: Name of metric
+      unit?:
+        type: string
+        description: Metric unit
+      timeGrain?:
+        type: string
+        description: Metric granularity. E.g PT1H, PT5M, P1D
+      startTime?:
+        type: datetime
+        description: Metric start time
+      endTime?:
+        type: datetime
+        description: Metric end time
+      resourceId?:
+        type: string
+        description: Metric resource Id
+      id?:
+        type: string
+        description: Resource Id
+      metricValues?:
+        type: array
+        description: Metric values
+        items:
+          type: ResourceMetricValue
+      properties?:
+        type: array
+        description: Properties
+        items:
+          type: ResourceMetricProperty
+    description: Object representing a metric for any resource
+  ResourceMetricName:
+    type: object
+    properties:
+      value?:
+        type: string
+        description: metric name value
+      localizedValue?:
+        type: string
+        description: Localized metric name value
+    description: Name of a metric for any resource
+  ResourceMetricProperty:
+    type: object
+    properties:
+      key?:
+        type: string
+        description: Key for resource metric property
+      value?:
+        type: string
+        description: Value of pair
+    description: Resource metric property
+  ResourceMetricValue:
+    type: object
+    properties:
+      timestamp?:
+        type: string
+        description: Value timestamp
+      average?:
+        type: number
+        description: Value average
+        format: float
+      minimum?:
+        type: number
+        description: Value minimum
+        format: float
+      maximum?:
+        type: number
+        description: Value maximum
+        format: float
+      total?:
+        type: number
+        description: Value total
+        format: float
+      count?:
+        type: number
+        description: Value count
+        format: float
+      properties?:
+        type: array
+        description: Properties
+        items:
+          type: ResourceMetricProperty
+    description: Value of resource metric
+  Site:
+    type: Resource
+    description: Represents a web app
+  SiteCloneabilityCriterion:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of criterion
+      description?:
+        type: string
+        description: Description of criterion
+    description: Represents a site cloneability criterion
+  SiteConfig:
+    type: Resource
+    description: Configuration of Azure web site
+  SiteInstance:
+    type: Resource
+    description: Instance of a web app
+  SiteLimits:
+    type: object
+    properties:
+      maxPercentageCpu?:
+        type: number
+        description: Maximum allowed CPU usage percentage
+        format: double
+      maxMemoryInMb?:
+        type: integer
+        description: Maximum allowed memory usage in MB
+        format: int64
+      maxDiskSizeInMb?:
+        type: integer
+        description: Maximum allowed disk size usage in MB
+        format: int64
+    description: Represents metric limits set on a web app.
+  SiteMachineKey:
+    type: object
+    properties:
+      validation?:
+        type: string
+        description: MachineKeyValidation
+      validationKey?:
+        type: string
+        description: ValidationKey
+      decryption?:
+        type: string
+        description: Decryption
+      decryptionKey?:
+        type: string
+        description: DecryptionKey
+    description: MachineKey of Azure web site
+  SkuCapacity:
+    type: object
+    properties:
+      minimum?:
+        type: integer
+        description: Minimum number of Workers for this App Service Plan SKU
+        format: int32
+      maximum?:
+        type: integer
+        description: Maximum number of Workers for this App Service Plan SKU
+        format: int32
+      default?:
+        type: integer
+        description: Default number of Workers for this App Service Plan SKU
+        format: int32
+      scaleType?:
+        type: string
+        description: Available scale configurations for an App Service Plan
+    description: Description of the App Service Plan scale options
+  SkuDescription:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the resource sku
+      tier?:
+        type: string
+        description: Service Tier of the resource sku
+      size?:
+        type: string
+        description: Size specifier of the resource sku
+      family?:
+        type: string
+        description: Family code of the resource sku
+      capacity?:
+        type: integer
+        description: Current number of instances assigned to the resource
+        format: int32
+      skuCapacity?:
+        type: SkuCapacity
+        description: Min, max, and default scale values of the sku
+      locations?:
+        type: array
+        description: Locations of the sku
+        items:
+          type: string
+      capabilities?:
+        type: array
+        description: Capabilities of the sku, eg., is traffic manager enabled?
+        items:
+          type: Capability
+    description: Describes a sku for a scalable resource
+  SkuInfo:
+    type: object
+    properties:
+      resourceType?:
+        type: string
+        description: Resource type that this sku applies to
+      sku?:
+        type: SkuDescription
+        description: Name and tier of the sku
+      capacity?:
+        type: SkuCapacity
+        description: Min, max, and default scale values of the sku
+    description: Sku discovery information
+  SlotDifference:
+    type: Resource
+    description: An object describing the difference in setting values between two web app slots
+  SlowRequestsBasedTrigger:
+    type: object
+    properties:
+      timeTaken?:
+        type: string
+        description: TimeTaken
+      count?:
+        type: integer
+        description: Count
+        format: int32
+      timeInterval?:
+        type: string
+        description: TimeInterval
+    description: SlowRequestsBasedTrigger
+  Snapshot:
+    type: Resource
+    description: A snapshot of a web app
+  SourceControl:
+    type: Resource
+    description: Describes the Source Control OAuth Token
+  StampCapacity:
+    type: object
+    properties:
+      name?:
+        type: string
+        description: Name of the stamp
+      availableCapacity?:
+        type: integer
+        description: Available capacity (# of machines, bytes of storage etc...)
+        format: int64
+      totalCapacity?:
+        type: integer
+        description: Total capacity (# of machines, bytes of storage etc...)
+        format: int64
+      unit?:
+        type: string
+        description: Name of the unit
+      computeMode?:
+        type: string
+        description: Shared/Dedicated workers
+        enum:
+        - Shared
+        - Dedicated
+        - Dynamic
+      workerSize?:
+        type: string
+        description: Size of the machines
+        enum:
+        - Default
+        - Small
+        - Medium
+        - Large
+      workerSizeId?:
+        type: integer
+        description: "Size Id of machines: \r\n            0 - Small\r\n         \
+          \   1 - Medium\r\n            2 - Large"
+        format: int32
+      excludeFromCapacityAllocation?:
+        type: boolean
+        description: "If true it includes basic sites\r\n            Basic sites are\
+          \ not used for capacity allocation."
+      isApplicableForAllComputeModes?:
+        type: boolean
+        description: Is capacity applicable for all sites?
+      siteMode?:
+        type: string
+        description: Shared or Dedicated
+    description: Class containing stamp capacity information
+  StatusCodesBasedTrigger:
+    type: object
+    properties:
+      status?:
+        type: integer
+        description: HTTP status code
+        format: int32
+      subStatus?:
+        type: integer
+        description: SubStatus
+        format: int32
+      win32Status?:
+        type: integer
+        description: Win32 error code
+        format: int32
+      count?:
+        type: integer
+        description: Count
+        format: int32
+      timeInterval?:
+        type: string
+        description: TimeInterval
+    description: StatusCodeBasedTrigger
+  TldLegalAgreement:
+    type: object
+    properties:
+      agreementKey?:
+        type: string
+        description: Unique identifier for the agreement
+      title?:
+        type: string
+        description: Agreement title
+      content?:
+        type: string
+        description: Agreement details
+      url?:
+        type: string
+        description: Url where a copy of the agreement details is hosted
+    description: Represents a legal agreement for top level domain
+  TopLevelDomain:
+    type: Resource
+    description: A top level domain object
+  Usage:
+    type: Resource
+    description: Class that represents usage of the quota resource.
+  ValidateProperties:
+    type: object
+    properties:
+      serverFarmId?:
+        type: string
+        description: ARM resource id of an app service plan that would host the web app
+      skuName?:
+        type: string
+        description: Name of the target SKU for the server farm
+      capacity?:
+        type: integer
+        description: Target capacity of the server farm (number of VM's)
+        format: int32
+      hostingEnvironment?:
+        type: string
+        description: Name of app service environment where site or server farm should be created
+    description: Site properties used for validation
+  ValidateResponseError:
+    type: object
+    properties:
+      code?:
+        type: string
+        description: Validation error code
+      message?:
+        type: string
+        description: Validation error message
+    description: Error details for when validation fails
+  VirtualApplication:
+    type: object
+    properties:
+      virtualPath?:
+        type: string
+        description: Virtual path
+      physicalPath?:
+        type: string
+        description: Physical path
+      preloadEnabled?:
+        type: boolean
+        description: Is preload enabled
+      virtualDirectories?:
+        type: array
+        description: Virtual Directories for virtual application
+        items:
+          type: VirtualDirectory
+    description: Virtual application under web app
+  VirtualDirectory:
+    type: object
+    properties:
+      virtualPath?:
+        type: string
+        description: Path to virtual application
+      physicalPath?:
+        type: string
+        description: Physical path
+    description: Directory for virtual application
+  VirtualIPMapping:
+    type: object
+    properties:
+      virtualIP?:
+        type: string
+        description: Virtual IP address
+      internalHttpPort?:
+        type: integer
+        description: Internal HTTP port
+        format: int32
+      internalHttpsPort?:
+        type: integer
+        description: Internal HTTPS port
+        format: int32
+      inUse?:
+        type: boolean
+        description: Is VIP mapping in use
+    description: Class that represents a VIP mapping
+  VirtualNetworkProfile:
+    type: object
+    properties:
+      id?:
+        type: string
+        description: Resource id of the virtual network
+      name?:
+        type: string
+        description: Name of the virtual network (read-only)
+      type?:
+        type: string
+        description: Resource type of the virtual network (read-only)
+      subnet?:
+        type: string
+        description: Subnet within the virtual network
+    description: Specification for using a virtual network
+  VnetInfo:
+    type: Resource
+    description: VNETInfo contract. This contract is public and is a stripped down version of VNETInfoInternal
+  VnetRoute:
+    type: Resource
+    description: VnetRoute contract used to pass routing information for a vnet.
+  WorkerPool:
+    type: Resource
+    description: Worker pool of a hostingEnvironment (App Service Environment)
+/subscriptions:
+  /{subscriptionId}:
+    uriParameters:
+      subscriptionId:
+        type: string
+        description: Subscription Id
+        displayName: subscriptionId
+    /providers:
+      /Microsoft.Web:
+        /recommendations:
+          get:
+            description: Gets a list of recommendations associated with the specified subscription.
+            displayName: Gets a list of recommendations associated with the specified subscription.
+            queryParameters:
+              featured?:
+                type: boolean
+                description: If set, this API returns only the most critical recommendation among the others. Otherwise this API returns all recommendations available
+                displayName: featured
+              $filter?:
+                type: string
+                description: 'Return only channels specified in the filter. Filter
+                  is specified by using OData syntax. Example: $filter=channels eq
+                  ''Api'' or channel eq ''Notification'''
+                displayName: $filter
+              api-version:
+                type: string
+                description: API Version
+                displayName: api-version
+            responses:
+              200:
+                description: OK
+                body:
+                  application/json:
+                    type: array
+                    items:
+                      type: Recommendation
+                  text/json:
+                    type: array
+                    items:
+                      type: Recommendation
+                  application/xml:
+                    type: array
+                    items:
+                      type: Recommendation
+                  text/xml:
+                    type: array
+                    items:
+                      type: Recommendation
+    /resourceGroups:
+      /{resourceGroupName}:
+        uriParameters:
+          resourceGroupName:
+            type: string
+            description: Resource group name
+            displayName: resourceGroupName
+        /providers:
+          /Microsoft.Web:
+            /sites:
+              /{siteName}:
+                uriParameters:
+                  siteName:
+                    type: string
+                    description: Site name
+                    displayName: siteName
+                /recommendationHistory:
+                  get:
+                    description: Gets the list of past recommendations optionally specified by the time range.
+                    displayName: Gets the list of past recommendations optionally specified by the time range.
+                    queryParameters:
+                      startTime?:
+                        type: string
+                        description: The start time of a time range to query, e.g. $filter=startTime eq '2015-01-01T00:00:00Z' and endTime eq '2015-01-02T00:00:00Z'
+                        displayName: startTime
+                      endTime?:
+                        type: string
+                        description: The end time of a time range to query, e.g. $filter=startTime eq '2015-01-01T00:00:00Z' and endTime eq '2015-01-02T00:00:00Z'
+                        displayName: endTime
+                      api-version:
+                        type: string
+                        description: API Version
+                        displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: array
+                            items:
+                              type: Recommendation
+                          text/json:
+                            type: array
+                            items:
+                              type: Recommendation
+                          application/xml:
+                            type: array
+                            items:
+                              type: Recommendation
+                          text/xml:
+                            type: array
+                            items:
+                              type: Recommendation
+                /recommendations:
+                  /{name}:
+                    uriParameters:
+                      name:
+                        type: string
+                        description: Recommendation rule name
+                        displayName: name
+                    get:
+                      description: Gets the detailed properties of the recommendation object for the specified web site.
+                      displayName: Gets the detailed properties of the recommendation object for the specified web site.
+                      queryParameters:
+                        updateSeen?:
+                          type: boolean
+                          description: If true, the backend updates the last seen timestamp of the recommendation object.
+                          displayName: updateSeen
+                        api-version:
+                          type: string
+                          description: API Version
+                          displayName: api-version
+                      responses:
+                        200:
+                          description: OK
+                          body:
+                            application/json:
+                              type: RecommendationRule
+                            text/json:
+                              type: RecommendationRule
+                            application/xml:
+                              type: RecommendationRule
+                            text/xml:
+                              type: RecommendationRule
+                  get:
+                    description: Gets a list of recommendations associated with the specified web site.
+                    displayName: Gets a list of recommendations associated with the specified web site.
+                    queryParameters:
+                      featured?:
+                        type: boolean
+                        description: If set, this API returns only the most critical recommendation among the others. Otherwise this API returns all recommendations available
+                        displayName: featured
+                      webAppSku?:
+                        type: string
+                        description: The name of web app SKU.
+                        displayName: webAppSku
+                      numSlots?:
+                        type: integer
+                        description: The number of site slots associated to the site
+                        displayName: numSlots
+                        format: int32
+                      liveHours?:
+                        type: integer
+                        description: If greater than zero, this API scans the last active live site symptoms, dynamically generate on-the-fly recommendations
+                        displayName: liveHours
+                        format: int32
+                      api-version:
+                        type: string
+                        description: API Version
+                        displayName: api-version
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: array
+                            items:
+                              type: Recommendation
+                          text/json:
+                            type: array
+                            items:
+                              type: Recommendation
+                          application/xml:
+                            type: array
+                            items:
+                              type: Recommendation
+                          text/xml:
+                            type: array
+                            items:
+                              type: Recommendation
