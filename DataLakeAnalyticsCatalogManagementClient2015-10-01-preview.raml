@@ -17,7 +17,7 @@ types:
         type: string
         description: the name of the Data Lake Analytics account.
       version?:
-        type: string
+        type: commons.uuid
         description: the version of the catalog item.
     description: A Data Lake Analytics catalog item.
   CatalogItemList:
@@ -64,7 +64,7 @@ types:
         type: DdlName
         description: the name of the external table associated with this database, schema and table.
       version?:
-        type: string
+        type: commons.uuid
         description: the version of the external data source.
     description: A Data Lake Analytics catalog entity identifier object.
   ExternalTable:
@@ -188,7 +188,7 @@ types:
         type: USqlDistributionInfo
         description: the distributions info of the index
       partitionFunction?:
-        type: string
+        type: commons.uuid
         description: partition function ID for the index.
       partitionKeyList?:
         type: array

@@ -13,13 +13,13 @@ types:
     type: object
     properties:
       tenantId:
-        type: string
+        type: commons.uuid
         description: The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
       objectId:
-        type: string
+        type: commons.uuid
         description: The object ID of a user, service principal or security group in the Azure Active Directory tenant for the vault. The object ID must be unique for the list of access policies.
       applicationId?:
-        type: string
+        type: commons.uuid
         description: ' Application ID of the client making request on behalf of a
           principal'
       permissions:
@@ -156,7 +156,7 @@ types:
         type: string
         description: The URI of the vault for performing operations on keys and secrets.
       tenantId:
-        type: string
+        type: commons.uuid
         description: The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault.
       sku:
         type: Sku

@@ -2350,61 +2350,6 @@ types:
                     type: string
                     description: The name of the circuit.
                     displayName: circuitName
-                /:
-                  get:
-                    description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
-                  delete:
-                    description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
-                  put:
-                    description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    body:
-                      application/json: ExpressRouteCircuit
-                      text/json: ExpressRouteCircuit
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
-                      201:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
                 /arpTable:
                   get:
                     description: The ListArpTable from ExpressRouteCircuit opertion retrieves the currently advertised arp table associated with the ExpressRouteCircuits in a resource group.
@@ -2605,6 +2550,60 @@ types:
                             type: ExpressRouteCircuitsStatsListResult
                           text/json:
                             type: ExpressRouteCircuitsStatsListResult
+                get:
+                  description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
+                delete:
+                  description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
+                put:
+                  description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: ExpressRouteCircuit
+                    text/json: ExpressRouteCircuit
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
               get:
                 description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a resource group.
                 queryParameters:

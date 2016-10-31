@@ -888,29 +888,6 @@ types:
         /providers:
           /Microsoft.Resources:
             /deployments:
-              /:
-                get:
-                  description: Get a list of deployments.
-                  queryParameters:
-                    $filter?:
-                      type: string
-                      description: The filter to apply on the operation.
-                      displayName: $filter
-                    $top?:
-                      type: integer
-                      description: Query parameters. If null is passed returns all deployments.
-                      displayName: $top
-                      format: int32
-                    api-version:
-                      type: string
-                      description: Client Api Version.
-                      displayName: api-version
-                  responses:
-                    200:
-                      description: ''
-                      body:
-                        application/json:
-                          type: DeploymentListResult
               /{deploymentName}:
                 uriParameters:
                   deploymentName:
@@ -1006,6 +983,28 @@ types:
                       body:
                         application/json:
                           type: DeploymentExtended
+              get:
+                description: Get a list of deployments.
+                queryParameters:
+                  $filter?:
+                    type: string
+                    description: The filter to apply on the operation.
+                    displayName: $filter
+                  $top?:
+                    type: integer
+                    description: Query parameters. If null is passed returns all deployments.
+                    displayName: $top
+                    format: int32
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: DeploymentListResult
           /{resourceProviderNamespace}:
             uriParameters:
               resourceProviderNamespace:

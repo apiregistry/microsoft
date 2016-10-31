@@ -287,35 +287,6 @@ types:
           description: ''
 /webhdfs:
   /v1:
-    /:
-      get:
-        description: Get the home directory for the specified account.
-        queryParameters:
-          op:
-            type: string
-            description: The constant value for the operation.
-            displayName: op
-            enum:
-            - GETHOMEDIRECTORY
-          api-version:
-            type: string
-            description: Client Api Version.
-            displayName: api-version
-        headers:
-          subscriptionId:
-            type: string
-            description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
-            displayName: subscriptionId
-        responses:
-          200:
-            description: ''
-            body:
-              application/json:
-                type: HomeDirectoryResult
-              text/json:
-                type: HomeDirectoryResult
-              application/octet-stream:
-                type: HomeDirectoryResult
     /{aclFilePath}:
       uriParameters:
         aclFilePath:
@@ -937,6 +908,34 @@ types:
         responses:
           200:
             description: ''
+    get:
+      description: Get the home directory for the specified account.
+      queryParameters:
+        op:
+          type: string
+          description: The constant value for the operation.
+          displayName: op
+          enum:
+          - GETHOMEDIRECTORY
+        api-version:
+          type: string
+          description: Client Api Version.
+          displayName: api-version
+      headers:
+        subscriptionId:
+          type: string
+          description: Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call.
+          displayName: subscriptionId
+      responses:
+        200:
+          description: ''
+          body:
+            application/json:
+              type: HomeDirectoryResult
+            text/json:
+              type: HomeDirectoryResult
+            application/octet-stream:
+              type: HomeDirectoryResult
   /va:
     /{getContentSummaryFilePath}:
       uriParameters:

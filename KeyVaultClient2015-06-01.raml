@@ -57,7 +57,7 @@ types:
     type: object
     properties:
       value?:
-        type: string
+        type: commons.base64url
         description: The backup blob containing the backed up key
     description: The backup key result, containing the backup blob
   CertificateAttributes:
@@ -76,7 +76,7 @@ types:
         type: string
         description: The secret id
       x5t?:
-        type: string
+        type: commons.base64url
         description: Thumbprint of the certificate.
       policy?:
         type: CertificatePolicy
@@ -205,7 +205,7 @@ types:
             type: string
         description: Application-specific metadata in the form of key-value pairs
       x5t?:
-        type: string
+        type: commons.base64url
         description: Thumbprint of the certificate.
     description: The certificate item containing certificate metadata
   CertificateListResult:
@@ -426,34 +426,34 @@ types:
           type: string
           description: Supported Key Operations
       n?:
-        type: string
+        type: commons.base64url
         description: RSA modulus
       e?:
-        type: string
+        type: commons.base64url
         description: RSA public exponent
       d?:
-        type: string
+        type: commons.base64url
         description: RSA private exponent
       dp?:
-        type: string
+        type: commons.base64url
         description: RSA Private Key Parameter
       dq?:
-        type: string
+        type: commons.base64url
         description: RSA Private Key Parameter
       qi?:
-        type: string
+        type: commons.base64url
         description: RSA Private Key Parameter
       p?:
-        type: string
+        type: commons.base64url
         description: RSA secret prime
       q?:
-        type: string
+        type: commons.base64url
         description: RSA secret prime, with p < q
       k?:
-        type: string
+        type: commons.base64url
         description: Symmetric key
       key_hsm?:
-        type: string
+        type: commons.base64url
         description: HSM Token, used with Bring Your Own Key
     description: As of http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18
   KeyAttributes:
@@ -572,7 +572,7 @@ types:
         type: string
         description: Key identifier
       value?:
-        type: string
+        type: commons.base64url
     description: The key operation result
   KeyOperationsParameters:
     type: object
@@ -585,7 +585,7 @@ types:
         - RSA-OAEP
         - RSA1_5
       value:
-        type: string
+        type: commons.base64url
     description: The parameters for key operations.
   KeyProperties:
     type: object
@@ -608,7 +608,7 @@ types:
     type: object
     properties:
       value:
-        type: string
+        type: commons.base64url
         description: the backup blob associated with a key bundle
     description: The parameters to restore key
   KeySignParameters:
@@ -624,7 +624,7 @@ types:
         - RS512
         - RSNULL
       value:
-        type: string
+        type: commons.base64url
     description: The parameters for key operations.
   KeyUpdateParameters:
     type: object
@@ -669,10 +669,10 @@ types:
         - RS512
         - RSNULL
       digest:
-        type: string
+        type: commons.base64url
         description: The digest used for signing
       value:
-        type: string
+        type: commons.base64url
         description: The signature to be verified
     description: The parameters for key operations.
   KeyVerifyResult:

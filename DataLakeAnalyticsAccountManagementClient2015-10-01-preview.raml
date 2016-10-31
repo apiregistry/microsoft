@@ -387,62 +387,6 @@ types:
                     description: The name of the Data Lake Analytics account to retrieve.
                     displayName: accountName
                 /DataLakeStoreAccounts:
-                  /:
-                    get:
-                      description: Gets the first page of Data Lake Store accounts linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
-                      queryParameters:
-                        $filter?:
-                          type: string
-                          description: OData filter. Optional.
-                          displayName: $filter
-                        $top?:
-                          type: integer
-                          description: The number of items to return. Optional.
-                          displayName: $top
-                          format: int32
-                        $skip?:
-                          type: integer
-                          description: The number of items to skip over before returning elements. Optional.
-                          displayName: $skip
-                          format: int32
-                        $expand?:
-                          type: string
-                          description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
-                          displayName: $expand
-                        $select?:
-                          type: string
-                          description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
-                          displayName: $select
-                        $orderby?:
-                          type: string
-                          description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
-                          displayName: $orderby
-                        $count?:
-                          type: boolean
-                          description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
-                          displayName: $count
-                        $search?:
-                          type: string
-                          description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
-                          displayName: $search
-                        $format?:
-                          type: string
-                          description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
-                          displayName: $format
-                        api-version:
-                          type: string
-                          description: Client Api Version.
-                          displayName: api-version
-                      responses:
-                        200:
-                          description: ''
-                          body:
-                            application/json:
-                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
-                            text/json:
-                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
-                            application/octet-stream:
-                              type: DataLakeAnalyticsAccountListDataLakeStoreResult
                   /{dataLakeStoreAccountName}:
                     uriParameters:
                       dataLakeStoreAccountName:
@@ -490,63 +434,62 @@ types:
                       responses:
                         200:
                           description: ''
+                  get:
+                    description: Gets the first page of Data Lake Store accounts linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: OData filter. Optional.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        description: The number of items to return. Optional.
+                        displayName: $top
+                        format: int32
+                      $skip?:
+                        type: integer
+                        description: The number of items to skip over before returning elements. Optional.
+                        displayName: $skip
+                        format: int32
+                      $expand?:
+                        type: string
+                        description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                        displayName: $expand
+                      $select?:
+                        type: string
+                        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                        displayName: $select
+                      $orderby?:
+                        type: string
+                        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                        displayName: $orderby
+                      $count?:
+                        type: boolean
+                        description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                        displayName: $count
+                      $search?:
+                        type: string
+                        description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                        displayName: $search
+                      $format?:
+                        type: string
+                        description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                        displayName: $format
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: DataLakeAnalyticsAccountListDataLakeStoreResult
+                          text/json:
+                            type: DataLakeAnalyticsAccountListDataLakeStoreResult
+                          application/octet-stream:
+                            type: DataLakeAnalyticsAccountListDataLakeStoreResult
                 /StorageAccounts:
-                  /:
-                    get:
-                      description: Gets the first page of Azure Storage accounts, if any, linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
-                      queryParameters:
-                        $filter?:
-                          type: string
-                          description: The OData filter. Optional.
-                          displayName: $filter
-                        $top?:
-                          type: integer
-                          description: The number of items to return. Optional.
-                          displayName: $top
-                          format: int32
-                        $skip?:
-                          type: integer
-                          description: The number of items to skip over before returning elements. Optional.
-                          displayName: $skip
-                          format: int32
-                        $expand?:
-                          type: string
-                          description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
-                          displayName: $expand
-                        $select?:
-                          type: string
-                          description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
-                          displayName: $select
-                        $orderby?:
-                          type: string
-                          description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
-                          displayName: $orderby
-                        $count?:
-                          type: boolean
-                          description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
-                          displayName: $count
-                        $search?:
-                          type: string
-                          description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
-                          displayName: $search
-                        $format?:
-                          type: string
-                          description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
-                          displayName: $format
-                        api-version:
-                          type: string
-                          description: Client Api Version.
-                          displayName: api-version
-                      responses:
-                        200:
-                          description: ''
-                          body:
-                            application/json:
-                              type: DataLakeAnalyticsAccountListStorageAccountsResult
-                            text/json:
-                              type: DataLakeAnalyticsAccountListStorageAccountsResult
-                            application/octet-stream:
-                              type: DataLakeAnalyticsAccountListStorageAccountsResult
                   /{storageAccountName}:
                     uriParameters:
                       storageAccountName:
@@ -667,6 +610,61 @@ types:
                       responses:
                         200:
                           description: ''
+                  get:
+                    description: Gets the first page of Azure Storage accounts, if any, linked to the specified Data Lake Analytics account. The response includes a link to the next page, if any.
+                    queryParameters:
+                      $filter?:
+                        type: string
+                        description: The OData filter. Optional.
+                        displayName: $filter
+                      $top?:
+                        type: integer
+                        description: The number of items to return. Optional.
+                        displayName: $top
+                        format: int32
+                      $skip?:
+                        type: integer
+                        description: The number of items to skip over before returning elements. Optional.
+                        displayName: $skip
+                        format: int32
+                      $expand?:
+                        type: string
+                        description: OData expansion. Expand related resources in line with the retrieved resources, e.g. Categories/$expand=Products would expand Product data in line with each Category entry. Optional.
+                        displayName: $expand
+                      $select?:
+                        type: string
+                        description: OData Select statement. Limits the properties on each entry to just those requested, e.g. Categories?$select=CategoryName,Description. Optional.
+                        displayName: $select
+                      $orderby?:
+                        type: string
+                        description: OrderBy clause. One or more comma-separated expressions with an optional "asc" (the default) or "desc" depending on the order you'd like the values sorted, e.g. Categories?$orderby=CategoryName desc. Optional.
+                        displayName: $orderby
+                      $count?:
+                        type: boolean
+                        description: The Boolean value of true or false to request a count of the matching resources included with the resources in the response, e.g. Categories?$count=true. Optional.
+                        displayName: $count
+                      $search?:
+                        type: string
+                        description: A free form search. A free-text search expression to match for whether a particular entry should be included in the feed, e.g. Categories?$search=blue OR green. Optional.
+                        displayName: $search
+                      $format?:
+                        type: string
+                        description: The desired return format. Return the response in particular formatxii without access to request headers for standard content-type negotiation (e.g Orders?$format=json). Optional.
+                        displayName: $format
+                      api-version:
+                        type: string
+                        description: Client Api Version.
+                        displayName: api-version
+                    responses:
+                      200:
+                        description: ''
+                        body:
+                          application/json:
+                            type: DataLakeAnalyticsAccountListStorageAccountsResult
+                          text/json:
+                            type: DataLakeAnalyticsAccountListStorageAccountsResult
+                          application/octet-stream:
+                            type: DataLakeAnalyticsAccountListStorageAccountsResult
                 get:
                   description: Gets details of the specified Data Lake Analytics account.
                   queryParameters:

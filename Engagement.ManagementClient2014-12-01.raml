@@ -28,8 +28,8 @@ types:
     - DataPush
     - NativePush
     - Poll
-  date:
-    type: string
+  Date:
+    type: datetime
     description: A date as defined by full-date in RFC3339.
   exportFormat:
     type: string
@@ -846,10 +846,10 @@ types:
         type: string
         description: A description of the export task.
       startDate:
-        type: date
+        type: Date
         description: The RFC3339 full-date of the start of the period for which data is exported.
       endDate:
-        type: date
+        type: Date
         description: The RFC3339 full-date of the end of the period for which data is exported.
       exportFormat:
         type: exportFormat

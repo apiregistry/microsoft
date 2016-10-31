@@ -30,7 +30,7 @@ types:
     type: object
     properties:
       MeterId?:
-        type: string
+        type: commons.uuid
         description: The unique identifier of the resource.
       MeterName?:
         type: string
@@ -77,7 +77,7 @@ types:
         type: array
         description: An array of meter ids that are excluded from the given offer terms.
         items:
-          type: string
+          type: commons.uuid
     description: Describes the offer term.
     discriminator: Name
   RateCardQueryParameters:
@@ -162,7 +162,7 @@ types:
     type: object
     properties:
       subscriptionId?:
-        type: string
+        type: commons.uuid
         description: The subscription identifier for the Azure user.
       meterId?:
         type: string

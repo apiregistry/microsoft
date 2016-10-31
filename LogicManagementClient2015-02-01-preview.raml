@@ -889,31 +889,6 @@ types:
                           text/json:
                             type: WorkflowRunListResult
                 /triggers:
-                  /:
-                    get:
-                      description: Gets a list of workflow triggers.
-                      queryParameters:
-                        api-version:
-                          type: string
-                          description: The API version.
-                          displayName: api-version
-                        $top?:
-                          type: integer
-                          description: The number of items to be included in the result.
-                          displayName: $top
-                          format: int32
-                        $filter?:
-                          type: string
-                          description: The filter to apply on the operation.
-                          displayName: $filter
-                      responses:
-                        200:
-                          description: OK
-                          body:
-                            application/json:
-                              type: WorkflowTriggerListResult
-                            text/json:
-                              type: WorkflowTriggerListResult
                   /{triggerName}:
                     uriParameters:
                       triggerName:
@@ -992,6 +967,30 @@ types:
                               type: WorkflowTrigger
                             text/json:
                               type: WorkflowTrigger
+                  get:
+                    description: Gets a list of workflow triggers.
+                    queryParameters:
+                      api-version:
+                        type: string
+                        description: The API version.
+                        displayName: api-version
+                      $top?:
+                        type: integer
+                        description: The number of items to be included in the result.
+                        displayName: $top
+                        format: int32
+                      $filter?:
+                        type: string
+                        description: The filter to apply on the operation.
+                        displayName: $filter
+                    responses:
+                      200:
+                        description: OK
+                        body:
+                          application/json:
+                            type: WorkflowTriggerListResult
+                          text/json:
+                            type: WorkflowTriggerListResult
                 /validate:
                   post:
                     description: Validates a workflow.

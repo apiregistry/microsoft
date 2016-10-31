@@ -857,7 +857,7 @@ types:
         type: string
         description: Subnet mask for the range of IP addresses the restriction is valid for
     description: Represents an ip security restriction on a web app.
-  KeyValuePair_String,String_:
+  KeyValuePair_String_String_:
     type: object
     properties:
       key?:
@@ -1224,7 +1224,7 @@ types:
         type: array
         description: Properties
         items:
-          type: KeyValuePair_String,String_
+          type: KeyValuePair_String_String_
     description: Object representing a metric for any resource
   ResourceMetricCollection:
     type: object

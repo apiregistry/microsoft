@@ -1978,21 +1978,6 @@ types:
                     type: string
                     description: The name of the virtual network gateway connection.
                     displayName: virtualNetworkGatewayConnectionName
-                /:
-                  delete:
-                    description: The Delete VirtualNetworkGatewayConnection operation deletes the specifed virtual network Gateway connection through Network resource provider.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
                 /sharedkey:
                   /reset:
                     post:
@@ -2095,6 +2080,20 @@ types:
                           type: VirtualNetworkGatewayConnection
                         text/json:
                           type: VirtualNetworkGatewayConnection
+                delete:
+                  description: The Delete VirtualNetworkGatewayConnection operation deletes the specifed virtual network Gateway connection through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
               get:
                 description: The List VirtualNetworkGatewayConnections operation retrieves all the virtual network gateways connections created.
                 queryParameters:
@@ -2117,61 +2116,6 @@ types:
                     type: string
                     description: The name of the circuit.
                     displayName: circuitName
-                /:
-                  get:
-                    description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
-                  delete:
-                    description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
-                  put:
-                    description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    body:
-                      application/json: ExpressRouteCircuit
-                      text/json: ExpressRouteCircuit
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
-                      201:
-                        description: ''
-                        body:
-                          application/json:
-                            type: ExpressRouteCircuit
-                          text/json:
-                            type: ExpressRouteCircuit
                 /authorizations:
                   /{authorizationName}:
                     uriParameters:
@@ -2324,6 +2268,60 @@ types:
                             type: ExpressRouteCircuitPeeringListResult
                           text/json:
                             type: ExpressRouteCircuitPeeringListResult
+                get:
+                  description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
+                delete:
+                  description: The delete ExpressRouteCircuit operation deletes the specified ExpressRouteCircuit.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
+                put:
+                  description: The Put ExpressRouteCircuit operation creates/updates a ExpressRouteCircuit
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: ExpressRouteCircuit
+                    text/json: ExpressRouteCircuit
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: ExpressRouteCircuit
+                        text/json:
+                          type: ExpressRouteCircuit
               /{circuitName}arpTable:
                 uriParameters:
                   circuitName:
@@ -2485,21 +2483,6 @@ types:
                     type: string
                     description: The name of the local network gateway.
                     displayName: localNetworkGatewayName
-                /:
-                  delete:
-                    description: The Delete LocalNetworkGateway operation deletes the specifed local network Gateway through Network resource provider.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
                 get:
                   description: The Get LocalNetworkGateway operation retrieves information about the specified local network gateway through Network resource provider.
                   queryParameters:
@@ -2540,6 +2523,20 @@ types:
                           type: LocalNetworkGateway
                         text/json:
                           type: LocalNetworkGateway
+                delete:
+                  description: The Delete LocalNetworkGateway operation deletes the specifed local network Gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
               get:
                 description: The List LocalNetworkGateways opertion retrieves all the local network gateways stored.
                 queryParameters:
@@ -2790,61 +2787,60 @@ types:
                     type: string
                     description: The name of the subnet.
                     displayName: publicIpAddressName
-                /:
-                  get:
-                    description: The Get publicIpAddress operation retreives information about the specified pubicIpAddress
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: PublicIpAddress
-                          text/json:
-                            type: PublicIpAddress
-                  delete:
-                    description: The delete publicIpAddress operation deletes the specified publicIpAddress.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
-                  put:
-                    description: The Put PublicIPAddress operation creates/updates a stable/dynamic PublicIP address
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    body:
-                      application/json: PublicIpAddress
-                      text/json: PublicIpAddress
-                    responses:
-                      200:
-                        description: ''
-                        body:
-                          application/json:
-                            type: PublicIpAddress
-                          text/json:
-                            type: PublicIpAddress
-                      201:
-                        description: ''
-                        body:
-                          application/json:
-                            type: PublicIpAddress
-                          text/json:
-                            type: PublicIpAddress
+                get:
+                  description: The Get publicIpAddress operation retreives information about the specified pubicIpAddress
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIpAddress
+                        text/json:
+                          type: PublicIpAddress
+                delete:
+                  description: The delete publicIpAddress operation deletes the specified publicIpAddress.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
+                put:
+                  description: The Put PublicIPAddress operation creates/updates a stable/dynamic PublicIP address
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  body:
+                    application/json: PublicIpAddress
+                    text/json: PublicIpAddress
+                  responses:
+                    200:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIpAddress
+                        text/json:
+                          type: PublicIpAddress
+                    201:
+                      description: ''
+                      body:
+                        application/json:
+                          type: PublicIpAddress
+                        text/json:
+                          type: PublicIpAddress
               get:
                 description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a resource group.
                 queryParameters:
@@ -3019,21 +3015,20 @@ types:
                     type: string
                     description: The name of the virtual network gateway.
                     displayName: virtualNetworkGatewayName
-                /:
-                  delete:
-                    description: The Delete VirtualNetworkGateway operation deletes the specifed virtual network Gateway through Network resource provider.
-                    queryParameters:
-                      api-version:
-                        type: string
-                        description: Client Api Version.
-                        displayName: api-version
-                    responses:
-                      200:
-                        description: ''
-                      202:
-                        description: ''
-                      204:
-                        description: ''
+                delete:
+                  description: The Delete VirtualNetworkGateway operation deletes the specifed virtual network Gateway through Network resource provider.
+                  queryParameters:
+                    api-version:
+                      type: string
+                      description: Client Api Version.
+                      displayName: api-version
+                  responses:
+                    200:
+                      description: ''
+                    202:
+                      description: ''
+                    204:
+                      description: ''
               get:
                 description: The List VirtualNetworkGateways opertion retrieves all the virtual network gateways stored.
                 queryParameters:

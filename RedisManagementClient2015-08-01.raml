@@ -187,22 +187,21 @@ types:
     /providers:
       /Microsoft.Cache:
         /Redis:
-          /:
-            get:
-              description: Gets all redis caches in the specified subscription.
-              queryParameters:
-                api-version:
-                  type: string
-                  description: Client Api Version.
-                  displayName: api-version
-              responses:
-                200:
-                  description: ''
-                  body:
-                    application/json:
-                      type: RedisListResult
-                    text/json:
-                      type: RedisListResult
+          get:
+            description: Gets all redis caches in the specified subscription.
+            queryParameters:
+              api-version:
+                type: string
+                description: Client Api Version.
+                displayName: api-version
+            responses:
+              200:
+                description: ''
+                body:
+                  application/json:
+                    type: RedisListResult
+                  text/json:
+                    type: RedisListResult
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -213,22 +212,6 @@ types:
         /providers:
           /Microsoft.Cache:
             /Redis:
-              /:
-                get:
-                  description: Gets all redis caches in a resource group.
-                  queryParameters:
-                    api-version:
-                      type: string
-                      description: Client Api Version.
-                      displayName: api-version
-                  responses:
-                    200:
-                      description: ''
-                      body:
-                        application/json:
-                          type: RedisListResult
-                        text/json:
-                          type: RedisListResult
               /{name}:
                 uriParameters:
                   name:
@@ -342,3 +325,18 @@ types:
                           type: RedisResourceWithAccessKey
                         text/json:
                           type: RedisResourceWithAccessKey
+              get:
+                description: Gets all redis caches in a resource group.
+                queryParameters:
+                  api-version:
+                    type: string
+                    description: Client Api Version.
+                    displayName: api-version
+                responses:
+                  200:
+                    description: ''
+                    body:
+                      application/json:
+                        type: RedisListResult
+                      text/json:
+                        type: RedisListResult

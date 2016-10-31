@@ -31,7 +31,7 @@ types:
     type: object
     properties:
       jobId?:
-        type: string
+        type: commons.uuid
         description: Gets the id of the job this data is for.
       command?:
         type: string
@@ -114,7 +114,7 @@ types:
     type: object
     properties:
       jobId?:
-        type: string
+        type: commons.uuid
         description: Gets or sets the job's unique identifier (a GUID).
       name:
         type: string
@@ -389,7 +389,7 @@ types:
   /{jobIdentity}:
     uriParameters:
       jobIdentity:
-        type: string
+        type: commons.uuid
         description: JobInfo ID.
         displayName: jobIdentity
     /CancelJob:
