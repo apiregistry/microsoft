@@ -991,6 +991,8 @@ types:
                 body:
                   application/json:
                     type: ApiError
+            (extras.Pagination):
+              nextLinkName: nextLink
         /checkAppCollectionNameAvailability:
           post:
             description: Checks availability of an app collection name in the Engagement domain.
@@ -1368,6 +1370,8 @@ types:
                               body:
                                 application/json:
                                   type: ApiError
+                          (extras.Pagination):
+                            nextLinkName: nextLink
                         post:
                           description: Create a push campaign (announcement, poll, data push or native push).
                           queryParameters:
@@ -1844,6 +1848,8 @@ types:
                               body:
                                 application/json:
                                   type: ApiError
+                          (extras.Pagination):
+                            nextLinkName: nextLink
                       /importTasks:
                         /{id}:
                           uriParameters:
@@ -1918,6 +1924,8 @@ types:
                               body:
                                 application/json:
                                   type: ApiError
+                          (extras.Pagination):
+                            nextLinkName: nextLink
                         post:
                           description: Creates a job to import the specified data to a storageUrl.
                           queryParameters:
@@ -2093,6 +2101,8 @@ types:
                             body:
                               application/json:
                                 type: ApiError
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /users:
                       /tag:
                         post:
@@ -2170,3 +2180,5 @@ types:
                         body:
                           application/json:
                             type: ApiError
+                    (extras.Pagination):
+                      nextLinkName: nextLink

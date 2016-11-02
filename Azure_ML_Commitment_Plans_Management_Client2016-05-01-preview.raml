@@ -255,6 +255,8 @@ types:
                 body:
                   application/json:
                     type: CommitmentPlanListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -324,6 +326,8 @@ types:
                         body:
                           application/json:
                             type: CommitmentAssociationListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /usageHistory:
                   get:
                     description: Retrieves the usage history for an Azure ML commitment plan.
@@ -342,6 +346,8 @@ types:
                         body:
                           application/json:
                             type: PlanUsageHistoryListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Retrieve an Azure ML commitment plan by its subscription, resource group and name.
                   queryParameters:
@@ -417,3 +423,5 @@ types:
                     body:
                       application/json:
                         type: CommitmentPlanListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

@@ -713,6 +713,8 @@ types:
               type: GraphError
             text/json:
               type: GraphError
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: 'Create a new application. Reference: http://msdn.microsoft.com/en-us/library/azure/hh974476.aspx'
       queryParameters:
@@ -862,6 +864,8 @@ types:
                   type: GraphError
                 text/json:
                   type: GraphError
+          (extras.Pagination):
+            nextLinkName: odata.nextLink
       get:
         description: Gets group information from the directory.
         queryParameters:
@@ -910,6 +914,8 @@ types:
               type: GraphError
             text/json:
               type: GraphError
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: 'Create a group in the directory. Reference: http://msdn.microsoft.com/en-us/library/azure/dn151676.aspx'
       queryParameters:
@@ -1146,6 +1152,8 @@ types:
               type: GraphError
             text/json:
               type: GraphError
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: Creates a service principal in the  directory.
       queryParameters:
@@ -1295,6 +1303,8 @@ types:
               type: GraphError
             text/json:
               type: GraphError
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: 'Create a new user. Reference: https://msdn.microsoft.com/library/azure/ad/graph/api/users-operations#CreateUser'
       queryParameters:

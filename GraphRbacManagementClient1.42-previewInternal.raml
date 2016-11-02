@@ -512,6 +512,8 @@ types:
               type: GetObjectsResult
             text/json:
               type: GetObjectsResult
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
   /groups:
     /{groupObjectId}:
       uriParameters:
@@ -601,6 +603,8 @@ types:
                   type: GetObjectsResult
                 text/json:
                   type: GetObjectsResult
+          (extras.Pagination):
+            nextLinkName: odata.nextLink
       get:
         description: Gets group information from the directory.
         queryParameters:
@@ -635,6 +639,8 @@ types:
               type: GroupListResult
             text/json:
               type: GroupListResult
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: Create a group in the directory.
       queryParameters:
@@ -720,6 +726,8 @@ types:
               type: ServicePrincipalListResult
             text/json:
               type: ServicePrincipalListResult
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: Creates a service principal in the  directory.
       queryParameters:
@@ -820,6 +828,8 @@ types:
               type: UserListResult
             text/json:
               type: UserListResult
+      (extras.Pagination):
+        nextLinkName: odata.nextLink
     post:
       description: Create a new user.
       queryParameters:

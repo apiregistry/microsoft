@@ -284,6 +284,8 @@ types:
                 body:
                   application/json:
                     type: BatchAccountListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /locations:
           /{locationName}:
             uriParameters:
@@ -456,6 +458,8 @@ types:
                         body:
                           application/json:
                             type: ListApplicationsResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /listKeys:
                   post:
                     description: Gets the account keys for the specified Batch account.
@@ -569,3 +573,5 @@ types:
                     body:
                       application/json:
                         type: BatchAccountListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

@@ -1690,6 +1690,8 @@ types:
                     type: ApplicationGatewayListResult
                   text/json:
                     type: ApplicationGatewayListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /expressRouteCircuits:
           get:
             description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a subscription.
@@ -1706,6 +1708,8 @@ types:
                     type: ExpressRouteCircuitListResult
                   text/json:
                     type: ExpressRouteCircuitListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /expressRouteServiceProviders:
           get:
             description: The List ExpressRouteServiceProvider opertion retrieves all the available ExpressRouteServiceProviders.
@@ -1722,6 +1726,8 @@ types:
                     type: ExpressRouteServiceProviderListResult
                   text/json:
                     type: ExpressRouteServiceProviderListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /loadBalancers:
           get:
             description: The List loadBalancer opertion retrieves all the loadbalancers in a subscription.
@@ -1738,6 +1744,8 @@ types:
                     type: LoadBalancerListResult
                   text/json:
                     type: LoadBalancerListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /locations:
           /{location}:
             uriParameters:
@@ -1782,6 +1790,8 @@ types:
                         type: UsagesListResult
                       text/json:
                         type: UsagesListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
         /networkInterfaces:
           get:
             description: The List networkInterfaces opertion retrieves all the networkInterfaces in a subscription.
@@ -1798,6 +1808,8 @@ types:
                     type: NetworkInterfaceListResult
                   text/json:
                     type: NetworkInterfaceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /networkSecurityGroups:
           get:
             description: The list NetworkSecurityGroups returns all network security groups in a subscription
@@ -1814,6 +1826,8 @@ types:
                     type: NetworkSecurityGroupListResult
                   text/json:
                     type: NetworkSecurityGroupListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /publicIPAddresses:
           get:
             description: The List publicIpAddress opertion retrieves all the publicIpAddresses in a subscription.
@@ -1830,6 +1844,8 @@ types:
                     type: PublicIpAddressListResult
                   text/json:
                     type: PublicIpAddressListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /routeTables:
           get:
             description: The list RouteTables returns all route tables in a subscription
@@ -1846,6 +1862,8 @@ types:
                     type: RouteTableListResult
                   text/json:
                     type: RouteTableListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /virtualnetworks:
           get:
             description: The list VirtualNetwork returns all Virtual Networks in a subscription
@@ -1862,6 +1880,8 @@ types:
                     type: VirtualNetworkListResult
                   text/json:
                     type: VirtualNetworkListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1971,6 +1991,8 @@ types:
                         type: ApplicationGatewayListResult
                       text/json:
                         type: ApplicationGatewayListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /connections:
               /{virtualNetworkGatewayConnectionName}:
                 uriParameters:
@@ -2109,6 +2131,8 @@ types:
                         type: VirtualNetworkGatewayConnectionListResult
                       text/json:
                         type: VirtualNetworkGatewayConnectionListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /expressRouteCircuits:
               /{circuitName}:
                 uriParameters:
@@ -2192,6 +2216,8 @@ types:
                             type: AuthorizationListResult
                           text/json:
                             type: AuthorizationListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /peerings:
                   /{peeringName}:
                     uriParameters:
@@ -2268,6 +2294,8 @@ types:
                             type: ExpressRouteCircuitPeeringListResult
                           text/json:
                             type: ExpressRouteCircuitPeeringListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: The Get ExpressRouteCircuit operation retreives information about the specified ExpressRouteCircuit.
                   queryParameters:
@@ -2343,6 +2371,8 @@ types:
                           type: ExpressRouteCircuitsArpTableListResult
                         text/json:
                           type: ExpressRouteCircuitsArpTableListResult
+                  (extras.Pagination):
+                    nextLinkName: nextLink
               /{circuitName}routesTable:
                 uriParameters:
                   circuitName:
@@ -2364,6 +2394,8 @@ types:
                           type: ExpressRouteCircuitsRoutesTableListResult
                         text/json:
                           type: ExpressRouteCircuitsRoutesTableListResult
+                  (extras.Pagination):
+                    nextLinkName: nextLink
               /{circuitName}stats:
                 uriParameters:
                   circuitName:
@@ -2385,6 +2417,8 @@ types:
                           type: ExpressRouteCircuitsStatsListResult
                         text/json:
                           type: ExpressRouteCircuitsStatsListResult
+                  (extras.Pagination):
+                    nextLinkName: nextLink
               get:
                 description: The List ExpressRouteCircuit opertion retrieves all the ExpressRouteCircuits in a resource group.
                 queryParameters:
@@ -2400,6 +2434,8 @@ types:
                         type: ExpressRouteCircuitListResult
                       text/json:
                         type: ExpressRouteCircuitListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /loadBalancers:
               /{loadBalancerName}:
                 uriParameters:
@@ -2476,6 +2512,8 @@ types:
                         type: LoadBalancerListResult
                       text/json:
                         type: LoadBalancerListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /localNetworkGateways:
               /{localNetworkGatewayName}:
                 uriParameters:
@@ -2552,6 +2590,8 @@ types:
                         type: LocalNetworkGatewayListResult
                       text/json:
                         type: LocalNetworkGatewayListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /networkInterfaces:
               /{networkInterfaceName}:
                 uriParameters:
@@ -2628,6 +2668,8 @@ types:
                         type: NetworkInterfaceListResult
                       text/json:
                         type: NetworkInterfaceListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /networkSecurityGroups:
               /{networkSecurityGroupName}:
                 uriParameters:
@@ -2711,6 +2753,8 @@ types:
                             type: SecurityRuleListResult
                           text/json:
                             type: SecurityRuleListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: The Get NetworkSecurityGroups operation retrieves information about the specified network security group.
                   queryParameters:
@@ -2780,6 +2824,8 @@ types:
                         type: NetworkSecurityGroupListResult
                       text/json:
                         type: NetworkSecurityGroupListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /publicIPAddresses:
               /{publicIpAddressName}:
                 uriParameters:
@@ -2856,6 +2902,8 @@ types:
                         type: PublicIpAddressListResult
                       text/json:
                         type: PublicIpAddressListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /routeTables:
               /{routeTableName}:
                 uriParameters:
@@ -2939,6 +2987,8 @@ types:
                             type: RouteListResult
                           text/json:
                             type: RouteListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: The Get RouteTables operation retrieves information about the specified route table.
                   queryParameters:
@@ -3008,6 +3058,8 @@ types:
                         type: RouteTableListResult
                       text/json:
                         type: RouteTableListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /virtualNetworkGateways:
               /{virtualNetworkGatewayName}:
                 uriParameters:
@@ -3044,6 +3096,8 @@ types:
                         type: VirtualNetworkGatewayListResult
                       text/json:
                         type: VirtualNetworkGatewayListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /virtualnetworkgateways:
               /{virtualNetworkGatewayName}:
                 uriParameters:
@@ -3195,6 +3249,8 @@ types:
                             type: SubnetListResult
                           text/json:
                             type: SubnetListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: The Get VirtualNetwork operation retrieves information about the specified virtual network.
                   queryParameters:
@@ -3264,6 +3320,8 @@ types:
                         type: VirtualNetworkListResult
                       text/json:
                         type: VirtualNetworkListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
           /microsoft.compute:
             /virtualMachineScaleSets:
               /{virtualMachineScaleSetName}:
@@ -3288,6 +3346,8 @@ types:
                             type: NetworkInterfaceListResult
                           text/json:
                             type: NetworkInterfaceListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualMachines:
                   /{virtualmachineIndex}:
                     uriParameters:
@@ -3332,3 +3392,5 @@ types:
                                 type: NetworkInterfaceListResult
                               text/json:
                                 type: NetworkInterfaceListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink

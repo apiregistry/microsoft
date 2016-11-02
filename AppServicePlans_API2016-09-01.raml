@@ -1318,6 +1318,8 @@ types:
                     type: AppServicePlanCollection
                   text/json:
                     type: AppServicePlanCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1543,6 +1545,8 @@ types:
                             type: MetricDefinitionCollection
                           text/json:
                             type: MetricDefinitionCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /metrics:
                   get:
                     description: Queries for App Serice Plan metrics
@@ -1572,6 +1576,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /operationresults:
                   /{operationId}:
                     uriParameters:
@@ -1654,6 +1660,8 @@ types:
                             type: WebAppCollection
                           text/json:
                             type: WebAppCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualNetworkConnections:
                   /{vnetName}:
                     uriParameters:
@@ -2029,3 +2037,5 @@ types:
                         type: AppServicePlanCollection
                       text/json:
                         type: AppServicePlanCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

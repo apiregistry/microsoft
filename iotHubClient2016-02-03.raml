@@ -604,6 +604,8 @@ types:
                     type: ErrorDetails
                   text/json:
                     type: ErrorDetails
+            (extras.Pagination):
+              nextLinkName: nextLink
         /checkNameAvailability:
           post:
             description: Check if an IotHub name is available.
@@ -810,6 +812,8 @@ types:
                                 type: ErrorDetails
                               text/json:
                                 type: ErrorDetails
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                 /exportDevices:
                   post:
                     description: Export all the devices in an IotHub.
@@ -921,6 +925,8 @@ types:
                             type: ErrorDetails
                           text/json:
                             type: ErrorDetails
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /listkeys:
                   post:
                     description: Get all keys for an IotHub.
@@ -946,6 +952,8 @@ types:
                             type: ErrorDetails
                           text/json:
                             type: ErrorDetails
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /quotaMetrics:
                   get:
                     description: Get quota metrics for an IotHub.
@@ -971,6 +979,8 @@ types:
                             type: ErrorDetails
                           text/json:
                             type: ErrorDetails
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /skus:
                   get:
                     description: Get Valid Skus.
@@ -996,6 +1006,8 @@ types:
                             type: ErrorDetails
                           text/json:
                             type: ErrorDetails
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Get an IotHub.
                   displayName: Get an IotHub.
@@ -1095,3 +1107,5 @@ types:
                         type: ErrorDetails
                       text/json:
                         type: ErrorDetails
+                (extras.Pagination):
+                  nextLinkName: nextLink

@@ -276,6 +276,8 @@ types:
                     type: ZoneListResult
                   text/json:
                     type: ZoneListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -316,6 +318,8 @@ types:
                             type: RecordSetListResult
                           text/json:
                             type: RecordSetListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /{recordType}:
                   uriParameters:
                     recordType:
@@ -420,6 +424,8 @@ types:
                             type: RecordSetListResult
                           text/json:
                             type: RecordSetListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Gets a DNS zone.
                   queryParameters:
@@ -502,3 +508,5 @@ types:
                         type: ZoneListResult
                       text/json:
                         type: ZoneListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

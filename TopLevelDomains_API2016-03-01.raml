@@ -1302,6 +1302,8 @@ types:
                         type: TldLegalAgreementCollection
                       text/json:
                         type: TldLegalAgreementCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             get:
               description: Gets details of a top level domain
               displayName: Gets details of a top level domain
@@ -1338,3 +1340,5 @@ types:
                     type: TopLevelDomainCollection
                   text/json:
                     type: TopLevelDomainCollection
+            (extras.Pagination):
+              nextLinkName: nextLink

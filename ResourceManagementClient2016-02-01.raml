@@ -717,6 +717,8 @@ types:
             body:
               application/json:
                 type: ProviderListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -754,6 +756,8 @@ types:
                 body:
                   application/json:
                     type: ResourceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
       /{sourceResourceGroupName}:
         uriParameters:
           sourceResourceGroupName:
@@ -833,6 +837,8 @@ types:
                     body:
                       application/json:
                         type: DeploymentOperationsListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
         /exportTemplate:
           post:
             description: Captures the specified resource group as a template.
@@ -983,6 +989,8 @@ types:
                     body:
                       application/json:
                         type: DeploymentListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
           /{resourceProviderNamespace}:
             uriParameters:
               resourceProviderNamespace:
@@ -1159,6 +1167,8 @@ types:
             body:
               application/json:
                 type: ResourceGroupListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /resources:
       get:
         description: Get all of the resources under a subscription.
@@ -1186,6 +1196,8 @@ types:
             body:
               application/json:
                 type: ResourceListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /tagNames:
       /{tagName}:
         uriParameters:
@@ -1273,3 +1285,5 @@ types:
             body:
               application/json:
                 type: TagsListResult
+        (extras.Pagination):
+          nextLinkName: nextLink

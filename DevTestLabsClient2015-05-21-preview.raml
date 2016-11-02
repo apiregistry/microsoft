@@ -1221,6 +1221,8 @@ types:
                     type: CloudError
                   text/json:
                     type: CloudError
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1335,6 +1337,8 @@ types:
                                 type: CloudError
                               text/json:
                                 type: CloudError
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                   /{name}:
                     uriParameters:
                       name:
@@ -1477,6 +1481,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /costinsights:
                   /{name}:
                     uriParameters:
@@ -1562,6 +1568,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /costs:
                   /{name}:
                     uriParameters:
@@ -1647,6 +1655,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /customimages:
                   /{name}:
                     uriParameters:
@@ -1764,6 +1774,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /formulas:
                   /{name}:
                     uriParameters:
@@ -1881,6 +1893,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /galleryimages:
                   get:
                     description: List gallery images.
@@ -1916,6 +1930,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /policysets:
                   /{name}:
                     uriParameters:
@@ -2099,6 +2115,8 @@ types:
                                 type: CloudError
                               text/json:
                                 type: CloudError
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                 /schedules:
                   /{name}:
                     uriParameters:
@@ -2263,6 +2281,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualmachines:
                   /{name}:
                     uriParameters:
@@ -2472,6 +2492,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualnetworks:
                   /{name}:
                     uriParameters:
@@ -2615,6 +2637,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
               /{name}:
                 uriParameters:
                   name:
@@ -2696,6 +2720,8 @@ types:
                             type: CloudError
                           text/json:
                             type: CloudError
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Get lab.
                   queryParameters:
@@ -2832,3 +2858,5 @@ types:
                         type: CloudError
                       text/json:
                         type: CloudError
+                (extras.Pagination):
+                  nextLinkName: nextLink

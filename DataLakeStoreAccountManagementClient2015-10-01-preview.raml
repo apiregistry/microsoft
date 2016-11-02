@@ -321,6 +321,8 @@ types:
                     type: DataLakeStoreAccountListResult
                   application/octet-stream:
                     type: DataLakeStoreAccountListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -428,6 +430,8 @@ types:
                             type: DataLakeStoreFirewallRuleListResult
                           application/octet-stream:
                             type: DataLakeStoreFirewallRuleListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Gets the specified Data Lake Store account.
                   queryParameters:
@@ -582,3 +586,5 @@ types:
                         type: DataLakeStoreAccountListResult
                       application/octet-stream:
                         type: DataLakeStoreAccountListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

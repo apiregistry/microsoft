@@ -370,6 +370,8 @@ types:
                     type: DataLakeAnalyticsAccountListResult
                   application/octet-stream:
                     type: DataLakeAnalyticsAccountListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -489,6 +491,8 @@ types:
                             type: DataLakeAnalyticsAccountListDataLakeStoreResult
                           application/octet-stream:
                             type: DataLakeAnalyticsAccountListDataLakeStoreResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /StorageAccounts:
                   /{storageAccountName}:
                     uriParameters:
@@ -521,6 +525,8 @@ types:
                                     type: ListSasTokensResult
                                   application/octet-stream:
                                     type: ListSasTokensResult
+                            (extras.Pagination):
+                              nextLinkName: nextLink
                         get:
                           description: Gets the specified Azure Storage container associated with the given Data Lake Analytics and Azure Storage accounts.
                           queryParameters:
@@ -555,6 +561,8 @@ types:
                                 type: ListBlobContainersResult
                               application/octet-stream:
                                 type: ListBlobContainersResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Gets the specified Azure Storage account linked to the given Data Lake Analytics account.
                       queryParameters:
@@ -665,6 +673,8 @@ types:
                             type: DataLakeAnalyticsAccountListStorageAccountsResult
                           application/octet-stream:
                             type: DataLakeAnalyticsAccountListStorageAccountsResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Gets details of the specified Data Lake Analytics account.
                   queryParameters:
@@ -819,3 +829,5 @@ types:
                         type: DataLakeAnalyticsAccountListResult
                       application/octet-stream:
                         type: DataLakeAnalyticsAccountListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

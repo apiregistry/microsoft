@@ -135,6 +135,8 @@ types:
                     type: PolicyAssignmentListResult
                   text/json:
                     type: PolicyAssignmentListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /policydefinitions:
           /{policyDefinitionName}:
             uriParameters:
@@ -206,6 +208,8 @@ types:
                     type: PolicyDefinitionListResult
                   text/json:
                     type: PolicyDefinitionListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -238,6 +242,8 @@ types:
                         type: PolicyAssignmentListResult
                       text/json:
                         type: PolicyAssignmentListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -295,6 +301,8 @@ types:
                                   type: PolicyAssignmentListResult
                                 text/json:
                                   type: PolicyAssignmentListResult
+                          (extras.Pagination):
+                            nextLinkName: nextLink
 /{policyAssignmentId}:
   uriParameters:
     policyAssignmentId:

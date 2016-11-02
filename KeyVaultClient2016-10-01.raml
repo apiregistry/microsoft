@@ -1054,6 +1054,8 @@ types:
           body:
             application/json:
               type: KeyVaultError
+      (extras.Pagination):
+        nextLinkName: nextLink
   /{certificate-name}:
     uriParameters:
       certificate-name:
@@ -1245,6 +1247,8 @@ types:
             body:
               application/json:
                 type: KeyVaultError
+        (extras.Pagination):
+          nextLinkName: nextLink
     /{certificate-version}:
       uriParameters:
         certificate-version:
@@ -1332,6 +1336,8 @@ types:
         body:
           application/json:
             type: KeyVaultError
+    (extras.Pagination):
+      nextLinkName: nextLink
 /keys:
   /restore:
     post:
@@ -1426,6 +1432,8 @@ types:
             body:
               application/json:
                 type: KeyVaultError
+        (extras.Pagination):
+          nextLinkName: nextLink
     /{key-version}:
       uriParameters:
         key-version:
@@ -1659,6 +1667,8 @@ types:
         body:
           application/json:
             type: KeyVaultError
+    (extras.Pagination):
+      nextLinkName: nextLink
 /secrets:
   /{secret-name}:
     uriParameters:
@@ -1692,6 +1702,8 @@ types:
             body:
               application/json:
                 type: KeyVaultError
+        (extras.Pagination):
+          nextLinkName: nextLink
     /{secret-version}:
       uriParameters:
         secret-version:
@@ -1799,3 +1811,5 @@ types:
         body:
           application/json:
             type: KeyVaultError
+    (extras.Pagination):
+      nextLinkName: nextLink

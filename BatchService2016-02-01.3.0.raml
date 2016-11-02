@@ -2486,6 +2486,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
 /certificates:
   get:
     description: Lists all of the certificates that have been added to the specified account.
@@ -2550,6 +2552,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
   post:
     description: Adds a certificate to the specified account.
     queryParameters:
@@ -3018,6 +3022,8 @@ types:
             body:
               application/json:
                 type: BatchError
+        (extras.Pagination):
+          nextLinkName: odata.nextLink
     /tasks:
       /{taskId}:
         uriParameters:
@@ -3295,6 +3301,8 @@ types:
                 body:
                   application/json:
                     type: BatchError
+            (extras.Pagination):
+              nextLinkName: odata.nextLink
         /subtasksinfo:
           get:
             description: Lists all of the subtasks that are associated with the specified multi-instance task.
@@ -3686,6 +3694,8 @@ types:
             body:
               application/json:
                 type: BatchError
+        (extras.Pagination):
+          nextLinkName: odata.nextLink
       post:
         description: Adds a task to the specified job.
         queryParameters:
@@ -4125,6 +4135,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
   post:
     description: Adds a job to the specified account.
     queryParameters:
@@ -4386,6 +4398,8 @@ types:
             body:
               application/json:
                 type: BatchError
+        (extras.Pagination):
+          nextLinkName: odata.nextLink
     /terminate:
       post:
         description: Terminates a job schedule.
@@ -4852,6 +4866,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
   post:
     description: Adds a job schedule to the specified account.
     queryParameters:
@@ -5066,6 +5082,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
 /pools:
   /{poolId}:
     uriParameters:
@@ -5630,6 +5648,8 @@ types:
                 body:
                   application/json:
                     type: BatchError
+            (extras.Pagination):
+              nextLinkName: odata.nextLink
         /rdp:
           get:
             description: Gets the Remote Desktop Protocol file for the specified compute node.
@@ -6107,6 +6127,8 @@ types:
             body:
               application/json:
                 type: BatchError
+        (extras.Pagination):
+          nextLinkName: odata.nextLink
     /removenodes:
       post:
         description: Removes compute nodes from the specified pool.
@@ -6768,6 +6790,8 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink
   post:
     description: Adds a pool to the specified account.
     queryParameters:
@@ -6888,3 +6912,5 @@ types:
         body:
           application/json:
             type: BatchError
+    (extras.Pagination):
+      nextLinkName: odata.nextLink

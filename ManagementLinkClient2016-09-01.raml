@@ -90,6 +90,8 @@ types:
                 body:
                   application/json:
                     type: ResourceLinkResult
+            (extras.Pagination):
+              nextLinkName: nextLink
 /{linkId}:
   uriParameters:
     linkId:
@@ -169,3 +171,5 @@ types:
               body:
                 application/json:
                   type: ResourceLinkResult
+          (extras.Pagination):
+            nextLinkName: nextLink

@@ -260,6 +260,8 @@ types:
                     body:
                       application/json:
                         type: VaultListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
     /resources:
       get:
         description: The List operation gets information about the vaults associated with the subscription.
@@ -287,3 +289,5 @@ types:
             body:
               application/json:
                 type: VaultListResult
+        (extras.Pagination):
+          nextLinkName: nextLink

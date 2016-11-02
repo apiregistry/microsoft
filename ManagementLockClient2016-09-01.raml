@@ -150,6 +150,8 @@ types:
                 body:
                   application/json:
                     type: ManagementLockListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -231,6 +233,8 @@ types:
                     body:
                       application/json:
                         type: ManagementLockListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
     /resourcegroups:
       /{resourceGroupName}:
         uriParameters:
@@ -324,3 +328,5 @@ types:
                               body:
                                 application/json:
                                   type: ManagementLockListResult
+                          (extras.Pagination):
+                            nextLinkName: nextLink

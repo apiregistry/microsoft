@@ -1352,6 +1352,8 @@ types:
                     type: DomainCollection
                   text/json:
                     type: DomainCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /generateSsoRequest:
           post:
             description: Generates a single sign on request for domain management portal
@@ -1396,6 +1398,8 @@ types:
                     type: NameIdentifierCollection
                   text/json:
                     type: NameIdentifierCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /validateDomainRegistrationInformation:
           post:
             description: Validates domain registration information
@@ -1574,3 +1578,5 @@ types:
                         type: DomainCollection
                       text/json:
                         type: DomainCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

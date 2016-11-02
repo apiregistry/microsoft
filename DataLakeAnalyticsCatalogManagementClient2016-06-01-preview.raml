@@ -391,6 +391,8 @@ types:
                     type: USqlAssemblyList
                   application/octet-stream:
                     type: USqlAssemblyList
+            (extras.Pagination):
+              nextLinkName: nextLink
         /credentials:
           /{credentialName}:
             uriParameters:
@@ -528,6 +530,8 @@ types:
                     type: USqlExternalDataSourceList
                   application/octet-stream:
                     type: USqlExternalDataSourceList
+            (extras.Pagination):
+              nextLinkName: nextLink
         /schemas:
           /{schemaName}:
             uriParameters:
@@ -606,6 +610,8 @@ types:
                         type: USqlProcedureList
                       application/octet-stream:
                         type: USqlProcedureList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /tables:
               /{tableName}:
                 uriParameters:
@@ -684,6 +690,8 @@ types:
                             type: USqlTablePartitionList
                           application/octet-stream:
                             type: USqlTablePartitionList
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /statistics:
                   /{statisticsName}:
                     uriParameters:
@@ -755,6 +763,8 @@ types:
                             type: USqlTableStatisticsList
                           application/octet-stream:
                             type: USqlTableStatisticsList
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Retrieves the specified table from the Data Lake Analytics catalog.
                   queryParameters:
@@ -819,6 +829,8 @@ types:
                         type: USqlTableList
                       application/octet-stream:
                         type: USqlTableList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /tabletypes:
               /{tableTypeName}:
                 uriParameters:
@@ -890,6 +902,8 @@ types:
                         type: USqlTableTypeList
                       application/octet-stream:
                         type: USqlTableTypeList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /tablevaluedfunctions:
               /{tableValuedFunctionName}:
                 uriParameters:
@@ -961,6 +975,8 @@ types:
                         type: USqlTableValuedFunctionList
                       application/octet-stream:
                         type: USqlTableValuedFunctionList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /types:
               get:
                 description: Retrieves the list of types within the specified database and schema from the Data Lake Analytics catalog.
@@ -1009,6 +1025,8 @@ types:
                         type: USqlTypeList
                       application/octet-stream:
                         type: USqlTypeList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /views:
               /{viewName}:
                 uriParameters:
@@ -1080,6 +1098,8 @@ types:
                         type: USqlViewList
                       application/octet-stream:
                         type: USqlViewList
+                (extras.Pagination):
+                  nextLinkName: nextLink
             get:
               description: Retrieves the specified schema from the Data Lake Analytics catalog.
               queryParameters:
@@ -1144,6 +1164,8 @@ types:
                     type: USqlSchemaList
                   application/octet-stream:
                     type: USqlSchemaList
+            (extras.Pagination):
+              nextLinkName: nextLink
         /secrets:
           /{secretName}:
             uriParameters:
@@ -1294,3 +1316,5 @@ types:
                 type: USqlDatabaseList
               application/octet-stream:
                 type: USqlDatabaseList
+        (extras.Pagination):
+          nextLinkName: nextLink

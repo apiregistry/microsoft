@@ -1587,6 +1587,8 @@ types:
                         type: ListUsagesResult
                       text/json:
                         type: ListUsagesResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /vmSizes:
               get:
                 description: Lists all available virtual machine sizes for a subscription in a location.
@@ -1619,6 +1621,8 @@ types:
                     type: VirtualMachineScaleSetListWithLinkResult
                   text/json:
                     type: VirtualMachineScaleSetListWithLinkResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /virtualMachines:
           get:
             description: Gets the list of Virtual Machines in the subscription. Use nextLink property in the response to get the next page of Virtual Machines. Do this till nextLink is not null to fetch all the Virtual Machines.
@@ -1635,6 +1639,8 @@ types:
                     type: VirtualMachineListResult
                   text/json:
                     type: VirtualMachineListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1799,6 +1805,8 @@ types:
                             type: VirtualMachineScaleSetVMListResult
                           text/json:
                             type: VirtualMachineScaleSetVMListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
               /{vmScaleSetName}:
                 uriParameters:
                   vmScaleSetName:
@@ -1918,6 +1926,8 @@ types:
                             type: VirtualMachineScaleSetListSkusResult
                           text/json:
                             type: VirtualMachineScaleSetListSkusResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /start:
                   post:
                     description: The operation to start virtual machines in a virtual machine scale set.
@@ -2083,6 +2093,8 @@ types:
                         type: VirtualMachineScaleSetListResult
                       text/json:
                         type: VirtualMachineScaleSetListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /virtualMachines:
               /{vmName}:
                 uriParameters:

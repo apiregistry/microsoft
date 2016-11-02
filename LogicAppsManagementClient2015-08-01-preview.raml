@@ -392,6 +392,8 @@ types:
                         type: ApisCollection
                       text/json:
                         type: ApisCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -542,3 +544,5 @@ types:
                         type: ConnectionCollection
                       text/json:
                         type: ConnectionCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

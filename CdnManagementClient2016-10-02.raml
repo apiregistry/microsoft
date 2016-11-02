@@ -448,6 +448,8 @@ types:
             body:
               application/json:
                 type: ErrorResponse
+        (extras.Pagination):
+          nextLinkName: nextLink
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -476,6 +478,8 @@ types:
                 body:
                   application/json:
                     type: ErrorResponse
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -597,6 +601,8 @@ types:
                             body:
                               application/json:
                                 type: ErrorResponse
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /load:
                       post:
                         description: Forcibly pre-loads CDN endpoint content.
@@ -733,6 +739,8 @@ types:
                             body:
                               application/json:
                                 type: ErrorResponse
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /purge:
                       post:
                         description: Forcibly purges CDN endpoint content.
@@ -918,6 +926,8 @@ types:
                         body:
                           application/json:
                             type: ErrorResponse
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /generateSsoUri:
                   post:
                     description: Generates a dynamic SSO URI used to sign in to the CDN Supplemental Portal used for advanced management tasks, such as Country Filtering, Advanced HTTP Reports, and Real-time Stats and Alerts. The SSO URI changes approximately every 10 minutes.
@@ -1045,3 +1055,5 @@ types:
                     body:
                       application/json:
                         type: ErrorResponse
+                (extras.Pagination):
+                  nextLinkName: nextLink

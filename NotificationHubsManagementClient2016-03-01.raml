@@ -478,6 +478,8 @@ types:
                     type: NamespaceListResult
                   text/json:
                     type: NamespaceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -597,6 +599,8 @@ types:
                             type: SharedAccessAuthorizationRuleListResult
                           text/json:
                             type: SharedAccessAuthorizationRuleListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /checkNotificationHubAvailability:
                   post:
                     description: Checks the availability of the given notificationHub in a namespace.
@@ -726,6 +730,8 @@ types:
                                 type: SharedAccessAuthorizationRuleListResult
                               text/json:
                                 type: SharedAccessAuthorizationRuleListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /pnsCredentials:
                       post:
                         description: Lists the PNS Credentials associated with a notification hub .
@@ -807,6 +813,8 @@ types:
                             type: NotificationHubListResult
                           text/json:
                             type: NotificationHubListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -894,3 +902,5 @@ types:
                         type: NamespaceListResult
                       text/json:
                         type: NamespaceListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

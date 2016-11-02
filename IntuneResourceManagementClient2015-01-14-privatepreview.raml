@@ -432,6 +432,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
         /androidPolicies:
           /{policyName}:
             uriParameters:
@@ -543,6 +545,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
             get:
               description: Returns AndroidMAMPolicy with given name.
               queryParameters:
@@ -652,6 +656,8 @@ types:
                 body:
                   application/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextlink
         /apps:
           get:
             description: Returns Intune Manageable apps.
@@ -683,6 +689,8 @@ types:
                 body:
                   application/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextlink
         /flaggedUsers:
           /{userName}:
             uriParameters:
@@ -721,6 +729,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
             get:
               description: Returns Intune flagged user details
               queryParameters:
@@ -773,6 +783,8 @@ types:
                 body:
                   application/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextlink
         /iosPolicies:
           /{policyName}:
             uriParameters:
@@ -853,6 +865,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
             /groups:
               /{groupId}:
                 uriParameters:
@@ -914,6 +928,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
             get:
               description: Returns Intune iOS policies.
               queryParameters:
@@ -1023,6 +1039,8 @@ types:
                 body:
                   application/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextlink
         /operationResults:
           get:
             description: Returns operationResults.
@@ -1054,6 +1072,8 @@ types:
                 body:
                   application/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextlink
         /statuses:
           /default:
             get:
@@ -1074,6 +1094,8 @@ types:
                   body:
                     application/json:
                       type: Error
+              (extras.Pagination):
+                nextLinkName: nextlink
         /users:
           /{userName}:
             uriParameters:
@@ -1159,6 +1181,8 @@ types:
                     body:
                       application/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextlink
       get:
         description: Returns location for user tenant.
         queryParameters:
@@ -1177,3 +1201,5 @@ types:
             body:
               application/json:
                 type: Error
+        (extras.Pagination):
+          nextLinkName: nextlink

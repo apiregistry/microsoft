@@ -80,6 +80,8 @@ types:
                     type: FeatureOperationsListResult
                   text/json:
                     type: FeatureOperationsListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /providers:
           /{resourceProviderNamespace}:
             uriParameters:
@@ -140,3 +142,5 @@ types:
                         type: FeatureOperationsListResult
                       text/json:
                         type: FeatureOperationsListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

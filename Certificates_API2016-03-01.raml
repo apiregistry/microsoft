@@ -1273,6 +1273,8 @@ types:
                     type: CertificateCollection
                   text/json:
                     type: CertificateCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1393,6 +1395,8 @@ types:
                         type: CertificateCollection
                       text/json:
                         type: CertificateCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /csrs:
               /{name}:
                 uriParameters:

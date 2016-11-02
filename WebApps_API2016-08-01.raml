@@ -1734,6 +1734,8 @@ types:
                     type: WebAppCollection
                   text/json:
                     type: WebAppCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1764,6 +1766,8 @@ types:
                         type: DeletedWebAppCollection
                       text/json:
                         type: DeletedWebAppCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /sites:
               /{name}:
                 uriParameters:
@@ -1986,6 +1990,8 @@ types:
                             type: BackupItemCollection
                           text/json:
                             type: BackupItemCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /config:
                   /appsettings:
                     /list:
@@ -2551,6 +2557,8 @@ types:
                             type: DeploymentCollection
                           text/json:
                             type: DeploymentCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /hostNameBindings:
                   /{hostName}:
                     uriParameters:
@@ -2638,6 +2646,8 @@ types:
                             type: HostNameBindingCollection
                           text/json:
                             type: HostNameBindingCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /hybridConnectionNamespaces:
                   /{namespaceName}:
                     uriParameters:
@@ -2991,6 +3001,8 @@ types:
                                 type: DeploymentCollection
                               text/json:
                                 type: DeploymentCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                   get:
                     description: Gets all instance of a web app
                     displayName: Gets all instance of a web app
@@ -3007,6 +3019,8 @@ types:
                             type: SiteInstanceCollection
                           text/json:
                             type: SiteInstanceCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /iscloneable:
                   post:
                     description: Creates a new web app or modifies an existing web app.
@@ -3045,6 +3059,8 @@ types:
                             type: MetricDefinitionCollection
                           text/json:
                             type: MetricDefinitionCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /metrics:
                   get:
                     description: Gets metrics for web app
@@ -3074,6 +3090,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /migrate:
                   put:
                     description: Restores a web app
@@ -3277,6 +3295,8 @@ types:
                             type: PerfMonCounterCollection
                           text/json:
                             type: PerfMonCounterCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /phplogging:
                   get:
                     description: Gets sites's event logs
@@ -3723,6 +3743,8 @@ types:
                                 type: BackupItemCollection
                               text/json:
                                 type: BackupItemCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /config:
                       /appsettings:
                         /list:
@@ -4243,6 +4265,8 @@ types:
                                 type: DeploymentCollection
                               text/json:
                                 type: DeploymentCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /hostNameBindings:
                       /{hostName}:
                         uriParameters:
@@ -4330,6 +4354,8 @@ types:
                                 type: HostNameBindingCollection
                               text/json:
                                 type: HostNameBindingCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /hybridConnectionNamespaces:
                       /{namespaceName}:
                         uriParameters:
@@ -4683,6 +4709,8 @@ types:
                                     type: DeploymentCollection
                                   text/json:
                                     type: DeploymentCollection
+                            (extras.Pagination):
+                              nextLinkName: nextLink
                       get:
                         description: Gets all instance of a web app
                         displayName: Gets all instance of a web app
@@ -4699,6 +4727,8 @@ types:
                                 type: SiteInstanceCollection
                               text/json:
                                 type: SiteInstanceCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /iscloneable:
                       post:
                         description: Creates a new web app or modifies an existing web app.
@@ -4737,6 +4767,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         description: Gets metrics for web app
@@ -4767,6 +4799,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /networkFeatures:
                       /{view}:
                         uriParameters:
@@ -4916,6 +4950,8 @@ types:
                                 type: PerfMonCounterCollection
                               text/json:
                                 type: PerfMonCounterCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /phplogging:
                       get:
                         description: Gets sites's event logs
@@ -5163,6 +5199,8 @@ types:
                                 type: SlotDifferenceCollection
                               text/json:
                                 type: SlotDifferenceCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /slotsswap:
                       post:
                         description: Swaps web app slots
@@ -5218,6 +5256,8 @@ types:
                                 type: SnapshotCollection
                               text/json:
                                 type: SnapshotCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /sourcecontrols:
                       /web:
                         get:
@@ -5397,6 +5437,8 @@ types:
                                 type: CsmUsageQuotaCollection
                               text/json:
                                 type: CsmUsageQuotaCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /virtualNetworkConnections:
                       /{vnetName}:
                         uriParameters:
@@ -5726,6 +5768,8 @@ types:
                             type: WebAppCollection
                           text/json:
                             type: WebAppCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /slotsdiffs:
                   post:
                     description: Get the difference in configuration settings between two web app slots
@@ -5749,6 +5793,8 @@ types:
                             type: SlotDifferenceCollection
                           text/json:
                             type: SlotDifferenceCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /slotsswap:
                   post:
                     description: Swaps web app slots
@@ -5804,6 +5850,8 @@ types:
                             type: SnapshotCollection
                           text/json:
                             type: SnapshotCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /sourcecontrols:
                   /web:
                     get:
@@ -5982,6 +6030,8 @@ types:
                             type: CsmUsageQuotaCollection
                           text/json:
                             type: CsmUsageQuotaCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualNetworkConnections:
                   /{vnetName}:
                     uriParameters:
@@ -6315,3 +6365,5 @@ types:
                         type: WebAppCollection
                       text/json:
                         type: WebAppCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

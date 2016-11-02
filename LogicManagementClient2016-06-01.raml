@@ -711,6 +711,8 @@ types:
                     type: WorkflowListResult
                   text/json:
                     type: WorkflowListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -849,6 +851,8 @@ types:
                                 type: WorkflowRunActionListResult
                               text/json:
                                 type: WorkflowRunActionListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /cancel:
                       post:
                         description: Cancels a workflow run.
@@ -899,6 +903,8 @@ types:
                             type: WorkflowRunListResult
                           text/json:
                             type: WorkflowRunListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /triggers:
                   /{triggerName}:
                     uriParameters:
@@ -952,6 +958,8 @@ types:
                                 type: WorkflowTriggerHistoryListResult
                               text/json:
                                 type: WorkflowTriggerHistoryListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /listCallbackUrl:
                       post:
                         description: Gets the callback URL for a workflow trigger.
@@ -1023,6 +1031,8 @@ types:
                             type: WorkflowTriggerListResult
                           text/json:
                             type: WorkflowTriggerListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /versions:
                   /{versionId}:
                     uriParameters:
@@ -1065,6 +1075,8 @@ types:
                             type: WorkflowVersionListResult
                           text/json:
                             type: WorkflowVersionListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Gets a workflow.
                   queryParameters:
@@ -1159,3 +1171,5 @@ types:
                         type: WorkflowListResult
                       text/json:
                         type: WorkflowListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

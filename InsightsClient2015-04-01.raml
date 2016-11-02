@@ -210,6 +210,8 @@ types:
                 body:
                   application/json:
                     type: EventDataCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -248,3 +250,5 @@ types:
                     body:
                       application/json:
                         type: EventDataCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

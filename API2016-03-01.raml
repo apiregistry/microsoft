@@ -1346,6 +1346,8 @@ types:
                 type: SourceControlCollection
               text/json:
                 type: SourceControlCollection
+        (extras.Pagination):
+          nextLinkName: nextLink
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -1403,6 +1405,8 @@ types:
                     type: GeoRegionCollection
                   text/json:
                     type: GeoRegionCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /ishostingenvironmentnameavailable:
           /{name}:
             uriParameters:

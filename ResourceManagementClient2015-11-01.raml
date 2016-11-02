@@ -616,6 +616,8 @@ types:
             body:
               application/json:
                 type: ResourceProviderOperationDetailListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -643,6 +645,8 @@ types:
                 body:
                   application/json:
                     type: PolicyAssignmentListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /policydefinitions:
           /{policyDefinitionName}:
             uriParameters:
@@ -753,6 +757,8 @@ types:
             body:
               application/json:
                 type: ProviderListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -783,6 +789,8 @@ types:
                     body:
                       application/json:
                         type: PolicyAssignmentListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
         /resources:
           get:
             description: Get all of the resources under a subscription.
@@ -806,6 +814,8 @@ types:
                 body:
                   application/json:
                     type: ResourceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
       /{sourceResourceGroupName}:
         uriParameters:
           sourceResourceGroupName:
@@ -885,6 +895,8 @@ types:
                     body:
                       application/json:
                         type: DeploymentOperationsListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
         /providers:
           /Microsoft.Resources:
             /deployments:
@@ -1005,6 +1017,8 @@ types:
                     body:
                       application/json:
                         type: DeploymentListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
           /{resourceProviderNamespace}:
             uriParameters:
               resourceProviderNamespace:
@@ -1114,6 +1128,8 @@ types:
                             body:
                               application/json:
                                 type: PolicyAssignmentListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
         get:
           description: Get a resource group.
           queryParameters:
@@ -1211,6 +1227,8 @@ types:
             body:
               application/json:
                 type: ResourceGroupListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /resources:
       get:
         description: Get all of the resources under a subscription.
@@ -1234,6 +1252,8 @@ types:
             body:
               application/json:
                 type: ResourceListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
     /tagNames:
       /{tagName}:
         uriParameters:
@@ -1321,6 +1341,8 @@ types:
             body:
               application/json:
                 type: TagsListResult
+        (extras.Pagination):
+          nextLinkName: nextLink
 /{policyAssignmentId}:
   uriParameters:
     policyAssignmentId:
@@ -1441,3 +1463,5 @@ types:
               body:
                 application/json:
                   type: PolicyAssignmentListResult
+          (extras.Pagination):
+            nextLinkName: nextLink

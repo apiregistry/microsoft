@@ -2066,6 +2066,8 @@ types:
                 type: SourceControlCollection
               text/json:
                 type: SourceControlCollection
+        (extras.Pagination):
+          nextLinkName: nextLink
 /subscriptions:
   /{subscriptionId}:
     uriParameters:
@@ -2091,6 +2093,8 @@ types:
                     type: CertificateOrderCollection
                   text/json:
                     type: CertificateOrderCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /validateCertificateRegistrationInformation:
           post:
             displayName: Validate certificate purchase information
@@ -2160,6 +2164,8 @@ types:
                     type: DomainCollection
                   text/json:
                     type: DomainCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /generateSsoRequest:
           post:
             displayName: Generates a single sign on request for domain management portal
@@ -2202,6 +2208,8 @@ types:
                     type: NameIdentifierCollection
                   text/json:
                     type: NameIdentifierCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /topLevelDomains:
           /{name}:
             uriParameters:
@@ -2231,6 +2239,8 @@ types:
                         type: TldLegalAgreementCollection
                       text/json:
                         type: TldLegalAgreementCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             get:
               displayName: Gets details of a top level domain
               queryParameters:
@@ -2265,6 +2275,8 @@ types:
                     type: TopLevelDomainCollection
                   text/json:
                     type: TopLevelDomainCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /validateDomainRegistrationInformation:
           post:
             displayName: Validates domain registration information
@@ -2308,6 +2320,8 @@ types:
                     type: CertificateCollection
                   text/json:
                     type: CertificateCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /checknameavailability:
           post:
             displayName: Check if resource name is available
@@ -2350,6 +2364,8 @@ types:
                     type: ClassicMobileServiceCollection
                   text/json:
                     type: ClassicMobileServiceCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /geoRegions:
           get:
             displayName: Gets list of available geo regions
@@ -2374,6 +2390,8 @@ types:
                     type: GeoRegionCollection
                   text/json:
                     type: GeoRegionCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /hostingEnvironments:
           get:
             displayName: Gets all hostingEnvironments (App Service Environment) for a subscription
@@ -2390,6 +2408,8 @@ types:
                     type: HostingEnvironmentCollection
                   text/json:
                     type: HostingEnvironmentCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /ishostingenvironmentnameavailable:
           /{name}:
             uriParameters:
@@ -2455,6 +2475,8 @@ types:
                     type: ManagedHostingEnvironmentCollection
                   text/json:
                     type: ManagedHostingEnvironmentCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /premieraddonoffers:
           get:
             displayName: List premier add on offers
@@ -2578,6 +2600,8 @@ types:
                     type: ServerFarmCollection
                   text/json:
                     type: ServerFarmCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /sites:
           get:
             displayName: Gets all Web Apps for a subscription
@@ -2594,6 +2618,8 @@ types:
                     type: SiteCollection
                   text/json:
                     type: SiteCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -2731,6 +2757,8 @@ types:
                             type: CertificateOrderCertificateCollection
                           text/json:
                             type: CertificateOrderCertificateCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
               /{name}:
                 uriParameters:
                   name:
@@ -2984,6 +3012,8 @@ types:
                         type: CertificateOrderCollection
                       text/json:
                         type: CertificateOrderCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
           /Microsoft.DomainRegistration:
             /domains:
               /{domainName}:
@@ -3156,6 +3186,8 @@ types:
                         type: DomainCollection
                       text/json:
                         type: DomainCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
           /Microsoft.Web.Admin:
             /environments:
               /{environmentName}:
@@ -3300,6 +3332,8 @@ types:
                         type: CertificateCollection
                       text/json:
                         type: CertificateCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /classicMobileServices:
               /{name}:
                 uriParameters:
@@ -3360,6 +3394,8 @@ types:
                         type: ClassicMobileServiceCollection
                       text/json:
                         type: ClassicMobileServiceCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /csrs:
               /{name}:
                 uriParameters:
@@ -3502,6 +3538,8 @@ types:
                         type: DeletedSiteCollection
                       text/json:
                         type: DeletedSiteCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /hostingEnvironments:
               /{name}:
                 uriParameters:
@@ -3526,6 +3564,8 @@ types:
                               type: StampCapacityCollection
                             text/json:
                               type: StampCapacityCollection
+                      (extras.Pagination):
+                        nextLinkName: nextLink
                   /virtualip:
                     get:
                       displayName: Get IP addresses assigned to the hostingEnvironment (App Service Environment).
@@ -3647,6 +3687,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /multiRolePools:
                   /default:
                     /instances:
@@ -3716,6 +3758,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         displayName: Get metrics for a multiRole pool of a hostingEnvironment (App Service Environment).
@@ -3757,6 +3801,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /skus:
                       get:
                         displayName: Get available skus for scaling a multiRole pool.
@@ -3773,6 +3819,8 @@ types:
                                 type: SkuInfoCollection
                               text/json:
                                 type: SkuInfoCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /usages:
                       get:
                         displayName: Get usages for a multiRole pool of a hostingEnvironment (App Service Environment).
@@ -3789,6 +3837,8 @@ types:
                                 type: UsageCollection
                               text/json:
                                 type: UsageCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       displayName: Get properties of a multiRool pool.
                       queryParameters:
@@ -3863,6 +3913,8 @@ types:
                             type: WorkerPoolCollection
                           text/json:
                             type: WorkerPoolCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /operations:
                   /{operationId}:
                     uriParameters:
@@ -3972,6 +4024,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /serverfarms:
                   get:
                     displayName: Get all serverfarms (App Service Plans) on the hostingEnvironment (App Service Environment).
@@ -3988,6 +4042,8 @@ types:
                             type: ServerFarmCollection
                           text/json:
                             type: ServerFarmCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /sites:
                   get:
                     displayName: Get all sites on the hostingEnvironment (App Service Environment).
@@ -4008,6 +4064,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /suspend:
                   post:
                     displayName: Suspends the hostingEnvironment.
@@ -4031,6 +4089,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /usages:
                   get:
                     displayName: Get global usages of hostingEnvironment (App Service Environment).
@@ -4055,6 +4115,8 @@ types:
                             type: CsmUsageQuotaCollection
                           text/json:
                             type: CsmUsageQuotaCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /webhostingplans:
                   get:
                     displayName: Get all serverfarms (App Service Plans) on the hostingEnvironment (App Service Environment).
@@ -4071,6 +4133,8 @@ types:
                             type: ServerFarmCollection
                           text/json:
                             type: ServerFarmCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /workerPools:
                   /{workerPoolName}:
                     uriParameters:
@@ -4154,6 +4218,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         displayName: Get metrics for a worker pool of a hostingEnvironment (App Service Environment).
@@ -4183,6 +4249,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /skus:
                       get:
                         displayName: Get available skus for scaling a worker pool.
@@ -4199,6 +4267,8 @@ types:
                                 type: SkuInfoCollection
                               text/json:
                                 type: SkuInfoCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /usages:
                       get:
                         displayName: Get usages for a worker pool of a hostingEnvironment (App Service Environment).
@@ -4215,6 +4285,8 @@ types:
                                 type: UsageCollection
                               text/json:
                                 type: UsageCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       displayName: Get properties of a worker pool.
                       queryParameters:
@@ -4289,6 +4361,8 @@ types:
                             type: WorkerPoolCollection
                           text/json:
                             type: WorkerPoolCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   displayName: Get properties of hostingEnvironment (App Service Environment).
                   queryParameters:
@@ -4403,6 +4477,8 @@ types:
                         type: HostingEnvironmentCollection
                       text/json:
                         type: HostingEnvironmentCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /managedHostingEnvironments:
               /{name}:
                 uriParameters:
@@ -4488,6 +4564,8 @@ types:
                             type: ServerFarmCollection
                           text/json:
                             type: ServerFarmCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /sites:
                   get:
                     displayName: Get all sites on the managed hosting environment.
@@ -4508,6 +4586,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /webhostingplans:
                   get:
                     displayName: Get all serverfarms (App Service Plans) on the managed hosting environment.
@@ -4524,6 +4604,8 @@ types:
                             type: ServerFarmCollection
                           text/json:
                             type: ServerFarmCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   displayName: Get properties of a managed hosting environment.
                   queryParameters:
@@ -4616,6 +4698,8 @@ types:
                         type: HostingEnvironmentCollection
                       text/json:
                         type: HostingEnvironmentCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /serverfarms:
               /{name}:
                 uriParameters:
@@ -4639,6 +4723,8 @@ types:
                             type: MetricDefinitionCollection
                           text/json:
                             type: MetricDefinitionCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /metrics:
                   get:
                     displayName: Queries for App Serice Plan metrics
@@ -4667,6 +4753,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /operationresults:
                   /{operationId}:
                     uriParameters:
@@ -4746,6 +4834,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualNetworkConnections:
                   /{vnetName}:
                     uriParameters:
@@ -5107,6 +5197,8 @@ types:
                         type: ServerFarmCollection
                       text/json:
                         type: ServerFarmCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /sites:
               /{name}:
                 uriParameters:
@@ -5296,6 +5388,8 @@ types:
                             type: BackupItemCollection
                           text/json:
                             type: BackupItemCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /config:
                   /appsettings:
                     /list:
@@ -5773,6 +5867,8 @@ types:
                             type: DeploymentCollection
                           text/json:
                             type: DeploymentCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /hostNameBindings:
                   /{hostName}:
                     uriParameters:
@@ -5856,6 +5952,8 @@ types:
                             type: HostNameBindingCollection
                           text/json:
                             type: HostNameBindingCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /hybridconnection:
                   /{entityName}:
                     uriParameters:
@@ -6056,6 +6154,8 @@ types:
                                 type: DeploymentCollection
                               text/json:
                                 type: DeploymentCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                   get:
                     displayName: Gets all instance of a web app
                     queryParameters:
@@ -6071,6 +6171,8 @@ types:
                             type: SiteInstanceCollection
                           text/json:
                             type: SiteInstanceCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /iscloneable:
                   post:
                     displayName: Creates a new web app or modifies an existing web app.
@@ -6107,6 +6209,8 @@ types:
                             type: MetricDefinitionCollection
                           text/json:
                             type: MetricDefinitionCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /metrics:
                   get:
                     displayName: Gets metrics for web app
@@ -6135,6 +6239,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /networkFeatures:
                   /{view}:
                     uriParameters:
@@ -6582,6 +6688,8 @@ types:
                                 type: BackupItemCollection
                               text/json:
                                 type: BackupItemCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /config:
                       /appsettings:
                         /list:
@@ -7016,6 +7124,8 @@ types:
                                 type: DeploymentCollection
                               text/json:
                                 type: DeploymentCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /hostNameBindings:
                       /{hostName}:
                         uriParameters:
@@ -7099,6 +7209,8 @@ types:
                                 type: HostNameBindingCollection
                               text/json:
                                 type: HostNameBindingCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /hybridconnection:
                       /{entityName}:
                         uriParameters:
@@ -7299,6 +7411,8 @@ types:
                                     type: DeploymentCollection
                                   text/json:
                                     type: DeploymentCollection
+                            (extras.Pagination):
+                              nextLinkName: nextLink
                       get:
                         displayName: Gets all instance of a web app
                         queryParameters:
@@ -7314,6 +7428,8 @@ types:
                                 type: SiteInstanceCollection
                               text/json:
                                 type: SiteInstanceCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /iscloneable:
                       post:
                         displayName: Creates a new web app or modifies an existing web app.
@@ -7350,6 +7466,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         displayName: Gets metrics for web app
@@ -7379,6 +7497,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /networkFeatures:
                       /{view}:
                         uriParameters:
@@ -7659,6 +7779,8 @@ types:
                                 type: SlotDifferenceCollection
                               text/json:
                                 type: SlotDifferenceCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /slotsswap:
                       post:
                         displayName: Swaps web app slots
@@ -7886,6 +8008,8 @@ types:
                                 type: CsmUsageQuotaCollection
                               text/json:
                                 type: CsmUsageQuotaCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /virtualNetworkConnections:
                       /{vnetName}:
                         uriParameters:
@@ -8207,6 +8331,8 @@ types:
                             type: SiteCollection
                           text/json:
                             type: SiteCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /slotsdiffs:
                   post:
                     displayName: Get the difference in configuration settings between two web app slots
@@ -8229,6 +8355,8 @@ types:
                             type: SlotDifferenceCollection
                           text/json:
                             type: SlotDifferenceCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /slotsswap:
                   post:
                     displayName: Swaps web app slots
@@ -8455,6 +8583,8 @@ types:
                             type: CsmUsageQuotaCollection
                           text/json:
                             type: CsmUsageQuotaCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /virtualNetworkConnections:
                   /{vnetName}:
                     uriParameters:
@@ -8892,3 +9022,5 @@ types:
                         type: SiteCollection
                       text/json:
                         type: SiteCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

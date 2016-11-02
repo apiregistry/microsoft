@@ -548,6 +548,8 @@ types:
                     type: NamespaceListResult
                   text/json:
                     type: NamespaceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -668,6 +670,8 @@ types:
                             type: SharedAccessAuthorizationRuleListResult
                           text/json:
                             type: SharedAccessAuthorizationRuleListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /queues:
                   /{queueName}:
                     uriParameters:
@@ -777,6 +781,8 @@ types:
                                 type: SharedAccessAuthorizationRuleListResult
                               text/json:
                                 type: SharedAccessAuthorizationRuleListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Returns the description for the specified queue.
                       queryParameters:
@@ -837,6 +843,8 @@ types:
                             type: QueueListResult
                           text/json:
                             type: QueueListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /topics:
                   /{topicName}:
                     uriParameters:
@@ -946,6 +954,8 @@ types:
                                 type: SharedAccessAuthorizationRuleListResult
                               text/json:
                                 type: SharedAccessAuthorizationRuleListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /subscriptions:
                       /{subscriptionName}:
                         uriParameters:
@@ -1013,6 +1023,8 @@ types:
                                 type: SubscriptionListResult
                               text/json:
                                 type: SubscriptionListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Returns the description for the specified topic
                       queryParameters:
@@ -1073,6 +1085,8 @@ types:
                             type: TopicListResult
                           text/json:
                             type: TopicListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -1142,3 +1156,5 @@ types:
                         type: NamespaceListResult
                       text/json:
                         type: NamespaceListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

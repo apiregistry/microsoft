@@ -179,6 +179,8 @@ types:
         body:
           application/json:
             type: SubscriptionListResult
+    (extras.Pagination):
+      nextLinkName: nextLink
 /tenants:
   get:
     description: Gets a list of tenants.
@@ -193,3 +195,5 @@ types:
         body:
           application/json:
             type: TenantListResult
+    (extras.Pagination):
+      nextLinkName: nextLink

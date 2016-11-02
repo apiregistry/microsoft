@@ -1408,6 +1408,8 @@ types:
                     type: AppServiceEnvironmentCollection
                   text/json:
                     type: AppServiceEnvironmentCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1442,6 +1444,8 @@ types:
                               type: StampCapacityCollection
                             text/json:
                               type: StampCapacityCollection
+                      (extras.Pagination):
+                        nextLinkName: nextLink
                   /virtualip:
                     get:
                       description: Get IP addresses assigned to the AppServiceEnvironment (App Service Environment).
@@ -1568,6 +1572,8 @@ types:
                             type: ResourceMetricCollection
                           text/json:
                             type: ResourceMetricCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /multiRolePools:
                   /default:
                     /instances:
@@ -1640,6 +1646,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         description: Get metrics for a multiRole pool of a AppServiceEnvironment (App Service Environment).
@@ -1682,6 +1690,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /skus:
                       get:
                         description: Get available skus for scaling a multiRole pool.
@@ -1699,6 +1709,8 @@ types:
                                 type: SkuInfoCollection
                               text/json:
                                 type: SkuInfoCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /usages:
                       get:
                         description: Get usages for a multiRole pool of a AppServiceEnvironment (App Service Environment).
@@ -1716,6 +1728,8 @@ types:
                                 type: UsageCollection
                               text/json:
                                 type: UsageCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Get properties of a multiRool pool.
                       displayName: Get properties of a multiRool pool.
@@ -1793,6 +1807,8 @@ types:
                             type: WorkerPoolCollection
                           text/json:
                             type: WorkerPoolCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /operations:
                   /{operationId}:
                     uriParameters:
@@ -1906,6 +1922,8 @@ types:
                             type: WebAppCollection
                           text/json:
                             type: WebAppCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /serverfarms:
                   get:
                     description: Get all serverfarms (App Service Plans) on the AppServiceEnvironment (App Service Environment).
@@ -1923,6 +1941,8 @@ types:
                             type: AppServicePlanCollection
                           text/json:
                             type: AppServicePlanCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /sites:
                   get:
                     description: Get all sites on the AppServiceEnvironment (App Service Environment).
@@ -1944,6 +1964,8 @@ types:
                             type: WebAppCollection
                           text/json:
                             type: WebAppCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /suspend:
                   post:
                     description: Suspends the AppServiceEnvironment.
@@ -1968,6 +1990,8 @@ types:
                             type: WebAppCollection
                           text/json:
                             type: WebAppCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /usages:
                   get:
                     description: Get global usages of AppServiceEnvironment (App Service Environment).
@@ -1993,6 +2017,8 @@ types:
                             type: CsmUsageQuotaCollection
                           text/json:
                             type: CsmUsageQuotaCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /workerPools:
                   /{workerPoolName}:
                     uriParameters:
@@ -2079,6 +2105,8 @@ types:
                                 type: MetricDefinitionCollection
                               text/json:
                                 type: MetricDefinitionCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /metrics:
                       get:
                         description: Get metrics for a worker pool of a AppServiceEnvironment (App Service Environment).
@@ -2109,6 +2137,8 @@ types:
                                 type: ResourceMetricCollection
                               text/json:
                                 type: ResourceMetricCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /skus:
                       get:
                         description: Get available skus for scaling a worker pool.
@@ -2126,6 +2156,8 @@ types:
                                 type: SkuInfoCollection
                               text/json:
                                 type: SkuInfoCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /usages:
                       get:
                         description: Get usages for a worker pool of a AppServiceEnvironment (App Service Environment).
@@ -2143,6 +2175,8 @@ types:
                                 type: UsageCollection
                               text/json:
                                 type: UsageCollection
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Get properties of a worker pool.
                       displayName: Get properties of a worker pool.
@@ -2220,6 +2254,8 @@ types:
                             type: WorkerPoolCollection
                           text/json:
                             type: WorkerPoolCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Get properties of AppServiceEnvironment (App Service Environment).
                   displayName: Get properties of AppServiceEnvironment (App Service Environment).
@@ -2338,3 +2374,5 @@ types:
                         type: AppServiceEnvironmentCollection
                       text/json:
                         type: AppServiceEnvironmentCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

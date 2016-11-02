@@ -395,6 +395,8 @@ types:
                     type: Error
                   text/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextLink
         /nodes:
           get:
             description: Returns nodes in a subscription
@@ -418,6 +420,8 @@ types:
                     type: Error
                   text/json:
                     type: Error
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -636,6 +640,8 @@ types:
                         type: Error
                       text/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextLink
             /nodes:
               /{nodeName}:
                 uriParameters:
@@ -1050,3 +1056,5 @@ types:
                         type: Error
                       text/json:
                         type: Error
+                (extras.Pagination):
+                  nextLinkName: nextLink

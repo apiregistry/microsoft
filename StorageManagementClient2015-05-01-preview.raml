@@ -304,6 +304,8 @@ types:
                     type: StorageAccountListResult
                   text/json:
                     type: StorageAccountListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
         /usages:
           get:
             description: Gets the current usage count and the limit for the resources under the subscription.
@@ -459,3 +461,5 @@ types:
                         type: StorageAccountListResult
                       text/json:
                         type: StorageAccountListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

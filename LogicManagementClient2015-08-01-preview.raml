@@ -1602,6 +1602,8 @@ types:
                     type: IntegrationAccountListResult
                   text/json:
                     type: IntegrationAccountListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -1701,6 +1703,8 @@ types:
                             type: IntegrationAccountAgreementListResult
                           text/json:
                             type: IntegrationAccountAgreementListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /certificates:
                   /{certificateName}:
                     uriParameters:
@@ -1780,6 +1784,8 @@ types:
                             type: IntegrationAccountCertificateListResult
                           text/json:
                             type: IntegrationAccountCertificateListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /listCallbackUrl:
                   post:
                     description: Lists the integration account callback URL.
@@ -1882,6 +1888,8 @@ types:
                             type: IntegrationAccountMapListResult
                           text/json:
                             type: IntegrationAccountMapListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /partners:
                   /{partnerName}:
                     uriParameters:
@@ -1965,6 +1973,8 @@ types:
                             type: IntegrationAccountPartnerListResult
                           text/json:
                             type: IntegrationAccountPartnerListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /schemas:
                   /{schemaName}:
                     uriParameters:
@@ -2048,6 +2058,8 @@ types:
                             type: IntegrationAccountSchemaListResult
                           text/json:
                             type: IntegrationAccountSchemaListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Gets an integration account.
                   queryParameters:
@@ -2138,3 +2150,5 @@ types:
                         type: IntegrationAccountListResult
                       text/json:
                         type: IntegrationAccountListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

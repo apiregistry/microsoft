@@ -614,6 +614,8 @@ types:
                     type: WorkflowListResult
                   text/json:
                     type: WorkflowListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -744,6 +746,8 @@ types:
                             type: WorkflowAccessKeyListResult
                           text/json:
                             type: WorkflowAccessKeyListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /disable:
                   post:
                     description: Disables a workflow.
@@ -838,6 +842,8 @@ types:
                                 type: WorkflowRunActionListResult
                               text/json:
                                 type: WorkflowRunActionListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /cancel:
                       post:
                         description: Cancels a workflow run.
@@ -888,6 +894,8 @@ types:
                             type: WorkflowRunListResult
                           text/json:
                             type: WorkflowRunListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /triggers:
                   /{triggerName}:
                     uriParameters:
@@ -941,6 +949,8 @@ types:
                                 type: WorkflowTriggerHistoryListResult
                               text/json:
                                 type: WorkflowTriggerHistoryListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /run:
                       post:
                         description: Runs a workflow trigger.
@@ -991,6 +1001,8 @@ types:
                             type: WorkflowTriggerListResult
                           text/json:
                             type: WorkflowTriggerListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /validate:
                   post:
                     description: Validates a workflow.
@@ -1121,3 +1133,5 @@ types:
                         type: WorkflowListResult
                       text/json:
                         type: WorkflowListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink

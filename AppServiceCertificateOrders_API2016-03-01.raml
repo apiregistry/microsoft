@@ -1294,6 +1294,8 @@ types:
                     type: AppServiceCertificateOrderCollection
                   text/json:
                     type: AppServiceCertificateOrderCollection
+            (extras.Pagination):
+              nextLinkName: nextLink
         /validateCertificateRegistrationInformation:
           post:
             description: Validate certificate purchase information
@@ -1424,6 +1426,8 @@ types:
                             type: AppServiceCertificateCollection
                           text/json:
                             type: AppServiceCertificateCollection
+                    (extras.Pagination):
+                      nextLinkName: nextLink
               /{name}:
                 uriParameters:
                   name:
@@ -1664,3 +1668,5 @@ types:
                         type: AppServiceCertificateOrderCollection
                       text/json:
                         type: AppServiceCertificateOrderCollection
+                (extras.Pagination):
+                  nextLinkName: nextLink

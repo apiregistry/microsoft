@@ -339,6 +339,8 @@ types:
                     type: NamespaceListResult
                   text/json:
                     type: NamespaceListResult
+            (extras.Pagination):
+              nextLinkName: nextLink
     /resourceGroups:
       /{resourceGroupName}:
         uriParameters:
@@ -459,6 +461,8 @@ types:
                             type: SharedAccessAuthorizationRuleListResult
                           text/json:
                             type: SharedAccessAuthorizationRuleListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 /eventhubs:
                   /{eventHubName}:
                     uriParameters:
@@ -568,6 +572,8 @@ types:
                                 type: SharedAccessAuthorizationRuleListResult
                               text/json:
                                 type: SharedAccessAuthorizationRuleListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     /consumergroups:
                       /{consumerGroupName}:
                         uriParameters:
@@ -635,6 +641,8 @@ types:
                                 type: ConsumerGroupListResult
                               text/json:
                                 type: ConsumerGroupListResult
+                        (extras.Pagination):
+                          nextLinkName: nextLink
                     get:
                       description: Returns an Event Hub description for the specified Event Hub.
                       queryParameters:
@@ -695,6 +703,8 @@ types:
                             type: EventHubListResult
                           text/json:
                             type: EventHubListResult
+                    (extras.Pagination):
+                      nextLinkName: nextLink
                 get:
                   description: Returns the description for the specified namespace.
                   queryParameters:
@@ -764,3 +774,5 @@ types:
                         type: NamespaceListResult
                       text/json:
                         type: NamespaceListResult
+                (extras.Pagination):
+                  nextLinkName: nextLink
