@@ -90,12 +90,14 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name:
         type: string
         description: Resource name
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location
@@ -316,12 +318,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

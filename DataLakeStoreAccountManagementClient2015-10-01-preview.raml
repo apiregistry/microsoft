@@ -32,6 +32,7 @@ types:
         - InProgress
         - Succeeded
         - Failed
+        (extras.Readonly): true
       error?:
         type: Error
     description: The response body contains the status of the specified asynchronous operation, indicating whether it has succeeded, is in progress, or has failed. Note that this status is distinct from the HTTP status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body includes the HTTP status code for the failed request and error information regarding the failure.
@@ -47,9 +48,11 @@ types:
       type?:
         type: string
         description: the namespace and type of the account.
+        (extras.Readonly): true
       id?:
         type: string
         description: the account subscription ID.
+        (extras.Readonly): true
       identity?:
         type: EncryptionIdentity
         description: The Key vault encryption identity, if any.
@@ -74,10 +77,12 @@ types:
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
       count?:
         type: integer
         description: the total count of results that are available, but might not be returned in the current page.
         format: int64
+        (extras.Readonly): true
     description: Data Lake Store account list information response.
   DataLakeStoreAccountProperties:
     type: object
@@ -95,15 +100,18 @@ types:
         - Resuming
         - Deleting
         - Deleted
+        (extras.Readonly): true
       state?:
         type: string
         description: the status of the Data Lake Store account after provisioning has completed.
         enum:
         - active
         - suspended
+        (extras.Readonly): true
       creationTime?:
         type: datetime
         description: the account creation time.
+        (extras.Readonly): true
       encryptionState?:
         type: string
         description: The current state of encryption for this Data Lake store account.
@@ -116,12 +124,14 @@ types:
         enum:
         - Creating
         - Succeeded
+        (extras.Readonly): true
       encryptionConfig?:
         type: EncryptionConfig
         description: The Key vault encryption configuration.
       lastModifiedTime?:
         type: datetime
         description: the account last modified time.
+        (extras.Readonly): true
       endpoint?:
         type: string
         description: the gateway host.
@@ -140,10 +150,12 @@ types:
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
       count?:
         type: integer
         description: the total count of results that are available, but might not be returned in the current page.
         format: int64
+        (extras.Readonly): true
     description: Data Lake Store firewall rule list information.
   EncryptionConfig:
     type: object
@@ -168,21 +180,26 @@ types:
       principalId?:
         type: commons.uuid
         description: The principal identifier associated with the encryption.
+        (extras.Readonly): true
       tenantId?:
         type: commons.uuid
         description: The tenant identifier associated with the encryption.
+        (extras.Readonly): true
   Error:
     type: object
     properties:
       code?:
         type: string
         description: the HTTP status code or error code associated with this error
+        (extras.Readonly): true
       message?:
         type: string
         description: the error message to display.
+        (extras.Readonly): true
       target?:
         type: string
         description: the target of the error.
+        (extras.Readonly): true
       details?:
         type: array
         description: the list of error details
@@ -198,12 +215,15 @@ types:
       code?:
         type: string
         description: the HTTP status code or error code associated with this error
+        (extras.Readonly): true
       message?:
         type: string
         description: the error message localized based on Accept-Language
+        (extras.Readonly): true
       target?:
         type: string
         description: the target of the particular error (for example, the name of the property in error).
+        (extras.Readonly): true
     description: Data Lake Store error details information
   FirewallRule:
     type: object
@@ -214,6 +234,7 @@ types:
       type?:
         type: string
         description: the namespace and type of the firewall Rule.
+        (extras.Readonly): true
       id?:
         type: string
         description: the firewall rule's subscription ID.
@@ -240,9 +261,11 @@ types:
       trace?:
         type: string
         description: the stack trace for the error
+        (extras.Readonly): true
       context?:
         type: string
         description: the context for the error message
+        (extras.Readonly): true
     description: Data Lake Store inner error information
   KeyVaultMetaInfo:
     type: object

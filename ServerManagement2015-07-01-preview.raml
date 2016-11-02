@@ -307,15 +307,19 @@ types:
       id?:
         type: string
         description: ARM Resource ID
+        (extras.Readonly): true
       type?:
         type: string
         description: ARM Resource Type
+        (extras.Readonly): true
       name?:
         type: string
         description: ARM Resource Name
+        (extras.Readonly): true
       location?:
         type: string
         description: ARM Resource Location
+        (extras.Readonly): true
       tags?:
         type: object
         properties:

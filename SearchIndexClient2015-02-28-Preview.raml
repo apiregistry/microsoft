@@ -43,12 +43,15 @@ types:
       key?:
         type: string
         description: The key of a document that was in the indexing request.
+        (extras.Readonly): true
       errorMessage?:
         type: string
         description: The error message explaining why the indexing operation failed for the document identified by the key; null if indexing succeeded.
+        (extras.Readonly): true
       status?:
         type: boolean
         description: A value indicating whether the indexing operation succeeded for the document identified by the key.
+        (extras.Readonly): true
       statusCode?:
         type: integer
         description: 'The status code of the indexing operation. Possible values include:
@@ -57,6 +60,7 @@ types:
           a version conflict, 422 when the index is temporarily unavailable, or 503
           for when the service is too busy.'
         format: int32
+        (extras.Readonly): true
     description: Status of an indexing operation for a single document.
   SearchParametersPayload:
     type: object

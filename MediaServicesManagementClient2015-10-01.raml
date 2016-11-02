@@ -123,12 +123,15 @@ types:
       id?:
         type: string
         description: The id of the resource.
+        (extras.Readonly): true
       name?:
         type: string
         description: The name of the resource.
+        (extras.Readonly): true
       type?:
         type: string
         description: The type of the resource
+        (extras.Readonly): true
   ServiceKeys:
     type: object
     properties:

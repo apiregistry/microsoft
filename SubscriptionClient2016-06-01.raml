@@ -25,21 +25,27 @@ types:
       id?:
         type: string
         description: The fully qualified Id of the location. For example, /subscriptions/00000000-0000-0000-0000-000000000000/locations/westus.
+        (extras.Readonly): true
       subscriptionId?:
         type: string
         description: The subscription Id.
+        (extras.Readonly): true
       name?:
         type: string
         description: The location name.
+        (extras.Readonly): true
       displayName?:
         type: string
         description: The display name of the location.
+        (extras.Readonly): true
       latitude?:
         type: string
         description: The latitude of the location.
+        (extras.Readonly): true
       longitude?:
         type: string
         description: The longitude of the location.
+        (extras.Readonly): true
     description: Location information.
   LocationListResult:
     type: object
@@ -56,15 +62,19 @@ types:
       id?:
         type: string
         description: The fully qualified Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000.
+        (extras.Readonly): true
       subscriptionId?:
         type: string
         description: The subscription Id.
+        (extras.Readonly): true
       tenantId?:
         type: string
         description: The tenant Id.
+        (extras.Readonly): true
       displayName?:
         type: string
         description: The subscription display name.
+        (extras.Readonly): true
       state?:
         type: string
         description: The subscription state.
@@ -74,6 +84,7 @@ types:
         - PastDue
         - Disabled
         - Deleted
+        (extras.Readonly): true
       subscriptionPolicies?:
         type: SubscriptionPolicies
         description: The subscription policies.
@@ -99,9 +110,11 @@ types:
       locationPlacementId?:
         type: string
         description: The subscription location placement Id. The Id indicates which regions are visible for a subscription. For example, a subscription with a location placement Id of Public_2014-09-01 has access to Azure public regions.
+        (extras.Readonly): true
       quotaId?:
         type: string
         description: The subscription quota Id.
+        (extras.Readonly): true
       spendingLimit?:
         type: string
         description: The subscription spending limit.
@@ -109,6 +122,7 @@ types:
         - 'On'
         - 'Off'
         - CurrentPeriodOff
+        (extras.Readonly): true
     description: Subscription policies.
   TenantIdDescription:
     type: object
@@ -116,9 +130,11 @@ types:
       id?:
         type: string
         description: The fully qualified Id. For example, /tenants/00000000-0000-0000-0000-000000000000.
+        (extras.Readonly): true
       tenantId?:
         type: string
         description: The tenantId. For example, 00000000-0000-0000-0000-000000000000.
+        (extras.Readonly): true
     description: Tenant Id information.
   TenantListResult:
     type: object

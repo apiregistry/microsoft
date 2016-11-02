@@ -125,6 +125,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of deployments.
   DeploymentOperation:
     type: object
@@ -132,9 +133,11 @@ types:
       id?:
         type: string
         description: Full deployment operation id.
+        (extras.Readonly): true
       operationId?:
         type: string
         description: Deployment operation id.
+        (extras.Readonly): true
       properties?:
         type: DeploymentOperationProperties
         description: Deployment properties.
@@ -145,15 +148,19 @@ types:
       provisioningState?:
         type: string
         description: The state of the provisioning.
+        (extras.Readonly): true
       timestamp?:
         type: datetime
         description: The date and time of the operation.
+        (extras.Readonly): true
       serviceRequestId?:
         type: string
         description: Deployment operation service request id.
+        (extras.Readonly): true
       statusCode?:
         type: string
         description: Operation status code.
+        (extras.Readonly): true
       statusMessage?:
         type: object
         description: Operation status message.
@@ -178,6 +185,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of deployment operations.
   DeploymentProperties:
     type: object
@@ -210,12 +218,15 @@ types:
       provisioningState?:
         type: string
         description: The state of the provisioning.
+        (extras.Readonly): true
       correlationId?:
         type: string
         description: The correlation ID of the deployment.
+        (extras.Readonly): true
       timestamp?:
         type: datetime
         description: The timestamp of the template deployment.
+        (extras.Readonly): true
       outputs?:
         type: object
         description: Key/value pairs that represent deploymentoutput.
@@ -301,9 +312,11 @@ types:
       principalId?:
         type: string
         description: The principal id of resource identity.
+        (extras.Readonly): true
       tenantId?:
         type: string
         description: The tenant id of resource.
+        (extras.Readonly): true
       type?:
         type: string
         description: The identity type.
@@ -342,12 +355,14 @@ types:
       id?:
         type: string
         description: The provider id.
+        (extras.Readonly): true
       namespace?:
         type: string
         description: The namespace of the provider.
       registrationState?:
         type: string
         description: The registration state of the provider.
+        (extras.Readonly): true
       resourceTypes?:
         type: array
         description: The collection of provider resource types.
@@ -365,6 +380,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of resource providers.
   ProviderResourceType:
     type: object
@@ -401,12 +417,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location?:
         type: string
         description: Resource location
@@ -422,6 +441,7 @@ types:
       id?:
         type: string
         description: The ID of the resource group.
+        (extras.Readonly): true
       name?:
         type: string
         description: The Name of the resource group.
@@ -471,6 +491,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of resource groups.
   ResourceGroupProperties:
     type: object
@@ -478,6 +499,7 @@ types:
       provisioningState?:
         type: string
         description: 'The provisioning state. '
+        (extras.Readonly): true
     description: The resource group properties.
   ResourceListResult:
     type: object
@@ -490,6 +512,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of resource groups.
   ResourceManagementErrorWithDetails:
     type: object
@@ -497,12 +520,15 @@ types:
       code?:
         type: string
         description: The error code returned from the server.
+        (extras.Readonly): true
       message?:
         type: string
         description: The error message returned from the server.
+        (extras.Readonly): true
       target?:
         type: string
         description: The target of the error.
+        (extras.Readonly): true
       details?:
         type: array
         description: Validation error.
@@ -620,6 +646,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of subscription tags.
   TargetResource:
     type: object

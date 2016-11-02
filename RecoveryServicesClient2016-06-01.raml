@@ -28,12 +28,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource Name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource Type
+        (extras.Readonly): true
       location?:
         type: string
         description: Resource Location
@@ -72,6 +75,7 @@ types:
       provisioningState?:
         type: string
         description: Provisioning State.
+        (extras.Readonly): true
     description: Properties of the vault.
 /subscriptions:
   /{subscriptionId}:

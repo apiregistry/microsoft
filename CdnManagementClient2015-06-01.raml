@@ -93,6 +93,7 @@ types:
         - Creating
         - Active
         - Deleting
+        (extras.Readonly): true
       provisioningState?:
         type: ProvisioningState
         description: Provisioning status of the custom domain.
@@ -156,6 +157,7 @@ types:
       hostName?:
         type: string
         description: The host name of the endpoint {endpointName}.{DNSZone}
+        (extras.Readonly): true
       originHostHeader?:
         type: string
         description: The host header the CDN provider will send along with content requests to origins. The default value is the host name of the origin.
@@ -194,6 +196,7 @@ types:
         - Starting
         - Stopped
         - Stopping
+        (extras.Readonly): true
       provisioningState?:
         type: ProvisioningState
         description: Provisioning status of the endpoint.
@@ -348,6 +351,7 @@ types:
         - Creating
         - Active
         - Deleting
+        (extras.Readonly): true
       provisioningState?:
         type: ProvisioningState
         description: Provisioning status of the origin.
@@ -403,6 +407,7 @@ types:
         - Active
         - Deleting
         - Disabled
+        (extras.Readonly): true
       provisioningState?:
         type: ProvisioningState
         description: Provisioning status of the profile.
@@ -437,12 +442,15 @@ types:
       id?:
         type: string
         description: Resource ID
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
   Sku:
     type: object
     properties:

@@ -111,6 +111,7 @@ types:
         - ResolvingDNS
         - Succeeded
         - Failed
+        (extras.Readonly): true
       endpoint?:
         type: string
         description: Endpoint of the created account
@@ -181,6 +182,7 @@ types:
         - Free
         - Standard
         - Premium
+        (extras.Readonly): true
     description: The SKU of the cognitive services account.
 /subscriptions:
   /{subscriptionId}:

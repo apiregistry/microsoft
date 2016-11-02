@@ -321,6 +321,7 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource Name
@@ -330,6 +331,7 @@ types:
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       tags?:
         type: object
         properties:
@@ -414,9 +416,11 @@ types:
       createdOn?:
         type: datetime
         description: The moment of time the Azure ML web service was created.
+        (extras.Readonly): true
       modifiedOn?:
         type: datetime
         description: The moment of time the web service was last modified.
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: The web service resource's provisioning state.
@@ -426,6 +430,7 @@ types:
         - Succeeded
         - Failed
         - Canceled
+        (extras.Readonly): true
       keys?:
         type: WebServiceKeys
         description: The set of access keys for the web service. If not specified at creation time (PUT), they will be generated automatically by the resource provider.
@@ -435,6 +440,7 @@ types:
       swaggerLocation?:
         type: string
         description: The uri for the swagger spec associated with this web service.
+        (extras.Readonly): true
       exposeSampleData?:
         type: boolean
         description: Flag that controls whether to expose sample data or not in the web service's swagger definition.

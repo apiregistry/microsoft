@@ -27,9 +27,11 @@ types:
       primaryKey?:
         type: string
         description: The primary API key of the Search service.
+        (extras.Readonly): true
       secondaryKey?:
         type: string
         description: The secondary API key of the Search service.
+        (extras.Readonly): true
     description: Response containing the primary and secondary API keys for a given Azure Search service.
   ListQueryKeysResult:
     type: object
@@ -46,9 +48,11 @@ types:
       name?:
         type: string
         description: The name of the query API key; may be empty.
+        (extras.Readonly): true
       key?:
         type: string
         description: The value of the query API key.
+        (extras.Readonly): true
     description: Describes an API key for a given Azure Search service that has permissions for query operations only.
   Resource:
     type: object
@@ -56,12 +60,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location
@@ -124,9 +131,11 @@ types:
         - degraded
         - disabled
         - error
+        (extras.Readonly): true
       statusDetails?:
         type: string
         description: The details of the Search service status.
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: The state of the last provisioning operation performed on the Search service.
@@ -134,6 +143,7 @@ types:
         - succeeded
         - provisioning
         - failed
+        (extras.Readonly): true
       sku?:
         type: Sku
         description: The SKU of the Search Service, which determines price tier and capacity limits.
@@ -152,6 +162,7 @@ types:
       id?:
         type: string
         description: The resource Id of the Azure Search service.
+        (extras.Readonly): true
       name?:
         type: string
         description: The name of the Search service.

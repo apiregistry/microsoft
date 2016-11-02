@@ -42,18 +42,22 @@ types:
         type: integer
         description: Gets the number of directories.
         format: int64
+        (extras.Readonly): true
       fileCount?:
         type: integer
         description: Gets the number of files.
         format: int64
+        (extras.Readonly): true
       length?:
         type: integer
         description: Gets the number of bytes used by the contet.
         format: int64
+        (extras.Readonly): true
       spaceConsumed?:
         type: integer
         description: Gets the disk space consumed by the content.
         format: int64
+        (extras.Readonly): true
     description: Data Lake Store content summary information
   ContentSummaryResult:
     type: object
@@ -68,25 +72,31 @@ types:
       id?:
         type: string
         description: Gets the file unique identifier (as a GUID).
+        (extras.Readonly): true
       name?:
         type: string
         description: Gets the file name.
+        (extras.Readonly): true
       length?:
         type: integer
         description: Gets the number of bytes in a file.
         format: int64
+        (extras.Readonly): true
       modificationTime?:
         type: integer
         description: Gets the modification time as ticks since the epoch.
         format: int64
+        (extras.Readonly): true
       creationTime?:
         type: integer
         description: Gets the creation time as ticks since the epoch.
         format: int64
+        (extras.Readonly): true
       expirationTime?:
         type: integer
         description: Gets the expiration time, if any, as ticks since the epoch. If this is set to 0 or DateTime.MaxValue there is no expiration.
         format: int64
+        (extras.Readonly): true
     description: Data Lake Store file information.
   FileInfoResult:
     type: object
@@ -101,6 +111,7 @@ types:
       boolean?:
         type: boolean
         description: Gets the result of the operation or request.
+        (extras.Readonly): true
     description: The result of the request or operation.
   FileStatusProperties:
     type: object
@@ -109,40 +120,50 @@ types:
         type: integer
         description: Gets the last access time as ticks since the epoch.
         format: int64
+        (extras.Readonly): true
       blockSize?:
         type: integer
         description: Gets the block size for the file.
         format: int64
+        (extras.Readonly): true
       childrenNum?:
         type: integer
         description: Gets the number of children in the directory.
         format: int64
+        (extras.Readonly): true
       group?:
         type: string
         description: Gets the group owner.
+        (extras.Readonly): true
       length?:
         type: integer
         description: Gets the number of bytes in a file.
         format: int64
+        (extras.Readonly): true
       modificationTime?:
         type: integer
         description: Gets the modification time as ticks since the epoch.
         format: int64
+        (extras.Readonly): true
       owner?:
         type: string
         description: Gets the user who is the owner.
+        (extras.Readonly): true
       pathSuffix?:
         type: string
         description: Gets the path suffix.
+        (extras.Readonly): true
       permission?:
         type: string
         description: Gets the permission represented as an string.
+        (extras.Readonly): true
       type?:
         type: string
         description: Gets the type of the path object.
         enum:
         - File
         - Directory
+        (extras.Readonly): true
     description: Data Lake Store file or directory information.
   FileStatusResult:
     type: object

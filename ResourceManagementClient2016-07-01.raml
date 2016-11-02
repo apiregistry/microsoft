@@ -301,9 +301,11 @@ types:
       principalId?:
         type: string
         description: The principal id of resource identity.
+        (extras.Readonly): true
       tenantId?:
         type: string
         description: The tenant id of resource.
+        (extras.Readonly): true
       type?:
         type: string
         description: The identity type.
@@ -401,12 +403,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location?:
         type: string
         description: Resource location
@@ -422,6 +427,7 @@ types:
       id?:
         type: string
         description: The ID of the resource group.
+        (extras.Readonly): true
       name?:
         type: string
         description: The Name of the resource group.
@@ -475,6 +481,7 @@ types:
       provisioningState?:
         type: string
         description: 'The provisioning state. '
+        (extras.Readonly): true
     description: The resource group properties.
   ResourceListResult:
     type: object

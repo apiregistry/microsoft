@@ -32,6 +32,7 @@ types:
       HttpStatusCode?:
         type: string
         description: The http status code.
+        (extras.Readonly): true
       Message?:
         type: string
         description: The error message.
@@ -66,6 +67,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of eventhub consumer group names with a next link.
   EventHubProperties:
     type: object
@@ -179,6 +181,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of IotHubDescription objects with a next link.
   IotHubNameAvailabilityInfo:
     type: object
@@ -273,6 +276,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of IotHubQuotaMetricInfo objects with a next link.
   IotHubSkuDescription:
     type: object
@@ -280,6 +284,7 @@ types:
       resourceType?:
         type: string
         description: The type of the resource.
+        (extras.Readonly): true
       sku?:
         type: IotHubSkuInfo
       capacity?:
@@ -296,6 +301,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of IotHubSkuDescription objects with a next link.
   IotHubSkuInfo:
     type: object
@@ -314,6 +320,7 @@ types:
         enum:
         - Free
         - Standard
+        (extras.Readonly): true
       capacity?:
         type: integer
         description: 'The number of units being provisioned. Range of values [For
@@ -396,6 +403,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of JobResponse objects with a next link.
   MessagingEndpointProperties:
     type: object
@@ -456,13 +464,16 @@ types:
       id?:
         type: string
         description: The Resource Id.
+        (extras.Readonly): true
       name?:
         type: string
         description: The Resource name.
         pattern: ^(?![0-9]+$)(?!-)[a-zA-Z0-9-]{2,49}[a-zA-Z0-9]$
+        (extras.Readonly): true
       type?:
         type: string
         description: The Resource type.
+        (extras.Readonly): true
       location?:
         type: string
         description: The Resource location.
@@ -556,6 +567,7 @@ types:
       nextLink?:
         type: string
         description: The next link.
+        (extras.Readonly): true
     description: The list of authorization rules with a next link.
   StorageEndpointProperties:
     type: object

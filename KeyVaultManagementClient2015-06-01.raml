@@ -87,12 +87,14 @@ types:
       id?:
         type: string
         description: The Azure Resource Manager resource ID for the key vault.
+        (extras.Readonly): true
       name:
         type: string
         description: The name of the key vault.
       type?:
         type: string
         description: The resource type of the key vault.
+        (extras.Readonly): true
       location:
         type: string
         description: The supported Azure location where the key vault should be created.

@@ -49,9 +49,11 @@ types:
       created?:
         type: integer
         description: Creation time in UTC
+        (extras.Readonly): true
       updated?:
         type: integer
         description: Last updated time in UTC
+        (extras.Readonly): true
     description: The object attributes managed by the KeyVault service
   BackupKeyResult:
     type: object
@@ -59,6 +61,7 @@ types:
       value?:
         type: commons.base64url
         description: The backup blob containing the backed up key
+        (extras.Readonly): true
     description: The backup key result, containing the backup blob
   CertificateAttributes:
     type: Attributes
@@ -69,15 +72,19 @@ types:
       id?:
         type: string
         description: The certificate id
+        (extras.Readonly): true
       kid?:
         type: string
         description: The key id
+        (extras.Readonly): true
       sid?:
         type: string
         description: The secret id
+        (extras.Readonly): true
       x5t?:
         type: commons.base64url
         description: Thumbprint of the certificate.
+        (extras.Readonly): true
       policy?:
         type: CertificatePolicy
         description: The management policy.
@@ -156,6 +163,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of certificate issuers.
+        (extras.Readonly): true
     description: The certificate issuer list result
   CertificateIssuerSetParameters:
     type: object
@@ -219,6 +227,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of certificates.
+        (extras.Readonly): true
     description: The certificate list result
   CertificateMergeParameters:
     type: object
@@ -244,6 +253,7 @@ types:
       id?:
         type: string
         description: The certificate id
+        (extras.Readonly): true
       issuer?:
         type: IssuerParameters
         description: Parameters for the issuer of the X509 component of a certificate.
@@ -282,6 +292,7 @@ types:
       id?:
         type: string
         description: The certificate id
+        (extras.Readonly): true
       key_props?:
         type: KeyProperties
         description: Properties of the key backing a certificate.
@@ -338,6 +349,7 @@ types:
       id?:
         type: string
         description: Identifier for the contacts collection.
+        (extras.Readonly): true
       contacts?:
         type: array
         description: The contact list for the vault certificates.
@@ -350,9 +362,11 @@ types:
       code?:
         type: string
         description: The error code.
+        (extras.Readonly): true
       message?:
         type: string
         description: The error message.
+        (extras.Readonly): true
       innererror?:
         type: Error
     description: The key vault server error
@@ -365,9 +379,11 @@ types:
       created?:
         type: integer
         description: Creation time in UTC
+        (extras.Readonly): true
       updated?:
         type: integer
         description: Last updated time in UTC
+        (extras.Readonly): true
     description: The attributes of an issuer managed by the KeyVault service
   IssuerBundle:
     type: object
@@ -375,6 +391,7 @@ types:
       id?:
         type: string
         description: Identifier for the issuer object.
+        (extras.Readonly): true
       provider?:
         type: string
         description: The issuer provider.
@@ -479,6 +496,7 @@ types:
       managed?:
         type: boolean
         description: True if the key's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+        (extras.Readonly): true
     description: A KeyBundle consisting of a WebKey plus its Attributes
   KeyCreateParameters:
     type: object
@@ -554,6 +572,7 @@ types:
       managed?:
         type: boolean
         description: True if the key's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+        (extras.Readonly): true
     description: The key item containing key metadata
   KeyListResult:
     type: object
@@ -566,6 +585,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of keys.
+        (extras.Readonly): true
     description: The key list result
   KeyOperationResult:
     type: object
@@ -573,8 +593,10 @@ types:
       kid?:
         type: string
         description: Key identifier
+        (extras.Readonly): true
       value?:
         type: commons.base64url
+        (extras.Readonly): true
     description: The key operation result
   KeyOperationsParameters:
     type: object
@@ -683,6 +705,7 @@ types:
       value?:
         type: boolean
         description: true if the signature is verified, false otherwise.
+        (extras.Readonly): true
     description: The key verify result
   LifetimeAction:
     type: object
@@ -712,6 +735,7 @@ types:
       value?:
         type: string
         description: The pending certificate signing request as Base64 encoded string.
+        (extras.Readonly): true
     description: The pending certificate signing request result
   SecretAttributes:
     type: Attributes
@@ -740,9 +764,11 @@ types:
       kid?:
         type: string
         description: If this is a secret backing a KV certificate, then this field specifies the corresponding key backing the KV certificate.
+        (extras.Readonly): true
       managed?:
         type: boolean
         description: True if the secret's lifetime is managed by key vault i.e. if this is a secret backing a certificate, then managed will be true.
+        (extras.Readonly): true
     description: A Secret consisting of a value, id and its attributes.
   SecretItem:
     type: object
@@ -765,6 +791,7 @@ types:
       managed?:
         type: boolean
         description: True if the secret's lifetime is managed by key vault i.e. if this is a key backing a certificate, then managed will be true.
+        (extras.Readonly): true
     description: The secret item containing secret metadata
   SecretListResult:
     type: object
@@ -777,6 +804,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of secrets.
+        (extras.Readonly): true
     description: The secret list result
   SecretProperties:
     type: object

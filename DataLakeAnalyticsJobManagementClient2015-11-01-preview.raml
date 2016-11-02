@@ -33,9 +33,11 @@ types:
       jobId?:
         type: commons.uuid
         description: Gets the id of the job this data is for.
+        (extras.Readonly): true
       command?:
         type: string
         description: Gets the command that this job data relates to.
+        (extras.Readonly): true
       paths?:
         type: array
         description: Gets the list of paths to all of the job data.
@@ -48,35 +50,45 @@ types:
       description?:
         type: string
         description: Gets the error message description
+        (extras.Readonly): true
       details?:
         type: string
         description: Gets the details of the error message.
+        (extras.Readonly): true
       endOffset?:
         type: integer
         description: Gets the end offset in the job where the error was found.
         format: int32
+        (extras.Readonly): true
       errorId?:
         type: string
         description: Gets the specific identifier for the type of error encountered in the job.
+        (extras.Readonly): true
       filePath?:
         type: string
         description: Gets the path to any supplemental error files, if any.
+        (extras.Readonly): true
       helpLink?:
         type: string
         description: Gets the link to MSDN or Azure help for this type of error, if any.
+        (extras.Readonly): true
       internalDiagnostics?:
         type: string
         description: Gets the internal diagnostic stack trace if the user requesting the job error details has sufficient permissions it will be retrieved, otherwise it will be empty.
+        (extras.Readonly): true
       lineNumber?:
         type: integer
         description: Gets the specific line number in the job where the error occured.
         format: int32
+        (extras.Readonly): true
       message?:
         type: string
         description: Gets the user friendly error message for the failure.
+        (extras.Readonly): true
       resolution?:
         type: string
         description: Gets the recommended resolution for the failure, if any.
+        (extras.Readonly): true
       InnerError?:
         type: JobInnerError
         description: Gets the inner error of this specific job error message, if any.
@@ -86,13 +98,16 @@ types:
         enum:
         - Warning
         - Error
+        (extras.Readonly): true
       source?:
         type: string
         description: Gets the ultimate source of the failure (usually either SYSTEM or USER).
+        (extras.Readonly): true
       startOffset?:
         type: integer
         description: Gets the start offset in the job where the error was found
         format: int32
+        (extras.Readonly): true
     description: The Data Lake Analytics job error details.
   JobInfoListResult:
     type: object
@@ -105,10 +120,12 @@ types:
       nextLink?:
         type: string
         description: Gets the link (url) to the next page of results.
+        (extras.Readonly): true
       count?:
         type: integer
         description: Gets the total count of results that are available, but might not be returned in the current page.
         format: int64
+        (extras.Readonly): true
     description: List of jobInfo items.
   JobInformation:
     type: object
@@ -144,12 +161,15 @@ types:
       submitTime?:
         type: datetime
         description: Gets the time the job was submitted to the service.
+        (extras.Readonly): true
       startTime?:
         type: datetime
         description: Gets the start time of the job.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the completion time of the job.
+        (extras.Readonly): true
       state?:
         type: string
         description: Gets the job state. When the job is in the Ended state, refer to Result and ErrorMessage for details.
@@ -164,6 +184,7 @@ types:
         - Starting
         - Paused
         - WaitingForCapacity
+        (extras.Readonly): true
       result?:
         type: string
         description: Gets the result of job execution or the current result of the running job.
@@ -172,6 +193,7 @@ types:
         - Succeeded
         - Cancelled
         - Failed
+        (extras.Readonly): true
       stateAuditRecords?:
         type: array
         description: Gets the job state audit records, indicating when various operations have been performed on this job.
@@ -188,39 +210,50 @@ types:
         type: integer
         description: Gets the diagnostic error code.
         format: int32
+        (extras.Readonly): true
       severity?:
         type: string
         description: Gets the severity level of the failure.
         enum:
         - Warning
         - Error
+        (extras.Readonly): true
       details?:
         type: string
         description: Gets the details of the error message.
+        (extras.Readonly): true
       component?:
         type: string
         description: Gets the component that failed.
+        (extras.Readonly): true
       errorId?:
         type: string
         description: Gets the specific identifier for the type of error encountered in the job.
+        (extras.Readonly): true
       helpLink?:
         type: string
         description: Gets the link to MSDN or Azure help for this type of error, if any.
+        (extras.Readonly): true
       internalDiagnostics?:
         type: string
         description: Gets the internal diagnostic stack trace if the user requesting the job error details has sufficient permissions it will be retrieved, otherwise it will be empty.
+        (extras.Readonly): true
       message?:
         type: string
         description: Gets the user friendly error message for the failure.
+        (extras.Readonly): true
       resolution?:
         type: string
         description: Gets the recommended resolution for the failure, if any.
+        (extras.Readonly): true
       source?:
         type: string
         description: Gets the ultimate source of the failure (usually either SYSTEM or USER).
+        (extras.Readonly): true
       description?:
         type: string
         description: Gets the error message description
+        (extras.Readonly): true
     description: The Data Lake Analytics job error details.
   JobProperties:
     type: object
@@ -258,15 +291,19 @@ types:
       newState?:
         type: string
         description: Gets the new state the job is in.
+        (extras.Readonly): true
       timeStamp?:
         type: datetime
         description: Gets the time stamp that the state change took place.
+        (extras.Readonly): true
       requestedByUser?:
         type: string
         description: Gets the user who requests the change.
+        (extras.Readonly): true
       details?:
         type: string
         description: Gets  the details of the audit log.
+        (extras.Readonly): true
     description: The Data Lake Analytics U-SQL job state audit records for tracking the lifecycle of a job.
   JobStatistics:
     type: object
@@ -274,6 +311,7 @@ types:
       lastUpdateTimeUtc?:
         type: datetime
         description: Gets the last update time for the statistics.
+        (extras.Readonly): true
       stages?:
         type: array
         description: Gets the list of stages for the job.
@@ -287,79 +325,99 @@ types:
         type: integer
         description: Gets the amount of data read, in bytes.
         format: int64
+        (extras.Readonly): true
       dataReadCrossPod?:
         type: integer
         description: Gets the amount of data read across multiple pods, in bytes.
         format: int64
+        (extras.Readonly): true
       dataReadIntraPod?:
         type: integer
         description: Gets the amount of data read in one pod, in bytes.
         format: int64
+        (extras.Readonly): true
       dataToRead?:
         type: integer
         description: Gets the amount of data remaining to be read, in bytes.
         format: int64
+        (extras.Readonly): true
       dataWritten?:
         type: integer
         description: Gets the amount of data written, in bytes.
         format: int64
+        (extras.Readonly): true
       duplicateDiscardCount?:
         type: integer
         description: Gets the number of duplicates that were discarded.
         format: int32
+        (extras.Readonly): true
       failedCount?:
         type: integer
         description: Gets the number of failures that occured in this stage.
         format: int32
+        (extras.Readonly): true
       maxVertexDataRead?:
         type: integer
         description: Gets the maximum amount of data read in a single vertex, in bytes.
         format: int64
+        (extras.Readonly): true
       minVertexDataRead?:
         type: integer
         description: Gets the minimum amount of data read in a single vertex, in bytes.
         format: int64
+        (extras.Readonly): true
       readFailureCount?:
         type: integer
         description: Gets the number of read failures in this stage.
         format: int32
+        (extras.Readonly): true
       revocationCount?:
         type: integer
         description: Gets the number of vertices that were revoked during this stage.
         format: int32
+        (extras.Readonly): true
       runningCount?:
         type: integer
         description: Gets the number of currently running vertices in this stage.
         format: int32
+        (extras.Readonly): true
       scheduledCount?:
         type: integer
         description: Gets the number of currently scheduled vertices in this stage
         format: int32
+        (extras.Readonly): true
       stageName?:
         type: string
         description: Gets the name of this stage in job execution.
+        (extras.Readonly): true
       succeededCount?:
         type: integer
         description: Gets the number of vertices that succeeded in this stage.
         format: int32
+        (extras.Readonly): true
       tempDataWritten?:
         type: integer
         description: Gets the amount of temporary data written, in bytes.
         format: int64
+        (extras.Readonly): true
       totalCount?:
         type: integer
         description: Gets the total vertex count for this stage.
         format: int32
+        (extras.Readonly): true
       totalFailedTime?:
         type: string
         description: Gets the amount of time that failed vertices took up in this stage.
+        (extras.Readonly): true
       totalProgress?:
         type: integer
         description: Gets the current progress of this stage, as a percentage.
         format: int32
+        (extras.Readonly): true
       totalSucceededTime?:
         type: string
         description: Gets the amount of time all successful vertices took in this stage.
+        (extras.Readonly): true
     description: The Data Lake Analytics U-SQL job statistics vertex stage information.
   USqlJobProperties:
     type: JobProperties

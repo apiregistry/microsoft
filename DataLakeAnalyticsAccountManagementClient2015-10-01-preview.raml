@@ -46,6 +46,7 @@ types:
         - InProgress
         - Succeeded
         - Failed
+        (extras.Readonly): true
       error?:
         type: Error
     description: The response body contains the status of the specified asynchronous operation, indicating whether it has succeeded, is inprogress, or has failed. Note that this status is distinct from the HTTP status code returned for the Get Operation Status operation itself. If the asynchronous operation succeeded, the response body includes the HTTP status code for the successful request. If the asynchronous operation failed, the response body includes the HTTP status code for the failed request and error information regarding the failure.
@@ -55,12 +56,15 @@ types:
       name?:
         type: string
         description: the name of the blob container.
+        (extras.Readonly): true
       id?:
         type: string
         description: the unique identifier of the blob container.
+        (extras.Readonly): true
       type?:
         type: string
         description: the type of the blob container.
+        (extras.Readonly): true
       properties?:
         type: BlobContainerProperties
         description: the properties of the blob container.
@@ -71,6 +75,7 @@ types:
       lastModifiedTime?:
         type: datetime
         description: the last modified time of the blob container.
+        (extras.Readonly): true
     description: Azure Storage blob container properties information.
   DataLakeAnalyticsAccount:
     type: object
@@ -84,9 +89,11 @@ types:
       type?:
         type: string
         description: the namespace and type of the account.
+        (extras.Readonly): true
       id?:
         type: string
         description: the account subscription ID.
+        (extras.Readonly): true
       tags?:
         type: object
         properties:
@@ -109,9 +116,11 @@ types:
         type: integer
         description: total number of results.
         format: int32
+        (extras.Readonly): true
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
     description: Data Lake Account list information.
   DataLakeAnalyticsAccountListResult:
     type: object
@@ -124,6 +133,7 @@ types:
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
     description: DataLakeAnalytics Account list information.
   DataLakeAnalyticsAccountListStorageAccountsResult:
     type: object
@@ -137,9 +147,11 @@ types:
         type: integer
         description: total number of results.
         format: int32
+        (extras.Readonly): true
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
     description: Azure Storage Account list information.
   DataLakeAnalyticsAccountProperties:
     type: object
@@ -157,12 +169,14 @@ types:
         - Resuming
         - Deleting
         - Deleted
+        (extras.Readonly): true
       state?:
         type: string
         description: the state of the Data Lake Analytics account.
         enum:
         - active
         - suspended
+        (extras.Readonly): true
       defaultDataLakeStoreAccount?:
         type: string
         description: the default data lake storage account associated with this Data Lake Analytics account.
@@ -187,12 +201,15 @@ types:
       creationTime?:
         type: datetime
         description: the account creation time.
+        (extras.Readonly): true
       lastModifiedTime?:
         type: datetime
         description: the account last modified time.
+        (extras.Readonly): true
       endpoint?:
         type: string
         description: the full CName endpoint for this account.
+        (extras.Readonly): true
     description: The account specific properties that are associated with an underlying Data Lake Analytics account.
   DataLakeStoreAccountInfo:
     type: object
@@ -217,12 +234,15 @@ types:
       code?:
         type: string
         description: the HTTP status code or error code associated with this error
+        (extras.Readonly): true
       message?:
         type: string
         description: the error message to display.
+        (extras.Readonly): true
       target?:
         type: string
         description: the target of the error.
+        (extras.Readonly): true
       details?:
         type: array
         description: the list of error details
@@ -238,12 +258,15 @@ types:
       code?:
         type: string
         description: the HTTP status code or error code associated with this error
+        (extras.Readonly): true
       message?:
         type: string
         description: the error message localized based on Accept-Language
+        (extras.Readonly): true
       target?:
         type: string
         description: the target of the particular error (for example, the name of the property in error).
+        (extras.Readonly): true
     description: Generic resource error details information.
   InnerError:
     type: object
@@ -251,9 +274,11 @@ types:
       trace?:
         type: string
         description: the stack trace for the error
+        (extras.Readonly): true
       context?:
         type: string
         description: the context for the error message
+        (extras.Readonly): true
     description: Generic resource inner error information.
   ListBlobContainersResult:
     type: object
@@ -266,6 +291,7 @@ types:
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
     description: The list of blob containers associated with the storage account attached to the Data Lake Analytics account.
   ListSasTokensResult:
     type: object
@@ -277,6 +303,7 @@ types:
       nextLink?:
         type: string
         description: the link (url) to the next page of results.
+        (extras.Readonly): true
     description: The SAS response that contains the storage account, container and associated SAS token for connection use.
   SasTokenInfo:
     type: object
@@ -284,6 +311,7 @@ types:
       accessToken?:
         type: string
         description: the access token for the associated Azure Storage Container.
+        (extras.Readonly): true
     description: SAS token information.
   StorageAccountInfo:
     type: object

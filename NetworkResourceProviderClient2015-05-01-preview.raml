@@ -194,6 +194,7 @@ types:
         - Starting
         - Running
         - Stopping
+        (extras.Readonly): true
       gatewayIPConfigurations?:
         type: array
         description: Gets or sets subnets of application gateway resource
@@ -1262,12 +1263,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

@@ -194,6 +194,7 @@ types:
         type: integer
         description: the LUN number for a data disk. This value is used to identify data disk image inside the VMImage therefore it must be unique for each data disk. The allowed character for the value is digit.
         format: int32
+        (extras.Readonly): true
     description: Contains the data disk images information.
   DiagnosticsProfile:
     type: object
@@ -512,12 +513,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location
@@ -782,6 +786,7 @@ types:
       provisioningState?:
         type: string
         description: the provisioning state, which only appears in the response.
+        (extras.Readonly): true
       instanceView?:
         type: VirtualMachineExtensionInstanceView
         description: the virtual machine extension instance view.
@@ -876,6 +881,7 @@ types:
       provisioningState?:
         type: string
         description: the provisioning state, which only appears in the response.
+        (extras.Readonly): true
       instanceView?:
         type: VirtualMachineInstanceView
         description: the virtual machine instance view.
@@ -885,6 +891,7 @@ types:
       vmId?:
         type: string
         description: the virtual machine unique id.
+        (extras.Readonly): true
     description: Describes the properties of a Virtual Machine.
   VirtualMachineScaleSet:
     type: Resource
@@ -925,6 +932,7 @@ types:
       provisioningState?:
         type: string
         description: the provisioning state, which only appears in the response.
+        (extras.Readonly): true
     description: Describes the properties of a Virtual Machine Scale Set Extension.
   VirtualMachineScaleSetIPConfiguration:
     type: SubResource
@@ -1103,6 +1111,7 @@ types:
       provisioningState?:
         type: string
         description: the provisioning state, which only appears in the response.
+        (extras.Readonly): true
       overprovision?:
         type: boolean
         description: Specifies whether the Virtual Machine Scale Set should be overprovisioned.
@@ -1113,6 +1122,7 @@ types:
       resourceType?:
         type: string
         description: the type of resource the sku applies to.
+        (extras.Readonly): true
       sku?:
         type: Sku
         description: the Sku.
@@ -1127,20 +1137,24 @@ types:
         type: integer
         description: the minimum capacity.
         format: int64
+        (extras.Readonly): true
       maximum?:
         type: integer
         description: the maximum capacity that can be set.
         format: int64
+        (extras.Readonly): true
       defaultCapacity?:
         type: integer
         description: the default capacity.
         format: int64
+        (extras.Readonly): true
       scaleType?:
         type: string
         description: the scale type applicable to the sku.
         enum:
         - Automatic
         - None
+        (extras.Readonly): true
     description: Describes scaling information of a sku.
   VirtualMachineScaleSetStorageProfile:
     type: object
@@ -1161,6 +1175,7 @@ types:
       name?:
         type: string
         description: the extension name.
+        (extras.Readonly): true
       statusesSummary?:
         type: array
         description: the extensions information.
@@ -1255,6 +1270,7 @@ types:
       latestModelApplied?:
         type: boolean
         description: Specifies whether the latest model has been applied to the virtual machine.
+        (extras.Readonly): true
       instanceView?:
         type: VirtualMachineInstanceView
         description: the virtual machine instance view.
@@ -1279,6 +1295,7 @@ types:
       provisioningState?:
         type: string
         description: the provisioning state, which only appears in the response.
+        (extras.Readonly): true
       licenseType?:
         type: string
         description: the license type, which is for bring your own license scenario.
@@ -1325,10 +1342,12 @@ types:
       code?:
         type: string
         description: the instance view status code.
+        (extras.Readonly): true
       count?:
         type: integer
         description: the number of instances having a particular status code.
         format: int32
+        (extras.Readonly): true
     description: The status code and count of the virtual machine scale set instance view status summary.
   WinRMConfiguration:
     type: object

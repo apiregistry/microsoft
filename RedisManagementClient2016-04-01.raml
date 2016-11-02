@@ -52,9 +52,11 @@ types:
       primaryKey?:
         type: string
         description: The current primary key that clients can use to authenticate with redis cache.
+        (extras.Readonly): true
       secondaryKey?:
         type: string
         description: The current secondary key that clients can use to authenticate with redis cache.
+        (extras.Readonly): true
     description: Redis cache access keys.
   RedisCreateParameters:
     type: Resource
@@ -80,15 +82,19 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location?:
         type: string
         description: Resource location
+        (extras.Readonly): true
       properties:
         type: ScheduleEntries
         description: List of patch schedules for redis cache.
@@ -160,20 +166,25 @@ types:
       redisVersion?:
         type: string
         description: Redis Version.
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: Redis instance provisioning status
+        (extras.Readonly): true
       hostName?:
         type: string
         description: Redis host name
+        (extras.Readonly): true
       port?:
         type: integer
         description: Redis non-ssl port
         format: int32
+        (extras.Readonly): true
       sslPort?:
         type: integer
         description: Redis ssl port
         format: int32
+        (extras.Readonly): true
       properties?:
         type: RedisCreateProperties
     description: Parameters describing a redis instance
@@ -193,12 +204,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

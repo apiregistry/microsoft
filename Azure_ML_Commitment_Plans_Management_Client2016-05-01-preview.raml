@@ -30,12 +30,15 @@ types:
       associatedResourceId?:
         type: string
         description: The ID of the resource this association points to, such as the ARM ID of an Azure ML web service.
+        (extras.Readonly): true
       commitmentPlanId?:
         type: string
         description: The ARM ID of the parent Azure ML commitment plan.
+        (extras.Readonly): true
       creationDate?:
         type: datetime
         description: The date at which this commitment association was created, in ISO 8601 format.
+        (extras.Readonly): true
     description: Properties of an Azure ML commitment association.
   CommitmentPlan:
     type: Resource
@@ -68,12 +71,15 @@ types:
       chargeForOverage?:
         type: boolean
         description: Indicates whether usage beyond the commitment plan's included quantities will be charged.
+        (extras.Readonly): true
       chargeForPlan?:
         type: boolean
         description: Indicates whether the commitment plan will incur a charge.
+        (extras.Readonly): true
       creationDate?:
         type: datetime
         description: The date at which this commitment plan was created, in ISO 8601 format.
+        (extras.Readonly): true
       includedQuantities?:
         type: object
         properties:
@@ -84,24 +90,30 @@ types:
         type: integer
         description: The maximum number of commitment associations that can be children of this commitment plan.
         format: int32
+        (extras.Readonly): true
       maxCapacityLimit?:
         type: integer
         description: The maximum scale-out capacity for this commitment plan.
         format: int32
+        (extras.Readonly): true
       minCapacityLimit?:
         type: integer
         description: The minimum scale-out capacity for this commitment plan.
         format: int32
+        (extras.Readonly): true
       planMeter?:
         type: string
         description: The Azure meter which will be used to charge for this commitment plan.
+        (extras.Readonly): true
       refillFrequencyInDays?:
         type: integer
         description: The frequency at which this commitment plan's included quantities are refilled.
         format: int32
+        (extras.Readonly): true
       suspendPlanOnOverage?:
         type: boolean
         description: Indicates whether this commitment plan will be moved into a suspended state if usage beyond the commitment plan's included quantities is incurred.
+        (extras.Readonly): true
     description: Properties of an Azure ML commitment plan.
   MoveCommitmentAssociationRequest:
     type: object
@@ -117,16 +129,20 @@ types:
         type: number
         description: The quantity added to the commitment plan at an interval specified by its allowance frequency.
         format: double
+        (extras.Readonly): true
       amount?:
         type: number
         description: The quantity available to the plan the last time usage was calculated.
         format: double
+        (extras.Readonly): true
       includedQuantityMeter?:
         type: string
         description: The Azure meter for usage against included quantities.
+        (extras.Readonly): true
       overageMeter?:
         type: string
         description: The Azure meter for usage which exceeds included quantities.
+        (extras.Readonly): true
     description: Represents the quantity a commitment plan provides of a metered resource.
   PlanUsageHistory:
     type: object
@@ -195,15 +211,18 @@ types:
       id?:
         type: string
         description: Resource Id.
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name.
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location.
       type?:
         type: string
         description: Resource type.
+        (extras.Readonly): true
       tags?:
         type: Tags
         description: User-defined tags for the resource.

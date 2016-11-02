@@ -22,6 +22,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   AndroidMAMPolicyProperties:
     type: MAMPolicyProperties
     description: Intune MAM iOS Policy Properties.
@@ -38,6 +39,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   ApplicationProperties:
     type: object
     properties:
@@ -64,6 +66,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   DeviceProperties:
     type: object
     properties:
@@ -97,25 +100,32 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
     description: Flagged Enrolled App collection for the given tenant.
   FlaggedEnrolledAppError:
     type: object
     properties:
       errorCode?:
         type: string
+        (extras.Readonly): true
       severity?:
         type: string
+        (extras.Readonly): true
   FlaggedEnrolledAppProperties:
     type: object
     properties:
       deviceType?:
         type: string
+        (extras.Readonly): true
       friendlyName?:
         type: string
+        (extras.Readonly): true
       lastModifiedTime?:
         type: string
+        (extras.Readonly): true
       platform?:
         type: string
+        (extras.Readonly): true
       errors?:
         type: array
         items:
@@ -133,14 +143,17 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
     description: Flagged user collection for the given tenant.
   FlaggedUserProperties:
     type: object
     properties:
       errorCount?:
         type: integer
+        (extras.Readonly): true
       friendlyName?:
         type: string
+        (extras.Readonly): true
   GroupItem:
     type: Resource
     description: Group entity for Intune MAM.
@@ -159,6 +172,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   IOSMAMPolicyCollection:
     type: object
     properties:
@@ -169,6 +183,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   Location:
     type: Resource
     description: Location entity for given tenant.
@@ -182,6 +197,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   LocationProperties:
     type: object
     properties:
@@ -265,13 +281,16 @@ types:
         type: string
       numOfApps?:
         type: integer
+        (extras.Readonly): true
       groupStatus?:
         type: string
         enum:
         - notTargeted
         - targeted
+        (extras.Readonly): true
       lastModifiedTime?:
         type: datetime
+        (extras.Readonly): true
   OperationResult:
     type: Resource
     description: OperationResult entity for Intune.
@@ -285,6 +304,7 @@ types:
       nextlink?:
         type: string
         description: Gets the URL to get the next set of results.
+        (extras.Readonly): true
   OperationResultProperties:
     type: object
     properties:
@@ -306,12 +326,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       tags?:
         type: object
         properties:
@@ -329,22 +352,31 @@ types:
     properties:
       deployedPolicies?:
         type: integer
+        (extras.Readonly): true
       enrolledUsers?:
         type: integer
+        (extras.Readonly): true
       flaggedUsers?:
         type: integer
+        (extras.Readonly): true
       lastModifiedTime?:
         type: datetime
+        (extras.Readonly): true
       policyAppliedUsers?:
         type: integer
+        (extras.Readonly): true
       status?:
         type: string
+        (extras.Readonly): true
       wipeFailedApps?:
         type: integer
+        (extras.Readonly): true
       wipePendingApps?:
         type: integer
+        (extras.Readonly): true
       wipeSucceededApps?:
         type: integer
+        (extras.Readonly): true
   WipeDeviceOperationResult:
     type: Resource
     description: Device entity for Intune.

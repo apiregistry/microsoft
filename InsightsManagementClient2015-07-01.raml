@@ -40,12 +40,14 @@ types:
       id?:
         type: string
         description: Azure resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Azure resource name
       type?:
         type: string
         description: Azure resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

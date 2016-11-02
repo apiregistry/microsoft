@@ -818,6 +818,7 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name:
         type: string
         description: Resource Name
@@ -846,21 +847,27 @@ types:
       unit?:
         type: string
         description: Metric unit
+        (extras.Readonly): true
       timeGrain?:
         type: string
         description: Metric granularity. E.g PT1H, PT5M, P1D
+        (extras.Readonly): true
       startTime?:
         type: datetime
         description: Metric start time
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Metric end time
+        (extras.Readonly): true
       resourceId?:
         type: string
         description: Metric resource Id
+        (extras.Readonly): true
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       metricValues?:
         type: array
         description: Metric values
@@ -878,9 +885,11 @@ types:
       value?:
         type: string
         description: metric name value
+        (extras.Readonly): true
       localizedValue?:
         type: string
         description: Localized metric name value
+        (extras.Readonly): true
     description: Name of a metric for any resource
   ResourceMetricProperty:
     type: object
@@ -898,26 +907,32 @@ types:
       timestamp?:
         type: string
         description: Value timestamp
+        (extras.Readonly): true
       average?:
         type: number
         description: Value average
         format: float
+        (extras.Readonly): true
       minimum?:
         type: number
         description: Value minimum
         format: float
+        (extras.Readonly): true
       maximum?:
         type: number
         description: Value maximum
         format: float
+        (extras.Readonly): true
       total?:
         type: number
         description: Value total
         format: float
+        (extras.Readonly): true
       count?:
         type: number
         description: Value count
         format: float
+        (extras.Readonly): true
       properties?:
         type: array
         description: Properties
@@ -1311,9 +1326,11 @@ types:
       name?:
         type: string
         description: Name of the virtual network (read-only)
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type of the virtual network (read-only)
+        (extras.Readonly): true
       subnet?:
         type: string
         description: Subnet within the virtual network

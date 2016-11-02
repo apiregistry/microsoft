@@ -160,9 +160,11 @@ types:
       name?:
         type: string
         description: Gets the resource name.
+        (extras.Readonly): true
       type?:
         type: string
         description: Gets the resource type.
+        (extras.Readonly): true
   RunWorkflowParameters:
     type: object
     properties:
@@ -252,18 +254,22 @@ types:
       createdTime?:
         type: datetime
         description: Gets the created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: Gets the changed time.
+        (extras.Readonly): true
       state?:
         type: WorkflowState
         description: Gets or sets the state.
       version?:
         type: string
         description: Gets the version.
+        (extras.Readonly): true
       accessEndpoint?:
         type: string
         description: Gets the access endpoint.
+        (extras.Readonly): true
       sku?:
         type: Sku
         description: Gets or sets the sku.
@@ -309,21 +315,25 @@ types:
       startTime?:
         type: datetime
         description: Gets the start time.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the end time.
+        (extras.Readonly): true
       status?:
         type: WorkflowStatus
         description: Gets the status.
       code?:
         type: string
         description: Gets the code.
+        (extras.Readonly): true
       error?:
         type: Object
         description: Gets the error.
       trackingId?:
         type: string
         description: Gets the trackingId.
+        (extras.Readonly): true
       inputsLink?:
         type: ContentLink
         description: Gets the link to inputs.
@@ -353,21 +363,25 @@ types:
       startTime?:
         type: datetime
         description: Gets the start time.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the end time.
+        (extras.Readonly): true
       status?:
         type: WorkflowStatus
         description: Gets the status.
       code?:
         type: string
         description: Gets the code.
+        (extras.Readonly): true
       error?:
         type: Object
         description: Gets the error.
       correlationId?:
         type: string
         description: Gets the correlation id.
+        (extras.Readonly): true
       workflow?:
         type: ResourceReference
         description: Gets the reference to workflow version.
@@ -386,6 +400,7 @@ types:
       name?:
         type: string
         description: Gets the name.
+        (extras.Readonly): true
       inputs?:
         type: Object
         description: Gets the inputs.
@@ -401,15 +416,19 @@ types:
       startTime?:
         type: datetime
         description: Gets the start time.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the end time.
+        (extras.Readonly): true
       trackingId?:
         type: string
         description: Gets the trackingId.
+        (extras.Readonly): true
       code?:
         type: string
         description: Gets the code.
+        (extras.Readonly): true
       status?:
         type: WorkflowStatus
         description: Gets the status.
@@ -422,9 +441,11 @@ types:
       primarySecretKey?:
         type: string
         description: Gets the primary secret key.
+        (extras.Readonly): true
       secondarySecretKey?:
         type: string
         description: Gets the secondary secret key.
+        (extras.Readonly): true
   WorkflowTrigger:
     type: SubResource
   WorkflowTriggerFilter:
@@ -458,21 +479,25 @@ types:
       startTime?:
         type: datetime
         description: Gets the start time.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the end time.
+        (extras.Readonly): true
       status?:
         type: WorkflowStatus
         description: Gets the status.
       code?:
         type: string
         description: Gets the code.
+        (extras.Readonly): true
       error?:
         type: Object
         description: Gets the error.
       trackingId?:
         type: string
         description: Gets the tracking id.
+        (extras.Readonly): true
       inputsLink?:
         type: ContentLink
         description: Gets the link to input parameters.
@@ -482,6 +507,7 @@ types:
       fired?:
         type: boolean
         description: Gets a value indicating whether trigger was fired.
+        (extras.Readonly): true
       run?:
         type: ResourceReference
         description: Gets the reference to workflow run.
@@ -505,9 +531,11 @@ types:
       createdTime?:
         type: datetime
         description: Gets the created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: Gets the changed time.
+        (extras.Readonly): true
       state?:
         type: WorkflowState
         description: Gets the state.
@@ -517,9 +545,11 @@ types:
       lastExecutionTime?:
         type: datetime
         description: Gets the last execution time.
+        (extras.Readonly): true
       nextExecutionTime?:
         type: datetime
         description: Gets the next execution time.
+        (extras.Readonly): true
       recurrence?:
         type: WorkflowTriggerRecurrence
         description: Gets the workflow trigger recurrence.
@@ -550,18 +580,22 @@ types:
       createdTime?:
         type: datetime
         description: Gets the created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: Gets the changed time.
+        (extras.Readonly): true
       state?:
         type: WorkflowState
         description: Gets or sets the state.
       version?:
         type: string
         description: Gets the version.
+        (extras.Readonly): true
       accessEndpoint?:
         type: string
         description: Gets the access endpoint.
+        (extras.Readonly): true
       sku?:
         type: Sku
         description: Gets or sets the sku.

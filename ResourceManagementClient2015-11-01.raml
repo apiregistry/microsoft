@@ -260,6 +260,7 @@ types:
       name?:
         type: string
         description: Gets or sets the policy assignment name.
+        (extras.Readonly): true
     description: Policy assignment.
   PolicyAssignmentListResult:
     type: object
@@ -368,12 +369,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location
@@ -389,6 +393,7 @@ types:
       id?:
         type: string
         description: Gets the ID of the resource group.
+        (extras.Readonly): true
       name?:
         type: string
         description: Gets or sets the Name of the resource group.
@@ -432,6 +437,7 @@ types:
       provisioningState?:
         type: string
         description: Gets resource group provisioning state.
+        (extras.Readonly): true
     description: The resource group properties.
   ResourceListResult:
     type: object

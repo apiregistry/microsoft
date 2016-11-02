@@ -89,9 +89,11 @@ types:
         - Creating
         - Active
         - Deleting
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: Provisioning status of the custom domain.
+        (extras.Readonly): true
   CustomDomainPropertiesParameters:
     type: object
     properties:
@@ -276,9 +278,11 @@ types:
         - Creating
         - Active
         - Deleting
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: Provisioning status of the origin.
+        (extras.Readonly): true
   OriginPropertiesParameters:
     type: object
     properties:
@@ -322,9 +326,11 @@ types:
         - Active
         - Deleting
         - Disabled
+        (extras.Readonly): true
       provisioningState?:
         type: string
         description: Provisioning status of the profile.
+        (extras.Readonly): true
   ProfileUpdateParameters:
     type: object
     properties:
@@ -350,12 +356,15 @@ types:
       id?:
         type: string
         description: Resource ID
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

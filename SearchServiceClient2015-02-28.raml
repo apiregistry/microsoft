@@ -216,10 +216,12 @@ types:
         type: integer
         description: Gets the number of documents in the index.
         format: int64
+        (extras.Readonly): true
       storageSize?:
         type: integer
         description: Gets the amount of storage in bytes consumed by the index.
         format: int64
+        (extras.Readonly): true
     description: Statistics for a given index. Statistics are collected periodically and are not guaranteed to always be up-to-date.
   IndexListResult:
     type: object
@@ -276,12 +278,15 @@ types:
       errorMessage?:
         type: string
         description: Gets the error message indicating the top-level error, if any.
+        (extras.Readonly): true
       startTime?:
         type: datetime
         description: Gets the start time of this indexer execution.
+        (extras.Readonly): true
       endTime?:
         type: datetime
         description: Gets the end time of this indexer execution, if the execution has already completed.
+        (extras.Readonly): true
       errors?:
         type: array
         description: Gets the item-level indexing errors
@@ -291,16 +296,20 @@ types:
         type: integer
         description: Gets the number of items that were processed during this indexer execution. This includes both successfully processed items and items where indexing was attempted but failed.
         format: int32
+        (extras.Readonly): true
       itemsFailed?:
         type: integer
         description: Gets the number of items that failed to be indexed during this indexer execution.
         format: int32
+        (extras.Readonly): true
       initialTrackingState?:
         type: string
         description: Change tracking state with which an indexer execution started.
+        (extras.Readonly): true
       finalTrackingState?:
         type: string
         description: Change tracking state with which an indexer execution finished.
+        (extras.Readonly): true
     description: Represents result of an individual indexer execution.
   IndexerListResult:
     type: object
@@ -342,9 +351,11 @@ types:
       key?:
         type: string
         description: Gets the key of the item for which indexing failed.
+        (extras.Readonly): true
       errorMessage?:
         type: string
         description: Gets the message describing the error that occurred while attempting to index the item.
+        (extras.Readonly): true
     description: Represents an item- or document-level indexing error.
   MagnitudeScoringFunction:
     type: ScoringFunction

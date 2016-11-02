@@ -25,9 +25,11 @@ types:
       id?:
         type: string
         description: The fully qualified Id of the resource link.
+        (extras.Readonly): true
       name?:
         type: string
         description: The name of the resource link.
+        (extras.Readonly): true
       properties?:
         type: ResourceLinkProperties
     description: Create or update resource link parameters.
@@ -44,6 +46,7 @@ types:
       sourceId?:
         type: string
         description: 'The fully qualified source resource Id. '
+        (extras.Readonly): true
       targetId:
         type: string
         description: The fully qualified target resource Id. For example, /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myGroup/Microsoft.Web/sites/mySite.
@@ -62,6 +65,7 @@ types:
       nextLink?:
         type: string
         description: The URL to get the next set of results.
+        (extras.Readonly): true
     description: List of resource links.
 /subscriptions:
   /{subscriptionId}:

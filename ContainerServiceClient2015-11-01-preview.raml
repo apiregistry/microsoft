@@ -93,6 +93,7 @@ types:
       fqdn?:
         type: string
         description: FDQN for the agent pool
+        (extras.Readonly): true
     description: Profile for container service agent pool
   ContainerServiceDiagnosticsProfile:
     type: object
@@ -132,6 +133,7 @@ types:
       fqdn?:
         type: string
         description: FDQN for the master
+        (extras.Readonly): true
     description: Profile for container service master
   ContainerServiceOrchestratorProfile:
     type: object
@@ -150,6 +152,7 @@ types:
       provisioningState?:
         type: string
         description: Gets the provisioning state, which only appears in the response.
+        (extras.Readonly): true
       orchestratorProfile?:
         type: ContainerServiceOrchestratorProfile
         description: Properties of orchestrator
@@ -196,6 +199,7 @@ types:
       storageUri?:
         type: string
         description: Gets or sets whether VM Diagnostic Agent should be provisioned on the Virtual Machine.
+        (extras.Readonly): true
     description: Describes VM Diagnostics.
   ContainerServiceWindowsProfile:
     type: object
@@ -213,12 +217,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location

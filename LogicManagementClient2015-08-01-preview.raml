@@ -869,9 +869,11 @@ types:
       createdTime?:
         type: datetime
         description: The created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: The changed time.
+        (extras.Readonly): true
       metadata?:
         type: object
         description: The metadata.
@@ -912,9 +914,11 @@ types:
       createdTime?:
         type: datetime
         description: The created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: The changed time.
+        (extras.Readonly): true
       metadata?:
         type: object
         description: The metadata.
@@ -991,9 +995,11 @@ types:
       createdTime?:
         type: datetime
         description: The created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: The changed time.
+        (extras.Readonly): true
       content?:
         type: object
         description: The content.
@@ -1034,9 +1040,11 @@ types:
       createdTime?:
         type: datetime
         description: The created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: The changed time.
+        (extras.Readonly): true
       metadata?:
         type: object
         description: The metadata.
@@ -1097,9 +1105,11 @@ types:
       createdTime?:
         type: datetime
         description: The created time.
+        (extras.Readonly): true
       changedTime?:
         type: datetime
         description: The changed time.
+        (extras.Readonly): true
       content?:
         type: object
         description: The content.
@@ -1127,12 +1137,14 @@ types:
           name?:
             type: string
             description: The resource name.
+            (extras.Readonly): true
           id?:
             type: string
             description: The resource id.
           type?:
             type: string
             description: The resource type.
+            (extras.Readonly): true
         description: The key vault reference.
       keyName?:
         type: string

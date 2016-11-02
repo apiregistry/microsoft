@@ -27,12 +27,15 @@ types:
       id?:
         type: string
         description: Resource Id
+        (extras.Readonly): true
       name?:
         type: string
         description: Resource name
+        (extras.Readonly): true
       type?:
         type: string
         description: Resource type
+        (extras.Readonly): true
       location:
         type: string
         description: Resource location
@@ -62,18 +65,22 @@ types:
         - Enabled
         - Disabled
         - New
+        (extras.Readonly): true
       disabledAlerts?:
         type: string
         description: The disable alerts of the Azure SQL Security alert policy.
+        (extras.Readonly): true
       emailAddresses?:
         type: string
         description: The list of email addresses to send the alert.
+        (extras.Readonly): true
       emailAccountAdmins?:
         type: string
         description: Value that indicated whether to email the azure account admins.
         enum:
         - Enabled
         - Disabled
+        (extras.Readonly): true
     description: Represents the properties of an Azure SQL Security alert policy.
 /subscriptions:
   /{subscriptionId}:
